@@ -1,0 +1,17 @@
+.header {
+	color: #fff;
+}
+
+.header--nav {
+	display: flex;
+	list-style-type: none;
+}
+
+.header--logo {
+	font-weight: bold;
+	font-size: 2.2em;
+}
+
+.header--nav li {
+	padding: 0 10px;
+}

@@ -1,1 +1,10 @@
 @import './components/Landing/landing.css';
+@import './components/Header/header.css';
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
