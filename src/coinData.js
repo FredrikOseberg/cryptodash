@@ -1,6 +1,5 @@
 import aragon from './img/coins/aragon.png';
-import ardor from './img/coins/ardor.png';
-import augur from './img/coins/angur.png';
+import augur from './img/coins/augur.png';
 import bancor from './img/coins/bancor.png';
 import bitcoin from './img/coins/bitcoin.png';
 import bitcoinCash from './img/coins/bitcoincash.png';
@@ -18,9 +17,10 @@ import eos from './img/coins/eos.png';
 import ether from './img/coins/ether.png';
 import etherclassic from './img/coins/etherclassic.png';
 import factoids from './img/coins/factoids.png';
-import firsblood from './img/coins/firstblood.png';
+import firstblood from './img/coins/firstblood.png';
 import funfair from './img/coins/funfair.png';
 import game from './img/coins/game.png';
+import golem from './img/coins/golem.png';
 import gnosis from './img/coins/gnosis.png';
 import iconomi from './img/coins/iconomi.png';
 import iexec from './img/coins/iexec.png';
@@ -35,7 +35,7 @@ import monero from './img/coins/monero.png';
 import namecoin from './img/coins/namecoin.png';
 import numer from './img/coins/numeraire.png';
 import nxt from './img/coins/nxt.png';
-import omesigo from './img/coins/omesigo.png';
+import omisego from './img/coins/omisego.png';
 import potcoin from './img/coins/potcoin.png';
 import qtum from './img/coins/qtum.png';
 import reddcoin from './img/coins/reddcoin.png';
@@ -52,18 +52,12 @@ import wetrust from './img/coins/wetrust.png';
 import wings from './img/coins/wings.png';
 import zcash from './img/coins/zcash.png';
 
-export const coinData = [
+const coinData = [
 	{
 		name: 'Aragon',
 		img: aragon,
 		id: 1,
 		symbol: 'ANT'
-	},
-	{
-		name: 'Ardor',
-		img: ardor,
-		id: 2,
-		symbol: 'ARDR'
 	},
 	{
 		name: 'Augur',
@@ -378,3 +372,5 @@ export const coinData = [
 		symbol: 'ZEC'
 	}
 ];
+
+export default coinData;

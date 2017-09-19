@@ -1,16 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => (
 	<div className="header">
 		<div className="container">
-			<h1 className="header--logo">CryptoDash</h1>
+			<Link to="/">
+				<h1 className="header--logo">CryptoDash</h1>
+			</Link>
 			<ul className="header--nav">
-				<a href="#">
+				<Link to="/signin">
 					<li>Sign In</li>
-				</a>
-				<a href="#">
+				</Link>
+				<Link to="/register">
 					<li>Register</li>
-				</a>
+				</Link>
 			</ul>
 		</div>
 	</div>

@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import coinData from './coinData';
 import Landing from './components/Landing/Landing';
-import { auth, googleAuthProvider } from './firebase';
+import Register from './components/Register/Register';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Route exact path="/" component={Landing} />
-      </BrowserRouter>
-    );
-  }
+    render() {
+        return (
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/" component={props => <Landing data={coinData} />} />
+                    <Route path="/register" component={Register} />
+                </Switch>
+            </BrowserRouter>
+        );
+    }
 }
 
 export default App;
