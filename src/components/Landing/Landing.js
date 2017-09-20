@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from '../Header/Header';
 import SearchCurrencies from '../SearchCurrencies/SearchCurrencies';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 // Temporary importing images
 import bitcoin from '../../img/coins/bitcoin.png';
 import ether from '../../img/coins/ether.png';
@@ -22,7 +23,6 @@ class Landing extends Component {
 		this.setState({ clickedExpandBox: !this.state.clickedExpandBox });
 	}
 	render() {
-		console.log(this.props.data);
 		// Adds HTML that displays how many currencies you have selected.
 		let selectedCurrenciesText;
 		if (this.props.selectedCurrencies.length > 0) {
@@ -76,7 +76,9 @@ class Landing extends Component {
 										</div>
 									</div>
 									{selectedCurrenciesText}
-									<div className="landing--cover--content--box--button main-button">Continue</div>
+									<Link to="/register">
+										<div className="landing--cover--content--box--button main-button">Continue</div>
+									</Link>
 								</div>
 							</div>
 						</div>
