@@ -20,11 +20,11 @@ class CurrencyCard extends Component {
 		};
 
 		if (this.state.activeCard) {
-			this.props.removeCurrencyFromState(object);
+			this.props.removeCurrencyFromState(object, event);
 		}
 
 		if (!this.state.activeCard) {
-			this.props.addCurrencyToState(object);
+			this.props.addCurrencyToState(object, event);
 		}
 
 		this.setState({ activeCard: !this.state.activeCard });

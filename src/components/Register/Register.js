@@ -23,21 +23,37 @@ class Register extends Component {
 	}
 	handleSubmit(event) {
 		event.preventDefault();
+		// Validation here
+
 		const user = firebase
 			.auth()
 			.createUserWithEmailAndPassword(this.state.email, this.state.password)
 			.catch(error => {
+				// Handle errors
 				console.log('handle error');
 			});
 
+		// Add state to database under user uid
 		console.log(user);
 	}
 	render() {
+		// Needs global application state
+		// let stateInfo;
+		// if (this.props.selectedCurrencies.length > 0) {
+		// 	stateInfo = (
+		// 		<div className="register--state--info">
+		// 			<h3>Finish your registration in order to follow these currencies</h3>
+		// 			{this.props.selectedCurrencies.map(currency => {
+		// 				return <img src={currency.img} key={currency.id} className="register--state--img" />;
+		// 			})}
+		// 		</div>
+		// 	);
+		// }
 		return (
 			<div className="frontend--background">
 				<div className="frontend--layover">
 					<Header />
-					<div className="container">
+					<div className="container register--container">
 						<div className="register--box--container">
 							<div className="register--box box">
 								<h3>Register</h3>

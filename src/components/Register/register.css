@@ -3,11 +3,30 @@
 	justify-content: center;
 	align-items: center;
 	height: 100%;
-	padding-top: 200px;
+	padding-top: 40px;
 	width: 100%;
 }
 
+.register--container {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.register--state--info {
+	padding-top: 50px;
+}
+
+.register--state--img {
+	height: 50px;
+	width: 50px;
+	padding: 10px;
+}
+
 .register--box {
+	margin-top: 15px;
 	background-color: #fff;
 	color: #888;
 	padding: 20px;
