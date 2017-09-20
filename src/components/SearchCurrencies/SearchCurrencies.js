@@ -74,7 +74,7 @@ class SearchCurrencies extends Component {
 	}
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
 	selectedCurrencies: state.selectedCurrencies
 });
 
