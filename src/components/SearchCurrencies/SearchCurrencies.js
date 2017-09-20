@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CurrencyCard from './CurrencyCard/CurrencyCard.js';
 
 class SearchCurrencies extends Component {
@@ -16,6 +17,7 @@ class SearchCurrencies extends Component {
 		this.setState({ searchTerm: event.target.value });
 	}
 	render() {
+		console.log(this.props);
 		// Conditionally set classes for the searchbox based on prop 'showSearch'
 		const currencyLayoverClasses = this.props.showSearch
 			? 'search--currency--selector--layover visible opacity search--currency--selector--layover--active'
@@ -72,4 +74,8 @@ class SearchCurrencies extends Component {
 	}
 }
 
-export default SearchCurrencies;
+const mapStateToProps = (state, ownProps) => ({
+	selectedCurrencies: state.selectedCurrencies
+});
+
+export default connect(mapStateToProps)(SearchCurrencies);

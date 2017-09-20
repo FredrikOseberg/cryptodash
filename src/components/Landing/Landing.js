@@ -7,8 +7,8 @@ import bitcoin from '../../img/coins/bitcoin.png';
 import ether from '../../img/coins/ether.png';
 
 class Landing extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			clickedExpandBox: false,
@@ -22,12 +22,13 @@ class Landing extends Component {
 		this.setState({ clickedExpandBox: !this.state.clickedExpandBox });
 	}
 	render() {
+		console.log(this.props.data);
 		// Adds HTML that displays how many currencies you have selected.
 		let selectedCurrenciesText;
-		if (this.state.selectedCurrencies.length > 0) {
+		if (this.props.selectedCurrencies.length > 0) {
 			selectedCurrenciesText = (
 				<div className="landing--cover--content--box--selected--currencies">
-					<p>You have selected {this.state.selectedCurrencies.length} currencies to track.</p>
+					<p>You have selected {this.props.selectedCurrencies.length} currencies to track.</p>
 				</div>
 			);
 		}
@@ -38,7 +39,6 @@ class Landing extends Component {
 						data={this.props.data}
 						showSearch={this.state.clickedExpandBox}
 						handleClickedExpand={this.handleClickedExpand}
-						selectedCurrencies={this.state.selectedCurrencies}
 					/>
 					<Header />
 					<div className="container">
@@ -87,4 +87,8 @@ class Landing extends Component {
 	}
 }
 
-export default Landing;
+const mapStateToProps = (state, ownProps) => ({
+	selectedCurrencies: state.selectedCurrencies
+});
+
+export default connect(mapStateToProps)(Landing);

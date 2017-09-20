@@ -1,4 +1,6 @@
-const currencies = (state = [], action) => {
+import { combineReducers } from 'redux';
+
+const selectedCurrencies = (state = [], action) => {
 	switch (action.type) {
 		case 'ADD_CURRENCY':
 			return [
@@ -11,16 +13,13 @@ const currencies = (state = [], action) => {
 				}
 			];
 		case 'REMOVE_CURRENCY':
-			console.log(action.position);
 			const newArr = [...state.slice(0, action.position), ...state.slice(action.position + 1)];
-			console.log(state);
-			console.log(newArr);
 			return newArr;
 		default:
 			return state;
 	}
 };
 
-const rootReducer = currencies;
+const rootReducer = combineReducers({ selectedCurrencies });
 
 export default rootReducer;

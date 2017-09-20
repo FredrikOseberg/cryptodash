@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import firebase from '../../firebase';
 import Header from '../Header/Header';
 
@@ -37,23 +38,24 @@ class Register extends Component {
 		console.log(user);
 	}
 	render() {
-		// Needs global application state
-		// let stateInfo;
-		// if (this.props.selectedCurrencies.length > 0) {
-		// 	stateInfo = (
-		// 		<div className="register--state--info">
-		// 			<h3>Finish your registration in order to follow these currencies</h3>
-		// 			{this.props.selectedCurrencies.map(currency => {
-		// 				return <img src={currency.img} key={currency.id} className="register--state--img" />;
-		// 			})}
-		// 		</div>
-		// 	);
-		// }
+		// Reads global application state and outputs pictures of current selected currencies
+		let stateInfo;
+		if (this.props.selectedCurrencies.length > 0) {
+			stateInfo = (
+				<div className="register--state--info">
+					<h3>Finish your registration in order to follow these currencies</h3>
+					{this.props.selectedCurrencies.map(currency => {
+						return <img src={currency.img} key={currency.id} className="register--state--img" />;
+					})}
+				</div>
+			);
+		}
 		return (
 			<div className="frontend--background">
 				<div className="frontend--layover">
 					<Header />
 					<div className="container register--container">
+						{stateInfo}
 						<div className="register--box--container">
 							<div className="register--box box">
 								<h3>Register</h3>
@@ -94,4 +96,8 @@ class Register extends Component {
 	}
 }
 
-export default Register;
+const mapStateToProps = (state, ownProps) => ({
+	selectedCurrencies: state.selectedCurrencies
+});
+
+export default connect(mapStateToProps)(Register);
