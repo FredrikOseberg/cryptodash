@@ -6,13 +6,47 @@ import bitcoin from '../../img/coins/bitcoin.png';
 import ether from '../../img/coins/ether.png';
 
 class Landing extends Component {
+	constructor() {
+		super();
+
+		this.state = {
+			clickedExpandBox: false,
+			selectedCurrencies: []
+		};
+
+		this.handleClickedExpand = this.handleClickedExpand.bind(this);
+		this.addCurrencyToState = this.addCurrencyToState.bind(this);
+		this.removeCurrencyFromState = this.removeCurrencyFromState.bind(this);
+	}
+	// Handles the state for the search box that opens on the landing pages
+	handleClickedExpand() {
+		this.setState({ clickedExpandBox: !this.state.clickedExpandBox });
+	}
+	// Adds currency to the application state. Is passed down to the individual currency card
+	addCurrencyToState(object) {
+		const newState = this.state.selectedCurrencies;
+		newState.push(object);
+		this.setState({ selectedCurrencies: newState });
+	}
+	// Removes currency from application state. Is passed down to the individual currency card
+	removeCurrencyFromState(object) {
+		const newState = [],
+			currentState = this.state.selectedCurrencies;
+		currentState.forEach(obj => {
+			if (obj.name !== object.name) {
+				newState.push(obj);
+			}
+		});
+		this.setState({ selectedCurrencies: newState });
+	}
+
 	render() {
 		// Adds HTML that displays how many currencies you have selected.
 		let selectedCurrenciesText;
-		if (this.props.selectedCurrencies.length > 0) {
+		if (this.state.selectedCurrencies.length > 0) {
 			selectedCurrenciesText = (
 				<div className="landing--cover--content--box--selected--currencies">
-					<p>You have selected {this.props.selectedCurrencies.length} currencies to track.</p>
+					<p>You have selected {this.state.selectedCurrencies.length} currencies to track.</p>
 				</div>
 			);
 		}
@@ -21,11 +55,11 @@ class Landing extends Component {
 				<div className="frontend--layover">
 					<SearchCurrencies
 						data={this.props.data}
-						showSearch={this.props.clickedExpandBox}
-						handleClickedExpand={this.props.handleClickedExpand}
-						addCurrencyToState={this.props.addCurrencyToState}
-						removeCurrencyFromState={this.props.removeCurrencyFromState}
-						selectedCurrencies={this.props.selectedCurrencies}
+						showSearch={this.state.clickedExpandBox}
+						handleClickedExpand={this.handleClickedExpand}
+						addCurrencyToState={this.addCurrencyToState}
+						removeCurrencyFromState={this.removeCurrencyFromState}
+						selectedCurrencies={this.state.selectedCurrencies}
 					/>
 					<Header />
 					<div className="container">
@@ -41,7 +75,7 @@ class Landing extends Component {
 									<div className="landing--cover--content--box--currency">
 										<div
 											className="landing--cover--content--box--image--container"
-											onClick={this.props.handleClickedExpand}
+											onClick={this.handleClickedExpand}
 										>
 											<img
 												src={bitcoin}
@@ -52,7 +86,7 @@ class Landing extends Component {
 										</div>
 										<div
 											className="landing--cover--content--box--image--container"
-											onClick={this.props.handleClickedExpand}
+											onClick={this.handleClickedExpand}
 										>
 											<img
 												src={ether}
