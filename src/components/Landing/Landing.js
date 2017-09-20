@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Header/Header';
 import SearchCurrencies from '../SearchCurrencies/SearchCurrencies';
+import { connect } from 'react-redux';
 // Temporary importing images
 import bitcoin from '../../img/coins/bitcoin.png';
 import ether from '../../img/coins/ether.png';
@@ -15,31 +16,11 @@ class Landing extends Component {
 		};
 
 		this.handleClickedExpand = this.handleClickedExpand.bind(this);
-		this.addCurrencyToState = this.addCurrencyToState.bind(this);
-		this.removeCurrencyFromState = this.removeCurrencyFromState.bind(this);
 	}
 	// Handles the state for the search box that opens on the landing pages
 	handleClickedExpand() {
 		this.setState({ clickedExpandBox: !this.state.clickedExpandBox });
 	}
-	// Adds currency to the application state. Is passed down to the individual currency card
-	addCurrencyToState(object) {
-		const newState = this.state.selectedCurrencies;
-		newState.push(object);
-		this.setState({ selectedCurrencies: newState });
-	}
-	// Removes currency from application state. Is passed down to the individual currency card
-	removeCurrencyFromState(object) {
-		const newState = [],
-			currentState = this.state.selectedCurrencies;
-		currentState.forEach(obj => {
-			if (obj.name !== object.name) {
-				newState.push(obj);
-			}
-		});
-		this.setState({ selectedCurrencies: newState });
-	}
-
 	render() {
 		// Adds HTML that displays how many currencies you have selected.
 		let selectedCurrenciesText;
@@ -57,8 +38,6 @@ class Landing extends Component {
 						data={this.props.data}
 						showSearch={this.state.clickedExpandBox}
 						handleClickedExpand={this.handleClickedExpand}
-						addCurrencyToState={this.addCurrencyToState}
-						removeCurrencyFromState={this.removeCurrencyFromState}
 						selectedCurrencies={this.state.selectedCurrencies}
 					/>
 					<Header />

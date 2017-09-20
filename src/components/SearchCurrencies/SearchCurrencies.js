@@ -43,8 +43,6 @@ class SearchCurrencies extends Component {
 						name={currency.name}
 						img={currency.img}
 						symbol={currency.symbol}
-						addCurrencyToState={this.props.addCurrencyToState}
-						removeCurrencyFromState={this.props.removeCurrencyFromState}
 						active={active}
 					/>
 				);

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import store from '../../../store/store';
+import { addCurrency, removeCurrency } from '../../../actions/currencies';
 
 class CurrencyCard extends Component {
 	constructor(props) {
@@ -20,11 +23,17 @@ class CurrencyCard extends Component {
 		};
 
 		if (this.state.activeCard) {
-			this.props.removeCurrencyFromState(object);
+			let state = store.getState(),
+				index;
+			state.forEach((obj, i) => {
+				if (obj.name === object.name) index = i;
+			});
+
+			this.props.removeCurrencyFromState(index);
 		}
 
 		if (!this.state.activeCard) {
-			this.props.addCurrencyToState(object);
+			this.props.addCurrencyToState({ payload: object });
 		}
 
 		this.setState({ activeCard: !this.state.activeCard });
@@ -42,4 +51,13 @@ class CurrencyCard extends Component {
 	}
 }
 
-export default CurrencyCard;
+const mapDispatchToProps = dispatch => ({
+	addCurrencyToState(obj) {
+		dispatch(addCurrency(obj));
+	},
+	removeCurrencyFromState(index) {
+		dispatch(removeCurrency(index));
+	}
+});
+
+export default connect(null, mapDispatchToProps)(CurrencyCard);
