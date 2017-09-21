@@ -3,7 +3,6 @@
 	justify-content: center;
 	align-items: center;
 	height: 100%;
-	padding-top: 40px;
 	width: 100%;
 }
 
@@ -13,6 +12,7 @@
 	text-align: center;
 	justify-content: center;
 	align-items: center;
+	height: 80%;
 }
 
 .register--state--info {
@@ -31,7 +31,7 @@
 	color: #888;
 	padding: 20px;
 	width: 60%;
-	max-width: 500px;
+	max-width: 400px;
 	display: flex;
 	flex-direction: column;
 	text-align: center;
@@ -55,14 +55,24 @@
 	font-size: 1.2em;
 	margin: 10px 0;
 	border-radius: 3px;
-	border: 3px solid #ededed;
+	border: 2px solid #ededed;
 	transition: all 0.4s ease;
 	background-color: #ededed;
 	outline: none;
 }
 
+.auth--input--error {
+	border-bottom: 2px solid #ff6262;
+}
+
+.auth--input--error--message {
+	transition: all 0.4s ease;
+	color: #ff6262;
+	padding: 5px 0;
+}
+
 .auth--input:focus {
-	border-bottom: 3px solid rgba(38, 38, 97, 1);
+	border-bottom: 2px solid rgba(38, 38, 97, 1);
 }
 
 .auth--button {

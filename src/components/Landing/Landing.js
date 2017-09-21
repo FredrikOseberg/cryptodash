@@ -34,52 +34,50 @@ class Landing extends Component {
 		}
 		return (
 			<div className="landing frontend--background">
-				<div className="frontend--layover">
-					<SearchCurrencies
-						data={this.props.data}
-						showSearch={this.state.clickedExpandBox}
-						handleClickedExpand={this.handleClickedExpand}
-					/>
-					<Header />
-					<div className="container">
-						<div className="landing--cover--content">
-							<div className="landing--cover--content--text">
-								<h2>Your personalized crypto dashboard.</h2>
-								<p>The easiest way to keep up to date on your digital currency.</p>
-							</div>
-							<div className="landing--cover--content--box--container">
-								<div className="landing--cover--content--box">
-									<h4>Choose which currencies to track</h4>
-									{/* Refacor this */}
-									<div className="landing--cover--content--box--currency">
-										<div
-											className="landing--cover--content--box--image--container"
-											onClick={this.handleClickedExpand}
-										>
-											<img
-												src={bitcoin}
-												className="landing--cover--content--box--image"
-												alt="Bitcoin"
-											/>
-											<p>Bitcoin</p>
-										</div>
-										<div
-											className="landing--cover--content--box--image--container"
-											onClick={this.handleClickedExpand}
-										>
-											<img
-												src={ether}
-												className="landing--cover--content--box--image"
-												alt="ethereum"
-											/>
-											<p>Ethereum</p>
-										</div>
+				<SearchCurrencies
+					data={this.props.data}
+					showSearch={this.state.clickedExpandBox}
+					handleClickedExpand={this.handleClickedExpand}
+				/>
+				<Header />
+				<div className="container">
+					<div className="landing--cover--content">
+						<div className="landing--cover--content--text">
+							<h2>Your personalized crypto dashboard.</h2>
+							<p>The easiest way to keep up to date on your digital currency.</p>
+						</div>
+						<div className="landing--cover--content--box--container">
+							<div className="landing--cover--content--box">
+								<h4>Choose which currencies to track</h4>
+								{/* Refacor this */}
+								<div className="landing--cover--content--box--currency">
+									<div
+										className="landing--cover--content--box--image--container"
+										onClick={this.handleClickedExpand}
+									>
+										<img
+											src={bitcoin}
+											className="landing--cover--content--box--image"
+											alt="Bitcoin"
+										/>
+										<p>Bitcoin</p>
 									</div>
-									{selectedCurrenciesText}
-									<Link to="/register">
-										<div className="landing--cover--content--box--button main-button">Continue</div>
-									</Link>
+									<div
+										className="landing--cover--content--box--image--container"
+										onClick={this.handleClickedExpand}
+									>
+										<img
+											src={ether}
+											className="landing--cover--content--box--image"
+											alt="ethereum"
+										/>
+										<p>Ethereum</p>
+									</div>
 								</div>
+								{selectedCurrenciesText}
+								<Link to="/register">
+									<div className="landing--cover--content--box--button main-button">Continue</div>
+								</Link>
 							</div>
 						</div>
 					</div>

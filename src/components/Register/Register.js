@@ -1,41 +1,95 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { database } from '../../firebase';
 import firebase from '../../firebase';
 import Header from '../Header/Header';
+import SocialLoginWrapper from '../Auth/SocialLoginWrapper/SocialLoginWrapper';
 
 class Register extends Component {
 	constructor() {
 		super();
 
 		this.state = {
-			email: '',
-			password: ''
+			emailErrMessage: '',
+			passwordErrMessage: '',
+			firebaseError: ''
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handlePasswordChange = this.handlePasswordChange.bind(this);
-		this.handleEmailChange = this.handleEmailChange.bind(this);
+		this.validateEmail = this.validateEmail.bind(this);
+		this.validatePassword = this.validatePassword.bind(this);
+		this.validateInput = this.validateInput.bind(this);
 	}
-	handleEmailChange(event) {
-		this.setState({ email: event.target.value });
+	validateEmail() {
+		const email = this.refs.registerEmail.value;
+
+		if (email.includes('@')) {
+			return true;
+		}
+		this.setState({ emailErrMessage: 'You must provide a valid email.' });
+		return false;
 	}
-	handlePasswordChange(event) {
-		this.setState({ password: event.target.value });
+	validatePassword() {
+		const password = this.refs.registerPassword.value;
+		if (password.length >= 8) {
+			if (/[A-Z]/.test(password)) {
+				if (/\d/.test(password)) {
+					return true;
+				} else {
+					this.setState({ passwordErrMessage: 'Password must include a number.' });
+				}
+			} else {
+				this.setState({ passwordErrMessage: 'Password must include an uppercase letter.' });
+			}
+		} else {
+			this.setState({ passwordErrMessage: 'Password must be longer or equal to 8 characters.' });
+		}
+		return false;
+	}
+	validateInput() {
+		const validEmail = this.validateEmail();
+		const validPassword = this.validatePassword();
+
+		if (validEmail) {
+			this.setState({ emailErrMessage: '' });
+		}
+
+		if (validPassword) {
+			this.setState({ passwordErrMessage: '' });
+		}
+
+		if (validEmail && validPassword) {
+			return true;
+		}
 	}
 	handleSubmit(event) {
 		event.preventDefault();
-		// Validation here
 
-		const user = firebase
-			.auth()
-			.createUserWithEmailAndPassword(this.state.email, this.state.password)
-			.catch(error => {
-				// Handle errors
-				console.log('handle error');
-			});
+		const validationPassed = this.validateInput();
 
-		// Add state to database under user uid
-		console.log(user);
+		if (validationPassed) {
+			const email = this.refs.registerEmail.value;
+			const password = this.refs.registerPassword.value;
+			firebase
+				.auth()
+				.createUserWithEmailAndPassword(email, password)
+				.then(user => {
+					const storageLocation = database.ref('users/' + user.uid + '/currencies');
+
+					this.props.selectedCurrencies.forEach(currency => {
+						storageLocation.child(currency.symbol).set(currency.symbol);
+					});
+				})
+				.catch(error => {
+					let errorMessage;
+					if (error.code) {
+						errorMessage = error.message;
+					} else {
+						errorMessage = 'Something went wrong.';
+					}
+					this.setState({ firebaseError: errorMessage });
+				});
+		}
 	}
 	render() {
 		// Reads global application state and outputs pictures of current selected currencies
@@ -45,49 +99,75 @@ class Register extends Component {
 				<div className="register--state--info">
 					<h3>Finish your registration in order to follow these currencies</h3>
 					{this.props.selectedCurrencies.map(currency => {
-						return <img src={currency.img} key={currency.id} className="register--state--img" />;
+						return (
+							<img
+								src={currency.img}
+								key={currency.id}
+								className="register--state--img"
+								alt={currency.name}
+							/>
+						);
 					})}
 				</div>
 			);
 		}
+		// Set email error messages if there are any
+		let emailErrMessage = this.state.emailErrMessage,
+			emailClasses,
+			emailErrorMarkup;
+		if (emailErrMessage) {
+			emailClasses = 'auth--input auth--input--error';
+			emailErrorMarkup = <span className="auth--input--error--message">{emailErrMessage}</span>;
+		} else {
+			emailClasses = 'auth--input';
+		}
+		// Set password error messages if there are any
+		let passwordErrMessage = this.state.passwordErrMessage,
+			passwordClasses,
+			passwordErrMarkup;
+		if (passwordErrMessage) {
+			passwordClasses = 'auth--input auth--input--error';
+			passwordErrMarkup = <span className="auth--input--error--message">{passwordErrMessage}</span>;
+		} else {
+			passwordClasses = 'auth--input';
+		}
+		// Set firebase error messaage if there are any
+		let firebaseErrMessage = this.state.firebaseError,
+			firebaseErrMarkup;
+		firebaseErrMessage
+			? (firebaseErrMarkup = <span className="auth--input--error--message">{firebaseErrMessage}</span>)
+			: (firebaseErrMarkup = '');
 		return (
 			<div className="frontend--background">
-				<div className="frontend--layover">
-					<Header />
-					<div className="container register--container">
-						{stateInfo}
-						<div className="register--box--container">
-							<div className="register--box box">
-								<h3>Register</h3>
-								<div className="register--box--input--container">
-									<div className="register--box--input--group">
-										<label htmlFor="email">Email</label>
-										<input
-											type="text"
-											name="email"
-											className="auth--input"
-											onChange={this.handleEmailChange}
-										/>
-									</div>
-									<div className="register--box--input--group">
-										<label htmlFor="password">Password</label>
-										<input
-											type="password"
-											name="password"
-											className="auth--input"
-											onChange={this.handlePasswordChange}
-										/>
-									</div>
-									<button
-										type="submit"
-										className="auth--button main-button"
-										onClick={this.handleSubmit}
-									>
-										Register
-									</button>
+				<Header />
+				<div className="container register--container">
+					{stateInfo}
+					<div className="register--box--container">
+						<div className="register--box box">
+							<h3>Register</h3>
+							<div className="register--box--input--container">
+								<div className="register--box--input--group">
+									<label htmlFor="email">Email</label>
+									<input type="text" name="email" className={emailClasses} ref="registerEmail" />
+									{emailErrorMarkup}
 								</div>
-								<p>Or sign in with these</p>
+								<div className="register--box--input--group">
+									<label htmlFor="password">Password</label>
+									<input
+										type="password"
+										name="password"
+										className={passwordClasses}
+										ref="registerPassword"
+									/>
+									{passwordErrMarkup}
+								</div>
+								{firebaseErrMarkup}
+								<button type="submit" className="auth--button main-button" onClick={this.handleSubmit}>
+									Register
+								</button>
 							</div>
+							<p>Or sign in with these</p>
+							<SocialLoginWrapper />
 						</div>
 					</div>
 				</div>

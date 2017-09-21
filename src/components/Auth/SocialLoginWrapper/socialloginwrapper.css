@@ -1,0 +1,15 @@
+.social--login--container {
+	display: flex;
+	justify-content: space-around;
+	padding-top: 10px;
+}
+
+.social--login--button .fa {
+	font-size: 2em;
+	padding: 5px;
+	color: #505050;
+}
+
+.social--login--button .fa:hover {
+	cursor: pointer;
+}
