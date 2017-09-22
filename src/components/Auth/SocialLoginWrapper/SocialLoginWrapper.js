@@ -18,13 +18,22 @@ class SocialLoginWrapper extends Component {
 		this.userHasCurrencies = this.userHasCurrencies.bind(this);
 	}
 	handleGithubAuth() {
-		auth.signInWithPopup(githubAuthProvider).then(result => this.actionAfterSignin(result));
+		auth
+			.signInWithPopup(githubAuthProvider)
+			.then(result => this.actionAfterSignin(result))
+			.catch(error => this.props.handleError(error));
 	}
 	handleFacebookAuth() {
-		auth.signInWithPopup(facebookAuthProvider).then(result => this.actionAfterSignin(result));
+		auth
+			.signInWithPopup(facebookAuthProvider)
+			.then(result => this.actionAfterSignin(result))
+			.catch(error => this.props.handleError(error));
 	}
 	handleGoogleAuth() {
-		auth.signInWithPopup(googleAuthProvider).then(result => this.actionAfterSignin(result));
+		auth
+			.signInWithPopup(googleAuthProvider)
+			.then(result => this.actionAfterSignin(result))
+			.catch(error => this.props.handleError(error));
 	}
 	actionAfterSignin(result) {
 		const uniqueId = result.user.uid;

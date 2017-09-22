@@ -19,12 +19,22 @@ class SignIn extends Component {
 		this.handleEmailChange = this.handleEmailChange.bind(this);
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
 		this.validateEmail = this.validateEmail.bind(this);
+		this.handleSocialError = this.handleSocialError.bind(this);
 	}
 	handleEmailChange(event) {
 		this.setState({ email: event.target.value.toString().trim() });
 	}
 	handlePasswordChange(event) {
 		this.setState({ password: event.target.value.toString().trim() });
+	}
+	handleSocialError(error) {
+		let errorMessage;
+		if (error.code) {
+			errorMessage = error.message;
+		} else {
+			errorMessage = 'Something went wrong.';
+		}
+		this.setState({ firebaseError: errorMessage });
 	}
 	validateEmail() {
 		const email = this.state.email;
@@ -113,7 +123,7 @@ class SignIn extends Component {
 								</button>
 							</div>
 							<p>Or sign in with these</p>
-							<SocialLoginWrapper />
+							<SocialLoginWrapper handleError={this.handleSocialError} />
 						</div>
 					</div>
 				</div>

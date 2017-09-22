@@ -23,15 +23,16 @@ class Register extends Component {
 		this.validateEmail = this.validateEmail.bind(this);
 		this.validatePassword = this.validatePassword.bind(this);
 		this.validateInput = this.validateInput.bind(this);
+		this.handleSocialError = this.handleSocialError.bind(this);
 	}
 	componentDidMount() {
 		this.refs.registerPassword.focus();
 	}
 	handleEmailChange(event) {
-		this.setState({ email: event.target.value });
+		this.setState({ email: event.target.value.toString().trim() });
 	}
 	handlePasswordChange(event) {
-		this.setState({ password: event.target.value });
+		this.setState({ password: event.target.value.toString().trim() });
 	}
 	validateEmail() {
 		const email = this.state.email;
@@ -106,6 +107,15 @@ class Register extends Component {
 					this.setState({ firebaseError: errorMessage });
 				});
 		}
+	}
+	handleSocialError(error) {
+		let errorMessage;
+		if (error.code) {
+			errorMessage = error.message;
+		} else {
+			errorMessage = 'Something went wrong.';
+		}
+		this.setState({ firebaseError: errorMessage });
 	}
 	render() {
 		// Reads global application state and outputs pictures of current selected currencies
@@ -189,7 +199,7 @@ class Register extends Component {
 								</button>
 							</div>
 							<p>Or sign in with these</p>
-							<SocialLoginWrapper />
+							<SocialLoginWrapper handleError={this.handleSocialError} />
 						</div>
 					</div>
 				</div>
