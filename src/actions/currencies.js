@@ -14,3 +14,9 @@ export const removeCurrency = index => {
 		position: index
 	};
 };
+
+export const clearCurrency = () => {
+	return {
+		type: 'CLEAR_CURRENCY'
+	};
+};

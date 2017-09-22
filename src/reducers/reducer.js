@@ -13,8 +13,9 @@ const selectedCurrencies = (state = [], action) => {
 				}
 			];
 		case 'REMOVE_CURRENCY':
-			const newArr = [...state.slice(0, action.position), ...state.slice(action.position + 1)];
-			return newArr;
+			return [...state.slice(0, action.position), ...state.slice(action.position + 1)];
+		case 'CLEAR_CURRENCY':
+			return [];
 		default:
 			return state;
 	}

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { githubAuthProvider, facebookAuthProvider, googleAuthProvider } from '../../../firebase';
-import { auth } from '../../../firebase';
+import { auth, database, githubAuthProvider, facebookAuthProvider, googleAuthProvider } from '../../../firebase';
+import { clearCurrency } from '../../../actions/currencies';
 import { connect } from 'react-redux';
-import { database } from '../../../firebase.js';
 import GithubButton from './GithubButton/GithubButton';
 import FacebookButton from './FacebookButton/FacebookButton';
 import GoogleButton from './GoogleButton/GoogleButton';
@@ -30,6 +29,7 @@ class SocialLoginWrapper extends Component {
 	actionAfterSignin(result) {
 		const uniqueId = result.user.uid;
 		this.userHasCurrencies(uniqueId);
+		this.props.clearCurrencyState();
 	}
 	addCurrenciesToUser(uid) {
 		const storageLocation = database.ref('users/' + uid + '/currencies');
@@ -62,4 +62,10 @@ const mapStateToProps = state => ({
 	selectedCurrencies: state.selectedCurrencies
 });
 
-export default connect(mapStateToProps)(SocialLoginWrapper);
+const mapDispatchToProps = dispatch => ({
+	clearCurrencyState() {
+		dispatch(clearCurrency());
+	}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SocialLoginWrapper);

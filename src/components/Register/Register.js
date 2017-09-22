@@ -12,16 +12,29 @@ class Register extends Component {
 		this.state = {
 			emailErrMessage: '',
 			passwordErrMessage: '',
-			firebaseError: ''
+			firebaseError: '',
+			password: '',
+			email: ''
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleEmailChange = this.handleEmailChange.bind(this);
+		this.handlePasswordChange = this.handlePasswordChange.bind(this);
 		this.validateEmail = this.validateEmail.bind(this);
 		this.validatePassword = this.validatePassword.bind(this);
 		this.validateInput = this.validateInput.bind(this);
 	}
+	componentDidMount() {
+		this.refs.registerPassword.focus();
+	}
+	handleEmailChange(event) {
+		this.setState({ email: event.target.value });
+	}
+	handlePasswordChange(event) {
+		this.setState({ password: event.target.value });
+	}
 	validateEmail() {
-		const email = this.refs.registerEmail.value;
+		const email = this.state.email;
 
 		if (email.includes('@')) {
 			return true;
@@ -30,7 +43,7 @@ class Register extends Component {
 		return false;
 	}
 	validatePassword() {
-		const password = this.refs.registerPassword.value;
+		const password = this.state.password;
 		if (password.length >= 8) {
 			if (/[A-Z]/.test(password)) {
 				if (/\d/.test(password)) {
@@ -68,8 +81,8 @@ class Register extends Component {
 		const validationPassed = this.validateInput();
 
 		if (validationPassed) {
-			const email = this.refs.registerEmail.value;
-			const password = this.refs.registerPassword.value;
+			const email = this.state.email;
+			const password = this.state.password;
 			firebase
 				.auth()
 				.createUserWithEmailAndPassword(email, password)
@@ -79,6 +92,9 @@ class Register extends Component {
 					this.props.selectedCurrencies.forEach(currency => {
 						storageLocation.child(currency.symbol).set(currency.symbol);
 					});
+
+					this.setState({ email: '' });
+					this.setState({ password: '' });
 				})
 				.catch(error => {
 					let errorMessage;
@@ -148,7 +164,12 @@ class Register extends Component {
 							<div className="register--box--input--container">
 								<div className="register--box--input--group">
 									<label htmlFor="email">Email</label>
-									<input type="text" name="email" className={emailClasses} ref="registerEmail" />
+									<input
+										type="text"
+										name="email"
+										className={emailClasses}
+										onChange={this.handleEmailChange}
+									/>
 									{emailErrorMarkup}
 								</div>
 								<div className="register--box--input--group">
@@ -158,6 +179,7 @@ class Register extends Component {
 										name="password"
 										className={passwordClasses}
 										ref="registerPassword"
+										onChange={this.handlePasswordChange}
 									/>
 									{passwordErrMarkup}
 								</div>
