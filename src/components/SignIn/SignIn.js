@@ -96,34 +96,40 @@ class SignIn extends Component {
 					<div className="register--box--container">
 						<div className="register--box box">
 							<h3>Sign In</h3>
-							<div className="register--box--input--container">
-								<div className="register--box--input--group">
-									<label htmlFor="email">Email</label>
-									<input
-										type="text"
-										name="email"
-										className={emailClasses}
-										onChange={this.handleEmailChange}
-									/>
-									{emailErrorMarkup}
+							<form>
+								<div className="register--box--input--container">
+									<div className="register--box--input--group">
+										<label htmlFor="email">Email</label>
+										<input
+											type="text"
+											name="email"
+											className={emailClasses}
+											onChange={this.handleEmailChange}
+										/>
+										{emailErrorMarkup}
+									</div>
+									<div className="register--box--input--group">
+										<label htmlFor="password">Password</label>
+										<input
+											type="password"
+											name="password"
+											className={passwordClasses}
+											ref="registerPassword"
+											onChange={this.handlePasswordChange}
+										/>
+									</div>
+									{firebaseErrMarkup}
+									<button
+										type="submit"
+										className="auth--button main-button"
+										onClick={this.handleSubmit}
+									>
+										Sign In
+									</button>
 								</div>
-								<div className="register--box--input--group">
-									<label htmlFor="password">Password</label>
-									<input
-										type="password"
-										name="password"
-										className={passwordClasses}
-										ref="registerPassword"
-										onChange={this.handlePasswordChange}
-									/>
-								</div>
-								{firebaseErrMarkup}
-								<button type="submit" className="auth--button main-button" onClick={this.handleSubmit}>
-									Sign In
-								</button>
-							</div>
-							<p>Or sign in with these</p>
-							<SocialLoginWrapper handleError={this.handleSocialError} />
+								<p>Or sign in with these</p>
+								<SocialLoginWrapper handleError={this.handleSocialError} />
+							</form>
 						</div>
 					</div>
 				</div>

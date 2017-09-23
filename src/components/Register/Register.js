@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { signIn } from '../../actions/auth';
 import { database } from '../../firebase';
 import firebase from '../../firebase';
 import Header from '../Header/Header';
@@ -98,6 +99,7 @@ class Register extends Component {
 					this.setState({ password: '' });
 				})
 				.catch(error => {
+					console.log(error);
 					let errorMessage;
 					if (error.code) {
 						errorMessage = error.message;
@@ -171,35 +173,41 @@ class Register extends Component {
 					<div className="register--box--container">
 						<div className="register--box box">
 							<h3>Register</h3>
-							<div className="register--box--input--container">
-								<div className="register--box--input--group">
-									<label htmlFor="email">Email</label>
-									<input
-										type="text"
-										name="email"
-										className={emailClasses}
-										onChange={this.handleEmailChange}
-									/>
-									{emailErrorMarkup}
+							<form>
+								<div className="register--box--input--container">
+									<div className="register--box--input--group">
+										<label htmlFor="email">Email</label>
+										<input
+											type="text"
+											name="email"
+											className={emailClasses}
+											onChange={this.handleEmailChange}
+										/>
+										{emailErrorMarkup}
+									</div>
+									<div className="register--box--input--group">
+										<label htmlFor="password">Password</label>
+										<input
+											type="password"
+											name="password"
+											className={passwordClasses}
+											ref="registerPassword"
+											onChange={this.handlePasswordChange}
+										/>
+										{passwordErrMarkup}
+									</div>
+									{firebaseErrMarkup}
+									<button
+										type="submit"
+										className="auth--button main-button"
+										onClick={this.handleSubmit}
+									>
+										Register
+									</button>
 								</div>
-								<div className="register--box--input--group">
-									<label htmlFor="password">Password</label>
-									<input
-										type="password"
-										name="password"
-										className={passwordClasses}
-										ref="registerPassword"
-										onChange={this.handlePasswordChange}
-									/>
-									{passwordErrMarkup}
-								</div>
-								{firebaseErrMarkup}
-								<button type="submit" className="auth--button main-button" onClick={this.handleSubmit}>
-									Register
-								</button>
-							</div>
-							<p>Or sign in with these</p>
-							<SocialLoginWrapper handleError={this.handleSocialError} />
+								<p>Or sign in with these</p>
+								<SocialLoginWrapper handleError={this.handleSocialError} />
+							</form>
 						</div>
 					</div>
 				</div>
