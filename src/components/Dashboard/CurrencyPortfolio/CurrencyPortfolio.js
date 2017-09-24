@@ -18,7 +18,8 @@ const CurrencyPortfolio = props => (
 			})}
 		</ul>
 		<div className="currency--total--value">
-			<h2>Total Value: 4171 NOK</h2>
+			<h3>Total value</h3>
+			<h2>4171 NOK</h2>
 		</div>
 	</div>
 );
