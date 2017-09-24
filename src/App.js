@@ -12,7 +12,6 @@ class App extends Component {
     render() {
         const signedIn = this.props.auth.status === 'SIGNED_IN';
         const landingComponent = signedIn ? Dashboard : props => <Landing data={coinData} />;
-        console.log(landingComponent);
         return (
             <BrowserRouter>
                 <Switch>

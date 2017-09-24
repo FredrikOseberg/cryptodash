@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signIn } from '../../actions/auth';
 import { database } from '../../firebase';
 import firebase from '../../firebase';
 import Header from '../Header/Header';
@@ -92,11 +91,12 @@ class Register extends Component {
 					const storageLocation = database.ref('users/' + user.uid + '/currencies');
 
 					this.props.selectedCurrencies.forEach(currency => {
-						storageLocation.child(currency.symbol).set(currency.symbol);
+						storageLocation.child(currency.symbol).set(currency);
 					});
 
 					this.setState({ email: '' });
 					this.setState({ password: '' });
+					window.location.replace('/');
 				})
 				.catch(error => {
 					let errorMessage;

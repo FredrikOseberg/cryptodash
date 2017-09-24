@@ -5,6 +5,7 @@
 @import './components/Register/register.css';
 @import './components/Auth/SocialLoginWrapper/socialloginwrapper.css';
 @import './components/Dashboard/dashboard.css';
+@import './components/Dashboard/CurrencyStatCard/currencystatcard.css';
 
 .frontend--background {
   height: 100%;

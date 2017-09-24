@@ -11,58 +11,56 @@ class SocialLoginWrapper extends Component {
 		super(props);
 
 		this.addCurrenciesToUser = this.addCurrenciesToUser.bind(this);
-		this.handleGithubAuth = this.handleGithubAuth.bind(this);
-		this.handleFacebookAuth = this.handleFacebookAuth.bind(this);
-		this.handleGoogleAuth = this.handleGoogleAuth.bind(this);
+		this.handleSocialAuth = this.handleSocialAuth.bind(this);
 		this.actionAfterSignin = this.actionAfterSignin.bind(this);
 		this.userHasCurrencies = this.userHasCurrencies.bind(this);
+		this.redirectToDashboard = this.redirectToDashboard.bind(this);
 	}
-	handleGithubAuth() {
-		auth
-			.signInWithPopup(githubAuthProvider)
-			.then(result => this.actionAfterSignin(result))
-			.catch(error => this.props.handleError(error));
+	handleSocialAuth(provider) {
+		return () => {
+			auth
+				.signInWithPopup(provider)
+				.then(result => this.actionAfterSignin(result))
+				.then(() => this.redirectToDashboard())
+				.catch(error => this.props.handleError(error));
+		};
 	}
-	handleFacebookAuth() {
-		auth
-			.signInWithPopup(facebookAuthProvider)
-			.then(result => this.actionAfterSignin(result))
-			.catch(error => this.props.handleError(error));
-	}
-	handleGoogleAuth() {
-		auth
-			.signInWithPopup(googleAuthProvider)
-			.then(result => this.actionAfterSignin(result))
-			.catch(error => this.props.handleError(error));
+	redirectToDashboard() {
+		window.location.replace('/');
+		this.props.clearCurrency();
 	}
 	actionAfterSignin(result) {
-		const uniqueId = result.user.uid;
-		this.userHasCurrencies(uniqueId);
-		this.props.clearCurrencyState();
-		window.location.replace('/');
-	}
-	addCurrenciesToUser(uid) {
-		const storageLocation = database.ref('users/' + uid + '/currencies');
-
-		this.props.selectedCurrencies.forEach(currency => {
-			storageLocation.child(currency.symbol).set(currency.symbol);
+		return new Promise(resolve => {
+			const uniqueId = result.user.uid;
+			this.userHasCurrencies(uniqueId, resolve);
 		});
 	}
-	userHasCurrencies(uid) {
+	addCurrenciesToUser(uid, resolve) {
+		const storageLocation = database.ref('users/' + uid + '/currencies');
+		console.log(this.props.selectedCurrencies);
+		this.props.selectedCurrencies.forEach(currency => {
+			storageLocation.child(currency.symbol).set(currency);
+		});
+		resolve();
+	}
+	userHasCurrencies(uid, resolve) {
 		const storageLocation = database.ref('users/' + uid);
 		storageLocation.once('value', snapshot => {
 			if (!snapshot.hasChild('currencies')) {
-				this.addCurrenciesToUser(uid);
+				this.addCurrenciesToUser(uid, resolve);
 			}
 		});
 	}
 
 	render() {
+		const handleGithubAuth = this.handleSocialAuth(githubAuthProvider);
+		const handleGoogleAuth = this.handleSocialAuth(googleAuthProvider);
+		const handleFacebookAuth = this.handleSocialAuth(facebookAuthProvider);
 		return (
 			<div className="social--login--container">
-				<GithubButton handleGithubAuth={this.handleGithubAuth} />
-				<GoogleButton handleGoogleAuth={this.handleGoogleAuth} />
-				<FacebookButton handleFacebookAuth={this.handleFacebookAuth} />
+				<GithubButton handleGithubAuth={handleGithubAuth} />
+				<GoogleButton handleGoogleAuth={handleGoogleAuth} />
+				<FacebookButton handleFacebookAuth={handleFacebookAuth} />
 			</div>
 		);
 	}

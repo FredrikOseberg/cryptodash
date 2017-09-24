@@ -59,6 +59,7 @@
 	color: #888;
 	border-radius: 3px;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+	z-index: 20;
 }
 
 .header--nav--dropdown--clicked {
@@ -74,8 +75,12 @@
 .header--nav--dropdown--list li {
 	padding: 10px 20px;
 	display: flex;
-	width: 100%;
 	cursor: pointer;
+}
+
+.header--nav--dropdown--list li:hover {
+	background-color: #d0cfd2;
+	border-radius: 3px;
 }
 
 .header--nav--dropdown--list li .fa {
