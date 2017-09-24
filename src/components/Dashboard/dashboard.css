@@ -36,3 +36,20 @@
 	margin-right: 7px;
 	font-size: 1.2em;
 }
+
+.dashboard--content {
+	padding: 20px 0;
+}
+
+.dashboard--currency {
+	display: flex;
+	width: 100%;
+}
+
+.dashboard--currency--container {
+	width: 40%;
+	display: flex;
+	flex-direction: column;
+}
+
+

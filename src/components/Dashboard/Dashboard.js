@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { database, auth } from '../../firebase';
 import CurrencyStatCard from './CurrencyStatCard/CurrencyStatCard';
+import CurrencyPortfolio from './CurrencyPortfolio/CurrencyPortfolio';
 import Header from '../Header/Header';
 import map from 'lodash/map';
 
@@ -32,7 +33,7 @@ class Dashboard extends Component {
 			<div className="dashboard">
 				<Header />
 				<div className="dashboard--navigation">
-					<div className="container">
+					<div className="container dashboard--container">
 						<ul className="dashboard--navigation--list">
 							<li className="dashboard--navigation--list--active">
 								<i className="fa fa-tachometer" aria-hidden="true" />
@@ -51,9 +52,22 @@ class Dashboard extends Component {
 				</div>
 				<div className="dashboard--content">
 					<div className="container">
-						{this.state.currencies.map(currency => {
-							return <CurrencyStatCard name={currency.name} img={currency.img} key={currency.id} />;
-						})}
+						<div className="dashboard--currency">
+							<div className="dashboard--currency--container">
+								{this.state.currencies.map(currency => {
+									return (
+										<CurrencyStatCard
+											name={currency.name}
+											img={currency.img}
+											key={currency.id}
+											symbol={currency.symbol}
+										/>
+									);
+								})}
+							</div>
+
+							<CurrencyPortfolio currencies={this.state.currencies} />
+						</div>
 					</div>
 				</div>
 			</div>

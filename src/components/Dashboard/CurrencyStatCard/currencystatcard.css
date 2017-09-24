@@ -1,0 +1,49 @@
+.currency--stat--card {
+	background-color: #fff;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	border-radius: 3px;
+	padding: 15px;
+	margin: 10px;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	color: #504f4f;
+}
+
+.currency--stat--card h3 {
+	color: #888;
+	margin-bottom: 0;
+}
+
+.currency--stat--info {
+	margin-left: 13px;
+}
+
+.currency--stat--card span {
+	margin-left: auto;
+}
+
+.currency--stat--card img {
+	width: 70px;
+	height: 70px;
+	border-radius: 100%;
+}
+
+.currency--stat--card--price {
+	font-family: Montserrat, sans-serif;
+	font-size: 2em;
+	color: #555598;
+}
+
+.currency--stat--percentage {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.currency--stat--percentage--positive {
+	color: #20ce20;
+}
+
+.currency--stat--percentage--negative {
+	color: #ff6262;
+}
