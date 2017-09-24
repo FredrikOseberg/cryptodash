@@ -59,7 +59,7 @@ class SignIn extends Component {
 				.signInWithEmailAndPassword(email, password)
 				.then(user => {
 					this.setState({ firebaseError: '' });
-					console.log('logged in');
+					window.location.replace('/');
 				})
 				.catch(error => {
 					const errorMessage = error.message;

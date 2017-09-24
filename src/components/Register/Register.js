@@ -99,7 +99,6 @@ class Register extends Component {
 					this.setState({ password: '' });
 				})
 				.catch(error => {
-					console.log(error);
 					let errorMessage;
 					if (error.code) {
 						errorMessage = error.message;
@@ -110,6 +109,7 @@ class Register extends Component {
 				});
 		}
 	}
+	// Handle errors that happens when a user tries to log in with a social account
 	handleSocialError(error) {
 		let errorMessage;
 		if (error.code) {

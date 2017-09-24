@@ -4,6 +4,7 @@
 @import './components/SearchCurrencies/CurrencyCard/currencycard.css';
 @import './components/Register/register.css';
 @import './components/Auth/SocialLoginWrapper/socialloginwrapper.css';
+@import './components/Dashboard/dashboard.css';
 
 .frontend--background {
   height: 100%;

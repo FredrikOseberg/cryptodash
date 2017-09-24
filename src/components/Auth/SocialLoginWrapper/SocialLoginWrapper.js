@@ -39,6 +39,7 @@ class SocialLoginWrapper extends Component {
 		const uniqueId = result.user.uid;
 		this.userHasCurrencies(uniqueId);
 		this.props.clearCurrencyState();
+		window.location.replace('/');
 	}
 	addCurrenciesToUser(uid) {
 		const storageLocation = database.ref('users/' + uid + '/currencies');

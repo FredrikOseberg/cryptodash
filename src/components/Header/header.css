@@ -2,9 +2,15 @@
 	color: #fff;
 }
 
+.header--dashboard {
+	background-color: #555598;
+}
+
 .header--nav {
 	display: flex;
 	list-style-type: none;
+	justify-content: center;
+	align-items: center;
 }
 
 .header--logo {
@@ -13,7 +19,65 @@
 }
 
 .header--nav li {
-	padding: 0 10px;
+	padding: 0 15px;
 }
 
+.header--nav--signed--in {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
+.header--nav--signed--in img {
+	height: 40px;
+	width: 40px;
+	border-radius: 100%;
+	margin-right: 10px;
+}
+
+.header--nav--signed--in p {
+	margin-right: 10px;
+}
+
+.header--nav--signed--in:hover {
+	cursor: pointer;
+}
+
+.header--nav--dropdown--container {
+	position: relative;
+}
+
+.header--nav--dropdown {
+	top: 30px;
+	left: -135px;
+	position: absolute;
+	transition: all 0.4s ease;
+	opacity: 0;
+	visibility: hidden;
+	width: 150px;
+	background-color: #fff;
+	color: #888;
+	border-radius: 3px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.header--nav--dropdown--clicked {
+	opacity: 1;
+	visibility: visible;
+}
+
+.header--nav--dropdown--list {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+.header--nav--dropdown--list li {
+	padding: 10px 20px;
+	display: flex;
+	width: 100%;
+	cursor: pointer;
+}
+
+.header--nav--dropdown--list li .fa {
+	margin-right: 10px;
+}
