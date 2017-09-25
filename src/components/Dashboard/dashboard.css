@@ -9,7 +9,7 @@
 
 .dashboard--content {
 	background-color: #ededed;
-	height: 100vh;
+	padding-bottom: 60px;
 }
 
 .dashboard--navigation--list {
@@ -37,12 +37,26 @@
 	font-size: 1.2em;
 }
 
+.dashboard--container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.dashboard--content--chart {
+	background-color: #fff;
+	border-radius: 3px;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	margin: 10px;
+}
+
 .dashboard--content {
 	padding: 20px 0;
 }
 
 .dashboard--currency {
 	display: flex;
+	justify-content: space-between;
 	width: 100%;
 }
 
@@ -51,5 +65,3 @@
 	display: flex;
 	flex-direction: column;
 }
-
-

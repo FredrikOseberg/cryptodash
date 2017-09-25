@@ -37,10 +37,11 @@ class SocialLoginWrapper extends Component {
 	}
 	addCurrenciesToUser(uid, resolve) {
 		const storageLocation = database.ref('users/' + uid + '/currencies');
-		console.log(this.props.selectedCurrencies);
+
 		this.props.selectedCurrencies.forEach(currency => {
 			storageLocation.child(currency.symbol).set(currency);
 		});
+
 		resolve();
 	}
 	userHasCurrencies(uid, resolve) {

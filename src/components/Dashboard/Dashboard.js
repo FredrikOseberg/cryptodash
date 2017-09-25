@@ -3,6 +3,7 @@ import { database, auth } from '../../firebase';
 import CurrencyStatCard from './CurrencyStatCard/CurrencyStatCard';
 import CurrencyPortfolio from './CurrencyPortfolio/CurrencyPortfolio';
 import Header from '../Header/Header';
+import LineChart from './LineChart/LineChart';
 import map from 'lodash/map';
 
 class Dashboard extends Component {
@@ -10,6 +11,7 @@ class Dashboard extends Component {
 		super(props);
 
 		this.state = {
+			firstCurrencySymbol: null,
 			currencies: []
 		};
 	}
@@ -25,6 +27,7 @@ class Dashboard extends Component {
 				newCurrencyState.push(currency);
 			});
 			this.setState({ currencies: newCurrencyState });
+			this.setState({ firstCurrencySymbol: newCurrencyState[0].symbol });
 		});
 	}
 
@@ -52,21 +55,33 @@ class Dashboard extends Component {
 				</div>
 				<div className="dashboard--content">
 					<div className="container">
-						<div className="dashboard--currency">
-							<div className="dashboard--currency--container">
-								{this.state.currencies.map(currency => {
-									return (
-										<CurrencyStatCard
-											name={currency.name}
-											img={currency.img}
-											key={currency.id}
-											symbol={currency.symbol}
-										/>
-									);
-								})}
+						<div className="dashboard--container">
+							<div className="dashboard--content--chart">
+								{this.state.firstCurrencySymbol ? (
+									<LineChart
+										symbol={this.state.firstCurrencySymbol}
+										currencies={this.state.currencies}
+									/>
+								) : (
+									''
+								)}
 							</div>
+							<div className="dashboard--currency">
+								<div className="dashboard--currency--container">
+									{this.state.currencies.map(currency => {
+										return (
+											<CurrencyStatCard
+												name={currency.name}
+												img={currency.img}
+												key={currency.id}
+												symbol={currency.symbol}
+											/>
+										);
+									})}
+								</div>
 
-							<CurrencyPortfolio currencies={this.state.currencies} />
+								<CurrencyPortfolio currencies={this.state.currencies} />
+							</div>
 						</div>
 					</div>
 				</div>
