@@ -15,6 +15,15 @@ export const removeCurrency = index => {
 	};
 };
 
+export const addPrice = obj => {
+	return {
+		type: 'ADD_PRICE',
+		price: obj.price,
+		percentage: obj.percentage,
+		symbol: obj.symbol
+	};
+};
+
 export const clearCurrency = () => {
 	return {
 		type: 'CLEAR_CURRENCY'

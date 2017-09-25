@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
 import { database, auth } from '../../firebase';
+import { addCurrency } from '../../actions/currencies';
+import { addCurrentCurrency } from '../../actions/currentCurrency';
 import CurrencyStatCard from './CurrencyStatCard/CurrencyStatCard';
 import CurrencyPortfolio from './CurrencyPortfolio/CurrencyPortfolio';
 import Header from '../Header/Header';
@@ -7,27 +11,53 @@ import LineChart from './LineChart/LineChart';
 import map from 'lodash/map';
 
 class Dashboard extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			firstCurrencySymbol: null,
-			currencies: []
-		};
-	}
 	// Get the users currencies from the database and save it to component state
+	constructor() {
+		super();
+
+		this.interval;
+
+		this.addCurrenciesToState = this.addCurrenciesToState.bind(this);
+		this.getCurrentCurrency = this.getCurrentCurrency.bind(this);
+	}
 	componentDidMount() {
-		const user = auth.currentUser;
-		const databaseRef = database.ref('users/' + user.uid + '/currencies');
-		databaseRef.on('value', snapshot => {
-			const newCurrencyState = [];
-			const currencies = snapshot.val();
-			// Lodash Object Map
-			map(currencies, currency => {
-				newCurrencyState.push(currency);
+		this.addCurrenciesToState().then(() => {
+			this.getCurrentCurrency(this.props.currencies[0].symbol);
+			this.interval = setInterval(() => {
+				this.getCurrentCurrency(this.props.currentCurrency.symbol);
+			}, 5000);
+		});
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.interval);
+	}
+
+	getCurrentCurrency(symbol) {
+		axios.get(`http://coincap.io/page/${symbol}`).then(response => {
+			const obj = {
+				name: response.data.display_name,
+				price: response.data.price_usd,
+				symbol: response.data.id,
+				percentage: response.data.cap24hrChange,
+				id: response.data._id
+			};
+			this.props.addCurrentCurrencyToState(obj);
+		});
+	}
+
+	addCurrenciesToState() {
+		return new Promise(resolve => {
+			const user = auth.currentUser;
+			const databaseRef = database.ref('users/' + user.uid + '/currencies');
+			databaseRef.on('value', snapshot => {
+				const currencies = snapshot.val();
+				// Lodash Object Map
+				map(currencies, currency => {
+					this.props.addCurrencyToState({ payload: currency });
+				});
+				resolve();
 			});
-			this.setState({ currencies: newCurrencyState });
-			this.setState({ firstCurrencySymbol: newCurrencyState[0].symbol });
 		});
 	}
 
@@ -57,10 +87,10 @@ class Dashboard extends Component {
 					<div className="container">
 						<div className="dashboard--container">
 							<div className="dashboard--content--chart">
-								{this.state.firstCurrencySymbol ? (
+								{this.props.firstCurrency ? (
 									<LineChart
-										symbol={this.state.firstCurrencySymbol}
-										currencies={this.state.currencies}
+										symbol={this.props.firstCurrency.symbol}
+										getCurrentCurrency={this.getCurrentCurrency}
 									/>
 								) : (
 									''
@@ -68,7 +98,7 @@ class Dashboard extends Component {
 							</div>
 							<div className="dashboard--currency">
 								<div className="dashboard--currency--container">
-									{this.state.currencies.map(currency => {
+									{this.props.currencies.map(currency => {
 										return (
 											<CurrencyStatCard
 												name={currency.name}
@@ -80,7 +110,7 @@ class Dashboard extends Component {
 									})}
 								</div>
 
-								<CurrencyPortfolio currencies={this.state.currencies} />
+								<CurrencyPortfolio currencies={this.props.currencies} />
 							</div>
 						</div>
 					</div>
@@ -90,4 +120,19 @@ class Dashboard extends Component {
 	}
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({
+	currencies: state.selectedCurrencies,
+	firstCurrency: state.selectedCurrencies[0],
+	currentCurrency: state.currentCurrency
+});
+
+const mapDispatchToProps = dispatch => ({
+	addCurrencyToState(obj) {
+		dispatch(addCurrency(obj));
+	},
+	addCurrentCurrencyToState(obj) {
+		dispatch(addCurrentCurrency(obj));
+	}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

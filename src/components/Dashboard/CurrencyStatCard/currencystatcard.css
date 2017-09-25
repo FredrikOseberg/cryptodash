@@ -31,8 +31,9 @@
 
 .currency--stat--card--price {
 	font-family: Montserrat, sans-serif;
-	font-size: 2em;
+	font-size: 1.6em;
 	color: #555598;
+	font-weight: bold;
 }
 
 .currency--stat--percentage {

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addCurrentCurrency } from '../../../actions/currentCurrency';
 import { Line } from 'react-chartjs-2';
+import timePeriodData from '../../../timePeriodData';
 import axios from 'axios';
 import './linechart.css';
 
@@ -10,40 +13,9 @@ class LineChart extends Component {
 		this.interval;
 
 		this.state = {
-			currentCurrency: this.props.currencies[0],
+			currentCurrency: this.props.currentCurrency,
 			symbol: this.props.symbol,
-			timePeriods: [
-				{
-					time: '1',
-					name: '1 D',
-					id: 1
-				},
-				{
-					time: '7',
-					name: '1 W',
-					id: 2
-				},
-				{
-					time: '30',
-					name: '1 M',
-					id: 3
-				},
-				{
-					time: '180',
-					name: '6 M',
-					id: 4
-				},
-				{
-					time: '365',
-					name: '1 Y',
-					id: 5
-				},
-				{
-					time: 'All',
-					name: 'All',
-					id: 6
-				}
-			],
+			timePeriods: timePeriodData,
 			currentTime: '30',
 			data: {
 				labels: [],
@@ -104,7 +76,14 @@ class LineChart extends Component {
 	handleCurrencyNavTypeClick(event) {
 		const symbol = event.target.dataset.symbol;
 		const newData = { ...this.state.data };
-		console.log(newData);
+
+		this.props.currencies.forEach(currency => {
+			if (currency.symbol === symbol) {
+				console.log('running');
+				this.props.getCurrentCurrency(symbol);
+			}
+		});
+
 		newData.datasets[0].label = [symbol + ' Price'];
 		this.setState({ symbol: symbol });
 		this.setState({ data: newData }, () => {
@@ -130,7 +109,7 @@ class LineChart extends Component {
 	getChartData() {
 		let timeFrame;
 		this.state.currentTime !== 'All' ? (timeFrame = `${this.state.currentTime}day/`) : (timeFrame = '');
-		const data = axios.get(`http://coincap.io/history/${timeFrame}${this.state.symbol}`).then(results => {
+		axios.get(`http://coincap.io/history/${timeFrame}${this.state.symbol}`).then(results => {
 			const newLabels = [],
 				newData = [];
 			const newState = { ...this.state.data };
@@ -154,6 +133,10 @@ class LineChart extends Component {
 	}
 
 	render() {
+		let trendingClasses;
+		this.props.currentCurrency.percentage > 0
+			? (trendingClasses = 'fa fa-line-chart trending--positive')
+			: (trendingClasses = 'fa fa-line-chart trending--negative');
 		return (
 			<div className="currency--line--chart--container">
 				<div className="currency--line--chart--header">
@@ -192,6 +175,16 @@ class LineChart extends Component {
 						})}
 					</ul>
 				</div>
+				<div className="currency--line--chart--details">
+					<div className="currency--line--chart--details--price">
+						<h3>{this.props.currentCurrency.price}</h3>
+						<p>{this.props.currentCurrency.name} Price</p>
+					</div>
+					<div className="currency--line--chart--details--trending">
+						<i className={trendingClasses} aria-hidden="true" />
+						<p>{this.props.currentCurrency.percentage}%</p>
+					</div>
+				</div>
 				<div className="currency--line--chart--wrapper">
 					<Line
 						data={this.state.data}
@@ -216,4 +209,15 @@ class LineChart extends Component {
 	}
 }
 
-export default LineChart;
+const mapStateToProps = state => ({
+	currencies: state.selectedCurrencies,
+	currentCurrency: state.currentCurrency
+});
+
+const mapDispatchToProps = dispatch => ({
+	addCurrentCurrencyToState(obj) {
+		dispatch(addCurrentCurrency(obj));
+	}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LineChart);

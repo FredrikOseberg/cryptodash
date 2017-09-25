@@ -25,7 +25,6 @@ class CurrencyCard extends Component {
 		if (this.state.activeCard) {
 			let state = store.getState(),
 				index;
-			console.log(state);
 			state.selectedCurrencies.forEach((obj, i) => {
 				if (obj.name === object.name) index = i;
 			});

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addPrice } from '../../../actions/currencies';
 import axios from 'axios';
 
 class CurrencyStatCard extends Component {
@@ -27,7 +29,13 @@ class CurrencyStatCard extends Component {
 	}
 
 	getCoinData() {
-		const data = axios.get(`http://coincap.io/page/${this.props.symbol}`).then(response => {
+		axios.get(`http://coincap.io/page/${this.props.symbol}`).then(response => {
+			this.props.addCurrencyPriceToState({
+				price: response.data.price_usd,
+				percentage: response.data.cap24hrChange,
+				symbol: response.data.id
+			});
+
 			this.setState({ price: response.data.price_usd });
 			this.setState({ percentage: response.data.cap24hrChange });
 		});
@@ -53,4 +61,10 @@ class CurrencyStatCard extends Component {
 	}
 }
 
-export default CurrencyStatCard;
+const mapDispatchToProps = dispatch => ({
+	addCurrencyPriceToState(obj) {
+		dispatch(addPrice(obj));
+	}
+});
+
+export default connect(null, mapDispatchToProps)(CurrencyStatCard);
