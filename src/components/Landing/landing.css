@@ -31,38 +31,6 @@
 	padding: 30px 20px;
 }
 
-.landing--cover--content--box--currency {
-	display: flex;
-	justify-content: space-around;
-	padding: 20px 0;
-}
-
-.landing--cover--content--box--image--container {
-	width: 180px;
-	padding: 15px 0;
-	border-radius: 3px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-}
-
-.landing--cover--content--box--image--container:hover {
-	background-color: #dadada;
-	cursor: pointer;
-}
-
-.landing--cover--content--box--image {
-	width: 100px;
-	height: 100px;
-}
-
-.landing--cover--content--box--selected--currencies {
-	align-items: center;
-	justify-content: center;
-	padding-bottom: 15px;
-}
-
 .landing--cover--content--box--button {
 	width: 80%;
 	margin: 10px auto;

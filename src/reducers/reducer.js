@@ -37,7 +37,6 @@ const selectedCurrencies = (state = [], action) => {
 const currentCurrency = (state = {}, action) => {
 	switch (action.type) {
 		case 'ADD_CURRENT_CURRENCY':
-			console.log(action);
 			return {
 				...action
 			};

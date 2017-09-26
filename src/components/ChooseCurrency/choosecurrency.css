@@ -1,0 +1,31 @@
+.choose--currency--content--box--currency {
+	display: flex;
+	justify-content: space-around;
+	padding: 20px 0;
+}
+
+.choose--currency--content--box--image--container {
+	width: 180px;
+	padding: 15px 0;
+	border-radius: 3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.choose--currency--content--box--image--container:hover {
+	background-color: #dadada;
+	cursor: pointer;
+}
+
+.choose--currency--content--box--image {
+	width: 100px;
+	height: 100px;
+}
+
+.choose--currency--content--box--selected--currencies {
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 15px;
+}

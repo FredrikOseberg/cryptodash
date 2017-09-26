@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import Header from '../Header/Header';
 import SearchCurrencies from '../SearchCurrencies/SearchCurrencies';
+import ChooseCurrency from '../ChooseCurrency/ChooseCurrency';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// Temporary importing images
-import bitcoin from '../../img/coins/bitcoin.png';
-import ether from '../../img/coins/ether.png';
 
 class Landing extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			clickedExpandBox: false,
-			selectedCurrencies: []
+			clickedExpandBox: false
 		};
 
 		this.handleClickedExpand = this.handleClickedExpand.bind(this);
@@ -24,14 +21,6 @@ class Landing extends Component {
 	}
 	render() {
 		// Adds HTML that displays how many currencies you have selected.
-		let selectedCurrenciesText;
-		if (this.props.selectedCurrencies.length > 0) {
-			selectedCurrenciesText = (
-				<div className="landing--cover--content--box--selected--currencies">
-					<p>You have selected {this.props.selectedCurrencies.length} currencies to track.</p>
-				</div>
-			);
-		}
 		return (
 			<div className="landing frontend--background">
 				<SearchCurrencies
@@ -48,33 +37,7 @@ class Landing extends Component {
 						</div>
 						<div className="landing--cover--content--box--container">
 							<div className="landing--cover--content--box">
-								<h4>Choose which currencies to track</h4>
-								{/* Refacor this */}
-								<div className="landing--cover--content--box--currency">
-									<div
-										className="landing--cover--content--box--image--container"
-										onClick={this.handleClickedExpand}
-									>
-										<img
-											src={bitcoin}
-											className="landing--cover--content--box--image"
-											alt="Bitcoin"
-										/>
-										<p>Bitcoin</p>
-									</div>
-									<div
-										className="landing--cover--content--box--image--container"
-										onClick={this.handleClickedExpand}
-									>
-										<img
-											src={ether}
-											className="landing--cover--content--box--image"
-											alt="ethereum"
-										/>
-										<p>Ethereum</p>
-									</div>
-								</div>
-								{selectedCurrenciesText}
+								<ChooseCurrency handleClickedExpand={this.handleClickedExpand} />
 								<Link to="/register">
 									<div className="landing--cover--content--box--button main-button">Continue</div>
 								</Link>

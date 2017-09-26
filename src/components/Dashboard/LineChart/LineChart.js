@@ -79,7 +79,6 @@ class LineChart extends Component {
 
 		this.props.currencies.forEach(currency => {
 			if (currency.symbol === symbol) {
-				console.log('running');
 				this.props.getCurrentCurrency(symbol);
 			}
 		});

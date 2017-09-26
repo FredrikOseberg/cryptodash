@@ -1,0 +1,54 @@
+.onboarding {
+	height: 100vh;
+}
+
+.onboarding--card {
+	border-radius: 3px;
+	background-color: #fff;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	padding: 40px;
+	text-align: center;
+	max-width: 450px;
+	min-width: 450px;
+}
+
+.onboarding--container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	color: #888;
+}
+
+.onboarding--card--header h3 {
+	color: #3e3c3c;
+}
+
+.onboarding--card--header p {
+	padding-bottom: 40px;
+}
+
+.onboarding--button {
+	margin-top: 30px;
+}
+
+.onboarding--local--currency {
+	display: flex;
+	flex-direction: column;
+}
+
+.onboarding--local--currency .fa {
+	font-size: 3em;
+	padding: 15px 0 25px 0;
+}
+
+.onboarding--select--local--currency {
+	height: 50px;
+	border: none;
+	border-radius: 3px;
+	background-color: #ededed;
+	font-family: Montserrat, sans-serif;
+	font-size: 1.1em;
+	padding: 10px;
+	margin-bottom: 20px;
+}
