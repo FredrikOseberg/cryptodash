@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database } from '../../firebase';
+import { addCurrency, clearCurrency } from '../../actions/currencies';
 import localCurrencyData from '../../localCurrencyData';
 import SearchCurrencies from '../SearchCurrencies/SearchCurrencies';
 import CryptoCurrencyStep from './CryptoCurrencyStep/CryptoCurrencyStep';
 import LocalCurrencyStep from './LocalCurrencyStep/LocalCurrencyStep';
+import WalletInfoStep from './WalletInfoStep/WalletInfoStep';
+import map from 'lodash/map';
 import './onboarding.css';
 
 // 1. If the logged in user has no currencies, choose crypto currencies.
@@ -27,15 +30,47 @@ class Onboarding extends Component {
 		this.handleCurrencySubmit = this.handleCurrencySubmit.bind(this);
 		this.handleLocalCurrencySubmit = this.handleLocalCurrencySubmit.bind(this);
 		this.handleLocalCurrencyChange = this.handleLocalCurrencyChange.bind(this);
+		this.checkFirebaseForCryptoCurrencyValue = this.checkFirebaseForCryptoCurrencyValue.bind(this);
+		this.updateSelectedCurrencies = this.updateSelectedCurrencies.bind(this);
 	}
 
 	componentDidMount() {
-		const storageLocation = database.ref('users/' + this.props.currentUser.uid);
-		storageLocation.once('value', snapshot => {
-			if (snapshot.hasChild('currencies')) {
-				this.setState({ step: 'localCurrencyStep' });
-				this.setState({ amountOfSteps: 2 });
-			}
+		this.checkFirebaseForCryptoCurrencyValue().then(() => {
+			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
+
+			storageLocation.once('value', snapshot => {
+				if (snapshot.hasChild('localCurrency')) {
+					this.setState({ step: 'walletInfoStep' });
+				}
+			});
+		});
+		this.updateSelectedCurrencies();
+	}
+
+	updateSelectedCurrencies() {
+		this.props.clearCurrenciesFromState();
+		const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
+
+		const user = this.props.currentUser;
+		storageLocation.on('value', snapshot => {
+			const currencies = snapshot.val();
+			// Lodash Object Map
+			map(currencies, currency => {
+				this.props.addCurrencyToState({ payload: currency });
+			});
+		});
+	}
+
+	checkFirebaseForCryptoCurrencyValue() {
+		return new Promise(resolve => {
+			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
+			storageLocation.once('value', snapshot => {
+				if (snapshot.hasChild('currencies')) {
+					this.setState({ step: 'localCurrencyStep' });
+					this.setState({ amountOfSteps: 2 });
+					resolve();
+				}
+			});
 		});
 	}
 
@@ -51,6 +86,8 @@ class Onboarding extends Component {
 		});
 
 		this.setState({ step: 'localCurrencyStep' });
+
+		this.updateSelectedCurrencies();
 	}
 
 	handleLocalCurrencyChange(event) {
@@ -58,7 +95,6 @@ class Onboarding extends Component {
 	}
 
 	handleLocalCurrencySubmit() {
-		console.log('running');
 		const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 
 		storageLocation.child('localCurrency').set(this.state.localCurrency);
@@ -85,6 +121,13 @@ class Onboarding extends Component {
 					currencyData={localCurrencyData}
 				/>
 			);
+		} else if (this.state.step === 'walletInfoStep') {
+			onboardingStep = (
+				<WalletInfoStep
+					currentUser={this.props.currentUser}
+					selectedCurrencies={this.props.selectedCurrencies}
+				/>
+			);
 		}
 		return (
 			<div className="onboarding">
@@ -108,4 +151,13 @@ const mapStateToProps = state => ({
 	currentUser: state.auth
 });
 
-export default connect(mapStateToProps)(Onboarding);
+const mapDispatchToProps = dispatch => ({
+	addCurrencyToState(obj) {
+		dispatch(addCurrency(obj));
+	},
+	clearCurrenciesFromState() {
+		dispatch(clearCurrency());
+	}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Onboarding);
