@@ -32,6 +32,7 @@ class Onboarding extends Component {
 		this.handleLocalCurrencyChange = this.handleLocalCurrencyChange.bind(this);
 		this.checkFirebaseForCryptoCurrencyValue = this.checkFirebaseForCryptoCurrencyValue.bind(this);
 		this.updateSelectedCurrencies = this.updateSelectedCurrencies.bind(this);
+		this.handleWalletInfoSubmit = this.handleWalletInfoSubmit.bind(this);
 	}
 
 	componentDidMount() {
@@ -40,7 +41,7 @@ class Onboarding extends Component {
 
 			storageLocation.once('value', snapshot => {
 				if (snapshot.hasChild('localCurrency')) {
-					this.setState({ step: 'walletInfoStep' });
+					this.setState({ step: 'setWalletInfoStep' });
 				}
 			});
 		});
@@ -102,6 +103,36 @@ class Onboarding extends Component {
 		this.setState({ step: 'setWalletInfoStep' });
 	}
 
+	handleWalletInfoSubmit(event) {
+		event.preventDefault();
+		// Validation
+		let validationPassed = false,
+			count = 0;
+		this.props.selectedCurrencies.forEach((currency, index) => {
+			if (currency.amount && currency.wallet) {
+				count += 1;
+			}
+			if (count === this.props.selectedCurrencies.length) {
+				validationPassed = true;
+			}
+		});
+
+		if (validationPassed) {
+			const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
+
+			this.props.selectedCurrencies.forEach(currency => {
+				storageLocation.child(currency.symbol).set(currency);
+			});
+
+			const userStorageLocation = database.ref('users/' + this.props.currentUser.uid);
+			userStorageLocation.child('completedOnboarding').set(true);
+
+			window.location.replace('/');
+		} else {
+			// Add error message to state and display it
+		}
+	}
+
 	render() {
 		let onboardingStep;
 		if (this.state.step === 'cryptoCurrencyStep') {
@@ -121,11 +152,12 @@ class Onboarding extends Component {
 					currencyData={localCurrencyData}
 				/>
 			);
-		} else if (this.state.step === 'walletInfoStep') {
+		} else if (this.state.step === 'setWalletInfoStep') {
 			onboardingStep = (
 				<WalletInfoStep
 					currentUser={this.props.currentUser}
 					selectedCurrencies={this.props.selectedCurrencies}
+					handleWalletInfoSubmit={this.handleWalletInfoSubmit}
 				/>
 			);
 		}

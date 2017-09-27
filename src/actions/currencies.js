@@ -24,6 +24,22 @@ export const addPrice = obj => {
 	};
 };
 
+export const addAmountToCurrency = obj => {
+	return {
+		type: 'ADD_AMOUNT_TO_CURRENCY',
+		amount: obj.amount,
+		symbol: obj.symbol
+	};
+};
+
+export const addWalletInfoToCurrency = obj => {
+	return {
+		type: 'ADD_WALLET_INFO_TO_CURRENCY',
+		wallet: obj.wallet,
+		symbol: obj.symbol
+	};
+};
+
 export const clearCurrency = () => {
 	return {
 		type: 'CLEAR_CURRENCY'

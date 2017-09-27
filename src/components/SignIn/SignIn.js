@@ -73,21 +73,21 @@ class SignIn extends Component {
 			emailClasses,
 			emailErrorMarkup;
 		if (emailErrMessage) {
-			emailClasses = 'auth--input auth--input--error';
-			emailErrorMarkup = <span className="auth--input--error--message">{emailErrMessage}</span>;
+			emailClasses = 'main--input main--input--error';
+			emailErrorMarkup = <span className="main--input--error--message">{emailErrMessage}</span>;
 		} else {
-			emailClasses = 'auth--input';
+			emailClasses = 'main--input';
 		}
 		// Set firebase error messaage if there are any
 		let firebaseErrMessage = this.state.firebaseError,
 			firebaseErrMarkup,
 			passwordClasses;
 		if (firebaseErrMessage) {
-			firebaseErrMarkup = <span className="auth--input--error--message">{firebaseErrMessage}</span>;
-			passwordClasses = 'auth--input auth--input--error';
+			firebaseErrMarkup = <span className="main--input--error--message">{firebaseErrMessage}</span>;
+			passwordClasses = 'main--input main--input--error';
 		} else {
 			firebaseErrMarkup = '';
-			passwordClasses = 'auth--input';
+			passwordClasses = 'main--input';
 		}
 		return (
 			<div className="frontend--background">

@@ -1,4 +1,5 @@
 import React from 'react';
+import OnboardingInputField from './OnboardingInputField/OnboardingInputField';
 
 const WalletInfoStep = props => (
 	<div className="onboarding--card wallet--info--card">
@@ -19,27 +20,21 @@ const WalletInfoStep = props => (
 			<form>
 				{props.selectedCurrencies.map(currency => {
 					return (
-						<div className="onboarding--coin--wallet--info" key={currency.id}>
-							<div className="onboarding--coin--img">
-								<p>{currency.name}</p>
-								<img src={currency.img} alt={currency.name} />
-							</div>
-							<input
-								type="text"
-								className="auth--input onboarding--wallet--input--coin"
-								name={`${currency.name}--amount`}
-							/>
-							<input
-								type="text"
-								className="auth--input onboarding--wallet--input--address"
-								name={`${currency.name}--address`}
-							/>
-						</div>
+						<OnboardingInputField
+							name={currency.name}
+							img={currency.img}
+							key={currency.id}
+							symbol={currency.symbol}
+						/>
 					);
 				})}
 				<div className="onboarding--wallet--buttons--container">
 					<div className="onboarding--wallet--skip--button">I'll do this later</div>
-					<button type="submit" className="main-button onboarding--finish--button">
+					<button
+						type="submit"
+						onClick={props.handleWalletInfoSubmit}
+						className="main-button onboarding--finish--button"
+					>
 						Finish
 					</button>
 				</div>

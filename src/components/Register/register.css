@@ -50,33 +50,12 @@
 	margin: 8px 0;
 }
 
-.auth--input {
-	padding: 13px;
-	font-size: 1.2em;
-	margin: 10px 0;
-	border-radius: 3px;
-	border: 2px solid #ededed;
-	transition: all 0.4s ease;
-	background-color: #ededed;
-	outline: none;
-}
-
-.auth--input--error {
-	border-bottom: 2px solid #ff6262;
-}
-
-.auth--input--error--message {
-	transition: all 0.4s ease;
-	color: #ff6262;
-	padding: 5px 0;
-}
-
-.auth--input:focus {
-	border-bottom: 2px solid rgba(38, 38, 97, 1);
-}
-
 .auth--button {
 	width: 100%;
 	font-family: Raleway, sans-serif;
 	margin-top: 20px;
+}
+
+.register--alternative--signup {
+	display: flex;
 }
