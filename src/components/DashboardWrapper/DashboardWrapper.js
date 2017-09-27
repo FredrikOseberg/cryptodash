@@ -4,6 +4,7 @@ import { database } from '../../firebase';
 import Landing from '../../components/Landing/Landing';
 import Onboarding from '../../components/Onboarding/Onboarding';
 import Dashboard from '../../components/Dashboard/Dashboard';
+import store from '../../store/store';
 
 class DashboardWrapper extends Component {
 	constructor(props) {

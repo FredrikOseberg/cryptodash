@@ -20,20 +20,24 @@ class Dashboard extends Component {
 
 		this.state = {
 			loading: true,
-			showDashboard: false
+			showDashboard: false,
+			firstload: true
 		};
 
 		this.addCurrenciesToState = this.addCurrenciesToState.bind(this);
 		this.getCurrentCurrency = this.getCurrentCurrency.bind(this);
 	}
 	componentDidMount() {
-		this.props.clearCurrencyFromState();
-		this.addCurrenciesToState().then(() => {
-			this.getCurrentCurrency(this.props.currencies[0].symbol);
-			this.interval = setInterval(() => {
-				this.getCurrentCurrency(this.props.currentCurrency.symbol);
-			}, 5000);
-		});
+		if (this.state.firstload) {
+			this.props.clearCurrencyFromState();
+			this.addCurrenciesToState().then(() => {
+				this.getCurrentCurrency(this.props.currencies[0].symbol);
+				this.interval = setInterval(() => {
+					this.getCurrentCurrency(this.props.currentCurrency.symbol);
+				}, 5000);
+				this.setState({ firstload: false });
+			});
+		}
 	}
 
 	componentWillUnmount() {

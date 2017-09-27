@@ -24,7 +24,9 @@ class Onboarding extends Component {
 			clickedExpandBox: false,
 			amountOfSteps: 3,
 			step: 'cryptoCurrencyStep',
-			localCurrency: 'AUD'
+			localCurrency: 'AUD',
+			loading: true,
+			showStep: false
 		};
 
 		this.handleClickedExpand = this.handleClickedExpand.bind(this);
@@ -41,6 +43,8 @@ class Onboarding extends Component {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 
 			storageLocation.once('value', snapshot => {
+				this.setState({ loading: false });
+				this.setState({ showStep: true });
 				if (snapshot.hasChild('localCurrency')) {
 					this.setState({ step: 'setWalletInfoStep' });
 				}
@@ -130,15 +134,13 @@ class Onboarding extends Component {
 			userStorageLocation.child('completedOnboarding').set(true);
 
 			this.props.clearCurrenciesFromState();
-
-			window.location.replace('/');
 		} else {
 			// Add error message to state and display it
 		}
 	}
 
 	render() {
-		let onboardingStep, markup;
+		let onboardingStep;
 		const loading = <Loading />;
 		if (this.state.step === 'cryptoCurrencyStep') {
 			onboardingStep = (
@@ -166,12 +168,12 @@ class Onboarding extends Component {
 				/>
 			);
 		}
-		markup = onboardingStep;
 		return (
 			<div className="onboarding">
 				<div className="frontend--background">
 					<div className="onboarding--container">
-						{markup}
+						{this.state.loading && loading}
+						{this.state.showStep && onboardingStep}
 						<SearchCurrencies
 							data={this.props.data}
 							showSearch={this.state.clickedExpandBox}
