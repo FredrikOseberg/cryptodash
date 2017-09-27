@@ -24,7 +24,6 @@ class SocialLoginWrapper extends Component {
 		};
 	}
 	actionAfterSignin(result) {
-		console.log('running');
 		return new Promise(resolve => {
 			const uniqueId = result.user.uid;
 			this.userHasCurrencies(uniqueId, resolve);
@@ -51,7 +50,6 @@ class SocialLoginWrapper extends Component {
 	}
 
 	render() {
-		console.log(this.props);
 		const handleGithubAuth = this.handleSocialAuth(githubAuthProvider);
 		const handleGoogleAuth = this.handleSocialAuth(googleAuthProvider);
 		const handleFacebookAuth = this.handleSocialAuth(facebookAuthProvider);

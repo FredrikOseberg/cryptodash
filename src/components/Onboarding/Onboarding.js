@@ -42,7 +42,7 @@ class Onboarding extends Component {
 		this.checkFirebaseForCryptoCurrencyValue().then(() => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 
-			storageLocation.once('value', snapshot => {
+			storageLocation.on('value', snapshot => {
 				this.setState({ loading: false });
 				this.setState({ showStep: true });
 				if (snapshot.hasChild('localCurrency')) {

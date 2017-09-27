@@ -11,7 +11,9 @@ const CurrencyPortfolio = props => (
 					<li className="currency--portfolio--item" key={currency.id}>
 						<img src={currency.img} alt={currency.name} />
 						<p>{currency.name}</p>
-						<p>{currency.amount}</p>
+						<p>
+							{currency.amount} {currency.symbol}
+						</p>
 						<p className="currency--portfolio--item--value">
 							NOK {(currency.amount * currency.price).toFixed(2)}
 						</p>
