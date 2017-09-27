@@ -131,7 +131,7 @@ class Dashboard extends Component {
 			</div>
 		);
 		return (
-			<div>
+			<div className="dashboard--outer--container">
 				{this.state.loading && <Loading />}
 				{this.state.showDashboard && dashboard}
 			</div>

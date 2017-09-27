@@ -123,7 +123,6 @@ class Onboarding extends Component {
 		});
 
 		if (validationPassed) {
-			debugger;
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
 
 			this.props.selectedCurrencies.forEach(currency => {

@@ -96,7 +96,8 @@ class Register extends Component {
 
 					this.setState({ email: '' });
 					this.setState({ password: '' });
-					window.location.replace('/');
+
+					this.props.history.push('/');
 				})
 				.catch(error => {
 					let errorMessage;
@@ -206,7 +207,7 @@ class Register extends Component {
 									</button>
 								</div>
 								<p>Or sign in with these</p>
-								<SocialLoginWrapper handleError={this.handleSocialError} />
+								<SocialLoginWrapper handleError={this.handleSocialError} history={this.props.history} />
 							</form>
 						</div>
 					</div>

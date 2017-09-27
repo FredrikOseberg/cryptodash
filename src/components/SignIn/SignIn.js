@@ -59,7 +59,7 @@ class SignIn extends Component {
 				.signInWithEmailAndPassword(email, password)
 				.then(user => {
 					this.setState({ firebaseError: '' });
-					window.location.replace('/');
+					this.props.history.push('/');
 				})
 				.catch(error => {
 					const errorMessage = error.message;
@@ -128,7 +128,7 @@ class SignIn extends Component {
 									</button>
 								</div>
 								<p>Or sign in with these</p>
-								<SocialLoginWrapper handleError={this.handleSocialError} />
+								<SocialLoginWrapper handleError={this.handleSocialError} history={this.props.history} />
 							</form>
 						</div>
 					</div>

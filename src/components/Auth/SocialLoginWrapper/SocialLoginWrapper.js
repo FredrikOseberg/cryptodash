@@ -14,25 +14,21 @@ class SocialLoginWrapper extends Component {
 		this.handleSocialAuth = this.handleSocialAuth.bind(this);
 		this.actionAfterSignin = this.actionAfterSignin.bind(this);
 		this.userHasCurrencies = this.userHasCurrencies.bind(this);
-		this.redirectToDashboard = this.redirectToDashboard.bind(this);
 	}
 	handleSocialAuth(provider) {
 		return () => {
 			auth
 				.signInWithPopup(provider)
 				.then(result => this.actionAfterSignin(result))
-				.then(() => this.redirectToDashboard())
 				.catch(error => this.props.handleError(error));
 		};
 	}
-	redirectToDashboard() {
-		window.location.replace('/');
-		this.props.clearCurrency();
-	}
 	actionAfterSignin(result) {
+		console.log('running');
 		return new Promise(resolve => {
 			const uniqueId = result.user.uid;
 			this.userHasCurrencies(uniqueId, resolve);
+			this.props.history.push('/');
 		});
 	}
 	addCurrenciesToUser(uid, resolve) {
@@ -41,6 +37,7 @@ class SocialLoginWrapper extends Component {
 		this.props.selectedCurrencies.forEach(currency => {
 			storageLocation.child(currency.symbol).set(currency);
 		});
+		this.props.clearCurrencyState();
 
 		resolve();
 	}
@@ -54,6 +51,7 @@ class SocialLoginWrapper extends Component {
 	}
 
 	render() {
+		console.log(this.props);
 		const handleGithubAuth = this.handleSocialAuth(githubAuthProvider);
 		const handleGoogleAuth = this.handleSocialAuth(googleAuthProvider);
 		const handleFacebookAuth = this.handleSocialAuth(facebookAuthProvider);
