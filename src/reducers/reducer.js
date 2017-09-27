@@ -12,7 +12,9 @@ const selectedCurrencies = (state = [], action) => {
 					name: action.name,
 					id: action.id,
 					img: action.img,
-					symbol: action.symbol
+					symbol: action.symbol,
+					amount: action.amount || null,
+					wallet: action.wallet || null
 				}
 			];
 		case 'REMOVE_CURRENCY':

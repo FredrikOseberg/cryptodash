@@ -2,25 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { database, auth } from '../../firebase';
-import { addCurrency } from '../../actions/currencies';
+import { addCurrency, clearCurrency } from '../../actions/currencies';
 import { addCurrentCurrency } from '../../actions/currentCurrency';
 import CurrencyStatCard from './CurrencyStatCard/CurrencyStatCard';
 import CurrencyPortfolio from './CurrencyPortfolio/CurrencyPortfolio';
 import Header from '../Header/Header';
 import LineChart from './LineChart/LineChart';
+import Loading from '../Loading/Loading';
 import map from 'lodash/map';
 
 class Dashboard extends Component {
 	// Get the users currencies from the database and save it to component state
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.interval;
+
+		this.state = {
+			loading: true,
+			showDashboard: false
+		};
 
 		this.addCurrenciesToState = this.addCurrenciesToState.bind(this);
 		this.getCurrentCurrency = this.getCurrentCurrency.bind(this);
 	}
 	componentDidMount() {
+		this.props.clearCurrencyFromState();
 		this.addCurrenciesToState().then(() => {
 			this.getCurrentCurrency(this.props.currencies[0].symbol);
 			this.interval = setInterval(() => {
@@ -35,6 +42,8 @@ class Dashboard extends Component {
 
 	getCurrentCurrency(symbol) {
 		axios.get(`http://coincap.io/page/${symbol}`).then(response => {
+			this.setState({ loading: false });
+			this.setState({ showDashboard: true });
 			const obj = {
 				name: response.data.display_name,
 				price: response.data.price_usd,
@@ -62,7 +71,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		return (
+		const dashboard = (
 			<div className="dashboard">
 				<Header />
 				<div className="dashboard--navigation">
@@ -117,6 +126,12 @@ class Dashboard extends Component {
 				</div>
 			</div>
 		);
+		return (
+			<div>
+				{this.state.loading && <Loading />}
+				{this.state.showDashboard && dashboard}
+			</div>
+		);
 	}
 }
 
@@ -132,6 +147,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	addCurrentCurrencyToState(obj) {
 		dispatch(addCurrentCurrency(obj));
+	},
+	clearCurrencyFromState() {
+		dispatch(clearCurrency());
 	}
 });
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database } from '../../firebase';
 import { addCurrency, clearCurrency } from '../../actions/currencies';
+import Loading from '../Loading/Loading';
 import localCurrencyData from '../../localCurrencyData';
 import SearchCurrencies from '../SearchCurrencies/SearchCurrencies';
 import CryptoCurrencyStep from './CryptoCurrencyStep/CryptoCurrencyStep';
@@ -118,6 +119,7 @@ class Onboarding extends Component {
 		});
 
 		if (validationPassed) {
+			debugger;
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
 
 			this.props.selectedCurrencies.forEach(currency => {
@@ -127,6 +129,8 @@ class Onboarding extends Component {
 			const userStorageLocation = database.ref('users/' + this.props.currentUser.uid);
 			userStorageLocation.child('completedOnboarding').set(true);
 
+			this.props.clearCurrenciesFromState();
+
 			window.location.replace('/');
 		} else {
 			// Add error message to state and display it
@@ -134,7 +138,8 @@ class Onboarding extends Component {
 	}
 
 	render() {
-		let onboardingStep;
+		let onboardingStep, markup;
+		const loading = <Loading />;
 		if (this.state.step === 'cryptoCurrencyStep') {
 			onboardingStep = (
 				<CryptoCurrencyStep
@@ -161,11 +166,12 @@ class Onboarding extends Component {
 				/>
 			);
 		}
+		markup = onboardingStep;
 		return (
 			<div className="onboarding">
 				<div className="frontend--background">
 					<div className="onboarding--container">
-						{onboardingStep}
+						{markup}
 						<SearchCurrencies
 							data={this.props.data}
 							showSearch={this.state.clickedExpandBox}

@@ -10,32 +10,37 @@ class DashboardWrapper extends Component {
 		super(props);
 
 		this.state = {
-			showOnboarding: true
+			showOnboarding: false,
+			showDashboard: false,
+			showLanding: false
 		};
 	}
 	componentDidMount() {
 		const storageLocation = database.ref('users/' + this.props.currentUser.uid);
-		console.log(this.props.currentUser);
 		storageLocation.on('value', snapshot => {
 			if (snapshot.hasChild('completedOnboarding')) {
 				this.setState({ showOnboarding: false });
+				this.setState({ showDashboard: true });
+			} else {
+				this.setState({ showOnboarding: true });
 			}
 		});
+
+		const signedIn = this.props.currentUser.status === 'SIGNED_IN';
+
+		if (!signedIn) {
+			this.setState({ showLanding: true });
+		}
 	}
 
 	render() {
-		let landingComponent;
-		const signedIn = this.props.currentUser.status === 'SIGNED_IN';
-		if (signedIn) {
-			if (this.state.showOnboarding) {
-				landingComponent = <Onboarding data={this.props.coinData} />;
-			} else {
-				landingComponent = <Dashboard />;
-			}
-		} else {
-			landingComponent = <Landing data={this.props.coinData} />;
-		}
-		return <div className="dashboard--wrapper">{landingComponent}</div>;
+		return (
+			<div className="dashboard--wrapper">
+				{this.state.showOnboarding && <Onboarding data={this.props.coinData} />}
+				{this.state.showDashboard && <Dashboard />}
+				{this.state.showLanding && <Landing data={this.props.coinData} />}
+			</div>
+		);
 	}
 }
 

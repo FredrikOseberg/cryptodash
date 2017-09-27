@@ -4,7 +4,9 @@ export const addCurrency = obj => {
 		name: obj.payload.name,
 		id: obj.payload.id,
 		img: obj.payload.img,
-		symbol: obj.payload.symbol
+		symbol: obj.payload.symbol,
+		amount: obj.payload.amount || null,
+		wallet: obj.payload.wallet || null
 	};
 };
 
