@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database } from '../../firebase';
+import { addLocalCurrency } from '../../actions/localCurrency';
+import axios from 'axios';
 import Loading from '../Loading/Loading';
 import Landing from '../../components/Landing/Landing';
 import Onboarding from '../../components/Onboarding/Onboarding';
@@ -14,8 +16,8 @@ class DashboardWrapper extends Component {
 		this.state = {
 			showOnboarding: false,
 			showDashboard: false,
-			showLanding: false
-			// showLoading: true
+			showLanding: false,
+			showLoading: true
 		};
 	}
 	componentDidMount() {
@@ -29,6 +31,15 @@ class DashboardWrapper extends Component {
 				} else {
 					this.setState({ showOnboarding: true });
 					this.setState({ showLoading: false });
+				}
+
+				if (snapshot.hasChild('localCurrency')) {
+					console.log('running');
+					const localCurrency = snapshot.child('localCurrency').val();
+					axios.get(`http://api.fixer.io/latest?base=USD`).then(response => {
+						const rateComparedToUsd = response.data.rates[localCurrency];
+						this.props.addLocalCurrencyToState({ currency: localCurrency, rate: rateComparedToUsd });
+					});
 				}
 			});
 		}
@@ -51,14 +62,21 @@ class DashboardWrapper extends Component {
 				{this.state.showOnboarding && <Onboarding data={this.props.coinData} />}
 				{this.state.showDashboard && <Dashboard />}
 				{this.state.showLanding && <Landing data={this.props.coinData} />}
-				{/*	{this.state.showLoading && <Loading />} */}
+				{this.state.showLoading && <Loading />}
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = state => ({
-	currentUser: state.auth
+	currentUser: state.auth,
+	localCurrency: state.localCurrency
 });
 
-export default connect(mapStateToProps)(DashboardWrapper);
+const mapDispatchToProps = dispatch => ({
+	addLocalCurrencyToState(obj) {
+		dispatch(addLocalCurrency(obj));
+	}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardWrapper);

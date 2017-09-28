@@ -6,7 +6,7 @@ import App from './App';
 import store from './store/store';
 import registerServiceWorker from './registerServiceWorker';
 
-import { startListeningToAuthChanges } from './actions/auth';
+import { startListeningToAuthChanges } from './listeners/authListeners';
 
 // Add async capabilities
 store.dispatch(startListeningToAuthChanges());

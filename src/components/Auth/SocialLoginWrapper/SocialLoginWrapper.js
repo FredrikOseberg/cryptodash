@@ -27,7 +27,6 @@ class SocialLoginWrapper extends Component {
 		return new Promise(resolve => {
 			const uniqueId = result.user.uid;
 			this.userHasCurrencies(uniqueId, resolve);
-			this.props.history.push('/');
 		});
 	}
 	addCurrenciesToUser(uid, resolve) {
@@ -36,7 +35,9 @@ class SocialLoginWrapper extends Component {
 		this.props.selectedCurrencies.forEach(currency => {
 			storageLocation.child(currency.symbol).set(currency);
 		});
+
 		this.props.clearCurrencyState();
+		this.props.history.push('/');
 
 		resolve();
 	}
@@ -45,6 +46,8 @@ class SocialLoginWrapper extends Component {
 		storageLocation.once('value', snapshot => {
 			if (!snapshot.hasChild('currencies')) {
 				this.addCurrenciesToUser(uid, resolve);
+			} else {
+				this.props.history.push('/');
 			}
 		});
 	}

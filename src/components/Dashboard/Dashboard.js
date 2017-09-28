@@ -142,7 +142,8 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
 	currencies: state.selectedCurrencies,
 	firstCurrency: state.selectedCurrencies[0],
-	currentCurrency: state.currentCurrency
+	currentCurrency: state.currentCurrency,
+	localCurrency: state.localCurrency
 });
 
 const mapDispatchToProps = dispatch => ({

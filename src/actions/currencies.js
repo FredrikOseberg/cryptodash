@@ -1,3 +1,5 @@
+import { convertPriceToLocalCurrency } from '../common/helpers';
+
 export const addCurrency = obj => {
 	return {
 		type: 'ADD_CURRENCY',
@@ -20,7 +22,7 @@ export const removeCurrency = index => {
 export const addPrice = obj => {
 	return {
 		type: 'ADD_PRICE',
-		price: obj.price,
+		price: convertPriceToLocalCurrency(obj.price),
 		percentage: obj.percentage,
 		symbol: obj.symbol
 	};

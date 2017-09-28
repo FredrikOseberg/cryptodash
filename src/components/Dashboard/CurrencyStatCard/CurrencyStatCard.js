@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addPrice } from '../../../actions/currencies';
+import { convertPriceToLocalCurrency } from '../../../common/helpers';
 import axios from 'axios';
 
 class CurrencyStatCard extends Component {
@@ -36,7 +37,7 @@ class CurrencyStatCard extends Component {
 				symbol: response.data.id
 			});
 
-			this.setState({ price: response.data.price_usd });
+			this.setState({ price: convertPriceToLocalCurrency(response.data.price_usd) });
 			this.setState({ percentage: response.data.cap24hrChange });
 		});
 	}
@@ -55,7 +56,9 @@ class CurrencyStatCard extends Component {
 						%24hr: <span className={percentageClasses}>{this.state.percentage}%</span>
 					</p>
 				</div>
-				<span className="currency--stat--card--price">{this.state.price.toFixed(2)}</span>
+				<span className="currency--stat--card--price">
+					{this.state.price} {this.props.localCurrency.currency}
+				</span>
 			</div>
 		);
 	}
@@ -67,4 +70,8 @@ const mapDispatchToProps = dispatch => ({
 	}
 });
 
-export default connect(null, mapDispatchToProps)(CurrencyStatCard);
+const mapStateToProps = state => ({
+	localCurrency: state.localCurrency
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencyStatCard);

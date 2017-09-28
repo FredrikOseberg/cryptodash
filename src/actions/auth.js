@@ -1,5 +1,3 @@
-import { auth } from '../firebase';
-
 export const signIn = user => {
 	return {
 		type: 'SIGN_IN',
@@ -20,14 +18,3 @@ export const signOut = () => {
 	};
 };
 
-export const startListeningToAuthChanges = () => {
-	return dispatch => {
-		auth.onAuthStateChanged(user => {
-			if (user) {
-				dispatch(signIn(user));
-			} else {
-				dispatch(signOut());
-			}
-		});
-	};
-};

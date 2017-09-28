@@ -176,7 +176,9 @@ class LineChart extends Component {
 				</div>
 				<div className="currency--line--chart--details">
 					<div className="currency--line--chart--details--price">
-						<h3>{this.props.currentCurrency.price}</h3>
+						<h3>
+							{this.props.currentCurrency.price} {this.props.localCurrency.currency}
+						</h3>
 						<p>{this.props.currentCurrency.name} Price</p>
 					</div>
 					<div className="currency--line--chart--details--trending">
@@ -210,7 +212,8 @@ class LineChart extends Component {
 
 const mapStateToProps = state => ({
 	currencies: state.selectedCurrencies,
-	currentCurrency: state.currentCurrency
+	currentCurrency: state.currentCurrency,
+	localCurrency: state.localCurrency
 });
 
 const mapDispatchToProps = dispatch => ({
