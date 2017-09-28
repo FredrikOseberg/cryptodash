@@ -57,7 +57,7 @@ class CurrencyStatCard extends Component {
 					</p>
 				</div>
 				<span className="currency--stat--card--price">
-					{this.state.price} {this.props.localCurrency.currency}
+					{this.state.price} <span className="currency--postfix">{this.props.localCurrency.currency}</span>
 				</span>
 			</div>
 		);

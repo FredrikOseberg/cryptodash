@@ -33,12 +33,13 @@ class CurrencyPortfolio extends Component {
 						return (
 							<li className="currency--portfolio--item" key={currency.id}>
 								<img src={currency.img} alt={currency.name} />
-								<p>{currency.name}</p>
+								<p className="currency--portfolio--item--name">{currency.name}</p>
 								<p>
 									{currency.amount} {currency.symbol}
 								</p>
 								<p className="currency--portfolio--item--value">
-									{(currency.amount * currency.price).toFixed(2)} {this.props.localCurrency.currency}
+									{(currency.amount * currency.price).toFixed(2)}{' '}
+									<span className="currency--postfix">{this.props.localCurrency.currency}</span>
 								</p>
 							</li>
 						);

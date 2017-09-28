@@ -58,6 +58,11 @@
   cursor: pointer;
 }
 
+.currency--postfix {
+  font-size: 1rem;
+  margin-left: 2px;
+}
+
 .container {
   width: 80%;
   margin: 0 auto;

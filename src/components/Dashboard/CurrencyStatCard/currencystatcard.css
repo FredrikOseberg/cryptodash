@@ -34,6 +34,11 @@
 	font-size: 1.6em;
 	color: #555598;
 	font-weight: bold;
+	display: flex;
+}
+
+.currency--stat--card--price--postfix {
+	font-size: 1rem;
 }
 
 .currency--stat--percentage {

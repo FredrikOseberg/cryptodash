@@ -5,6 +5,7 @@ import coinData from './coinData';
 import DashboardWrapper from './components/DashboardWrapper/DashboardWrapper';
 import Register from './components/Register/Register';
 import SignIn from './components/SignIn/SignIn';
+import ViewAllCurrencies from './components/ViewAllCurrencies/ViewAllCurrencies';
 import './App.css';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
                     <Route exact path="/" component={props => <DashboardWrapper coinData={coinData} />} />
                     <Route path="/register" component={Register} />
                     <Route path="/signin" component={SignIn} />
+                    <Route path="/all" component={ViewAllCurrencies} />
                 </Switch>
             </BrowserRouter>
         );

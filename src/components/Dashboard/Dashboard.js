@@ -9,6 +9,8 @@ import CurrencyPortfolio from './CurrencyPortfolio/CurrencyPortfolio';
 import Header from '../Header/Header';
 import LineChart from './LineChart/LineChart';
 import Loading from '../Loading/Loading';
+import ViewAllCurrencies from '../ViewAllCurrencies/ViewAllCurrencies';
+import DashboardMainPage from './DashboardMainPage/DashboardMainPage';
 import map from 'lodash/map';
 
 class Dashboard extends Component {
@@ -21,6 +23,8 @@ class Dashboard extends Component {
 		this.state = {
 			loading: true,
 			showDashboard: false,
+			showDashboardMainPage: false,
+			showAllCurrencies: true,
 			firstload: true
 		};
 
@@ -63,7 +67,7 @@ class Dashboard extends Component {
 		return new Promise(resolve => {
 			const user = auth.currentUser;
 			const databaseRef = database.ref('users/' + user.uid + '/currencies');
-			databaseRef.on('value', snapshot => {
+			databaseRef.once('value', snapshot => {
 				const currencies = snapshot.val();
 				// Lodash Object Map
 				map(currencies, currency => {
@@ -99,32 +103,10 @@ class Dashboard extends Component {
 				<div className="dashboard--content">
 					<div className="container">
 						<div className="dashboard--container">
-							<div className="dashboard--content--chart">
-								{this.props.firstCurrency ? (
-									<LineChart
-										symbol={this.props.firstCurrency.symbol}
-										getCurrentCurrency={this.getCurrentCurrency}
-									/>
-								) : (
-									''
-								)}
-							</div>
-							<div className="dashboard--currency">
-								<div className="dashboard--currency--container">
-									{this.props.currencies.map(currency => {
-										return (
-											<CurrencyStatCard
-												name={currency.name}
-												img={currency.img}
-												key={currency.id}
-												symbol={currency.symbol}
-											/>
-										);
-									})}
-								</div>
-
-								<CurrencyPortfolio currencies={this.props.currencies} />
-							</div>
+							{this.state.showDashboardMainPage && (
+								<DashboardMainPage getCurrentCurrency={this.getCurrentCurrency} />
+							)}
+							{this.state.showAllCurrencies && <ViewAllCurrencies />}
 						</div>
 					</div>
 				</div>

@@ -34,7 +34,6 @@ class DashboardWrapper extends Component {
 				}
 
 				if (snapshot.hasChild('localCurrency')) {
-					console.log('running');
 					const localCurrency = snapshot.child('localCurrency').val();
 					axios.get(`http://api.fixer.io/latest?base=USD`).then(response => {
 						const rateComparedToUsd = response.data.rates[localCurrency];

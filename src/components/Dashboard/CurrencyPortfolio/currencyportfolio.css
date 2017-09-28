@@ -42,6 +42,7 @@
 	font-family: Montserrat, sans-serif;
 	font-size: 1.2em;
 	color: #8dff85;
+	display: flex;
 }
 
 .currency--total--value {

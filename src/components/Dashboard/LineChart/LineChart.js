@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addCurrentCurrency } from '../../../actions/currentCurrency';
+import { convertPriceToLocalCurrency } from '../../../common/helpers';
 import { Line } from 'react-chartjs-2';
 import timePeriodData from '../../../timePeriodData';
 import axios from 'axios';
@@ -114,8 +115,8 @@ class LineChart extends Component {
 			const newState = { ...this.state.data };
 			results.data.price.forEach(result => {
 				const date = new Date(result[0]);
-				const price = result[1];
-
+				const price = convertPriceToLocalCurrency(result[1]);
+				console.log(price);
 				newLabels.push(this.formatDate(date));
 				newData.push(price);
 			});
