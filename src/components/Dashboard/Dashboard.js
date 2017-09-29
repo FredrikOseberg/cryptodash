@@ -25,11 +25,19 @@ class Dashboard extends Component {
 			showDashboard: false,
 			showDashboardMainPage: false,
 			showAllCurrencies: true,
-			firstload: true
+			firstload: true,
+			dashboardPage: 'Allcoins',
+			dashboardPages: [
+				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
+				{ name: 'Exchange', icon: 'fa fa-exchange' },
+				{ name: 'Settings', icon: 'fa fa-cog' },
+				{ name: 'Allcoins', icon: 'fa fa-circle' }
+			]
 		};
 
 		this.addCurrenciesToState = this.addCurrenciesToState.bind(this);
 		this.getCurrentCurrency = this.getCurrentCurrency.bind(this);
+		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
 	}
 	componentDidMount() {
 		if (this.state.firstload) {
@@ -78,35 +86,63 @@ class Dashboard extends Component {
 		});
 	}
 
+	handleDashboardNavClick(event) {
+		const li = event.currentTarget;
+		switch (li.dataset.target) {
+			case 'Dashboard':
+				this.setState({ dashboardPage: 'Dashboard' });
+				break;
+			case 'Exchange':
+				this.setState({ dashboardPage: 'Exchange' });
+				break;
+			case 'Settings':
+				this.setState({ dashboardPage: 'Settings' });
+				break;
+			case 'Allcoins':
+				this.setState({ dashboardPage: 'Allcoins' });
+				break;
+			default:
+				this.setState({ dashboardPage: 'Dashboard' });
+		}
+	}
+
 	render() {
+		const showDashboard = this.state.dashboardPage === 'Dashboard';
+		const showAllCoins = this.state.dashboardPage === 'Allcoins';
+		const showExchange = this.state.dashboardPage === 'Exchange';
+		const showSettings = this.state.dashboardPage === 'Settings';
+
 		const dashboard = (
 			<div className="dashboard">
 				<Header />
 				<div className="dashboard--navigation">
 					<div className="container dashboard--container">
 						<ul className="dashboard--navigation--list">
-							<li className="dashboard--navigation--list--active">
-								<i className="fa fa-tachometer" aria-hidden="true" />
-								<p>Dashboard</p>
-							</li>
-							<li>
-								<i className="fa fa-exchange" aria-hidden="true" />
-								<p>Exchange</p>
-							</li>
-							<li>
-								<i className="fa fa-cog" aria-hidden="true" />
-								<p>Settings</p>
-							</li>
+							{this.state.dashboardPages.map(page => {
+								let navClasses;
+								this.state.dashboardPage === page.name
+									? (navClasses = 'dashboard--navigation--list--active')
+									: (navClasses = '');
+								return (
+									<li
+										data-target={page.name}
+										onClick={this.handleDashboardNavClick}
+										key={page.icon}
+										className={navClasses}
+									>
+										<i className={page.icon} aria-hidden="true" />
+										<p>{page.name}</p>
+									</li>
+								);
+							})}
 						</ul>
 					</div>
 				</div>
 				<div className="dashboard--content">
 					<div className="container">
 						<div className="dashboard--container">
-							{this.state.showDashboardMainPage && (
-								<DashboardMainPage getCurrentCurrency={this.getCurrentCurrency} />
-							)}
-							{this.state.showAllCurrencies && <ViewAllCurrencies />}
+							{showDashboard && <DashboardMainPage getCurrentCurrency={this.getCurrentCurrency} />}
+							{showAllCoins && <ViewAllCurrencies />}
 						</div>
 					</div>
 				</div>

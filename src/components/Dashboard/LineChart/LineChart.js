@@ -116,7 +116,6 @@ class LineChart extends Component {
 			results.data.price.forEach(result => {
 				const date = new Date(result[0]);
 				const price = convertPriceToLocalCurrency(result[1]);
-				console.log(price);
 				newLabels.push(this.formatDate(date));
 				newData.push(price);
 			});
