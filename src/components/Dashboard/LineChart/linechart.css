@@ -23,6 +23,11 @@
 	transition: all 0.4s ease;
 }
 
+.currency--line--chart--timeperiod--navigation li {
+	display: flex;
+	align-items: center;
+}
+
 .currency--line--chart--navigation li:hover,
 .currency--line--chart--timerperiod--navigation li:hover {
 	cursor: pointer;
@@ -71,4 +76,8 @@
 
 .trending--negative {
 	color: #ff6262;
+}
+
+.currency--line--chart--price {
+	margin: 0;
 }

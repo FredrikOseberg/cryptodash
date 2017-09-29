@@ -75,7 +75,7 @@ class LineChart extends Component {
 	}
 
 	handleCurrencyNavTypeClick(event) {
-		const symbol = event.target.dataset.symbol;
+		const symbol = event.currentTarget.dataset.symbol;
 		const newData = { ...this.state.data };
 
 		this.props.currencies.forEach(currency => {
@@ -151,7 +151,12 @@ class LineChart extends Component {
 									key={currency.id}
 									className={navClass}
 									onClick={this.handleCurrencyNavTypeClick}
-								>{`${currency.name} (${currency.symbol})`}</li>
+								>
+									{`${currency.name} (${currency.symbol})`}
+									<h5 className="currency--line--chart--price">
+										{currency.price} {this.props.localCurrency.currency}
+									</h5>
+								</li>
 							);
 						})}
 					</ul>

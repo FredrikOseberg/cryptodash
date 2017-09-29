@@ -43,10 +43,15 @@ class Dashboard extends Component {
 		if (this.state.firstload) {
 			this.props.clearCurrencyFromState();
 			this.addCurrenciesToState().then(() => {
-				this.getCurrentCurrency(this.props.currencies[0].symbol);
-				this.interval = setInterval(() => {
-					this.getCurrentCurrency(this.props.currentCurrency.symbol);
-				}, 5000);
+				if (this.props.currencies.length > 0) {
+					this.getCurrentCurrency(this.props.currencies[0].symbol);
+					this.interval = setInterval(() => {
+						this.getCurrentCurrency(this.props.currentCurrency.symbol);
+					}, 5000);
+				} else {
+					this.setState({ loading: false });
+					this.setState({ showDashboard: true });
+				}
 				this.setState({ firstload: false });
 			});
 		}
