@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Nav from '../../Nav/Nav';
+import WalletSettings from './WalletSettings/WalletSettings';
 import './settings.css';
 
 class Settings extends Component {
@@ -7,7 +8,7 @@ class Settings extends Component {
 		super(props);
 
 		this.state = {
-			settingsPage: 'Personal Info',
+			settingsPage: 'Wallets',
 			settingsPages: [
 				{
 					name: 'Personal Info',
@@ -48,7 +49,7 @@ class Settings extends Component {
 						pages={this.state.settingsPages}
 					/>
 				</div>
-				<div className="dashboard--settings--content">{showWalletSettings && <div>Hello</div>}</div>
+				<div className="dashboard--settings--content">{showWalletSettings && <WalletSettings />}</div>
 			</div>
 		);
 	}

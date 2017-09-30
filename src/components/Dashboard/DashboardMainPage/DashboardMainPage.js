@@ -22,12 +22,14 @@ const DashboardMainPage = props => (
 							img={currency.img}
 							key={currency.id}
 							symbol={currency.symbol}
+							price={currency.price}
+							percentage={currency.percentage}
 						/>
 					);
 				})}
 			</div>
 
-			<CurrencyPortfolio currencies={props.currencies} />
+			<CurrencyPortfolio />
 		</div>
 	</div>
 );

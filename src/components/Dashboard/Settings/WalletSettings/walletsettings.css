@@ -1,0 +1,29 @@
+.currency--wallet--header {
+	text-align: center;
+	padding: 20px 0;
+	color: #565698;
+	border-bottom: 1px solid #888;
+}
+
+.currency--wallet--content {
+	border-bottom: 1px solid #888;
+}
+
+.currency--wallet--table--headers {
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
+	padding: 10px;
+}
+
+.currency--wallet--header--name {
+	width: 15%;
+}
+
+.currency--wallet--header--amount {
+	width: 20%;
+}
+
+.currency--wallet--header--address {
+	width: 45%;
+}

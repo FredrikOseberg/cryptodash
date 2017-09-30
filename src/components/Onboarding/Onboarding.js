@@ -126,7 +126,13 @@ class Onboarding extends Component {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
 
 			this.props.selectedCurrencies.forEach(currency => {
-				storageLocation.child(currency.symbol).set(currency);
+				storageLocation
+					.child(currency.symbol)
+					.child('wallet')
+					.set({
+						amount: currency.amount,
+						wallet: currency.wallet
+					});
 			});
 
 			const userStorageLocation = database.ref('users/' + this.props.currentUser.uid);

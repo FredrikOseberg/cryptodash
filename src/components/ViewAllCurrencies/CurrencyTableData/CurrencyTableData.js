@@ -126,6 +126,13 @@ class CurrencyTableData extends Component {
 	}
 
 	render() {
+		let percentageClasses;
+		if (this.props.perc > 0) {
+			percentageClasses = 'view--all-percentage--positive';
+		} else {
+			percentageClasses = 'view--all--percentage--negative';
+		}
+
 		let track;
 		if (this.state.tracked) {
 			track = (
@@ -159,10 +166,10 @@ class CurrencyTableData extends Component {
 					{convertPriceToLocalCurrency(this.props.price)}{' '}
 					<span className="price--postfix">{this.props.localCurrency.currency}</span>
 				</td>
-				<td>{this.props.vwapData.toFixed(2)}</td>
-				<td>{this.props.supply.toFixed(2)}</td>
-				<td>{this.props.usdVolume.toFixed(2)}</td>
-				<td className="view--all--percentage">{this.props.perc}</td>
+				<td>{this.props.vwapData.toFixed(0)}</td>
+				<td>{this.props.supply.toFixed(0)}</td>
+				<td>{this.props.usdVolume.toFixed(0)}</td>
+				<td className={percentageClasses}>{this.props.perc}%</td>
 				<td>{track}</td>
 			</tr>
 		);

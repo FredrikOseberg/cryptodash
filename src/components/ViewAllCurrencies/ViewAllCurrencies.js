@@ -11,7 +11,7 @@ class ViewAllCurrencies extends Component {
 		this.interval;
 
 		this.state = {
-			allCurrencies: [],
+			allCurrencies: this.props.allCurrencies,
 			inputValue: ''
 		};
 

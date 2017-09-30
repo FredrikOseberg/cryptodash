@@ -135,7 +135,7 @@ class Dashboard extends Component {
 					<div className="container">
 						<div className="dashboard--container">
 							{showDashboard && <DashboardMainPage getCurrentCurrency={this.getCurrentCurrency} />}
-							{showAllCoins && <ViewAllCurrencies />}
+							{showAllCoins && <ViewAllCurrencies allCurrencies={this.props.allCurrencies} />}
 							{showSettings && <Settings />}
 						</div>
 					</div>
