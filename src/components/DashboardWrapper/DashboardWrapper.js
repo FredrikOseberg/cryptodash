@@ -7,6 +7,7 @@ import Loading from '../Loading/Loading';
 import Landing from '../../components/Landing/Landing';
 import Onboarding from '../../components/Onboarding/Onboarding';
 import Dashboard from '../../components/Dashboard/Dashboard';
+import map from 'lodash/map';
 import store from '../../store/store';
 
 class DashboardWrapper extends Component {
@@ -59,7 +60,7 @@ class DashboardWrapper extends Component {
 		return (
 			<div className="dashboard--wrapper">
 				{this.state.showOnboarding && <Onboarding data={this.props.coinData} />}
-				{this.state.showDashboard && <Dashboard />}
+				{this.state.showDashboard && <Dashboard wallets={this.state.wallets} />}
 				{this.state.showLanding && <Landing data={this.props.coinData} />}
 				{this.state.showLoading && <Loading />}
 			</div>

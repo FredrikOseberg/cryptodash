@@ -10,6 +10,7 @@
 .dashboard--content {
 	background-color: #ededed;
 	padding-bottom: 60px;
+	min-height: 100vh;
 }
 
 .dashboard--navigation--list {
@@ -27,6 +28,7 @@
 	padding: 5px 12px;
 	cursor: pointer;
 	border-bottom: 2px solid #fff;
+	transition: all 0.4s ease;
 }
 
 .dashboard--navigation--list li:hover {
@@ -65,15 +67,13 @@ li.dashboard--navigation--list--active:hover {
 }
 
 .dashboard--currency {
-	display: flex;
 	justify-content: space-between;
 	width: 100%;
 }
 
 .dashboard--currency--container {
-	width: 40%;
 	display: flex;
-	flex-direction: column;
+	flex-wrap: wrap;
 }
 
 .dashboard--wrapper {

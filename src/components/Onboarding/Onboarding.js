@@ -42,7 +42,7 @@ class Onboarding extends Component {
 		this.checkFirebaseForCryptoCurrencyValue().then(() => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 			console.log('running');
-			storageLocation.on('value', snapshot => {
+			storageLocation.once('value', snapshot => {
 				this.setState({ loading: false });
 				this.setState({ showStep: true });
 				if (snapshot.hasChild('localCurrency')) {
@@ -58,7 +58,7 @@ class Onboarding extends Component {
 		const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
 
 		const user = this.props.currentUser;
-		storageLocation.on('value', snapshot => {
+		storageLocation.once('value', snapshot => {
 			const currencies = snapshot.val();
 			// Lodash Object Map
 			map(currencies, currency => {
@@ -169,7 +169,7 @@ class Onboarding extends Component {
 		}
 		return (
 			<div className="onboarding">
-				<div className="frontend--background">
+				<div className="onboarding--background">
 					<div className="onboarding--container">
 						{this.state.loading && loading}
 						{this.state.showStep && onboardingStep}

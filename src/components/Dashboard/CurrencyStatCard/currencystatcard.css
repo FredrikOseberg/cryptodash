@@ -1,8 +1,12 @@
 .currency--stat--card {
 	background-color: #fff;
 	display: flex;
-	justify-content: flex-start;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	flex: 1;
 	align-items: center;
+	flex-basis: 20%;
 	border-radius: 3px;
 	padding: 15px;
 	margin: 10px;
@@ -17,10 +21,6 @@
 
 .currency--stat--info {
 	margin-left: 13px;
-}
-
-.currency--stat--card span {
-	margin-left: auto;
 }
 
 .currency--stat--card img {

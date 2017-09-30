@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import coinData from '../../../coinData';
 import { database } from '../../../firebase';
-import { addCurrency, removeCurrency } from '../../../actions/currencies';
+import { addCurrency, removeCurrency, clearCurrency } from '../../../actions/currencies';
 import coins from '../../../img/coins.jpg';
 import { convertPriceToLocalCurrency } from '../../../common/helpers';
 
@@ -20,7 +20,6 @@ class CurrencyTableData extends Component {
 	}
 
 	componentDidMount() {
-		console.log(this.props.currencies);
 		this.props.currencies.forEach(cur => {
 			if (cur.symbol === this.props.short) {
 				this.setState({ tracked: true });
@@ -182,6 +181,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	removeCurrencyFromState(obj) {
 		dispatch(removeCurrency(obj));
+	},
+	clearCurrencyFromState() {
+		dispatch(clearCurrency());
 	}
 });
 

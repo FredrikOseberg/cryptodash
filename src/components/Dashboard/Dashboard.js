@@ -11,6 +11,8 @@ import LineChart from './LineChart/LineChart';
 import Loading from '../Loading/Loading';
 import ViewAllCurrencies from '../ViewAllCurrencies/ViewAllCurrencies';
 import DashboardMainPage from './DashboardMainPage/DashboardMainPage';
+import Nav from '../Nav/Nav';
+import Settings from './Settings/Settings';
 import map from 'lodash/map';
 
 class Dashboard extends Component {
@@ -26,7 +28,7 @@ class Dashboard extends Component {
 			showDashboardMainPage: false,
 			showAllCurrencies: true,
 			firstload: true,
-			dashboardPage: 'Allcoins',
+			dashboardPage: 'Settings',
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
 				{ name: 'Exchange', icon: 'fa fa-exchange' },
@@ -122,25 +124,11 @@ class Dashboard extends Component {
 				<Header />
 				<div className="dashboard--navigation">
 					<div className="container dashboard--container">
-						<ul className="dashboard--navigation--list">
-							{this.state.dashboardPages.map(page => {
-								let navClasses;
-								this.state.dashboardPage === page.name
-									? (navClasses = 'dashboard--navigation--list--active')
-									: (navClasses = '');
-								return (
-									<li
-										data-target={page.name}
-										onClick={this.handleDashboardNavClick}
-										key={page.icon}
-										className={navClasses}
-									>
-										<i className={page.icon} aria-hidden="true" />
-										<p>{page.name}</p>
-									</li>
-								);
-							})}
-						</ul>
+						<Nav
+							pages={this.state.dashboardPages}
+							onClickHandler={this.handleDashboardNavClick}
+							currentPage={this.state.dashboardPage}
+						/>
 					</div>
 				</div>
 				<div className="dashboard--content">
@@ -148,6 +136,7 @@ class Dashboard extends Component {
 						<div className="dashboard--container">
 							{showDashboard && <DashboardMainPage getCurrentCurrency={this.getCurrentCurrency} />}
 							{showAllCoins && <ViewAllCurrencies />}
+							{showSettings && <Settings />}
 						</div>
 					</div>
 				</div>
