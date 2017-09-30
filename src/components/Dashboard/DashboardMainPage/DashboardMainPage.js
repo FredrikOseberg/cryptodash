@@ -7,11 +7,7 @@ import LineChart from '../LineChart/LineChart';
 const DashboardMainPage = props => (
 	<div>
 		<div className="dashboard--content--chart">
-			{props.firstCurrency ? (
-				<LineChart symbol={props.firstCurrency.symbol} getCurrentCurrency={props.getCurrentCurrency} />
-			) : (
-				''
-			)}
+			{props.firstCurrency ? <LineChart getCurrentCurrency={props.getCurrentCurrency} /> : ''}
 		</div>
 		<div className="dashboard--currency">
 			<div className="dashboard--currency--container">

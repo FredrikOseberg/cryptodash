@@ -6,23 +6,34 @@ class CurrencyWalletInput extends Component {
 		super(props);
 
 		this.state = {
-			edit: false,
 			amountInput: this.props.amount,
 			addressInput: this.props.wallet
 		};
 
 		this.handleAddressInputChange = this.handleAddressInputChange.bind(this);
 		this.handleAmountInputChange = this.handleAmountInputChange.bind(this);
+		this.pushChangedObjectToParentState = this.pushChangedObjectToParentState.bind(this);
 	}
 
 	handleAddressInputChange(event) {
-		this.setState({ edit: true });
-		this.setState({ addressInput: event.target.value.toString().trim() });
+		this.setState({ addressInput: event.target.value.toString().trim() }, () => {
+			this.pushChangedObjectToParentState();
+		});
+	}
+
+	pushChangedObjectToParentState() {
+		let obj = {
+			name: this.props.name,
+			amount: this.state.amountInput,
+			address: this.state.addressInput
+		};
+		this.props.handleWalletInfoChange(obj);
 	}
 
 	handleAmountInputChange(event) {
-		this.setState({ edit: true });
-		this.setState({ amountInput: event.target.value.toString().trim() });
+		this.setState({ amountInput: event.target.value.toString().trim() }, () => {
+			this.pushChangedObjectToParentState();
+		});
 	}
 
 	render() {
@@ -37,6 +48,7 @@ class CurrencyWalletInput extends Component {
 						name={`${this.props.name}-amount`}
 						className="main--input currency--wallet--settings--input"
 						defaultValue={this.state.amountInput}
+						onChange={this.handleAmountInputChange}
 					/>
 				</div>
 				<div className="currency--wallet--current--info currency--wallet--address">
@@ -47,6 +59,9 @@ class CurrencyWalletInput extends Component {
 						defaultValue={this.state.addressInput}
 						onChange={this.handleAddressInputChange}
 					/>
+				</div>
+				<div className="currency--wallet--current--info currency--wallet--delete">
+					<i className="fa fa-trash" aria-hidden="true" />
 				</div>
 			</div>
 		);

@@ -56,3 +56,16 @@
 	width: 100%;
 	padding: 0;
 }
+
+.currency--wallet--current--info.currency--wallet--delete {
+	width: 5%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #888;
+}
+
+.currency--wallet--delete .fa {
+	cursor: pointer;
+	font-size: 1.2em;
+}
