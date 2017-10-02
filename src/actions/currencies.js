@@ -44,6 +44,13 @@ export const addWalletInfoToCurrency = obj => {
 	};
 };
 
+export const removeWalletInfoFromCurrency = obj => {
+	return {
+		type: 'REMOVE_WALLET_INFO_FROM_CURRENCY',
+		symbol: obj.symbol
+	};
+};
+
 export const clearCurrency = () => {
 	return {
 		type: 'CLEAR_CURRENCY'

@@ -11,7 +11,6 @@ const selectedCurrencies = (state = [], action) => {
 					id: action.id,
 					img: action.img,
 					symbol: action.symbol,
-					amount: action.amount || null,
 					wallet: action.wallet || null
 				}
 			];
@@ -31,7 +30,7 @@ const selectedCurrencies = (state = [], action) => {
 			oldState.forEach(obj => {
 				newObj = { ...obj };
 				if (obj.symbol === action.symbol) {
-					newObj.amount = action.amount;
+					newObj.wallet.amount = action.amount;
 				}
 				newState.push(newObj);
 			});
@@ -40,7 +39,16 @@ const selectedCurrencies = (state = [], action) => {
 			oldState.forEach(obj => {
 				newObj = { ...obj };
 				if (obj.symbol === action.symbol) {
-					newObj.wallet = action.wallet;
+					newObj.wallet.wallet = action.wallet;
+				}
+				newState.push(newObj);
+			});
+			return newState;
+		case 'REMOVE_WALLET_INFO_FROM_CURRENCY':
+			oldState.forEach(obj => {
+				newObj = { ...obj };
+				if (obj.symbol === action.symbol) {
+					newObj.wallet.wallet = null;
 				}
 				newState.push(newObj);
 			});

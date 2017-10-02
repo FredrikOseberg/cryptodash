@@ -90,3 +90,7 @@
 .block {
   display: block;
 }
+
+.static {
+  position: static;
+}

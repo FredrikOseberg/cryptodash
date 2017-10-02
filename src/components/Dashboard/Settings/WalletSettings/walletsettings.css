@@ -39,8 +39,43 @@
 	display: flex;
 	justify-content: center;
 	margin-top: 20px;
+	flex-direction: column;
+	align-items: center;
 }
 
 .currency--wallet--save--button {
 	width: 200px;
+	opacity: 0;
+	transition: all 0.4s ease;
+	position: absolute;
+	visibility: hidden;
+}
+
+.currency--wallet--submit--error {
+	margin-bottom: 15px;
+}
+
+.currency--wallet--submit--success {
+	color: #27ab27;
+	margin-bottom: 15px;
+}
+
+.currency--wallet--add--currency {
+	background-color: #555598;
+	height: 70px;
+	width: 70px;
+	border-radius: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+	cursor: pointer;
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+}
+
+.currency--wallet--add--currency .fa {
+	font-size: 1.5em;
 }

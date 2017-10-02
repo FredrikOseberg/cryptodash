@@ -29,6 +29,7 @@
 	display: flex;
 	align-items: center;
 	width: 20%;
+	position: relative;
 }
 
 .currency--wallet--address {
@@ -68,4 +69,12 @@
 .currency--wallet--delete .fa {
 	cursor: pointer;
 	font-size: 1.2em;
+}
+
+.currency--wallet--error--message {
+	position: absolute;
+	background-color: #fff;
+	padding: 10px;
+	border-radius: 3px;
+	top: -20px;
 }

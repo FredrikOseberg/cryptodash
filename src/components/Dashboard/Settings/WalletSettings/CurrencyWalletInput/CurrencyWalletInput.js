@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { database } from '../../../../../firebase';
+import { connect } from 'react-redux';
+import { removeWalletInfoFromCurrency } from '../.././../../../actions/currencies';
 import './currencywalletinput.css';
 
 class CurrencyWalletInput extends Component {
@@ -13,6 +16,7 @@ class CurrencyWalletInput extends Component {
 		this.handleAddressInputChange = this.handleAddressInputChange.bind(this);
 		this.handleAmountInputChange = this.handleAmountInputChange.bind(this);
 		this.pushChangedObjectToParentState = this.pushChangedObjectToParentState.bind(this);
+		this.handleDeleteWallet = this.handleDeleteWallet.bind(this);
 	}
 
 	handleAddressInputChange(event) {
@@ -25,18 +29,62 @@ class CurrencyWalletInput extends Component {
 		let obj = {
 			name: this.props.name,
 			amount: this.state.amountInput,
-			address: this.state.addressInput
+			address: this.state.addressInput,
+			symbol: this.props.symbol
 		};
 		this.props.handleWalletInfoChange(obj);
 	}
 
-	handleAmountInputChange(event) {
-		this.setState({ amountInput: event.target.value.toString().trim() }, () => {
-			this.pushChangedObjectToParentState();
+	handleDeleteWallet() {
+		const storageLocation = database.ref(
+			'users/' + this.props.currentUser.uid + '/currencies/' + this.props.symbol
+		);
+		storageLocation.on('value', snapshot => {
+			if (snapshot.hasChild('wallet')) {
+				storageLocation.child('wallet').remove();
+				this.props.removeWalletInfoFromState({ symbol: this.props.symbol });
+			}
 		});
 	}
 
+	validateAmountInput(input) {
+		const inputToValidate = Number(input);
+
+		if (typeof inputToValidate === 'number') {
+			if (!Number.isNaN(inputToValidate)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	handleAmountInputChange(event) {
+		const input = event.target.value;
+		const validationPassed = this.validateAmountInput(input);
+
+		if (validationPassed) {
+			this.setState({ amountInputError: '' });
+			this.setState({ amountInput: input.toString().trim() }, () => {
+				this.pushChangedObjectToParentState();
+			});
+		} else {
+			this.setState({ amountInputError: 'Input must be a number' });
+		}
+	}
+
 	render() {
+		let amountInputError = this.state.amountInputError,
+			amountInputClasses,
+			amountInputErrMarkup;
+		if (amountInputError) {
+			amountInputClasses = 'main--input currency--wallet--settings--input main--input--error input--coin';
+			amountInputErrMarkup = (
+				<span className="main--input--error--message currency--wallet--error--message">{amountInputError}</span>
+			);
+		} else {
+			amountInputClasses = 'main--input currency--wallet--settings--input';
+			amountInputErrMarkup = '';
+		}
 		return (
 			<div className="currency--wallet--current">
 				<div className="currency--wallet--current--info currency--wallet--image">
@@ -46,10 +94,11 @@ class CurrencyWalletInput extends Component {
 				<div className="currency--wallet--current--info currency--wallet--amount">
 					<input
 						name={`${this.props.name}-amount`}
-						className="main--input currency--wallet--settings--input"
+						className={amountInputClasses}
 						defaultValue={this.state.amountInput}
 						onChange={this.handleAmountInputChange}
 					/>
+					{amountInputErrMarkup}
 				</div>
 				<div className="currency--wallet--current--info currency--wallet--address">
 					{' '}
@@ -61,11 +110,21 @@ class CurrencyWalletInput extends Component {
 					/>
 				</div>
 				<div className="currency--wallet--current--info currency--wallet--delete">
-					<i className="fa fa-trash" aria-hidden="true" />
+					<i className="fa fa-trash" aria-hidden="true" onClick={this.handleDeleteWallet} />
 				</div>
 			</div>
 		);
 	}
 }
 
-export default CurrencyWalletInput;
+const mapStateToProps = state => ({
+	currentUser: state.auth
+});
+
+const mapDispatchToProps = dispatch => ({
+	removeWalletInfoFromState(obj) {
+		dispatch(removeWalletInfoFromCurrency(obj));
+	}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencyWalletInput);
