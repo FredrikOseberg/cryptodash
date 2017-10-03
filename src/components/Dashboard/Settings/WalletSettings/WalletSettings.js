@@ -11,7 +11,7 @@ class WalletSettings extends Component {
 		super(props);
 
 		this.state = {
-			walletState: 'addWallet',
+			walletState: 'defaultState',
 			walletInfo: [],
 			submitError: '',
 			submitSuccess: ''
@@ -20,6 +20,18 @@ class WalletSettings extends Component {
 		this.handleWalletInfoChange = this.handleWalletInfoChange.bind(this);
 		this.handleWalletSubmit = this.handleWalletSubmit.bind(this);
 		this.handleAddWalletClick = this.handleAddWalletClick.bind(this);
+		this.setDefaultState = this.setDefaultState.bind(this);
+	}
+
+	validateAmountInput(input) {
+		const inputToValidate = Number(input);
+
+		if (typeof inputToValidate === 'number') {
+			if (!Number.isNaN(inputToValidate)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	handleWalletInfoChange(currency) {
@@ -43,6 +55,10 @@ class WalletSettings extends Component {
 		}
 
 		this.setState({ walletInfo: newWalletInfo });
+	}
+
+	setDefaultState() {
+		this.setState({ walletState: 'defaultState' });
 	}
 
 	handleWalletSubmit() {
@@ -143,7 +159,7 @@ class WalletSettings extends Component {
 				</div>
 				<div className="currency--wallet--content">
 					{this.props.currencies.map(currency => {
-						if (currency.wallet) {
+						if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
 							return (
 								<CurrencyWalletInput
 									key={currency.id}
@@ -153,6 +169,7 @@ class WalletSettings extends Component {
 									wallet={currency.wallet.wallet}
 									amount={currency.wallet.amount}
 									handleWalletInfoChange={this.handleWalletInfoChange}
+									validateAmountInput={this.validateAmountInput}
 								/>
 							);
 						}
@@ -173,7 +190,13 @@ class WalletSettings extends Component {
 		return (
 			<div className="dashboard--settings--wallets">
 				{showDefaultWalletInterface && defaultWalletInterface}
-				{showAddWalletInterface && <AddWallet currencies={this.props.currencies} />}
+				{showAddWalletInterface && (
+					<AddWallet
+						currencies={this.props.currencies}
+						validateAmountInput={this.validateAmountInput}
+						setDefaultState={this.setDefaultState}
+					/>
+				)}
 			</div>
 		);
 	}

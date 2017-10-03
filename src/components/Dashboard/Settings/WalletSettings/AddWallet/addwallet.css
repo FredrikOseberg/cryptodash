@@ -1,3 +1,53 @@
+.currency--wallet--add--currency .fa {
+	font-size: 1.5em;
+}
+
+.currency--add--wallet--select--currency--container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.add--wallet--form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	padding: 30px 0;
+	text-align: center;
+}
+
+.add--wallet--form form {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: 40px 0;
+}
+
+.add--wallet--form--input--container {
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+	text-align: left;
+}
+
+.add--wallet--form--input--container label {
+	color: #888;
+}
+
+.add--wallet--amount--input--container {
+	width: 30%;
+}
+
+.add--wallet--address--input--container {
+	width: 70%;
+}
+
+.add--wallet--button {
+	width: 200px;
+	margin: 10px auto;
+}
+
 .currency--add--wallet--content {
 	display: flex;
 	justify-content: center;
@@ -22,6 +72,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	color: #888;
 	margin: 10px;
 	flex: 1;
 	cursor: pointer;

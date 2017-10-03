@@ -1,0 +1,38 @@
+.currency--settings {
+	text-align: center;
+	padding-bottom: 30px;
+}
+
+.currency--settings--content {
+	display: flex;
+	justify-content: center;
+	padding: 40px;
+	align-items: center;
+}
+
+.currency--settings--select {
+	height: 50px;
+	border: none;
+	border-radius: 3px;
+	background-color: #ededed;
+	font-family: Montserrat, sans-serif;
+	font-size: 1.1em;
+	padding: 10px;
+	margin-bottom: 20px;
+	width: 400px;
+}
+
+.localcurrency--success {
+	margin: 30px;
+}
+
+.currency--settings--button {
+	width: 200px;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto 30px auto;
+	visibility: hidden;
+	position: absolute;
+	opacity: 0;
+	transition: opacity 0.4s ease;
+}

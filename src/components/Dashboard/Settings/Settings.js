@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Nav from '../../Nav/Nav';
 import WalletSettings from './WalletSettings/WalletSettings';
+import CurrencySettings from './CurrencySettings/CurrencySettings';
+import AccountSettings from './AccountSettings/AccountSettings';
 import './settings.css';
 
 class Settings extends Component {
@@ -8,7 +10,7 @@ class Settings extends Component {
 		super(props);
 
 		this.state = {
-			settingsPage: 'Wallets',
+			settingsPage: 'Account',
 			settingsPages: [
 				{
 					name: 'Personal Info',
@@ -16,7 +18,15 @@ class Settings extends Component {
 				},
 				{
 					name: 'Wallets',
+					icon: 'fa fa-folder-open'
+				},
+				{
+					name: 'Currency',
 					icon: 'fa fa-money'
+				},
+				{
+					name: 'Account',
+					icon: 'fa fa-key'
 				}
 			]
 		};
@@ -33,6 +43,12 @@ class Settings extends Component {
 			case 'Wallets':
 				this.setState({ settingsPage: 'Wallets' });
 				break;
+			case 'Account':
+				this.setState({ settingsPage: 'Account' });
+				break;
+			case 'Currency':
+				this.setState({ settingsPage: 'Currency' });
+				break;
 			default:
 				this.setState({ settingsPage: 'Personal Info' });
 		}
@@ -40,6 +56,8 @@ class Settings extends Component {
 
 	render() {
 		const showWalletSettings = this.state.settingsPage === 'Wallets';
+		const showCurrencySettings = this.state.settingsPage === 'Currency';
+		const showAccountSettings = this.state.settingsPage === 'Account';
 		return (
 			<div className="dashboard--settings">
 				<div className="dashboard--settings--header">
@@ -49,7 +67,11 @@ class Settings extends Component {
 						pages={this.state.settingsPages}
 					/>
 				</div>
-				<div className="dashboard--settings--content">{showWalletSettings && <WalletSettings />}</div>
+				<div className="dashboard--settings--content">
+					{showWalletSettings && <WalletSettings />}
+					{showCurrencySettings && <CurrencySettings />}
+					{showAccountSettings && <AccountSettings />}
+				</div>
 			</div>
 		);
 	}

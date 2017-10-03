@@ -30,6 +30,9 @@ const selectedCurrencies = (state = [], action) => {
 			oldState.forEach(obj => {
 				newObj = { ...obj };
 				if (obj.symbol === action.symbol) {
+					if (newObj.wallet === null) {
+						newObj.wallet = {};
+					}
 					newObj.wallet.amount = action.amount;
 				}
 				newState.push(newObj);
@@ -39,6 +42,9 @@ const selectedCurrencies = (state = [], action) => {
 			oldState.forEach(obj => {
 				newObj = { ...obj };
 				if (obj.symbol === action.symbol) {
+					if (newObj.wallet === null) {
+						newObj.wallet = {};
+					}
 					newObj.wallet.wallet = action.wallet;
 				}
 				newState.push(newObj);
@@ -48,7 +54,7 @@ const selectedCurrencies = (state = [], action) => {
 			oldState.forEach(obj => {
 				newObj = { ...obj };
 				if (obj.symbol === action.symbol) {
-					newObj.wallet.wallet = null;
+					newObj.wallet = {};
 				}
 				newState.push(newObj);
 			});

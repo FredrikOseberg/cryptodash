@@ -79,3 +79,41 @@
 .currency--wallet--add--currency .fa {
 	font-size: 1.5em;
 }
+
+.add--wallet--form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	padding: 30px 0;
+	text-align: center;
+}
+
+.add--wallet--form form {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: 40px 0;
+}
+
+.add--wallet--form--input--container {
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+	text-align: left;
+}
+
+.add--wallet--amount--input--container {
+	width: 30%;
+}
+
+.add--wallet--address--input--container {
+	width: 70%;
+}
+
+.add--wallet--button {
+	width: 200px;
+	margin: 10px auto;
+}
+
+
+

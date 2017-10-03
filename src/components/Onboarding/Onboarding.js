@@ -41,7 +41,6 @@ class Onboarding extends Component {
 	componentDidMount() {
 		this.checkFirebaseForCryptoCurrencyValue().then(() => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
-			console.log('running');
 			storageLocation.once('value', snapshot => {
 				this.setState({ loading: false });
 				this.setState({ showStep: true });

@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { database } from '../../../../../firebase';
+import { addAmountToCurrency, addWalletInfoToCurrency } from '../../../../../actions/currencies';
+
 import './addwallet.css';
 
 class AddWallet extends Component {
@@ -6,57 +10,151 @@ class AddWallet extends Component {
 		super(props);
 
 		this.state = {
-			selected: ''
+			step: 'chooseCurrency',
+			selected: '',
+			amountInput: '',
+			addressInput: '',
+			amountError: '',
+			addressErorr: ''
 		};
 
 		this.handleCurrencyClick = this.handleCurrencyClick.bind(this);
+
+		this.handleAmountInputChange = this.handleAmountInputChange.bind(this);
+		this.handleAddressInputChange = this.handleAddressInputChange.bind(this);
+		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
 	handleCurrencyClick(event) {
 		const currencySymbol = event.currentTarget.dataset.name;
 
 		this.setState({ selected: currencySymbol });
+		this.setState({ step: 'showAddWalletForm' });
+	}
+
+	handleAmountInputChange(event) {
+		const input = event.target.value;
+		const validationPassed = this.props.validateAmountInput(input);
+
+		if (validationPassed) {
+			this.setState({ amountInput: input.toString().trim() });
+		}
+	}
+
+	handleAddressInputChange(event) {
+		this.setState({ addressInput: event.target.value.toString().trim() });
+	}
+
+	handleFormSubmit() {
+		const storageLocation = database.ref(
+			'users/' + this.props.currentUser.uid + '/currencies/' + this.state.selected
+		);
+
+		let obj = {
+			wallet: this.state.addressInput,
+			amount: this.state.amountInput,
+			symbol: this.state.selected
+		};
+
+		storageLocation.child('wallet').set({
+			wallet: obj.wallet,
+			amount: obj.amount
+		});
+
+		this.props.addWalletInfoToState(obj);
+		this.props.addAmountInfoToState(obj);
+
+		this.props.setDefaultState();
 	}
 
 	render() {
-		console.log(this.props.currencies);
 		const availableWallets = this.props.currencies.filter(currency => {
-			return !currency.wallet;
+			return (currency.wallet && !currency.wallet.amount && !currency.wallet.wallet) || currency.wallet === null;
 		});
+		const showSelectCurrency = this.state.step === 'chooseCurrency';
+		const selectCurrencyMarkup = (
+			<div className="currency--add--wallet--select--currency--container">
+				<h4>Pick a currency</h4>
+				<div className="currency--add--wallet--currency--container">
+					{availableWallets.map(currency => {
+						let currencyClasses;
+						if (currency.symbol === this.state.selected) {
+							currencyClasses =
+								'currency--add--wallet--currency--selected currency--add--wallet--currency';
+						} else {
+							currencyClasses = 'currency--add--wallet--currency';
+						}
+						return (
+							<div
+								className={currencyClasses}
+								data-name={currency.symbol}
+								onClick={this.handleCurrencyClick}
+								key={currency.id}
+							>
+								<img src={currency.img} alt={currency.name} />
+								<h3>
+									{currency.name} ({currency.symbol})
+								</h3>
+							</div>
+						);
+					})}
+				</div>
+			</div>
+		);
+
+		const showAddWalletForm = this.state.step === 'showAddWalletForm';
+		const formMarkup = (
+			<div className="add--wallet--form">
+				<h4>Add wallet information for {this.state.selected}</h4>
+				<form>
+					<div className="add--wallet--form--input--container add--wallet--amount--input--container">
+						<label>Amount</label>
+						<input
+							type="text"
+							className="main--input add--wallet--amount"
+							onChange={this.handleAmountInputChange}
+						/>
+					</div>
+					<div className="add--wallet--form--input--container add--wallet--address--input--container">
+						<label>Wallet Address</label>
+						<input
+							type="text"
+							className="main--input add--wallet--address"
+							onChange={this.handleAddressInputChange}
+						/>
+					</div>
+				</form>
+				<div className="main-button add--wallet--button" onClick={this.handleFormSubmit}>
+					Add Wallet
+				</div>
+			</div>
+		);
 		return (
 			<div>
 				<div className="currency--wallet--header">
 					<h3>Add Wallet</h3>
 				</div>
 				<div className="currency--add--wallet--content">
-					<h4>Pick a currency</h4>
-					<div className="currency--add--wallet--currency--container">
-						{availableWallets.map(currency => {
-							let currencyClasses;
-							if (currency.symbol === this.state.selected) {
-								currencyClasses =
-									'currency--add--wallet--currency--selected currency--add--wallet--currency';
-							} else {
-								currencyClasses = 'currency--add--wallet--currency';
-							}
-							return (
-								<div
-									className={currencyClasses}
-									data-name={currency.symbol}
-									onClick={this.handleCurrencyClick}
-								>
-									<img src={currency.img} alt={currency.name} />
-									<h3>
-										{currency.name} ({currency.symbol})
-									</h3>
-								</div>
-							);
-						})}
-					</div>
+					{showSelectCurrency && selectCurrencyMarkup}
+
+					<div className="currency--add--wallet--currency--container">{showAddWalletForm && formMarkup}</div>
 				</div>
 			</div>
 		);
 	}
 }
 
-export default AddWallet;
+const mapStateToProps = state => ({
+	currentUser: state.auth
+});
+
+const mapDispatchToProps = dispatch => ({
+	addWalletInfoToState(obj) {
+		dispatch(addWalletInfoToCurrency(obj));
+	},
+	addAmountInfoToState(obj) {
+		dispatch(addAmountToCurrency(obj));
+	}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddWallet);

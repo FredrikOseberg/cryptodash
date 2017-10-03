@@ -47,20 +47,9 @@ class CurrencyWalletInput extends Component {
 		});
 	}
 
-	validateAmountInput(input) {
-		const inputToValidate = Number(input);
-
-		if (typeof inputToValidate === 'number') {
-			if (!Number.isNaN(inputToValidate)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	handleAmountInputChange(event) {
 		const input = event.target.value;
-		const validationPassed = this.validateAmountInput(input);
+		const validationPassed = this.props.validateAmountInput(input);
 
 		if (validationPassed) {
 			this.setState({ amountInputError: '' });
