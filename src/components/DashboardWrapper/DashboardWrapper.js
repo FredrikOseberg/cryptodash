@@ -54,7 +54,7 @@ class DashboardWrapper extends Component {
 			this.setState({ showLoading: false });
 		}
 
-		axios.get('http://coincap.io/front').then(response => {
+		axios.get('https://coincap.io/front').then(response => {
 			let newState = [];
 			response.data.forEach((currency, index) => {
 				let newObj = { ...currency };
@@ -85,7 +85,7 @@ class DashboardWrapper extends Component {
 
 					if (snapshot.hasChild('localCurrency')) {
 						const localCurrency = snapshot.child('localCurrency').val();
-						axios.get(`http://api.fixer.io/latest?base=USD`).then(response => {
+						axios.get(`https://api.fixer.io/latest?base=USD`).then(response => {
 							const rateComparedToUsd = response.data.rates[localCurrency];
 							this.props.addLocalCurrencyToState({ currency: localCurrency, rate: rateComparedToUsd });
 						});
@@ -97,7 +97,7 @@ class DashboardWrapper extends Component {
 	}
 
 	getCoinData(symbol) {
-		axios.get(`http://coincap.io/page/${symbol}`).then(response => {
+		axios.get(`https://coincap.io/page/${symbol}`).then(response => {
 			this.props.addCurrencyPriceToState({
 				price: response.data.price_usd,
 				percentage: response.data.cap24hrChange,

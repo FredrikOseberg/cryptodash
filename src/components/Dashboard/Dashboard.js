@@ -64,7 +64,7 @@ class Dashboard extends Component {
 	}
 
 	getCurrentCurrency(symbol) {
-		axios.get(`http://coincap.io/page/${symbol}`).then(response => {
+		axios.get(`https://coincap.io/page/${symbol}`).then(response => {
 			this.setState({ loading: false });
 			this.setState({ showDashboard: true });
 			const obj = {
