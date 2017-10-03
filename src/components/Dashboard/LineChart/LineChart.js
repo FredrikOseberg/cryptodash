@@ -109,7 +109,7 @@ class LineChart extends Component {
 	getChartData() {
 		let timeFrame;
 		this.state.currentTime !== 'All' ? (timeFrame = `${this.state.currentTime}day/`) : (timeFrame = '');
-		axios.get(`http://coincap.io/history/${timeFrame}${this.state.symbol}`).then(results => {
+		axios.get(`https://coincap.io/history/${timeFrame}${this.state.symbol}`).then(results => {
 			const newLabels = [],
 				newData = [];
 			const newState = { ...this.state.data };
