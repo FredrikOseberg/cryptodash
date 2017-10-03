@@ -102,6 +102,11 @@ class AddWallet extends Component {
 			</div>
 		);
 
+		let submitButtonClasses;
+		this.state.amountInput && this.state.addressInput
+			? (submitButtonClasses = 'main-button add--wallet--button visible opacity static')
+			: (submitButtonClasses = 'main-button add--wallet--button');
+
 		const showAddWalletForm = this.state.step === 'showAddWalletForm';
 		const formMarkup = (
 			<div className="add--wallet--form">
@@ -124,7 +129,7 @@ class AddWallet extends Component {
 						/>
 					</div>
 				</form>
-				<div className="main-button add--wallet--button" onClick={this.handleFormSubmit}>
+				<div className={submitButtonClasses} onClick={this.handleFormSubmit}>
 					Add Wallet
 				</div>
 			</div>

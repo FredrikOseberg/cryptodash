@@ -46,6 +46,10 @@
 .add--wallet--button {
 	width: 200px;
 	margin: 10px auto;
+	visibility: hidden;
+	position: absolute;
+	transition: opacity 0.4s ease;
+	opacity: 0;
 }
 
 .currency--add--wallet--content {
@@ -65,13 +69,14 @@
 }
 
 .currency--add--wallet--currency {
-	border: 2px solid #888;
+	border: 1px solid #888;
 	border-radius: 3px;
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	max-width: 300px;
 	color: #888;
 	margin: 10px;
 	flex: 1;

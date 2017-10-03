@@ -1,0 +1,28 @@
+.account--personal--settings--container {
+	display: flex;
+	justify-content: center;
+	padding: 40px 0;
+	text-align: center;
+}
+
+.account--personal--info--input--container {
+	display: flex;
+	flex-direction: column;
+	margin: 12px;
+}
+
+.account--personal--info--input--container label {
+	margin-right: auto;
+}
+
+.personal--info--input {
+	width: 400px;
+}
+
+.personal--info--button {
+	margin-top: 20px;
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+	transition: all 0.4s ease;
+}

@@ -2,17 +2,32 @@ import React, { Component } from 'react';
 import './accountsettings.css';
 import { auth } from '../../../../firebase';
 import ChangePassword from './ChangePassword/ChangePassword';
+import ChangeEmail from './ChangeEmail/ChangeEmail';
 
 class AccountSettings extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			accountPage: 'defaultState'
+			accountPage: 'defaultState',
+			successMessage: ''
 		};
 
 		this.handlePasswordClick = this.handlePasswordClick.bind(this);
 		this.handleEmailClick = this.handleEmailClick.bind(this);
+		this.setDefaultState = this.setDefaultState.bind(this);
+	}
+
+	setDefaultState(flashMessage) {
+		this.setState({ accountPage: 'defaultState' });
+
+		if (flashMessage) {
+			this.setState({ successMessage: flashMessage }, () => {
+				setTimeout(() => {
+					this.setState({ successMessage: '' });
+				}, 5000);
+			});
+		}
 	}
 
 	handlePasswordClick() {
@@ -29,6 +44,12 @@ class AccountSettings extends Component {
 		const showDefaultState = this.state.accountPage === 'defaultState';
 		const showPasswordEditView = this.state.accountPage === 'password';
 		const showEmailEditView = this.state.accountPage === 'email';
+
+		let successFlashMessage;
+		this.state.successMessage
+			? (successFlashMessage = <span className="account--password--success">{this.state.successMessage}</span>)
+			: (successFlashMessage = '');
+
 		const defaultMarkup = (
 			<div className="account--settings--content">
 				<div className="account--settings--edit--buttons--container">
@@ -49,12 +70,7 @@ class AccountSettings extends Component {
 						<p>Edit Password</p>
 					</div>
 				</div>
-			</div>
-		);
-
-		const emailFormMarkup = (
-			<div className="account--settings--content">
-				<div>Email</div>
+				{successFlashMessage}
 			</div>
 		);
 
@@ -64,8 +80,10 @@ class AccountSettings extends Component {
 					<h3>Account Settings</h3>
 				</div>
 				{showDefaultState && defaultMarkup}
-				{showEmailEditView && emailFormMarkup}
-				{showPasswordEditView && <ChangePassword />}
+				{showEmailEditView && (
+					<ChangeEmail validate={this.props.validate} setDefaultState={this.setDefaultState} />
+				)}
+				{showPasswordEditView && <ChangePassword setDefaultState={this.setDefaultState} />}
 			</div>
 		);
 	}

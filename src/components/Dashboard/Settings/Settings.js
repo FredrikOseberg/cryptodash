@@ -3,6 +3,7 @@ import Nav from '../../Nav/Nav';
 import WalletSettings from './WalletSettings/WalletSettings';
 import CurrencySettings from './CurrencySettings/CurrencySettings';
 import AccountSettings from './AccountSettings/AccountSettings';
+import PersonalSettings from './PersonalSettings/PersonalSettings';
 import './settings.css';
 
 class Settings extends Component {
@@ -10,7 +11,7 @@ class Settings extends Component {
 		super(props);
 
 		this.state = {
-			settingsPage: 'Account',
+			settingsPage: 'Personal Info',
 			settingsPages: [
 				{
 					name: 'Personal Info',
@@ -32,6 +33,14 @@ class Settings extends Component {
 		};
 
 		this.handleSettingsNavClick = this.handleSettingsNavClick.bind(this);
+	}
+
+	validate(input) {
+		if (input.length === 0 || input.length < 5) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	handleSettingsNavClick(event) {
@@ -58,6 +67,7 @@ class Settings extends Component {
 		const showWalletSettings = this.state.settingsPage === 'Wallets';
 		const showCurrencySettings = this.state.settingsPage === 'Currency';
 		const showAccountSettings = this.state.settingsPage === 'Account';
+		const showPersonalSettings = this.state.settingsPage === 'Personal Info';
 		return (
 			<div className="dashboard--settings">
 				<div className="dashboard--settings--header">
@@ -70,7 +80,8 @@ class Settings extends Component {
 				<div className="dashboard--settings--content">
 					{showWalletSettings && <WalletSettings />}
 					{showCurrencySettings && <CurrencySettings />}
-					{showAccountSettings && <AccountSettings />}
+					{showPersonalSettings && <PersonalSettings validate={this.validate} />}
+					{showAccountSettings && <AccountSettings validate={this.validate} />}
 				</div>
 			</div>
 		);

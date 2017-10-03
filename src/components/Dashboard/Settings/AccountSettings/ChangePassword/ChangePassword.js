@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { auth } from '../../../../../firebase';
 import './changepassword.css';
 
 class ChangePassword extends Component {
@@ -18,6 +19,7 @@ class ChangePassword extends Component {
 		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
 		this.handlePasswordSubmit = this.handlePasswordSubmit.bind(this);
 		this.validatePassword = this.validatePassword.bind(this);
+		this.setDefaultState = this.setDefaultState.bind(this);
 	}
 
 	handlePasswordChange(event) {
@@ -72,6 +74,10 @@ class ChangePassword extends Component {
 		return false;
 	}
 
+	setDefaultState() {
+		this.props.setDefaultState();
+	}
+
 	handlePasswordSubmit(event) {
 		event.preventDefault();
 		const passwordsAreTheSame = this.state.password === this.state.confirmPassword;
@@ -83,9 +89,21 @@ class ChangePassword extends Component {
 		const validationPassed = this.validatePassword();
 
 		if (validationPassed && passwordsAreTheSame) {
+			const user = auth.currentUser;
+
 			this.setState({ equalPasswordsErrMessage: '' });
-			// Update password
-			console.log('updating');
+
+			user
+				.updatePassword(this.state.password)
+				.then(() => {
+					this.props.setDefaultState('Your password was successfully updated');
+				})
+				.catch(error => {
+					console.log(error);
+					this.setState({
+						equalPasswordsErrMessage: 'There was an error updating your password. Please try again later.'
+					});
+				});
 		}
 	}
 
@@ -117,7 +135,10 @@ class ChangePassword extends Component {
 		}
 		return (
 			<div className="account--settings--content">
-				<h4>Change Password</h4>
+				<h4>
+					Change Password
+					<i className="fa fa-arrow-left password--back" aria-hidden="true" onClick={this.setDefaultState} />
+				</h4>
 				<div className="account--settings--change--password--container">
 					<form>
 						<div className="account--password--input--container">

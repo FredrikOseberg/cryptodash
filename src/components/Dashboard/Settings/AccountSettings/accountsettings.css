@@ -27,4 +27,9 @@
 
 .account--settings--edit--button .fa {
 	color: #555598;
+	font-size: 1.3em;
+}
+
+.account--password--success {
+	color: #27ab27;
 }
