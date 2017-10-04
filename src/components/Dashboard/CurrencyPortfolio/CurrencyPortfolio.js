@@ -19,7 +19,7 @@ class CurrencyPortfolio extends Component {
 				</div>
 				<ul className="currency--portfolio--list">
 					{this.props.currencies.map(currency => {
-						if (currency.wallet) {
+						if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
 							return (
 								<li className="currency--portfolio--item" key={currency.id}>
 									<img src={currency.img} alt={currency.name} />
