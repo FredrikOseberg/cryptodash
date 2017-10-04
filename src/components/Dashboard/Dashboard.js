@@ -11,6 +11,7 @@ import LineChart from './LineChart/LineChart';
 import Loading from '../Loading/Loading';
 import ViewAllCurrencies from '../ViewAllCurrencies/ViewAllCurrencies';
 import DashboardMainPage from './DashboardMainPage/DashboardMainPage';
+import Exchange from '../Exchange/Exchange';
 import Nav from '../Nav/Nav';
 import Settings from './Settings/Settings';
 import map from 'lodash/map';
@@ -28,7 +29,7 @@ class Dashboard extends Component {
 			showDashboardMainPage: false,
 			showAllCurrencies: true,
 			firstload: true,
-			dashboardPage: 'Settings',
+			dashboardPage: 'Exchange',
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
 				{ name: 'Exchange', icon: 'fa fa-exchange' },
@@ -137,6 +138,7 @@ class Dashboard extends Component {
 							{showDashboard && <DashboardMainPage getCurrentCurrency={this.getCurrentCurrency} />}
 							{showAllCoins && <ViewAllCurrencies allCurrencies={this.props.allCurrencies} />}
 							{showSettings && <Settings />}
+							{showExchange && <Exchange />}
 						</div>
 					</div>
 				</div>
