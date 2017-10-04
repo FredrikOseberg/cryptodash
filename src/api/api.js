@@ -1,1 +1,1 @@
-// git should ignore this
+var secret = 'This should be ignored by git';
