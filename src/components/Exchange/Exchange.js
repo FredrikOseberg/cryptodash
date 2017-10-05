@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getCurrencies } from '../../api/api';
+import ChooseExchange from './ChooseExchange/ChooseExchange';
 import './exchange.css';
 
 class Exchange extends Component {
@@ -7,25 +7,18 @@ class Exchange extends Component {
 		super(props);
 
 		this.state = {
-			availableExchangeCurrencies: []
+			currentStep: 'chooseExchange'
 		};
 	}
 
-	componentDidMount() {
-		getCurrencies().then(response => {
-			console.log(response);
-		});
-	}
-
 	render() {
+		const showChooseExchange = this.state.currentStep === 'chooseExchange';
 		return (
 			<div className="exchange">
 				<div className="currency--wallet--header">
 					<h3>Exchange Cryptocurrencies</h3>
 				</div>
-				<div className="exchange--content">
-					<h1>Mama</h1>
-				</div>
+				<div className="exchange--content">{showChooseExchange && <ChooseExchange />}</div>
 			</div>
 		);
 	}
