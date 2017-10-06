@@ -47,7 +47,11 @@ class ExchangeSearchBox extends Component {
 							})
 							.map(currency => {
 								return (
-									<li data-symbol={currency.symbol.toLowerCase()} onClick={this.handleListItemClick}>
+									<li
+										data-symbol={currency.symbol.toLowerCase()}
+										onClick={this.handleListItemClick}
+										key={currency.id}
+									>
 										<div className="choose--currency--list--image--container">
 											<img src={currency.img} alt={currency.name} />
 										</div>

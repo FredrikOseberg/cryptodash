@@ -38,11 +38,17 @@ class ChooseExchange extends Component {
 		});
 	}
 
-	handleFromButtonSelectorClick() {
+	handleFromButtonSelectorClick(event) {
+		if (event.target.classList.contains('exchange--choose--currency--list--search')) {
+			return;
+		}
 		this.setState({ showFromSearchBox: !this.state.showFromSearchBox });
 	}
 
-	handleToButtonSelectorClick() {
+	handleToButtonSelectorClick(event) {
+		if (event.target.classList.contains('exchange--choose--currency--list--search')) {
+			return;
+		}
 		this.setState({ showToSearchBox: !this.state.showToSearchBox });
 	}
 

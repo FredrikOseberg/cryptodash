@@ -53,6 +53,10 @@
 	outline: none;
 }
 
+.exchange--choose--currency--list--search:focus {
+	border-bottom: 2px solid rgba(38, 38, 97, 1);
+}
+
 .exchange--choose--currency--list li img {
 	height: 20px;
 	width: 20px;
