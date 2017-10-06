@@ -1,10 +1,9 @@
 import store from '../store/store';
 
-export const convertPriceToLocalCurrency = price => {
+export const convertPriceToLocalCurrency = priceInDollars => {
 	const state = store.getState();
-	const postfix = state.localCurrency.currency;
 	const rate = state.localCurrency.rate;
-	const convertedPrice = (price * rate).toFixed(2);
+	const convertedPrice = (priceInDollars * rate).toFixed(2);
 
 	return convertedPrice;
 };

@@ -100,6 +100,7 @@ class LineChart extends Component {
 	}
 
 	componentDidMount() {
+		console.log(this.props);
 		this.getChartData();
 		this.interval = setInterval(() => {
 			this.getChartData();

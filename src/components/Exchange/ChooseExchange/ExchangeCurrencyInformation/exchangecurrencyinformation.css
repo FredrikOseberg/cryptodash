@@ -1,0 +1,27 @@
+.exchange--currency--information {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #888;
+}
+
+.exchange--currency--information--image {
+	width: 50px;
+	border-radius: 100%;
+}
+
+.exchange--currency--information--header {
+	margin-bottom: 0;
+}
+
+.exchange--currency--information--price {
+	font-family: Montserrat, sans-serif;
+	display: flex;
+	font-size: 1.2em;
+	color: #000;
+}
+
+.exchange--currency--information--price--postfix {
+	font-size: 0.7em;
+}

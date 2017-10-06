@@ -1,3 +1,15 @@
+.exchange--choose--exchange {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.exchange--choose--exchange--container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
 .exchange--choose--currency--list--container {
 	position: absolute;
 	background-color: #fff;
@@ -33,7 +45,6 @@
 	justify-content: space-around;
 	align-items: center;
 	padding: 12px;
-	width: 100%;
 }
 
 .exchange--choose--currency--list li:hover {
@@ -72,4 +83,10 @@
 .choose--currency--list--currency--name {
 	width: 70%;
 	margin: 0;
+}
+
+.exchange--choose--exchange--selected--currencies--container {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
 }
