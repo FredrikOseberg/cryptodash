@@ -28,6 +28,10 @@ class ConfirmAmounts extends Component {
 		}, 5000);
 	}
 
+	componentWillUnmount() {
+		clearInterval(this.interval);
+	}
+
 	handleMinAmountClick() {
 		this.setState({ minAmountChecked: !this.state.minAmountChecked });
 	}
@@ -65,8 +69,6 @@ class ConfirmAmounts extends Component {
 		this.state.showTooltip
 			? (tooltipClasses = 'minimum--amount--tooltip visible opacity')
 			: (tooltipClasses = 'minimum--amount--tooltip');
-		console.log(tooltipClasses);
-		console.log(this.state.showTooltip);
 		return (
 			<div className="exchange--confirm--amounts">
 				<h3>You have chosen to exchange</h3>
@@ -129,7 +131,9 @@ class ConfirmAmounts extends Component {
 							</p>
 						</div>
 					</div>
-					<div className={nextButtonClasses}>Next</div>
+					<div className={nextButtonClasses} onClick={this.props.nextHandler}>
+						Next
+					</div>
 				</div>
 			</div>
 		);

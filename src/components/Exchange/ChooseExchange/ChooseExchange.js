@@ -40,14 +40,11 @@ class ChooseExchange extends Component {
 
 	componentDidMount() {
 		this.initComponent();
-	}
-
-	initComponent() {
 		let initialStateExchangeCurrencies = [];
 		getCurrencies().then(response => {
 			response.data.result.forEach(result => {
 				coinData.forEach(currency => {
-					if (currency.symbol === result.toUpperCase()) {
+					if (currency.symbol.toUpperCase() === result.toUpperCase()) {
 						currency.symbol = currency.symbol.toLowerCase();
 						initialStateExchangeCurrencies.push(currency);
 					} else {
@@ -55,6 +52,7 @@ class ChooseExchange extends Component {
 					}
 				});
 			});
+			console.log(initialStateExchangeCurrencies);
 			this.setState({ availableExchangeCurrencies: initialStateExchangeCurrencies }, () => {
 				this.state.availableExchangeCurrencies.forEach(currency => {
 					if (currency.symbol === this.state.changeFrom.symbol) {
@@ -73,6 +71,8 @@ class ChooseExchange extends Component {
 			});
 		});
 	}
+
+	initComponent() {}
 
 	handleFromButtonSelectorClick(event) {
 		if (event.target.classList.contains('exchange--choose--currency--list--search')) {
