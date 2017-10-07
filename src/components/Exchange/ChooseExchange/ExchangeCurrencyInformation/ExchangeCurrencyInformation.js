@@ -40,7 +40,7 @@ class ExchangeCurrencyInformation extends Component {
 				img: defaultImage
 			};
 			coinData.forEach(currency => {
-				if (currency.symbol === response.data.id) {
+				if (currency.symbol.toUpperCase() === response.data.id) {
 					obj.img = currency.img;
 				}
 			});

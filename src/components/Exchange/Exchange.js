@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ChooseExchange from './ChooseExchange/ChooseExchange';
 import ConfirmAmounts from './ConfirmAmounts/ConfirmAmounts';
 import './exchange.css';

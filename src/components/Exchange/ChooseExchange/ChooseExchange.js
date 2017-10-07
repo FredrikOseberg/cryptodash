@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { getCurrencies, getExchangeAmount } from '../../../api/api';
+import { getCurrencies, getExchangeAmount, getMinAmount } from '../../../api/api';
+import {
+	addExchangeFromCurrency,
+	addExchangeToCurrency,
+	addMinAmountToExchange,
+	addExchangeAmount
+} from '../../../actions/exchange';
+import { connect } from 'react-redux';
 import coinData from '../../../coinData';
 import ExchangeSearchBox from './ExchangeSearchBox/ExchangeSearchBox';
 import ExchangeCurrencyInformation from './ExchangeCurrencyInformation/ExchangeCurrencyInformation';
@@ -11,8 +18,8 @@ class ChooseExchange extends Component {
 
 		this.state = {
 			availableExchangeCurrencies: [],
-			changeFrom: 'btc',
-			changeTo: 'eth',
+			changeFrom: { symbol: 'btc' },
+			changeTo: { symbol: 'eth' },
 			exchangeAmount: 0,
 			exchangeToValue: 0,
 			showFromSearchBox: false,
@@ -26,21 +33,44 @@ class ChooseExchange extends Component {
 		this.handleToListItemClick = this.handleToListItemClick.bind(this);
 		this.handleExchangeAmountInputChange = this.handleExchangeAmountInputChange.bind(this);
 		this.updateExchangeAmount = this.updateExchangeAmount.bind(this);
+		this.pushSelectedExchangeObjectsToState = this.pushSelectedExchangeObjectsToState.bind(this);
+		this.initComponent = this.initComponent.bind(this);
+		this.pushMinAmountToState = this.pushMinAmountToState.bind(this);
 	}
 
 	componentDidMount() {
+		this.initComponent();
+	}
+
+	initComponent() {
 		let initialStateExchangeCurrencies = [];
 		getCurrencies().then(response => {
 			response.data.result.forEach(result => {
 				coinData.forEach(currency => {
 					if (currency.symbol === result.toUpperCase()) {
+						currency.symbol = currency.symbol.toLowerCase();
 						initialStateExchangeCurrencies.push(currency);
 					} else {
 						// Do an ajax request and create an object for that currency
 					}
 				});
 			});
-			this.setState({ availableExchangeCurrencies: initialStateExchangeCurrencies });
+			this.setState({ availableExchangeCurrencies: initialStateExchangeCurrencies }, () => {
+				this.state.availableExchangeCurrencies.forEach(currency => {
+					if (currency.symbol === this.state.changeFrom.symbol) {
+						this.setState({ changeFrom: currency }, () => {
+							this.props.addExchangeFromCurrencyToState(currency);
+							this.pushMinAmountToState();
+						});
+					}
+					if (currency.symbol === this.state.changeTo.symbol) {
+						this.setState({ changeTo: currency }, () => {
+							this.props.addExchangeToCurrencyToState(currency);
+							this.pushMinAmountToState();
+						});
+					}
+				});
+			});
 		});
 	}
 
@@ -51,6 +81,16 @@ class ChooseExchange extends Component {
 		this.setState({ showFromSearchBox: !this.state.showFromSearchBox });
 	}
 
+	pushMinAmountToState() {
+		getMinAmount(this.state.changeFrom.symbol, this.state.changeTo.symbol).then(response => {
+			let obj = {
+				minAmount: response.data.result
+			};
+			console.log(obj, response);
+			this.props.addExchangeMinAmountToState(obj);
+		});
+	}
+
 	handleToButtonSelectorClick(event) {
 		if (event.target.classList.contains('exchange--choose--currency--list--search')) {
 			return;
@@ -59,14 +99,27 @@ class ChooseExchange extends Component {
 	}
 
 	handleFromListItemClick(symbol) {
-		this.setState({ changeFrom: symbol }, () => {
+		this.setState({ changeFrom: { symbol } }, () => {
 			this.updateExchangeAmount();
+			this.pushSelectedExchangeObjectsToState(symbol, 'From');
+			this.pushMinAmountToState();
 		});
 	}
 
 	handleToListItemClick(symbol) {
-		this.setState({ changeTo: symbol }, () => {
+		this.setState({ changeTo: { symbol } }, () => {
 			this.updateExchangeAmount();
+			this.pushSelectedExchangeObjectsToState(symbol, 'To');
+			this.pushMinAmountToState();
+		});
+	}
+
+	pushSelectedExchangeObjectsToState(symbol, type) {
+		let functionName = `addExchange${type}CurrencyToState`;
+		this.state.availableExchangeCurrencies.forEach(currency => {
+			if (currency.symbol === symbol.toUpperCase()) {
+				this.props[functionName](currency);
+			}
 		});
 	}
 
@@ -80,11 +133,12 @@ class ChooseExchange extends Component {
 			this.updateExchangeAmount();
 		});
 		this.setState({ showTransferInformation: true });
+		this.props.addExchangeAmountToState({ amount: Number(amount) });
 	}
 
 	updateExchangeAmount() {
-		let fromCurrency = this.state.changeFrom,
-			toCurrency = this.state.changeTo,
+		let fromCurrency = this.state.changeFrom.symbol,
+			toCurrency = this.state.changeTo.symbol,
 			amount = this.state.exchangeAmount;
 		if (amount === 0) {
 			this.setState({ exchangeToValue: 0 });
@@ -116,7 +170,7 @@ class ChooseExchange extends Component {
 								className="exchange--choose--exchange--from--selected exchange--choose--selected"
 								onClick={this.handleFromButtonSelectorClick}
 							>
-								{this.state.changeFrom.toUpperCase()}
+								{this.state.changeFrom.symbol.toUpperCase()}
 								<i className="fa fa-caret-down" aria-hidden="true" />
 								<ExchangeSearchBox
 									currencies={this.state.availableExchangeCurrencies}
@@ -135,7 +189,7 @@ class ChooseExchange extends Component {
 								className="exchange--choose--exchange--from--selected exchange--choose--selected"
 								onClick={this.handleToButtonSelectorClick}
 							>
-								{this.state.changeTo.toUpperCase()}
+								{this.state.changeTo.symbol.toUpperCase()}
 								<i className="fa fa-caret-down" aria-hidden="true" />
 								<ExchangeSearchBox
 									currencies={this.state.availableExchangeCurrencies}
@@ -148,15 +202,30 @@ class ChooseExchange extends Component {
 				</div>
 
 				<div className={transferInformationClasses}>
-					<ExchangeCurrencyInformation symbol={this.state.changeFrom} />
+					<ExchangeCurrencyInformation symbol={this.state.changeFrom.symbol} />
 					<div className="exchange--choose--currencies--button" onClick={this.props.handler}>
 						<i className="fa fa-exchange" />
 					</div>
-					<ExchangeCurrencyInformation symbol={this.state.changeTo} />
+					<ExchangeCurrencyInformation symbol={this.state.changeTo.symbol} />
 				</div>
 			</div>
 		);
 	}
 }
 
-export default ChooseExchange;
+const mapDispatchToProps = dispatch => ({
+	addExchangeFromCurrencyToState(obj) {
+		dispatch(addExchangeFromCurrency(obj));
+	},
+	addExchangeToCurrencyToState(obj) {
+		dispatch(addExchangeToCurrency(obj));
+	},
+	addExchangeAmountToState(obj) {
+		dispatch(addExchangeAmount(obj));
+	},
+	addExchangeMinAmountToState(obj) {
+		dispatch(addMinAmountToExchange(obj));
+	}
+});
+
+export default connect(null, mapDispatchToProps)(ChooseExchange);

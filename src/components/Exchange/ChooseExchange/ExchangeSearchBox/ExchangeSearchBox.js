@@ -17,7 +17,7 @@ class ExchangeSearchBox extends Component {
 	}
 
 	handleListItemClick(event) {
-		const symbol = event.currentTarget.dataset.symbol;
+		const symbol = event.currentTarget.dataset.symbol.toLowerCase();
 		this.props.handler(symbol);
 	}
 
