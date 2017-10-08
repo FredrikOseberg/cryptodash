@@ -14,6 +14,8 @@ import DashboardMainPage from './DashboardMainPage/DashboardMainPage';
 import Exchange from '../Exchange/Exchange';
 import Nav from '../Nav/Nav';
 import Settings from './Settings/Settings';
+import DashboardActionButton from '../DashboardActionButton/DashboardActionButton';
+import Sidebar from './Sidebar/Sidebar';
 import map from 'lodash/map';
 
 class Dashboard extends Component {
@@ -28,7 +30,9 @@ class Dashboard extends Component {
 			showDashboard: false,
 			showDashboardMainPage: false,
 			showAllCurrencies: true,
+			displaySidebar: false,
 			firstload: true,
+			sidebarComponent: '',
 			dashboardPage: 'Exchange',
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
@@ -41,6 +45,8 @@ class Dashboard extends Component {
 		this.addCurrenciesToState = this.addCurrenciesToState.bind(this);
 		this.getCurrentCurrency = this.getCurrentCurrency.bind(this);
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
+		this.showSidebar = this.showSidebar.bind(this);
+		this.setSidebarComponent = this.setSidebarComponent.bind(this);
 	}
 	componentDidMount() {
 		if (this.state.firstload) {
@@ -62,6 +68,14 @@ class Dashboard extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.interval);
+	}
+
+	showSidebar() {
+		this.setState({ displaySidebar: !this.state.displaySidebar });
+	}
+
+	setSidebarComponent(component) {
+		this.setState({ sidebarComponent: component });
 	}
 
 	getCurrentCurrency(symbol) {
@@ -139,6 +153,15 @@ class Dashboard extends Component {
 							{showAllCoins && <ViewAllCurrencies allCurrencies={this.props.allCurrencies} />}
 							{showSettings && <Settings />}
 							{showExchange && <Exchange />}
+							<DashboardActionButton
+								showSidebar={this.showSidebar}
+								setSidebarComponent={this.setSidebarComponent}
+							/>
+							<Sidebar
+								show={this.state.displaySidebar}
+								showSidebar={this.showSidebar}
+								component={this.state.sidebarComponent}
+							/>
 						</div>
 					</div>
 				</div>

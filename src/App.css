@@ -7,7 +7,6 @@
 @import './components/Dashboard/dashboard.css';
 @import './components/Dashboard/CurrencyStatCard/currencystatcard.css';
 @import './components/Dashboard/CurrencyPortfolio/currencyportfolio.css';
-@import './components/Exchange/ChooseExchange/ExchangeSearchBox/exchangesearchbox.css';
 
 .frontend--background {
   min-height: 100%;

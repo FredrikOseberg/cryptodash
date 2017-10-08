@@ -109,23 +109,31 @@ class LineChart extends Component {
 
 	getChartData() {
 		let timeFrame;
+		console.log(this.state.symbol);
 		this.state.currentTime !== 'All' ? (timeFrame = `${this.state.currentTime}day/`) : (timeFrame = '');
-		axios.get(`https://coincap.io/history/${timeFrame}${this.state.symbol}`).then(results => {
-			const newLabels = [],
-				newData = [];
-			const newState = { ...this.state.data };
-			results.data.price.forEach(result => {
-				const date = new Date(result[0]);
-				const price = convertPriceToLocalCurrency(result[1]);
-				newLabels.push(this.formatDate(date));
-				newData.push(price);
+		axios
+			.get(`https://coincap.io/history/${timeFrame}${this.state.symbol}`)
+			.then(results => {
+				console.log(results);
+				const newLabels = [],
+					newData = [];
+				const newState = { ...this.state.data };
+				results.data.price.forEach(result => {
+					const date = new Date(result[0]);
+					const price = convertPriceToLocalCurrency(result[1]);
+					newLabels.push(this.formatDate(date));
+					newData.push(price);
+				});
+
+				newState.labels = newLabels;
+				newState.datasets[0].data = newData;
+
+				this.setState({ data: newState });
+			})
+			.catch(error => {
+				console.log('This coin does not have any history');
+				// Display error message
 			});
-
-			newState.labels = newLabels;
-			newState.datasets[0].data = newData;
-
-			this.setState({ data: newState });
-		});
 	}
 
 	componentWillUnmount() {

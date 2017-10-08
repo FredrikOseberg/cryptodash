@@ -1,57 +1,31 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ChooseExchange from './ChooseExchange/ChooseExchange';
-import ConfirmAmounts from './ConfirmAmounts/ConfirmAmounts';
-import ProvideAddress from './ProvideAddress/ProvideAddress';
+import React from 'react';
 import './exchange.css';
 
-class Exchange extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			currentStep: 'chooseExchange',
-			transferFrom: '',
-			transferTo: ''
-		};
-
-		this.handleTransferClick = this.handleTransferClick.bind(this);
-		this.handleConfirmAmountsNextClick = this.handleConfirmAmountsNextClick.bind(this);
-	}
-
-	handleTransferClick(transferFrom, transferTo) {
-		this.setState({ transferFrom: transferFrom });
-		this.setState({ transferTo: transferTo });
-		this.setState({ currentStep: 'confirmAmounts' });
-	}
-
-	handleConfirmAmountsNextClick() {
-		this.setState({ currentStep: 'provideAddress' });
-	}
-
-	render() {
-		const showChooseExchange = this.state.currentStep === 'chooseExchange';
-		const showConfirmAmounts = this.state.currentStep === 'confirmAmounts';
-		const showProvideAddress = this.state.currentStep === 'provideAddress';
-		return (
-			<div className="exchange">
-				<div className="currency--wallet--header">
-					<h3>Exchange Cryptocurrencies</h3>
-				</div>
-				<div className="exchange--content">
-					{showChooseExchange && <ChooseExchange handler={this.handleTransferClick} />}
-					{showConfirmAmounts && (
-						<ConfirmAmounts
-							transferFrom={this.state.transferFrom}
-							transferTo={this.state.transferTo}
-							nextHandler={this.handleConfirmAmountsNextClick}
-						/>
-					)}
-					{showProvideAddress && <ProvideAddress />}
-				</div>
+const Exchange = () => {
+	let iframeStyles = {
+		overflowY: 'hidden',
+		border: 'none',
+		width: 100 + '%'
+	};
+	return (
+		<div className="exchange">
+			<div className="currency--wallet--header">
+				<h3>Exchange Cryptocurrencies</h3>
 			</div>
-		);
-	}
-}
+			<div className="exchange--content">
+				<iframe
+					src="https://changelly.com/widget/v1?auth=email&from=BTC&to=ETH&merchant_id=172ccf841be7&address=&amount=1&ref_id=172ccf841be7&color=565699"
+					width="600"
+					height="500"
+					className="changelly"
+					scrolling="no"
+					style={iframeStyles}
+				>
+					Can't load widget
+				</iframe>
+			</div>
+		</div>
+	);
+};
 
 export default Exchange;
