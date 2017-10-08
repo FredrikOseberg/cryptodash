@@ -38,9 +38,11 @@ class WalletListItem extends Component {
 			<li>
 				<img src={this.props.img} alt={this.props.name} />
 				<p>{this.props.name}</p>
-				<input className="main--input" disabled value={this.props.wallet} ref="copyAddress" />
-				{copyMarkup}
-				<div onClick={this.handleListItemCopyClick} className="wallet--list--item--copy">
+				<div className="wallet--list--item--copy">
+					<input className="main--input" disabled value={this.props.wallet} />
+					{copyMarkup}
+				</div>
+				<div onClick={this.handleListItemCopyClick}>
 					<i className="fa fa-clone" aria-hidden="true" />
 				</div>
 			</li>

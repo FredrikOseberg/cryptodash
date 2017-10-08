@@ -28,6 +28,11 @@
 	opacity: 0;
 }
 
+.dashboard--action--button--wallet {
+	background-color: #38ab38;
+}
+
 .dashboard--action--button--exchange {
 	top: 71%;
+	background-color: #ff5d56;
 }
