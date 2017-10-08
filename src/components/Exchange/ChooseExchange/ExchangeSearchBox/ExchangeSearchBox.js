@@ -56,7 +56,7 @@ class ExchangeSearchBox extends Component {
 											<img src={currency.img} alt={currency.name} />
 										</div>
 										<h5 className="choose--currency--list--currency--name">
-											{currency.name} ({currency.symbol})
+											{currency.name} ({currency.symbol.toUpperCase()})
 										</h5>
 									</li>
 								);

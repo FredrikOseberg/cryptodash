@@ -117,7 +117,7 @@ class ChooseExchange extends Component {
 	pushSelectedExchangeObjectsToState(symbol, type) {
 		let functionName = `addExchange${type}CurrencyToState`;
 		this.state.availableExchangeCurrencies.forEach(currency => {
-			if (currency.symbol === symbol.toUpperCase()) {
+			if (currency.symbol.toUpperCase() === symbol.toUpperCase()) {
 				this.props[functionName](currency);
 			}
 		});
