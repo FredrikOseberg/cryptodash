@@ -106,7 +106,11 @@ class LineChart extends Component {
 	}
 
 	componentDidMount() {
-		this.setState({});
+		let newState = { ...this.state.data };
+		newState.datasets[0].label = `${this.props.currentCurrency.symbol} Price`;
+
+		this.setState({ data: newState });
+
 		this.getChartData();
 		this.interval = setInterval(() => {
 			this.getChartData();

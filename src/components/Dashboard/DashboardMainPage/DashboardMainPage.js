@@ -44,7 +44,7 @@ const DashboardMainPage = props => {
 	return (
 		<div>
 			<div className="dashboard--content--chart">
-				{props.firstCurrency ? <LineChart getCurrentCurrency={props.getCurrentCurrency} /> : ''}
+				{props.firstCurrency ? <LineChart getCurrentCurrency={props.getCurrentCurrency} /> : <Spinner />}
 			</div>
 			<div className="dashboard--currency">
 				<div className="dashboard--currency--container">{currencyCard}</div>

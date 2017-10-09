@@ -5,12 +5,23 @@ class CurrencyPortfolio extends Component {
 	constructor(props) {
 		super(props);
 
+		this.interval;
+
 		this.state = {
 			totalVal: 0
 		};
+
+		this.setTotalPortfolioPrice = this.setTotalPortfolioPrice.bind(this);
 	}
 
 	componentDidMount() {
+		this.setTotalPortfolioPrice();
+		this.interval = setInterval(() => {
+			this.setTotalPortfolioPrice();
+		}, 5000);
+	}
+
+	setTotalPortfolioPrice() {
 		let amount = 0;
 		this.props.currencies.forEach(currency => {
 			if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
@@ -19,6 +30,10 @@ class CurrencyPortfolio extends Component {
 		});
 
 		this.setState({ totalVal: amount.toFixed(2) });
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.interval);
 	}
 
 	render() {
