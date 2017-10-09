@@ -37,11 +37,25 @@
 	border-radius: 100%;
 }
 
+.currency--portfolio--list li p {
+	text-align: center;
+}
+
+.currency--portfolio--item--amount {
+	width: 30%;
+}
+
+.currency--portfolio--item--name {
+	width: 15%;
+}
+
 .currency--portfolio--item--value {
 	font-family: Montserrat, sans-serif;
 	font-size: 1.2em;
 	color: #8dff85;
 	display: flex;
+	justify-content: center;
+	width: 30%;
 }
 
 .currency--total--value {
@@ -64,4 +78,13 @@
 
 .currency--total--value h2 {
 	margin: 0;
+	display: flex;
+	justify-content: center;
 }
+
+.currency--total--value--postfix {
+	font-size: 0.8em;
+	margin-left: 3px;
+}
+
+

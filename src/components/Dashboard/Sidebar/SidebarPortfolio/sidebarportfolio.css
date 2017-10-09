@@ -1,0 +1,43 @@
+.sidebar--portfolio {
+	width: 80%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.sidebar--portfolio .currency--portfolio {
+	background-color: #fff;
+	width: 100%;
+	color: #888;
+}
+
+.sidebar--portfolio .currency--portfolio--item--value {
+	background-color: #ededed;
+	padding: 10px;
+	border-radius: 3px;
+	color: #504f4f;
+}
+
+.sidebar--portfolio .currency--total--value {
+	background-color: #d86464;
+	color: #fff;
+}
+
+.sidebar--portfolio .currency--portfolio--list li {
+	margin: 3px;
+}
+
+.sidebar--portfolio .currency--portfolio--list {
+	margin-bottom: 20px;
+}
+
+.sidebar--portfolio .currency--portfolio--header h3 {
+	color: #000;
+}
+
+.sidebar--portfolio .currency--portfolio--item--name {
+	font-family: Montserrat;
+}
+
+
+

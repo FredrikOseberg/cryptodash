@@ -24,13 +24,15 @@ class DashboardActionButton extends Component {
 	}
 
 	render() {
-		let walletButtonClasses, exchangeClasses;
+		let walletButtonClasses, exchangeClasses, portfolioClasses;
 		if (this.state.clicked) {
 			walletButtonClasses = 'dashboard--action--button--wallet visible opacity transition';
 			exchangeClasses = 'dashboard--action--button--exchange visible opacity transition';
+			portfolioClasses = 'dashboard--action--button--portfolio visible opacity transition';
 		} else {
 			walletButtonClasses = 'dashboard--action--button--wallet';
 			exchangeClasses = 'dashboard--action--button--exchange';
+			portfolioClasses = 'dashboard--action--button--portfolio';
 		}
 		return (
 			<div className="dashboard--action--button" onClick={this.handleActionButtonClick}>
@@ -40,6 +42,9 @@ class DashboardActionButton extends Component {
 				</div>
 				<div className={exchangeClasses} data-target="exchange" onClick={this.handleNavigationClick}>
 					<i className="fa fa-exchange" aria-hidden="true" />
+				</div>
+				<div className={portfolioClasses} data-target="portfolio" onClick={this.handleNavigationClick}>
+					<i className="fa fa-money" aria-hidden="true" />
 				</div>
 			</div>
 		);

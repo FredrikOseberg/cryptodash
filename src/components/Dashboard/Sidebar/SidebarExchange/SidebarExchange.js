@@ -3,6 +3,7 @@ import { getCurrencies } from '../../../../api/api';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { convertPriceToLocalCurrency } from '../../../../common/helpers';
+import Spinner from '../../../Loading/Spinner/Spinner';
 import './sidebarexchange.css';
 
 class SidebarExchange extends Component {
@@ -28,11 +29,11 @@ class SidebarExchange extends Component {
 				result.push(symbol.toUpperCase());
 			});
 			this.setState({ currencySymbols: result }, () => {
-				this.getData(this.state.currencySymbols);
+				this.getData(this.state.currencySymbols).then(() => {
+					this.setPeriodicDataFetching();
+				});
 			});
 		});
-
-		this.setPeriodicDataFetching();
 	}
 
 	setPeriodicDataFetching() {
@@ -42,7 +43,6 @@ class SidebarExchange extends Component {
 	}
 
 	componentWillUnmount() {
-		console.log('unmounted');
 		clearInterval(this.interval);
 	}
 
@@ -62,16 +62,23 @@ class SidebarExchange extends Component {
 	}
 
 	getData(result) {
-		result.forEach(symbol => {
-			axios.get(`https://www.coincap.io/page/${symbol}`).then(response => {
-				const currencyObj = {
-					symbol: response.data.id,
-					price: convertPriceToLocalCurrency(response.data.price_usd),
-					name: response.data.display_name,
-					percentage: response.data.cap24hrChange
-				};
+		return new Promise(resolve => {
+			result.forEach(symbol => {
+				if (symbol === 'BCC') {
+					symbol = 'BCH';
+				}
+				axios.get(`https://www.coincap.io/page/${symbol}`).then(response => {
+					const currencyObj = {
+						symbol: response.data.id,
+						price: convertPriceToLocalCurrency(response.data.price_usd),
+						name: response.data.display_name,
+						percentage: response.data.cap24hrChange
+					};
 
-				this.setState({ currencyInformation: [...this.state.currencyInformation, currencyObj] });
+					this.setState({ currencyInformation: [...this.state.currencyInformation, currencyObj] }, () => {
+						resolve();
+					});
+				});
 			});
 		});
 	}
@@ -79,7 +86,11 @@ class SidebarExchange extends Component {
 	render() {
 		let markup;
 		if (this.state.currencyInformation.length === 0) {
-			markup = <h4 className="sidebar--exchange--loading">Loading...</h4>;
+			markup = (
+				<div className="sidebar--exchange--loading">
+					<Spinner />
+				</div>
+			);
 		} else {
 			markup = this.state.currencyInformation.map(currency => {
 				let percentageClasses;

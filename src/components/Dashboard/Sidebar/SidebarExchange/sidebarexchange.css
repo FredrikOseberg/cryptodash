@@ -51,3 +51,10 @@
 .sidebar--exchange--price--postfix {
 	font-size: 0.7em;
 }
+
+.sidebar--exchange--loading {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

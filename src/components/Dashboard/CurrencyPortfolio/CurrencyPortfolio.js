@@ -10,6 +10,17 @@ class CurrencyPortfolio extends Component {
 		};
 	}
 
+	componentDidMount() {
+		let amount = 0;
+		this.props.currencies.forEach(currency => {
+			if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
+				amount += Number(currency.wallet.amount) * Number(currency.price);
+			}
+		});
+
+		this.setState({ totalVal: amount.toFixed(2) });
+	}
+
 	render() {
 		let totalVal = 0;
 		return (
@@ -24,7 +35,7 @@ class CurrencyPortfolio extends Component {
 								<li className="currency--portfolio--item" key={currency.id}>
 									<img src={currency.img} alt={currency.name} />
 									<p className="currency--portfolio--item--name">{currency.name}</p>
-									<p>
+									<p className="currency--portfolio--item--amount">
 										{currency.wallet.amount} {currency.symbol}
 									</p>
 									<p className="currency--portfolio--item--value">
@@ -39,7 +50,8 @@ class CurrencyPortfolio extends Component {
 				<div className="currency--total--value">
 					<h3>Total value</h3>
 					<h2>
-						{totalVal} {this.props.localCurrency.currency}
+						{this.state.totalVal}
+						<span className="currency--total--value--postfix">{this.props.localCurrency.currency}</span>
 					</h2>
 				</div>
 			</div>

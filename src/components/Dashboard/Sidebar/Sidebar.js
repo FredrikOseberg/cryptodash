@@ -1,6 +1,7 @@
 import React from 'react';
 import Wallet from './Wallet/Wallet';
 import SidebarExchange from './SidebarExchange/SidebarExchange';
+import SidebarPortfolio from './SidebarPortfolio/SidebarPortfolio';
 import './sidebar.css';
 
 const Sidebar = props => {
@@ -11,6 +12,7 @@ const Sidebar = props => {
 
 	const showWallet = props.component === 'wallet';
 	const showExchange = props.component === 'exchange';
+	const showPortfolio = props.component === 'portfolio';
 	return (
 		<div className={sidebarClasses}>
 			<div className="dashboard--sidebar--exit" onClick={props.showSidebar}>
@@ -18,7 +20,8 @@ const Sidebar = props => {
 			</div>
 			<div className="sidebar--content">
 				{showWallet && <Wallet />}
-				{showExchange ? <SidebarExchange showSidebar={props.show} /> : ''}
+				{showExchange && <SidebarExchange showSidebar={props.show} />}
+				{showPortfolio && <SidebarPortfolio />}
 			</div>
 		</div>
 	);

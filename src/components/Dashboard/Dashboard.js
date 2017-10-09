@@ -33,7 +33,7 @@ class Dashboard extends Component {
 			displaySidebar: false,
 			firstload: true,
 			sidebarComponent: '',
-			dashboardPage: 'Exchange',
+			dashboardPage: 'Dashboard',
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
 				{ name: 'Exchange', icon: 'fa fa-exchange' },

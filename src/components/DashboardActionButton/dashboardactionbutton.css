@@ -1,6 +1,7 @@
 .dashboard--action--button,
 .dashboard--action--button--wallet,
-.dashboard--action--button--exchange {
+.dashboard--action--button--exchange,
+.dashboard--action--button--portfolio {
 	width: 70px;
 	height: 70px;
 	border-radius: 100%;
@@ -18,7 +19,8 @@
 }
 
 .dashboard--action--button--wallet,
-.dashboard--action--button--exchange {
+.dashboard--action--button--exchange,
+.dashboard--action--button--portfolio {
 	width: 50px;
 	height: 50px;
 	left: 81%;
@@ -35,4 +37,9 @@
 .dashboard--action--button--exchange {
 	top: 71%;
 	background-color: #ff5d56;
+}
+
+.dashboard--action--button--portfolio {
+	top: 64%;
+	background-color: steelblue;
 }

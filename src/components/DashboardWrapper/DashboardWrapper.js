@@ -3,14 +3,11 @@ import { connect } from 'react-redux';
 import { database } from '../../firebase';
 import { addLocalCurrency } from '../../actions/localCurrency';
 import { addPrice } from '../../actions/currencies';
-import { convertPriceToLocalCurrency } from '../../common/helpers';
 import axios from 'axios';
 import Loading from '../Loading/Loading';
 import Landing from '../../components/Landing/Landing';
 import Onboarding from '../../components/Onboarding/Onboarding';
 import Dashboard from '../../components/Dashboard/Dashboard';
-import map from 'lodash/map';
-import store from '../../store/store';
 
 class DashboardWrapper extends Component {
 	constructor(props) {
