@@ -10,16 +10,15 @@ class DashboardActionButton extends Component {
 		};
 
 		this.handleActionButtonClick = this.handleActionButtonClick.bind(this);
-		this.handleWalletButtonClick = this.handleWalletButtonClick.bind(this);
+		this.handleNavigationClick = this.handleNavigationClick.bind(this);
 	}
 
 	handleActionButtonClick() {
 		this.setState({ clicked: !this.state.clicked });
 	}
 
-	handleWalletButtonClick(event) {
+	handleNavigationClick(event) {
 		const component = event.currentTarget.dataset.target;
-		console.log(component);
 		this.props.showSidebar();
 		this.props.setSidebarComponent(component);
 	}
@@ -36,10 +35,10 @@ class DashboardActionButton extends Component {
 		return (
 			<div className="dashboard--action--button" onClick={this.handleActionButtonClick}>
 				<i className="fa fa-cogs" aria-hidden="true" />
-				<div className={walletButtonClasses} onClick={this.handleWalletButtonClick} data-target="wallet">
+				<div className={walletButtonClasses} onClick={this.handleNavigationClick} data-target="wallet">
 					<i className="fa fa-folder" aria-hidden="true" />
 				</div>
-				<div className={exchangeClasses} data-target="exchange">
+				<div className={exchangeClasses} data-target="exchange" onClick={this.handleNavigationClick}>
 					<i className="fa fa-exchange" aria-hidden="true" />
 				</div>
 			</div>

@@ -1,0 +1,121 @@
+import React, { Component } from 'react';
+import { getCurrencies } from '../../../../api/api';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { convertPriceToLocalCurrency } from '../../../../common/helpers';
+import './sidebarexchange.css';
+
+class SidebarExchange extends Component {
+	constructor(props) {
+		super(props);
+
+		this.interval;
+
+		this.state = {
+			currencySymbols: [],
+			currencyInformation: []
+		};
+
+		this.getData = this.getData.bind(this);
+		this.getPrice = this.getPrice.bind(this);
+		this.setPeriodicDataFetching = this.setPeriodicDataFetching.bind(this);
+	}
+
+	componentDidMount() {
+		let result = [];
+		getCurrencies().then(response => {
+			response.data.result.forEach(symbol => {
+				result.push(symbol.toUpperCase());
+			});
+			this.setState({ currencySymbols: result }, () => {
+				this.getData(this.state.currencySymbols);
+			});
+		});
+
+		this.setPeriodicDataFetching();
+	}
+
+	setPeriodicDataFetching() {
+		this.interval = setInterval(() => {
+			this.getPrice();
+		}, 5000);
+	}
+
+	componentWillUnmount() {
+		console.log('unmounted');
+		clearInterval(this.interval);
+	}
+
+	getPrice() {
+		const newState = [...this.state.currencyInformation];
+		this.state.currencySymbols.forEach(symbol => {
+			axios.get(`https://www.coincap.io/page/${symbol}`).then(response => {
+				newState.forEach(currency => {
+					if (currency.symbol === response.data.id) {
+						currency.price = convertPriceToLocalCurrency(response.data.price_usd);
+					}
+				});
+
+				this.setState({ currencyInformation: newState });
+			});
+		});
+	}
+
+	getData(result) {
+		result.forEach(symbol => {
+			axios.get(`https://www.coincap.io/page/${symbol}`).then(response => {
+				const currencyObj = {
+					symbol: response.data.id,
+					price: convertPriceToLocalCurrency(response.data.price_usd),
+					name: response.data.display_name,
+					percentage: response.data.cap24hrChange
+				};
+
+				this.setState({ currencyInformation: [...this.state.currencyInformation, currencyObj] });
+			});
+		});
+	}
+
+	render() {
+		let markup;
+		if (this.state.currencyInformation.length === 0) {
+			markup = <h4 className="sidebar--exchange--loading">Loading...</h4>;
+		} else {
+			markup = this.state.currencyInformation.map(currency => {
+				let percentageClasses;
+				if (currency.percentage > 0) {
+					percentageClasses = 'sidebar--exchange--items sidebar--exchange--percentage--positive';
+				} else {
+					percentageClasses = 'sidebar--exchange--items sidebar--exchange--percentage--negative';
+				}
+				return (
+					<div className="sidebar--exchange--item" key={currency.symbol}>
+						<h4 className="sidebar--exchange--items sidebar--exchange--header">
+							{currency.name} <span className="sidebar--exchange--symbol">({currency.symbol})</span>
+						</h4>
+						<p className={percentageClasses}>{currency.percentage}%</p>
+						<p className="sidebar--exchange--items sidebar--exchange--price">
+							{currency.price}
+							<span className="sidebar--exchange--price--postfix">
+								{this.props.localCurrency.currency}
+							</span>
+						</p>
+					</div>
+				);
+			});
+		}
+
+		return (
+			<div className="sidebar--exchange">
+				<h3>Currencies Available for Exchange through API</h3>
+				<div className="sidebar--exchange--container">{markup}</div>
+			</div>
+		);
+	}
+}
+
+const mapStateToProps = state => ({
+	localCurrency: state.localCurrency
+});
+
+export default connect(mapStateToProps)(SidebarExchange);

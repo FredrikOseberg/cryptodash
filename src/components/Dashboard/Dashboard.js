@@ -72,7 +72,7 @@ class Dashboard extends Component {
 
 	showSidebar() {
 		this.setState({ displaySidebar: !this.state.displaySidebar }, () => {
-			if (this.state.displaySideBar === false) {
+			if (this.state.displaySidebar === false) {
 				this.setState({ sidebarComponent: '' });
 			}
 		});

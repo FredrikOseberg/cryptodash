@@ -9,6 +9,14 @@
 	align-items: center;
 }
 
+.sidebar--wallet--container {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
 .sidebar--wallet--list {
 	padding: 0;
 	list-style-type: none;
