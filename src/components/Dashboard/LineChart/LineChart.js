@@ -75,7 +75,12 @@ class LineChart extends Component {
 	}
 
 	handleCurrencyNavTypeClick(event) {
-		const symbol = event.currentTarget.dataset.symbol;
+		let symbol;
+		if (this.props.currencies.length < 6) {
+			symbol = event.currentTarget.dataset.symbol;
+		} else {
+			symbol = event.target.value;
+		}
 		const newData = { ...this.state.data };
 
 		this.props.currencies.forEach(currency => {
@@ -100,7 +105,7 @@ class LineChart extends Component {
 	}
 
 	componentDidMount() {
-		console.log(this.props);
+		this.setState({});
 		this.getChartData();
 		this.interval = setInterval(() => {
 			this.getChartData();
@@ -114,7 +119,6 @@ class LineChart extends Component {
 		axios
 			.get(`https://coincap.io/history/${timeFrame}${this.state.symbol}`)
 			.then(results => {
-				console.log(results);
 				const newLabels = [],
 					newData = [];
 				const newState = { ...this.state.data };
@@ -132,7 +136,6 @@ class LineChart extends Component {
 			})
 			.catch(error => {
 				console.log('This coin does not have any history');
-				// Display error message
 			});
 	}
 
@@ -145,30 +148,56 @@ class LineChart extends Component {
 		this.props.currentCurrency.percentage > 0
 			? (trendingClasses = 'fa fa-line-chart trending--positive')
 			: (trendingClasses = 'fa fa-line-chart trending--negative');
+
+		let currencyNav;
+		if (this.props.currencies.length < 6) {
+			currencyNav = (
+				<ul className="currency--line--chart--navigation">
+					{this.props.currencies.map((currency, index) => {
+						let navClass;
+						this.props.currentCurrency.symbol === currency.symbol
+							? (navClass = 'currency--line--chart--navigation--active')
+							: (navClass = '');
+						return (
+							<li
+								data-symbol={currency.symbol}
+								key={currency.id}
+								className={navClass}
+								onClick={this.handleCurrencyNavTypeClick}
+							>
+								{`${currency.name} (${currency.symbol})`}
+								<h5 className="currency--line--chart--price">
+									{currency.price} {this.props.localCurrency.currency}
+								</h5>
+							</li>
+						);
+					})}
+				</ul>
+			);
+		} else {
+			currencyNav = (
+				<div className="currency--line--chart--select--container">
+					<select
+						className="currency--line--chart--navigation--select"
+						onChange={this.handleCurrencyNavTypeClick}
+					>
+						{this.props.currencies.map(currency => {
+							return (
+								<option key={currency.id} value={currency.symbol}>
+									{currency.name} ({currency.symbol}) {currency.price}{' '}
+									{this.props.localCurrency.currency}
+								</option>
+							);
+						})}
+					</select>
+				</div>
+			);
+		}
+
 		return (
 			<div className="currency--line--chart--container">
 				<div className="currency--line--chart--header">
-					<ul className="currency--line--chart--navigation">
-						{this.props.currencies.map((currency, index) => {
-							let navClass;
-							this.state.symbol === currency.symbol
-								? (navClass = 'currency--line--chart--navigation--active')
-								: (navClass = '');
-							return (
-								<li
-									data-symbol={currency.symbol}
-									key={currency.id}
-									className={navClass}
-									onClick={this.handleCurrencyNavTypeClick}
-								>
-									{`${currency.name} (${currency.symbol})`}
-									<h5 className="currency--line--chart--price">
-										{currency.price} {this.props.localCurrency.currency}
-									</h5>
-								</li>
-							);
-						})}
-					</ul>
+					{currencyNav}
 					<ul className="currency--line--chart--timeperiod--navigation">
 						{this.state.timePeriods.map(timePeriod => {
 							let classes;

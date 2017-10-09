@@ -6,6 +6,7 @@ import { database } from '../../../firebase';
 import { addCurrency, removeCurrency, clearCurrency } from '../../../actions/currencies';
 import coins from '../../../img/coins.jpg';
 import { convertPriceToLocalCurrency } from '../../../common/helpers';
+import './currencytabledata.css';
 
 class CurrencyTableData extends Component {
 	constructor(props) {
@@ -128,9 +129,9 @@ class CurrencyTableData extends Component {
 	render() {
 		let percentageClasses;
 		if (this.props.perc > 0) {
-			percentageClasses = 'view--all-percentage--positive';
+			percentageClasses = 'currency--table--card--percentage currency--table--card--percentage--positive';
 		} else {
-			percentageClasses = 'view--all--percentage--negative';
+			percentageClasses = 'currency--table--card--percentage currency--table--card--percentage--negative';
 		}
 
 		let track;
@@ -153,25 +154,25 @@ class CurrencyTableData extends Component {
 		}
 
 		return (
-			<tr key={this.props.short}>
-				<td>{this.props.rank}</td>
-				<td className="view--all--name">
+			<div key={this.props.short} className="currency--table--card">
+				<div className="currency--table--card--rank">{this.props.rank}</div>
+				<div className="view--all--name">
 					{this.props.long} {this.props.short}
-				</td>
-				<td className="view--all--market">
+				</div>
+				<div className="currency--table--card--marketcap">
 					{convertPriceToLocalCurrency(this.props.mktcap)}
 					<span className="price--postfix">{this.props.localCurrency.currency}</span>
-				</td>
-				<td className="view--all--price">
+				</div>
+				<div className="currency--table--card--price">
 					{convertPriceToLocalCurrency(this.props.price)}{' '}
 					<span className="price--postfix">{this.props.localCurrency.currency}</span>
-				</td>
-				<td>{this.props.vwapData.toFixed(0)}</td>
-				<td>{this.props.supply.toFixed(0)}</td>
-				<td>{this.props.usdVolume.toFixed(0)}</td>
-				<td className={percentageClasses}>{this.props.perc}%</td>
-				<td>{track}</td>
-			</tr>
+				</div>
+				<div className="currency--table--card--vwap">{this.props.vwapData.toFixed(0)}</div>
+				<div className="currency--table--card--supply">{this.props.supply.toFixed(0)}</div>
+				<div className="currency--table--card--usdVolume">{this.props.usdVolume.toFixed(0)}</div>
+				<div className={percentageClasses}>{this.props.perc}%</div>
+				<div className="currency--table--card--track">{track}</div>
+			</div>
 		);
 	}
 }

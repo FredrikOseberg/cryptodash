@@ -24,16 +24,19 @@ class DashboardActionButton extends Component {
 	}
 
 	render() {
-		let walletButtonClasses, exchangeClasses, portfolioClasses;
+		let walletButtonClasses, exchangeClasses, portfolioClasses, allcoinsClasses;
 		if (this.state.clicked) {
 			walletButtonClasses = 'dashboard--action--button--wallet visible opacity transition';
 			exchangeClasses = 'dashboard--action--button--exchange visible opacity transition';
 			portfolioClasses = 'dashboard--action--button--portfolio visible opacity transition';
+			allcoinsClasses = 'dashboard--action--button--allcoins visible opacity transition';
 		} else {
 			walletButtonClasses = 'dashboard--action--button--wallet';
 			exchangeClasses = 'dashboard--action--button--exchange';
 			portfolioClasses = 'dashboard--action--button--portfolio';
+			allcoinsClasses = 'dashboard--action--button--allcoins';
 		}
+
 		return (
 			<div className="dashboard--action--button" onClick={this.handleActionButtonClick}>
 				<i className="fa fa-cogs" aria-hidden="true" />
@@ -45,6 +48,9 @@ class DashboardActionButton extends Component {
 				</div>
 				<div className={portfolioClasses} data-target="portfolio" onClick={this.handleNavigationClick}>
 					<i className="fa fa-money" aria-hidden="true" />
+				</div>
+				<div className={allcoinsClasses} data-target="allcoins" onClick={this.handleNavigationClick}>
+					<i className="fa fa-plus" aria-hidden="true" />
 				</div>
 			</div>
 		);

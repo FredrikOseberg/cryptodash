@@ -7,7 +7,7 @@ import Spinner from '../../Loading/Spinner/Spinner';
 
 const DashboardMainPage = props => {
 	let currencyCard = props.currencies.map(currency => {
-		if (currency.price) {
+		if (currency.price && currency.price !== 'NaN') {
 			return (
 				<CurrencyStatCard
 					name={currency.name}
@@ -28,7 +28,7 @@ const DashboardMainPage = props => {
 	});
 
 	let portfolio = props.currencies.every(currency => {
-		return currency.price;
+		return currency.price && currency.price !== 'NaN';
 	});
 
 	let portfolioMarkup;

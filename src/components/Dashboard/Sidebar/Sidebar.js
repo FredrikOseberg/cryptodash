@@ -2,6 +2,7 @@ import React from 'react';
 import Wallet from './Wallet/Wallet';
 import SidebarExchange from './SidebarExchange/SidebarExchange';
 import SidebarPortfolio from './SidebarPortfolio/SidebarPortfolio';
+import SidebarAllCoins from './SidebarAllCoins/SidebarAllCoins';
 import './sidebar.css';
 
 const Sidebar = props => {
@@ -13,6 +14,12 @@ const Sidebar = props => {
 	const showWallet = props.component === 'wallet';
 	const showExchange = props.component === 'exchange';
 	const showPortfolio = props.component === 'portfolio';
+	const showAllCoins = props.component === 'allcoins';
+
+	showAllCoins
+		? (sidebarClasses = 'dashboard--sidebar dashboard--sidebar--active sidebar--full--width')
+		: 'dashboard--sidebar';
+
 	return (
 		<div className={sidebarClasses}>
 			<div className="dashboard--sidebar--exit" onClick={props.showSidebar}>
@@ -22,6 +29,7 @@ const Sidebar = props => {
 				{showWallet && <Wallet />}
 				{showExchange && <SidebarExchange showSidebar={props.show} />}
 				{showPortfolio && <SidebarPortfolio />}
+				{showAllCoins && <SidebarAllCoins allCurrencies={props.allCurrencies} />}
 			</div>
 		</div>
 	);

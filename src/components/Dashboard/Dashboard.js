@@ -9,7 +9,6 @@ import CurrencyPortfolio from './CurrencyPortfolio/CurrencyPortfolio';
 import Header from '../Header/Header';
 import LineChart from './LineChart/LineChart';
 import Loading from '../Loading/Loading';
-import ViewAllCurrencies from '../ViewAllCurrencies/ViewAllCurrencies';
 import DashboardMainPage from './DashboardMainPage/DashboardMainPage';
 import Exchange from '../Exchange/Exchange';
 import Nav from '../Nav/Nav';
@@ -31,14 +30,14 @@ class Dashboard extends Component {
 			showDashboardMainPage: false,
 			showAllCurrencies: true,
 			displaySidebar: false,
+			currentCurrency: false,
 			firstload: true,
 			sidebarComponent: '',
 			dashboardPage: 'Dashboard',
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
 				{ name: 'Exchange', icon: 'fa fa-exchange' },
-				{ name: 'Settings', icon: 'fa fa-cog' },
-				{ name: 'Allcoins', icon: 'fa fa-circle' }
+				{ name: 'Settings', icon: 'fa fa-cog' }
 			]
 		};
 
@@ -94,6 +93,7 @@ class Dashboard extends Component {
 				id: response.data._id
 			};
 			this.props.addCurrentCurrencyToState(obj);
+			this.setState({ currentCurrency: true });
 		});
 	}
 
@@ -124,17 +124,13 @@ class Dashboard extends Component {
 			case 'Settings':
 				this.setState({ dashboardPage: 'Settings' });
 				break;
-			case 'Allcoins':
-				this.setState({ dashboardPage: 'Allcoins' });
-				break;
 			default:
 				this.setState({ dashboardPage: 'Dashboard' });
 		}
 	}
 
 	render() {
-		const showDashboard = this.state.dashboardPage === 'Dashboard';
-		const showAllCoins = this.state.dashboardPage === 'Allcoins';
+		const showDashboard = this.state.dashboardPage === 'Dashboard' && this.state.currentCurrency === true;
 		const showExchange = this.state.dashboardPage === 'Exchange';
 		const showSettings = this.state.dashboardPage === 'Settings';
 
@@ -154,7 +150,6 @@ class Dashboard extends Component {
 					<div className="container">
 						<div className="dashboard--container">
 							{showDashboard && <DashboardMainPage getCurrentCurrency={this.getCurrentCurrency} />}
-							{showAllCoins && <ViewAllCurrencies allCurrencies={this.props.allCurrencies} />}
 							{showSettings && <Settings />}
 							{showExchange && <Exchange />}
 							<DashboardActionButton
@@ -165,6 +160,7 @@ class Dashboard extends Component {
 								show={this.state.displaySidebar}
 								showSidebar={this.showSidebar}
 								component={this.state.sidebarComponent}
+								allCurrencies={this.props.allCurrencies}
 							/>
 						</div>
 					</div>

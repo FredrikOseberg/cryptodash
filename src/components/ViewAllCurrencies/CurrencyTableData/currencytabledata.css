@@ -1,0 +1,10 @@
+.currency--table--card {
+	display: flex;
+	padding: 10px 0;
+	width: 100%;
+	color: #fff;
+	margin: 10px 0;
+	font-family: Montserrat, sans-serif;
+	width: 100%;
+	text-align: center;
+}

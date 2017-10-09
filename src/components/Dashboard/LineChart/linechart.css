@@ -83,3 +83,20 @@ li.currency--line--chart--navigation--active {
 .currency--line--chart--price {
 	margin: 0;
 }
+
+.currency--line--chart--select--container {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+
+.currency--line--chart--navigation--select {
+	height: 50px;
+	border: none;
+	border-radius: 3px;
+	background-color: #ededed;
+	font-family: Montserrat, sans-serif;
+	font-size: 1.1em;
+	margin: 15px;
+}

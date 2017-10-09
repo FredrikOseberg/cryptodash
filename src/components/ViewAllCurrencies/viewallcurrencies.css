@@ -1,56 +1,27 @@
 .view--all {
-	padding-top: 40px;
-}
-
-.view--all--box {
-	border-radius: 3px;
-	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-	background: #fff;
-	max-width: 80%;
-	color: #000;
-	margin: 0 auto;
-	padding: 40px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-}
-
-.view--all--box--dashboard {
-	max-width: 100%;
-}
-
-.view--all--table {
 	width: 100%;
-	border-collapse: collapse;
+	color: #fff;
 }
 
-.view--all--table th {
-	font-family: Montserrat, sans-serif;
-	font-size: 1.2em;
-	padding: 20px;
-	color: #888;
+.view--all--header {
+	margin: 40px 0;
 }
 
-.view--all--table td {
-	border: 1px solid #888;
-	color: #444;
-	padding: 5px;
-	margin: 0;
+.view--all--header h1 {
 	text-align: center;
-	padding: 10px;
-	font-family: sans-serif;
 }
 
-td.view--all--price {
-	color: #27ab27;
-	font-weight: bold;
-	font-size: 1.2em;
+.view--all--header h2 .fa {
+	margin-right: 10px;
 }
 
-td.view--all--name {
-	color: #555598;
-	font.weight: bold;
-	font-family: Montserrat, sans-serif;
+.view--all--input {
+	width: 400px;
+}
+
+.view--all--table--headers {
+	display: flex;
+	text-align: center;
 }
 
 .view--all--track,
@@ -75,29 +46,102 @@ td.view--all--name {
 	color: #fff;
 }
 
-.view--all--input {
-	width: 50%;
-}
-
-.view--all--header {
-	margin-bottom: 20px;
-}
-
-.view--all--header h2 {
-	display: flex;
-	align-items: center;
-	color: #888;
-}
-
-.view--all--header h2 .fa {
-	margin-right: 10px;
-	font-size: 1.5em;
-}
-
 td.view--all-percentage--positive {
 	color: #27ab27;
 }
 
 td.view--all--percentage--negative {
 	color: red;
+}
+
+/* Table Styles */
+
+.view--all--table--header--rank {
+	width: 5%;
+	text-align: center;
+}
+
+.currency--table--card--rank {
+	width: 5%;
+}
+
+.view--all--table--header--name {
+	width: 15%;
+}
+
+.view--all--name {
+	width: 15%;
+}
+
+.view--all--table--header--marketcap {
+	width: 20%;
+	text.align: center;
+}
+
+.currency--table--card--marketcap {
+	display: flex;
+	width: 20%;
+	justify-content: center;
+}
+
+.view--all--table--header--price {
+	width: 10%;
+}
+
+.currency--table--card--price {
+	display: flex;
+	width: 10%;
+	justify-content: center;
+}
+
+.view--all--table--header--24hvwap {
+	width: 5%;
+}
+
+.currency--table--card--vwap {
+	width: 5%;
+}
+
+.view--all--table--header--supply {
+	width: 10%;
+}
+
+.currency--table--card--supply {
+	width: 10%;
+}
+
+.view--all--table--header--volume {
+	width: 15%;
+}
+
+.currency--table--card--usdVolume {
+	width: 15%;
+}
+
+.view--all--table--header--percentage {
+	width: 10%;
+}
+
+.currency--table--card--percentage {
+	width: 10%;
+}
+
+.view--all--table--card--track {
+	width: 10%;
+}
+
+.currency--table--card-track {
+	width: 10%;
+}
+
+.currency--table--card--percentage--positive {
+	color: #60f160;
+}
+
+.price--postfix {
+	font-size: 0.8em;
+}
+
+.currency--table--card--percentage--negative {
+	color: #ff6a6a;
 }
