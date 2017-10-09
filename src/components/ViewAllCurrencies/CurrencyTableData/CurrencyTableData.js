@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import coinData from '../../../coinData';
 import { database } from '../../../firebase';
-import { addCurrency, removeCurrency, clearCurrency } from '../../../actions/currencies';
+import { addCurrency, removeCurrency, clearCurrency, addPrice } from '../../../actions/currencies';
 import coins from '../../../img/coins.jpg';
 import { convertPriceToLocalCurrency } from '../../../common/helpers';
 import './currencytabledata.css';
@@ -61,6 +61,7 @@ class CurrencyTableData extends Component {
 						this.getCoinData(coinSymbol).then(currency => {
 							storageLocation.child(currency.symbol).set(currency);
 							this.props.addCurrencyToState({ payload: currency });
+							this.props.addPriceToState({ payload: currency.price });
 
 							this.setState({ tracked: true });
 						});
@@ -72,13 +73,11 @@ class CurrencyTableData extends Component {
 			let currency = this.checkIfDataContainsCoin(coinSymbol);
 			if (currency) {
 				this.props.addCurrencyToState({ payload: currency });
-
 				this.setState({ tracked: true });
 			} else {
 				// If data does not exist, get data and push to state
 				this.getCoinData(coinSymbol).then(currency => {
 					this.props.addCurrencyToState({ payload: currency });
-
 					this.setState({ tracked: true });
 				});
 			}
@@ -119,7 +118,8 @@ class CurrencyTableData extends Component {
 					id: result.data.id,
 					symbol: result.data.id,
 					name: result.data.display_name,
-					img: coins
+					img: coins,
+					price: result.data.price
 				};
 				resolve(currency);
 			});
@@ -192,6 +192,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	clearCurrencyFromState() {
 		dispatch(clearCurrency());
+	},
+	addPriceToState(obj) {
+		dispatch(addPrice(obj));
 	}
 });
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CurrencyTableData from './CurrencyTableData/CurrencyTableData';
+import Spinner from '../Loading/Spinner/Spinner';
 import axios from 'axios';
 import './viewallcurrencies.css';
 
@@ -106,12 +107,15 @@ class ViewAllCurrencies extends Component {
 				);
 			});
 		}
-		return (
-			<div className={frontendClasses}>
-				<div className="view--all">
+
+		let allCoinsMarkup;
+		if (this.state.loading) {
+			allCoinsMarkup = <Spinner />;
+		} else {
+			allCoinsMarkup = (
+				<div>
 					<div className={viewAllBoxClasses}>
 						<div className="view--all--header">
-							<h1>All Coins</h1>
 							<h2>
 								<i className="fa fa-search" aria-hidden="true" />
 								Search for currencies
@@ -135,6 +139,15 @@ class ViewAllCurrencies extends Component {
 						</div>
 					</div>
 					{currencyTableData}
+				</div>
+			);
+		}
+
+		return (
+			<div className={frontendClasses}>
+				<div className="view--all">
+					<h1>All Coins</h1>
+					{allCoinsMarkup}
 				</div>
 			</div>
 		);

@@ -5,6 +5,7 @@ import { convertPriceToLocalCurrency } from '../../../common/helpers';
 import { Line } from 'react-chartjs-2';
 import timePeriodData from '../../../timePeriodData';
 import axios from 'axios';
+import Spinner from '../../Loading/Spinner/Spinner';
 import './linechart.css';
 
 class LineChart extends Component {
@@ -194,62 +195,69 @@ class LineChart extends Component {
 			);
 		}
 
-		return (
-			<div className="currency--line--chart--container">
-				<div className="currency--line--chart--header">
-					{currencyNav}
-					<ul className="currency--line--chart--timeperiod--navigation">
-						{this.state.timePeriods.map(timePeriod => {
-							let classes;
-							this.state.currentTime === timePeriod.time
-								? (classes = 'currency--line--chart--navigation--active')
-								: (classes = '');
-							return (
-								<li
-									className={classes}
-									key={timePeriod.id}
-									data-period={timePeriod.time}
-									onClick={this.handleCurrencyNavTimeperiodClick}
-								>
-									{timePeriod.name}
-								</li>
-							);
-						})}
-					</ul>
-				</div>
-				<div className="currency--line--chart--details">
-					<div className="currency--line--chart--details--price">
-						<h3>
-							{this.props.currentCurrency.price} {this.props.localCurrency.currency}
-						</h3>
-						<p>{this.props.currentCurrency.name} Price</p>
+		let lineChartMarkup;
+		if (this.props.currentCurrency.price && this.props.currentCurrency.price !== 'NaN') {
+			lineChartMarkup = (
+				<div>
+					<div className="currency--line--chart--header">
+						{currencyNav}
+						<ul className="currency--line--chart--timeperiod--navigation">
+							{this.state.timePeriods.map(timePeriod => {
+								let classes;
+								this.state.currentTime === timePeriod.time
+									? (classes = 'currency--line--chart--navigation--active')
+									: (classes = '');
+								return (
+									<li
+										className={classes}
+										key={timePeriod.id}
+										data-period={timePeriod.time}
+										onClick={this.handleCurrencyNavTimeperiodClick}
+									>
+										{timePeriod.name}
+									</li>
+								);
+							})}
+						</ul>
 					</div>
-					<div className="currency--line--chart--details--trending">
-						<i className={trendingClasses} aria-hidden="true" />
-						<p>{this.props.currentCurrency.percentage}%</p>
+					<div className="currency--line--chart--details">
+						<div className="currency--line--chart--details--price">
+							<h3>
+								{this.props.currentCurrency.price} {this.props.localCurrency.currency}
+							</h3>
+							<p>{this.props.currentCurrency.name} Price</p>
+						</div>
+						<div className="currency--line--chart--details--trending">
+							<i className={trendingClasses} aria-hidden="true" />
+							<p>{this.props.currentCurrency.percentage}%</p>
+						</div>
 					</div>
-				</div>
-				<div className="currency--line--chart--wrapper">
-					<Line
-						data={this.state.data}
-						height={400}
-						options={{
-							maintainAspectRatio: false,
-							scales: {
-								xAxes: [
-									{
-										ticks: {
-											autoSkip: true,
-											maxTicksLimit: 8
+					<div className="currency--line--chart--wrapper">
+						<Line
+							data={this.state.data}
+							height={400}
+							options={{
+								maintainAspectRatio: false,
+								scales: {
+									xAxes: [
+										{
+											ticks: {
+												autoSkip: true,
+												maxTicksLimit: 8
+											}
 										}
-									}
-								]
-							}
-						}}
-					/>
+									]
+								}
+							}}
+						/>
+					</div>
 				</div>
-			</div>
-		);
+			);
+		} else {
+			lineChartMarkup = <Spinner />;
+		}
+
+		return <div className="currency--line--chart--container">{lineChartMarkup}</div>;
 	}
 }
 

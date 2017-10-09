@@ -7,7 +7,7 @@
 	margin: 40px 0;
 }
 
-.view--all--header h1 {
+.view--all h1 {
 	text-align: center;
 }
 
@@ -92,6 +92,7 @@ td.view--all--percentage--negative {
 	display: flex;
 	width: 10%;
 	justify-content: center;
+	color: #60f160;
 }
 
 .view--all--table--header--24hvwap {
