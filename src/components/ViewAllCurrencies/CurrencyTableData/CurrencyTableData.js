@@ -18,6 +18,7 @@ class CurrencyTableData extends Component {
 
 		this.handleTrackCurrencyClick = this.handleTrackCurrencyClick.bind(this);
 		this.handleCurrencyUntrackClick = this.handleCurrencyUntrackClick.bind(this);
+		this.formatNumber = this.formatNumber.bind(this);
 	}
 
 	componentDidMount() {
@@ -26,6 +27,13 @@ class CurrencyTableData extends Component {
 				this.setState({ tracked: true });
 			}
 		});
+	}
+
+	formatNumber(number) {
+		const formattedNumber = Number(convertPriceToLocalCurrency(number)).toLocaleString(
+			`en-${this.props.localCurrency.currency}`
+		);
+		return formattedNumber;
 	}
 
 	checkIfDataContainsCoin(symbol) {
@@ -160,7 +168,7 @@ class CurrencyTableData extends Component {
 					{this.props.long} {this.props.short}
 				</div>
 				<div className="currency--table--card--marketcap">
-					{convertPriceToLocalCurrency(this.props.mktcap)}
+					{this.formatNumber(this.props.mktcap)}
 					<span className="price--postfix">{this.props.localCurrency.currency}</span>
 				</div>
 				<div className="currency--table--card--price">
@@ -169,7 +177,10 @@ class CurrencyTableData extends Component {
 				</div>
 				<div className="currency--table--card--vwap">{this.props.vwapData.toFixed(0)}</div>
 				<div className="currency--table--card--supply">{this.props.supply.toFixed(0)}</div>
-				<div className="currency--table--card--usdVolume">{this.props.usdVolume.toFixed(0)}</div>
+				<div className="currency--table--card--usdVolume">
+					{this.formatNumber(this.props.usdVolume)}
+					<span className="price--postfix">{this.props.localCurrency.currency}</span>
+				</div>
 				<div className={percentageClasses}>{this.props.perc}%</div>
 				<div className="currency--table--card--track">{track}</div>
 			</div>

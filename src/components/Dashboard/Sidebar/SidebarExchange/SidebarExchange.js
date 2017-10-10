@@ -64,6 +64,7 @@ class SidebarExchange extends Component {
 	getData(result) {
 		return new Promise(resolve => {
 			result.forEach(symbol => {
+				let newState = [];
 				if (symbol === 'BCC') {
 					symbol = 'BCH';
 				}
@@ -75,7 +76,9 @@ class SidebarExchange extends Component {
 						percentage: response.data.cap24hrChange
 					};
 
-					this.setState({ currencyInformation: [...this.state.currencyInformation, currencyObj] }, () => {
+					newState = [...this.state.currencyInformation];
+					newState.push(currencyObj);
+					this.setState({ currencyInformation: newState }, () => {
 						resolve();
 					});
 				});

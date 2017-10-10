@@ -153,6 +153,11 @@ const localCurrency = [
 		ticker: 'EUR',
 		name: 'Euro',
 		id: 31
+	},
+	{
+		ticker: 'USD',
+		name: 'United States Dollar',
+		id: 32
 	}
 ];
 

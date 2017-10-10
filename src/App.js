@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import coinData from './coinData';
 import DashboardWrapper from './components/DashboardWrapper/DashboardWrapper';
 import Register from './components/Register/Register';
-import SignIn from './components/SignIn/SignIn';
+import SignInWrapper from './components/SignIn/SignInWrapper';
 import ViewAllCurrencies from './components/ViewAllCurrencies/ViewAllCurrencies';
 import './App.css';
 
@@ -15,7 +15,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={props => <DashboardWrapper coinData={coinData} />} />
                     <Route path="/register" component={Register} />
-                    <Route path="/signin" component={SignIn} />
+                    <Route path="/signin" component={SignInWrapper} />
                     <Route path="/all" component={ViewAllCurrencies} />
                 </Switch>
             </BrowserRouter>

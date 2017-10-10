@@ -11,6 +11,7 @@ class DashboardActionButton extends Component {
 
 		this.handleActionButtonClick = this.handleActionButtonClick.bind(this);
 		this.handleNavigationClick = this.handleNavigationClick.bind(this);
+		this.handleActionButtonScroll = this.handleActionButtonScroll.bind(this);
 	}
 
 	handleActionButtonClick() {
@@ -21,6 +22,13 @@ class DashboardActionButton extends Component {
 		const component = event.currentTarget.dataset.target;
 		this.props.showSidebar();
 		this.props.setSidebarComponent(component);
+	}
+
+	handleActionButtonScroll(event) {
+		console.log('scrolling');
+		if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+			alert("you're at the bottom of the page");
+		}
 	}
 
 	render() {
@@ -38,7 +46,11 @@ class DashboardActionButton extends Component {
 		}
 
 		return (
-			<div className="dashboard--action--button" onClick={this.handleActionButtonClick}>
+			<div
+				className="dashboard--action--button"
+				onClick={this.handleActionButtonClick}
+				onScroll={this.handleActionButtonScroll}
+			>
 				<i className="fa fa-cogs" aria-hidden="true" />
 				<div className={walletButtonClasses} onClick={this.handleNavigationClick} data-target="wallet">
 					<i className="fa fa-folder" aria-hidden="true" />

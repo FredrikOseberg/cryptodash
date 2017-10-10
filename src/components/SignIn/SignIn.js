@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
-import Header from '../Header/Header';
 import SocialLoginWrapper from '../Auth/SocialLoginWrapper/SocialLoginWrapper';
 
 class SignIn extends Component {
@@ -59,7 +58,12 @@ class SignIn extends Component {
 				.signInWithEmailAndPassword(email, password)
 				.then(user => {
 					this.setState({ firebaseError: '' });
-					this.props.history.push('/');
+					if (this.props.reauth) {
+						this.props.setReauthenticateState();
+						this.props.setDefaultState();
+					} else {
+						this.props.history.push('/');
+					}
 				})
 				.catch(error => {
 					const errorMessage = error.message;
@@ -90,49 +94,44 @@ class SignIn extends Component {
 			passwordClasses = 'main--input';
 		}
 		return (
-			<div className="frontend--background">
-				<Header />
-				<div className="container register--container">
-					<div className="register--box--container">
-						<div className="register--box box">
-							<h3>Sign In</h3>
-							<form>
-								<div className="register--box--input--container">
-									<div className="register--box--input--group">
-										<label htmlFor="email">Email</label>
-										<input
-											type="text"
-											name="email"
-											className={emailClasses}
-											onChange={this.handleEmailChange}
-										/>
-										{emailErrorMarkup}
-									</div>
-									<div className="register--box--input--group">
-										<label htmlFor="password">Password</label>
-										<input
-											type="password"
-											name="password"
-											className={passwordClasses}
-											ref="registerPassword"
-											onChange={this.handlePasswordChange}
-										/>
-									</div>
-									{firebaseErrMarkup}
-									<button
-										type="submit"
-										className="auth--button main-button"
-										onClick={this.handleSubmit}
-									>
-										Sign In
-									</button>
-								</div>
-								<p>Or sign in with these</p>
-								<SocialLoginWrapper handleError={this.handleSocialError} history={this.props.history} />
-							</form>
+			<div className="register--box box">
+				<h3>Sign In</h3>
+				<form>
+					<div className="register--box--input--container">
+						<div className="register--box--input--group">
+							<label htmlFor="email">Email</label>
+							<input
+								type="text"
+								name="email"
+								className={emailClasses}
+								onChange={this.handleEmailChange}
+							/>
+							{emailErrorMarkup}
 						</div>
+						<div className="register--box--input--group">
+							<label htmlFor="password">Password</label>
+							<input
+								type="password"
+								name="password"
+								className={passwordClasses}
+								ref="registerPassword"
+								onChange={this.handlePasswordChange}
+							/>
+						</div>
+						{firebaseErrMarkup}
+						<button type="submit" className="auth--button main-button" onClick={this.handleSubmit}>
+							Sign In
+						</button>
 					</div>
-				</div>
+					<p>Or sign in with these</p>
+					<SocialLoginWrapper
+						handleError={this.handleSocialError}
+						history={this.props.history}
+						reauth={this.props.reauth}
+						setDefaultState={this.props.setDefaultState}
+						setReauthenticateState={this.props.setReauthenticateState}
+					/>
+				</form>
 			</div>
 		);
 	}

@@ -25,6 +25,7 @@ class Onboarding extends Component {
 			amountOfSteps: 3,
 			step: 'cryptoCurrencyStep',
 			localCurrency: 'AUD',
+			validationError: '',
 			loading: true,
 			showStep: false
 		};
@@ -36,12 +37,14 @@ class Onboarding extends Component {
 		this.checkFirebaseForCryptoCurrencyValue = this.checkFirebaseForCryptoCurrencyValue.bind(this);
 		this.updateSelectedCurrencies = this.updateSelectedCurrencies.bind(this);
 		this.handleWalletInfoSubmit = this.handleWalletInfoSubmit.bind(this);
+		this.handleFinishLaterClick = this.handleFinishLaterClick.bind(this);
 	}
 
 	componentDidMount() {
 		this.checkFirebaseForCryptoCurrencyValue().then(() => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 			storageLocation.once('value', snapshot => {
+				console.log('running');
 				this.setState({ loading: false });
 				this.setState({ showStep: true });
 				if (snapshot.hasChild('localCurrency')) {
@@ -73,8 +76,8 @@ class Onboarding extends Component {
 				if (snapshot.hasChild('currencies')) {
 					this.setState({ step: 'localCurrencyStep' });
 					this.setState({ amountOfSteps: 2 });
-					resolve();
 				}
+				resolve();
 			});
 		});
 	}
@@ -107,21 +110,30 @@ class Onboarding extends Component {
 		this.setState({ step: 'setWalletInfoStep' });
 	}
 
+	handleFinishLaterClick() {
+		const userStorageLocation = database.ref('users/' + this.props.currentUser.uid);
+		userStorageLocation.child('completedOnboarding').set(true);
+	}
+
 	handleWalletInfoSubmit(event) {
 		event.preventDefault();
 		// Validation
 		let validationPassed = false,
 			count = 0;
+
 		this.props.selectedCurrencies.forEach((currency, index) => {
-			if (currency.amount && currency.wallet) {
-				count += 1;
-			}
-			if (count === this.props.selectedCurrencies.length) {
-				validationPassed = true;
+			if (currency.wallet) {
+				if (currency.wallet.amount && currency.wallet.wallet) {
+					count += 1;
+				}
+				if (count === this.props.selectedCurrencies.length) {
+					validationPassed = true;
+				}
 			}
 		});
 
 		if (validationPassed) {
+			this.setState({ validationError: '' });
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
 
 			this.props.selectedCurrencies.forEach(currency => {
@@ -129,8 +141,8 @@ class Onboarding extends Component {
 					.child(currency.symbol)
 					.child('wallet')
 					.set({
-						amount: currency.amount,
-						wallet: currency.wallet
+						amount: currency.wallet.amount,
+						wallet: currency.wallet.wallet
 					});
 			});
 
@@ -139,7 +151,10 @@ class Onboarding extends Component {
 
 			this.props.clearCurrenciesFromState();
 		} else {
-			// Add error message to state and display it
+			this.setState({
+				validationError:
+					'Please provide input in each field. Numbers for amounts and text input for wallet addresses. '
+			});
 		}
 	}
 
@@ -169,9 +184,12 @@ class Onboarding extends Component {
 					currentUser={this.props.currentUser}
 					selectedCurrencies={this.props.selectedCurrencies}
 					handleWalletInfoSubmit={this.handleWalletInfoSubmit}
+					handleFinishLaterClick={this.handleFinishLaterClick}
+					validationError={this.state.validationError}
 				/>
 			);
 		}
+
 		return (
 			<div className="onboarding">
 				<div className="onboarding--background">

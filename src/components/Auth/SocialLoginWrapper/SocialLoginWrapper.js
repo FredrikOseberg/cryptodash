@@ -24,10 +24,15 @@ class SocialLoginWrapper extends Component {
 		};
 	}
 	actionAfterSignin(result) {
-		return new Promise(resolve => {
-			const uniqueId = result.user.uid;
-			this.userHasCurrencies(uniqueId, resolve);
-		});
+		if (!this.props.reauth) {
+			return new Promise(resolve => {
+				const uniqueId = result.user.uid;
+				this.userHasCurrencies(uniqueId, resolve);
+			});
+		} else {
+			this.props.setDefaultState();
+			this.props.setReauthenticateState();
+		}
 	}
 	addCurrenciesToUser(uid, resolve) {
 		const storageLocation = database.ref('users/' + uid + '/currencies');

@@ -33,3 +33,8 @@
 .account--password--success {
 	color: #27ab27;
 }
+
+.account--settings .register--box {
+	margin: 25px auto;
+	box-shadow: none;
+}

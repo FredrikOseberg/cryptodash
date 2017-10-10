@@ -3,6 +3,7 @@ import './accountsettings.css';
 import { auth } from '../../../../firebase';
 import ChangePassword from './ChangePassword/ChangePassword';
 import ChangeEmail from './ChangeEmail/ChangeEmail';
+import SignIn from '../../../SignIn/SignIn';
 
 class AccountSettings extends Component {
 	constructor(props) {
@@ -10,12 +11,14 @@ class AccountSettings extends Component {
 
 		this.state = {
 			accountPage: 'defaultState',
-			successMessage: ''
+			successMessage: '',
+			reauthenticated: false
 		};
 
 		this.handlePasswordClick = this.handlePasswordClick.bind(this);
 		this.handleEmailClick = this.handleEmailClick.bind(this);
 		this.setDefaultState = this.setDefaultState.bind(this);
+		this.setReauthenticateState = this.setReauthenticateState.bind(this);
 	}
 
 	setDefaultState(flashMessage) {
@@ -31,19 +34,30 @@ class AccountSettings extends Component {
 	}
 
 	handlePasswordClick() {
-		// Set up re-authentication
-		this.setState({ accountPage: 'password' });
+		if (this.state.reauthenticated === false) {
+			this.setState({ accountPage: 'signin' });
+		} else {
+			this.setState({ accountPage: 'password' });
+		}
+	}
+
+	setReauthenticateState() {
+		this.setState({ reauthenticated: true });
 	}
 
 	handleEmailClick() {
-		// Set up re-authentication
-		this.setState({ accountPage: 'email' });
+		if (this.state.reauthenticated === false) {
+			this.setState({ accountPage: 'signin' });
+		} else {
+			this.setState({ accountPage: 'email' });
+		}
 	}
 
 	render() {
 		const showDefaultState = this.state.accountPage === 'defaultState';
 		const showPasswordEditView = this.state.accountPage === 'password';
 		const showEmailEditView = this.state.accountPage === 'email';
+		const showSignin = this.state.accountPage === 'signin';
 
 		let successFlashMessage;
 		this.state.successMessage
@@ -74,12 +88,21 @@ class AccountSettings extends Component {
 			</div>
 		);
 
+		let signinMarkup = (
+			<SignIn
+				setDefaultState={this.setDefaultState}
+				setReauthenticateState={this.setReauthenticateState}
+				reauth={true}
+			/>
+		);
+
 		return (
 			<div className="account--settings">
 				<div className="currency--wallet--header">
 					<h3>Account Settings</h3>
 				</div>
 				{showDefaultState && defaultMarkup}
+				{showSignin && signinMarkup}
 				{showEmailEditView && (
 					<ChangeEmail validate={this.props.validate} setDefaultState={this.setDefaultState} />
 				)}

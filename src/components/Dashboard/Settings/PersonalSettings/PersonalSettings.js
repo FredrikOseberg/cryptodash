@@ -49,7 +49,7 @@ class PersonalSettings extends Component {
 			this.setState({ edit: false });
 		}
 
-		if (validName && validPhotoURL) {
+		if (validName || validPhotoURL) {
 			validationPassed = true;
 		}
 

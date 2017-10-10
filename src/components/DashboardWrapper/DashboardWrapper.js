@@ -82,10 +82,17 @@ class DashboardWrapper extends Component {
 
 					if (snapshot.hasChild('localCurrency')) {
 						const localCurrency = snapshot.child('localCurrency').val();
-						axios.get(`https://api.fixer.io/latest?base=USD`).then(response => {
-							const rateComparedToUsd = response.data.rates[localCurrency];
-							this.props.addLocalCurrencyToState({ currency: localCurrency, rate: rateComparedToUsd });
-						});
+						if (localCurrency === 'USD') {
+							this.props.addLocalCurrencyToState({ currency: localCurrency, rate: null });
+						} else {
+							axios.get(`https://api.fixer.io/latest?base=USD`).then(response => {
+								const rateComparedToUsd = response.data.rates[localCurrency];
+								this.props.addLocalCurrencyToState({
+									currency: localCurrency,
+									rate: rateComparedToUsd
+								});
+							});
+						}
 						resolve();
 					}
 				});

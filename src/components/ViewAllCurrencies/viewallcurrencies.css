@@ -117,6 +117,8 @@ td.view--all--percentage--negative {
 
 .currency--table--card--usdVolume {
 	width: 15%;
+	display: flex;
+	justify-content: center;
 }
 
 .view--all--table--header--percentage {

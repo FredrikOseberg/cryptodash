@@ -14,6 +14,7 @@ import Exchange from '../Exchange/Exchange';
 import Nav from '../Nav/Nav';
 import Settings from './Settings/Settings';
 import DashboardActionButton from '../DashboardActionButton/DashboardActionButton';
+import Footer from '../Footer/Footer';
 import Sidebar from './Sidebar/Sidebar';
 import map from 'lodash/map';
 
@@ -165,6 +166,7 @@ class Dashboard extends Component {
 						</div>
 					</div>
 				</div>
+				<Footer />
 			</div>
 		);
 		return (

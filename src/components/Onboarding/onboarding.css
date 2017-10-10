@@ -83,3 +83,8 @@ h4.onboarding--wallet--address--header {
 	min-width: 650px;
 	max-width: 650px;
 }
+
+.onboarding--error--message {
+	display: block;
+	margin: 20px auto 0;
+}
