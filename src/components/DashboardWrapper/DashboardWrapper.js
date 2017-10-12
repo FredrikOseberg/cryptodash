@@ -8,6 +8,7 @@ import Loading from '../Loading/Loading';
 import Landing from '../../components/Landing/Landing';
 import Onboarding from '../../components/Onboarding/Onboarding';
 import Dashboard from '../../components/Dashboard/Dashboard';
+import MobileDashboard from '../MobileDashboard/MobileDashboard';
 
 class DashboardWrapper extends Component {
 	constructor(props) {
@@ -20,7 +21,8 @@ class DashboardWrapper extends Component {
 			showDashboard: false,
 			showLanding: false,
 			showLoading: true,
-			allCurrencies: []
+			allCurrencies: [],
+			width: window.innerWidth
 		};
 
 		this.getCoinData = this.getCoinData.bind(this);
@@ -60,11 +62,18 @@ class DashboardWrapper extends Component {
 			});
 			this.setState({ allCurrencies: newState });
 		});
+
+		window.addEventListener('resize', this.handleWindowSizeChange);
 	}
 
 	componentWillUnmount() {
 		clearInterval(this.interval);
+		window.removeEventListener('resize', this.handleWindowSizeChange);
 	}
+
+	handleWindowSizeChange = () => {
+		this.setState({ width: window.innerWidth });
+	};
 
 	initDashboard() {
 		return new Promise((resolve, reject) => {
@@ -111,12 +120,17 @@ class DashboardWrapper extends Component {
 	}
 
 	render() {
+		let dashboard;
+		const isMobile = window.innerWidth <= 790;
+		if (isMobile) {
+			dashboard = <MobileDashboard />;
+		} else {
+			dashboard = <Dashboard wallets={this.state.wallets} allCurrencies={this.state.allCurrencies} />;
+		}
 		return (
 			<div className="dashboard--wrapper">
 				{this.state.showOnboarding && <Onboarding data={this.props.coinData} />}
-				{this.state.showDashboard && (
-					<Dashboard wallets={this.state.wallets} allCurrencies={this.state.allCurrencies} />
-				)}
+				{this.state.showDashboard && dashboard}
 				{this.state.showLanding && <Landing data={this.props.coinData} />}
 				{this.state.showLoading && <Loading />}
 			</div>
