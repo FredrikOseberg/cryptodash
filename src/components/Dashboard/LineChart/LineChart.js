@@ -74,16 +74,17 @@ class LineChart extends Component {
 
 		const newData = { ...this.state.data };
 
+		this.setState({ symbol: symbol });
+
 		this.props.currencies.forEach(currency => {
 			if (currency.symbol === symbol) {
-				this.props.getCurrentCurrency(symbol);
+				this.props.getCurrentCurrency(symbol).then(() => {
+					newData.datasets[0].label = [symbol + ' Price'];
+					this.setState({ data: newData }, () => {
+						this.getChartData();
+					});
+				});
 			}
-		});
-
-		newData.datasets[0].label = [symbol + ' Price'];
-		this.setState({ symbol: symbol });
-		this.setState({ data: newData }, () => {
-			this.getChartData();
 		});
 	}
 

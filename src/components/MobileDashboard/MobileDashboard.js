@@ -15,7 +15,7 @@ class MobileDashboard extends Component {
 
 		this.state = {
 			currentCurrency: false,
-			mobileDashboardPage: 'All Coins'
+			mobileDashboardPage: 'Dashboard'
 		};
 
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
@@ -25,6 +25,7 @@ class MobileDashboard extends Component {
 	componentDidMount() {
 		this.props.addCurrenciesToState().then(() => {
 			if (this.props.currencies.length > 0) {
+				console.log(this.props.currencies[0].symbol);
 				this.props.getCurrentCurrency(this.props.currencies[0].symbol).then(() => {
 					this.setState({ currentCurrency: true });
 				});
