@@ -1,0 +1,22 @@
+.mobile--wallet {
+	padding-top: 50px;
+}
+
+.mobile--wallet .sidebar--wallet {
+	background-color: transparent;
+	box-shadow: none;
+	width: 100%;
+}
+
+.mobile--wallet .sidebar--wallet h3 {
+	font-size: 1.4em;
+	border-top: 1px solid #e0dfdf;
+	border-bottom: 1px solid #e0dfdf;
+	padding: 25px 0;
+	width: 100%;
+	text-align: center;
+}
+
+.mobile--wallet .sidebar--wallet--list li {
+	color: #fff;
+}

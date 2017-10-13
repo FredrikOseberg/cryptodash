@@ -32,6 +32,10 @@
 	margin: 0;
 }
 
+.mobile--chart .currency--line--chart--wrapper {
+	margin: 40px 0;
+}
+
 .mobile--chart .currency--line--chart--timeperiod--navigation li {
 	border: none;
 }

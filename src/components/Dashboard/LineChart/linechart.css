@@ -152,3 +152,7 @@ li.currency--line--chart--navigation--active {
 	border-radius: 100%;
 	margin-right: 5px;
 }
+
+.currency--line--chart--custom--select--selected {
+	font-size: 1.5em;
+}

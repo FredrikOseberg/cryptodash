@@ -171,6 +171,7 @@ class DashboardWrapper extends Component {
 				<MobileDashboard
 					getCurrentCurrency={this.getCurrentCurrency}
 					addCurrenciesToState={this.addCurrenciesToState}
+					allCurrencies={this.state.allCurrencies}
 				/>
 			);
 		} else {

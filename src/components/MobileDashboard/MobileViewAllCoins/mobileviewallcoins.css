@@ -1,0 +1,150 @@
+.mobile--dashboard--all--coins--header {
+	margin-top: 0;
+	padding-top: 50px;
+	font-size: 1.4em;
+	text-align: center;
+}
+
+.mobile--dashboard--all--coins--header h3 {
+	border-top: 1px solid #e0dfdf;
+	border-bottom: 1px solid #e0dfdf;
+	padding: 25px 0;
+	width: 100%;
+}
+
+.mobile--dashboard--all--coins .view--all {
+	padding: 0 20px 20px 20px;
+	width: auto;
+}
+
+.mobile--dashboard--all--coins .main--input {
+	border: 2px solid #fff;
+	background-color: transparent;
+	color: #fff;
+}
+
+.mobile--dashboard--all--coins .main--input:focus {
+	border: 2px solid transparent;
+	border-bottom: 2px solid #fff;
+}
+
+.mobile--dashboard--all--coins .view--all--header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.mobile--dashboard--all--coins h1 {
+	display: none;
+}
+
+.mobile--dashboard--all .currency--table--card {
+	width: auto;
+}
+
+.mobile--dashboard--all--coins .view--all--table--header--rank,
+.mobile--dashboard--all--coins .currency--table--card--rank {
+	width: 5%;
+}
+
+.mobile--dashboard--all--coins .view--all--table--header--name,
+.mobile--dashboard--all--coins .view--all--name {
+	width: 20%;
+}
+
+.mobile--dashboard--all--coins .view--all--table--header--price,
+.mobile--dashboard--all--coins .currency--table--card--price {
+	width: 15%;
+	color: #fff;
+}
+
+.mobile--dashboard--all--coins .view--all--table--header--marketcap,
+.mobile--dashboard--all--coins .currency--table--card--marketcap {
+	width: 30%;
+}
+
+.mobile--dashboard--all--coins .view--all--table--header--24hvwap {
+	display: none;
+}
+
+.mobile--dashboard--all--coins .currency--table--card--vwap {
+	display: none;
+}
+
+.mobile--dashboard--all--coins .view--all--table--header--supply {
+	display: none;
+}
+
+.mobile--dashboard--all--coins .currency--table--card--supply {
+	display: none;
+}
+
+.mobile--dashboard--all--coins .view--all--table--header--volume {
+	display: none;
+}
+
+.mobile--dashboard--all--coins .currency--table--card--usdVolume {
+	display: none;
+}
+
+.mobile--dashboard--all--coins .view--all--table--header--percentage,
+.mobile--dashboard--all--coins .currency--table--card--percentage {
+	width: 15%;
+}
+
+.mobile--dashboard--all--coins .view--all--table--header--track,
+.mobile--dashboard--all--coins .currency--table--card--track {
+	width: 15%;
+	display: flex;
+	justify-content: center;
+}
+
+@media (max-width: 620px) {
+	.mobile--dashboard--all--coins .view--all--table--header--marketcap,
+	.mobile--dashboard--all--coins .currency--table--card--marketcap {
+		display: none;
+	}
+	.mobile--dashboard--all--coins .view--all--table--header--name,
+	.mobile--dashboard--all--coins .view--all--name {
+		width: 35%;
+	}
+
+	.mobile--dashboard--all--coins .view--all--table--header--price,
+	.mobile--dashboard--all--coins .currency--table--card--price {
+		width: 20%;
+		color: #fff;
+	}
+	.mobile--dashboard--all--coins .view--all--table--header--percentage,
+	.mobile--dashboard--all--coins .currency--table--card--percentage {
+		width: 20%;
+	}
+
+	.mobile--dashboard--all--coins .view--all--table--header--track,
+	.mobile--dashboard--all--coins .currency--table--card--track {
+		width: 20%;
+	}
+}
+
+@media (max-width: 420px) {
+	.mobile--dashboard--all--coins .view--all--table--header--percentage,
+	.mobile--dashboard--all--coins .currency--table--card--percentage {
+		display: none;
+	}
+
+	.mobile--dashboard--all--coins .view--all--table--header--name,
+	.mobile--dashboard--all--coins .view--all--name {
+		width: 40%;
+	}
+
+	.mobile--dashboard--all--coins .view--all--table--header--price,
+	.mobile--dashboard--all--coins .currency--table--card--price {
+		width: 30%;
+		color: #fff;
+	}
+
+	.mobile--dashboard--all--coins .view--all--table--header--track,
+	.mobile--dashboard--all--coins .currency--table--card--track {
+		width: 25%;
+		margin-right: 10px;
+	}
+}

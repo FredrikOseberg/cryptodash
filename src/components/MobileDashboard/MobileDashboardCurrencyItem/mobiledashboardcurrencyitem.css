@@ -1,0 +1,41 @@
+.mobile--currencies--list--item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mobile--currencies--list--item--img {
+	width: 10%;
+}
+
+.mobile--currencies--list--item--img img {
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+}
+
+.mobile--currencies--list--item--name {
+	width: 40%;
+	margin-left: 10px;
+}
+
+.mobile--currencies--list--item--percentage {
+	width: 20%;
+	text-align: center;
+	font-family: Montserrat, sans-serif;
+}
+
+.mobile--currencies--list--item--percentage--positive {
+	color: #60f160;
+}
+
+.mobile--currencies--list--item--percentage--negative {
+	color: #ff6a6a;
+}
+
+.mobile--currencies--list--item--price {
+	width: 30%;
+	display: flex;
+	justify-content: center;
+	font-family: Montserrat, sans-serif;
+}
