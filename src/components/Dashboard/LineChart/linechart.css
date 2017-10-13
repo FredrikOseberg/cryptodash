@@ -89,6 +89,7 @@ li.currency--line--chart--navigation--active {
 	display: flex;
 	align-items: center;
 	padding: 15px;
+	cursor: pointer;
 }
 
 .currency--line--chart--custom--select {

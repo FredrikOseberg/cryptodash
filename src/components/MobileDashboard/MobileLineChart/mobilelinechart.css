@@ -18,8 +18,27 @@
 	flex-direction: column;
 	align-items: center;
 	border-bottom: 1px solid #e0dfdf;
+	color: #fff;
 }
 
 .mobile--chart .currency--line--chart--custom--select--dropdown {
 	left: -145px;
+	color: #888;
+}
+
+.mobile--chart .currency--line--chart--navigation,
+.mobile--chart .currency--line--chart--timeperiod--navigation {
+	padding: 20px;
+	margin: 0;
+}
+
+.mobile--chart .currency--line--chart--timeperiod--navigation li {
+	border: none;
+}
+
+.mobile--chart .currency--line--chart--navigation--active {
+	color: #fff;
+	background-color: #555598;
+	padding: 0 10px;
+	border-radius: 3px;
 }
