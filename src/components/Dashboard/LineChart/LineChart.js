@@ -18,6 +18,7 @@ class LineChart extends Component {
 			currentCurrency: this.props.currentCurrency,
 			symbol: this.props.currentCurrency.symbol,
 			timePeriods: timePeriodData,
+			showDropdownNav: false,
 			currentTime: '30',
 			data: {
 				labels: [],
@@ -41,6 +42,7 @@ class LineChart extends Component {
 
 		this.handleCurrencyNavTypeClick = this.handleCurrencyNavTypeClick.bind(this);
 		this.handleCurrencyNavTimeperiodClick = this.handleCurrencyNavTimeperiodClick.bind(this);
+		this.handleShowNavClick = this.handleShowNavClick.bind(this);
 		this.getChartData = this.getChartData.bind(this);
 	}
 
@@ -68,12 +70,8 @@ class LineChart extends Component {
 	}
 
 	handleCurrencyNavTypeClick(event) {
-		let symbol;
-		if (this.props.currencies.length < 6) {
-			symbol = event.currentTarget.dataset.symbol;
-		} else {
-			symbol = event.target.value;
-		}
+		let symbol = event.currentTarget.dataset.symbol;
+
 		const newData = { ...this.state.data };
 
 		this.props.currencies.forEach(currency => {
@@ -87,6 +85,10 @@ class LineChart extends Component {
 		this.setState({ data: newData }, () => {
 			this.getChartData();
 		});
+	}
+
+	handleShowNavClick() {
+		this.setState({ showDropdownNav: !this.state.showDropdownNav });
 	}
 
 	handleCurrencyNavTimeperiodClick(event) {
@@ -145,6 +147,12 @@ class LineChart extends Component {
 			? (trendingClasses = 'fa fa-line-chart trending--positive')
 			: (trendingClasses = 'fa fa-line-chart trending--negative');
 
+		let dropDownNavClasses;
+
+		this.state.showDropdownNav
+			? (dropDownNavClasses = 'currency--line--chart--custom--select--dropdown visible opacity transition')
+			: (dropDownNavClasses = 'currency--line--chart--custom--select--dropdown');
+
 		let currencyNav;
 		if (this.props.currencies.length < 6) {
 			currencyNav = (
@@ -174,42 +182,40 @@ class LineChart extends Component {
 			let currentCurrency = this.props.currentCurrency;
 			currencyNav = (
 				<div className="currency--line--chart--select--container">
-					<div className="currency--line--chart--custom--select">
-						<div>{currentCurrency.name}</div>
-						<div className="currency--line--chart--custom--select--dropdown">
-							{this.props.currencies.map(currency => {
-								return (
-									<div
-										className="currency--custom--select--item"
-										key={currency.id}
-										data-symbol={currency.symbol}
-									>
-										<img src={currency.img} alt={currency.name} />
-										<p>
-											{currency.name} ({currency.symbol})
-										</p>
-										<p>
-											{currency.price} {this.props.localCurrency.currency}
-										</p>
-									</div>
-								);
-							})}
+					<div className="currency--line--chart--custom--select" onClick={this.handleShowNavClick}>
+						<div className="currency--line--chart--custom--select--selected">
+							{currentCurrency.name} <i className="fa fa-chevron-down" aria-hidden="true" />
+						</div>
+						<div className={dropDownNavClasses}>
+							<ul className="currency--line--chart--custom--list">
+								{this.props.currencies.map(currency => {
+									return (
+										<li
+											className="currency--custom--select--item"
+											key={currency.id}
+											data-symbol={currency.symbol}
+											onClick={this.handleCurrencyNavTypeClick}
+										>
+											<div className="currency--custom--select--item--img">
+												<img src={currency.img} alt={currency.name} />
+											</div>
+											<p className="currency--custom--select--item--name">
+												{currency.name} ({currency.symbol})
+											</p>
+											<div className="currency--custom--select--item--price">
+												<p>
+													{currency.price}{' '}
+													<span className="price--postfix">
+														{this.props.localCurrency.currency}
+													</span>
+												</p>
+											</div>
+										</li>
+									);
+								})}
+							</ul>
 						</div>
 					</div>
-
-					<select
-						className="currency--line--chart--navigation--select"
-						onChange={this.handleCurrencyNavTypeClick}
-					>
-						{this.props.currencies.map(currency => {
-							return (
-								<option key={currency.id} value={currency.symbol}>
-									{currency.name} ({currency.symbol}) {currency.price}{' '}
-									{this.props.localCurrency.currency}
-								</option>
-							);
-						})}
-					</select>
 				</div>
 			);
 		}

@@ -7,6 +7,8 @@ class MobileDashboard extends Component {
 	constructor(props) {
 		super(props);
 
+		this.interval;
+
 		this.state = {
 			currentCurrency: false
 		};
@@ -24,6 +26,10 @@ class MobileDashboard extends Component {
 				}, 5000);
 			}
 		});
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.interval);
 	}
 
 	render() {

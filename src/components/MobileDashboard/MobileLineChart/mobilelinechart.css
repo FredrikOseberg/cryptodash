@@ -19,3 +19,7 @@
 	align-items: center;
 	border-bottom: 1px solid #e0dfdf;
 }
+
+.mobile--chart .currency--line--chart--custom--select--dropdown {
+	left: -145px;
+}
