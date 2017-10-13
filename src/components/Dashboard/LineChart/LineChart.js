@@ -24,21 +24,13 @@ class LineChart extends Component {
 				datasets: [
 					{
 						label: [this.props.symbol + ' Price'],
-						fill: true,
+						fill: this.props.styles.fill,
 						lineTension: 0.1,
 						backgroundColor: 'rgba(232,127,0,0.4)',
-						borderColor: 'rgba(246, 146, 26, 1)',
-						borderCapStyle: 'butt',
-						borderDash: [],
-						borderDashOffset: 0.0,
-						borderJoinStyle: 'miter',
-						pointBorderColor: 'rgba(246, 146, 26, 1)',
-						pointBackgroundColor: '#fff',
-						pointBorderWidth: 1,
-						pointHoverRadius: 5,
-						pointHoverBackgroundColor: 'rgba(246, 146, 26, 1)',
+						borderColor: this.props.styles.color,
+						pointBorderColor: this.props.styles.color,
+						pointHoverBackgroundColor: this.props.styles.color,
 						pointHoverBorderColor: 'rgba(220,220,220,1)',
-						pointHoverBorderWidth: 2,
 						pointRadius: 1,
 						pointHitRadius: 10,
 						data: []
@@ -119,7 +111,6 @@ class LineChart extends Component {
 
 	getChartData() {
 		let timeFrame;
-		console.log(this.state.symbol);
 		this.state.currentTime !== 'All' ? (timeFrame = `${this.state.currentTime}day/`) : (timeFrame = '');
 		axios
 			.get(`https://coincap.io/history/${timeFrame}${this.state.symbol}`)
@@ -180,8 +171,32 @@ class LineChart extends Component {
 				</ul>
 			);
 		} else {
+			let currentCurrency = this.props.currentCurrency;
 			currencyNav = (
 				<div className="currency--line--chart--select--container">
+					<div className="currency--line--chart--custom--select">
+						<div>{currentCurrency.name}</div>
+						<div className="currency--line--chart--custom--select--dropdown">
+							{this.props.currencies.map(currency => {
+								return (
+									<div
+										className="currency--custom--select--item"
+										key={currency.id}
+										data-symbol={currency.symbol}
+									>
+										<img src={currency.img} alt={currency.name} />
+										<p>
+											{currency.name} ({currency.symbol})
+										</p>
+										<p>
+											{currency.price} {this.props.localCurrency.currency}
+										</p>
+									</div>
+								);
+							})}
+						</div>
+					</div>
+
 					<select
 						className="currency--line--chart--navigation--select"
 						onChange={this.handleCurrencyNavTypeClick}
@@ -197,6 +212,54 @@ class LineChart extends Component {
 					</select>
 				</div>
 			);
+		}
+
+		let lineChartOptions;
+		if (this.props.isMobile) {
+			lineChartOptions = {
+				maintainAspectRatio: false,
+				legend: false,
+				scales: {
+					xAxes: [
+						{
+							ticks: {
+								autoSkip: true,
+								maxTicksLimit: 2,
+								minRotation: 0,
+								maxRotation: 0,
+								fontColor: '#fff',
+								fontFamily: 'Montserrat'
+							}
+						}
+					],
+					yAxes: [
+						{
+							ticks: {
+								maxTicksLimit: 5,
+								fontColor: '#fff',
+								fontFamily: 'Montserrat'
+							}
+						}
+					]
+				}
+			};
+		} else {
+			lineChartOptions = {
+				maintainAspectRatio: false,
+				scales: {
+					xAxes: [
+						{
+							ticks: {
+								autoSkip: true,
+								maxTicksLimit: 2,
+								minRotation: 0,
+								maxRotation: 0,
+								fontFamily: 'Montserrat'
+							}
+						}
+					]
+				}
+			};
 		}
 
 		let lineChartMarkup;
@@ -237,23 +300,7 @@ class LineChart extends Component {
 						</div>
 					</div>
 					<div className="currency--line--chart--wrapper">
-						<Line
-							data={this.state.data}
-							height={400}
-							options={{
-								maintainAspectRatio: false,
-								scales: {
-									xAxes: [
-										{
-											ticks: {
-												autoSkip: true,
-												maxTicksLimit: 8
-											}
-										}
-									]
-								}
-							}}
-						/>
+						<Line data={this.state.data} height={400} responsive={true} options={lineChartOptions} />
 					</div>
 				</div>
 			);

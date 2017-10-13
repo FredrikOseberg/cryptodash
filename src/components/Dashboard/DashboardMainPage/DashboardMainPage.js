@@ -41,10 +41,19 @@ const DashboardMainPage = props => {
 			</div>
 		);
 	}
+
+	const lineChartStyle = {
+		color: 'rgba(246, 146, 26, 1)',
+		fill: true
+	};
 	return (
 		<div>
 			<div className="dashboard--content--chart">
-				{props.firstCurrency ? <LineChart getCurrentCurrency={props.getCurrentCurrency} /> : <Spinner />}
+				{props.firstCurrency ? (
+					<LineChart getCurrentCurrency={props.getCurrentCurrency} styles={lineChartStyle} isMobile={false} />
+				) : (
+					<Spinner />
+				)}
 			</div>
 			<div className="dashboard--currency">
 				<div className="dashboard--currency--container">{currencyCard}</div>

@@ -1,0 +1,21 @@
+.mobile--chart .currency--line--chart--details--trending {
+	display: none;
+}
+
+.mobile--chart .currency--line--chart--details--price {
+	color: #fff;
+}
+
+.mobile--chart .currency--line--chart--details {
+	border-bottom: 1px solid #e0dfdf;
+}
+
+.mobile--chart .currency--line--chart--details--price h3 {
+	color: #fff;
+}
+
+.mobile--chart .currency--line--chart--header {
+	flex-direction: column;
+	align-items: center;
+	border-bottom: 1px solid #e0dfdf;
+}

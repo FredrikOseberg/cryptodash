@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { database, auth } from '../../firebase';
-import { addCurrency, clearCurrency } from '../../actions/currencies';
-import { addCurrentCurrency } from '../../actions/currentCurrency';
 import CurrencyStatCard from './CurrencyStatCard/CurrencyStatCard';
 import CurrencyPortfolio from './CurrencyPortfolio/CurrencyPortfolio';
 import Header from '../Header/Header';
@@ -16,7 +14,6 @@ import Settings from './Settings/Settings';
 import DashboardActionButton from '../DashboardActionButton/DashboardActionButton';
 import Footer from '../Footer/Footer';
 import Sidebar from './Sidebar/Sidebar';
-import map from 'lodash/map';
 
 class Dashboard extends Component {
 	// Get the users currencies from the database and save it to component state
@@ -42,20 +39,22 @@ class Dashboard extends Component {
 			]
 		};
 
-		this.addCurrenciesToState = this.addCurrenciesToState.bind(this);
-		this.getCurrentCurrency = this.getCurrentCurrency.bind(this);
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
 		this.showSidebar = this.showSidebar.bind(this);
 		this.setSidebarComponent = this.setSidebarComponent.bind(this);
 	}
 	componentDidMount() {
 		if (this.state.firstload) {
-			this.props.clearCurrencyFromState();
-			this.addCurrenciesToState().then(() => {
+			this.props.addCurrenciesToState().then(() => {
 				if (this.props.currencies.length > 0) {
-					this.getCurrentCurrency(this.props.currencies[0].symbol);
+					this.props.getCurrentCurrency(this.props.currencies[0].symbol).then(() => {
+						this.setState({ loading: false });
+						this.setState({ showDashboard: true });
+						this.setState({ currentCurrency: true });
+					});
+
 					this.interval = setInterval(() => {
-						this.getCurrentCurrency(this.props.currentCurrency.symbol);
+						this.props.getCurrentCurrency(this.props.currentCurrency.symbol);
 					}, 5000);
 				} else {
 					this.setState({ loading: false });
@@ -67,6 +66,7 @@ class Dashboard extends Component {
 	}
 
 	componentWillUnmount() {
+		console.log('unmounting');
 		clearInterval(this.interval);
 	}
 
@@ -80,37 +80,6 @@ class Dashboard extends Component {
 
 	setSidebarComponent(component) {
 		this.setState({ sidebarComponent: component });
-	}
-
-	getCurrentCurrency(symbol) {
-		axios.get(`https://coincap.io/page/${symbol}`).then(response => {
-			this.setState({ loading: false });
-			this.setState({ showDashboard: true });
-			const obj = {
-				name: response.data.display_name,
-				price: response.data.price_usd,
-				symbol: response.data.id,
-				percentage: response.data.cap24hrChange,
-				id: response.data._id
-			};
-			this.props.addCurrentCurrencyToState(obj);
-			this.setState({ currentCurrency: true });
-		});
-	}
-
-	addCurrenciesToState() {
-		return new Promise(resolve => {
-			const user = auth.currentUser;
-			const databaseRef = database.ref('users/' + user.uid + '/currencies');
-			databaseRef.once('value', snapshot => {
-				const currencies = snapshot.val();
-				// Lodash Object Map
-				map(currencies, currency => {
-					this.props.addCurrencyToState({ payload: currency });
-				});
-				resolve();
-			});
-		});
 	}
 
 	handleDashboardNavClick(event) {
@@ -150,7 +119,7 @@ class Dashboard extends Component {
 				<div className="dashboard--content">
 					<div className="container">
 						<div className="dashboard--container">
-							{showDashboard && <DashboardMainPage getCurrentCurrency={this.getCurrentCurrency} />}
+							{showDashboard && <DashboardMainPage getCurrentCurrency={this.props.getCurrentCurrency} />}
 							{showSettings && <Settings />}
 							{showExchange && <Exchange />}
 							<DashboardActionButton
@@ -185,16 +154,4 @@ const mapStateToProps = state => ({
 	localCurrency: state.localCurrency
 });
 
-const mapDispatchToProps = dispatch => ({
-	addCurrencyToState(obj) {
-		dispatch(addCurrency(obj));
-	},
-	addCurrentCurrencyToState(obj) {
-		dispatch(addCurrentCurrency(obj));
-	},
-	clearCurrencyFromState() {
-		dispatch(clearCurrency());
-	}
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);
