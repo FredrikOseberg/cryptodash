@@ -33,7 +33,6 @@ class DashboardWrapper extends Component {
 		this.addCurrenciesToState = this.addCurrenciesToState.bind(this);
 	}
 	componentDidMount() {
-		console.log(auth.currentUser);
 		this.props.currencies.forEach(currency => {
 			this.getCoinData(currency.symbol);
 		});

@@ -123,6 +123,9 @@
 	.mobile--dashboard--all--coins .currency--table--card--track {
 		width: 20%;
 	}
+	.mobile--dashboard--all--coins .main--input {
+		width: 70%;
+	}
 }
 
 @media (max-width: 420px) {
@@ -131,9 +134,14 @@
 		display: none;
 	}
 
+	.mobile--dashboard--all--coins .view--all--table--header--rank,
+	.mobile--dashboard--all--coins .currency--table--card--rank {
+		width: 20%;
+	}
+
 	.mobile--dashboard--all--coins .view--all--table--header--name,
 	.mobile--dashboard--all--coins .view--all--name {
-		width: 40%;
+		width: 30%;
 	}
 
 	.mobile--dashboard--all--coins .view--all--table--header--price,
@@ -144,7 +152,7 @@
 
 	.mobile--dashboard--all--coins .view--all--table--header--track,
 	.mobile--dashboard--all--coins .currency--table--card--track {
-		width: 25%;
+		width: 20%;
 		margin-right: 10px;
 	}
 }
