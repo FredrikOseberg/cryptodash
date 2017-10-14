@@ -20,3 +20,15 @@
 .mobile--wallet .sidebar--wallet--list li {
 	color: #fff;
 }
+
+.mobile--wallet .sidebar--wallet--list li img {
+	display: none;
+}
+
+.mobile--wallet .wallet--list--item--copy .main--input {
+	width: 80%;
+}
+
+.mobile--wallet .wallet--list--item--copy--button {
+	margin-right: 20px;
+}

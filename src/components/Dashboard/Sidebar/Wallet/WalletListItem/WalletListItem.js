@@ -42,7 +42,7 @@ class WalletListItem extends Component {
 					<input className="main--input" disabled value={this.props.wallet} />
 					{copyMarkup}
 				</div>
-				<div onClick={this.handleListItemCopyClick}>
+				<div onClick={this.handleListItemCopyClick} className="wallet--list--item--copy--button">
 					<i className="fa fa-clone" aria-hidden="true" />
 				</div>
 			</li>
