@@ -24,7 +24,7 @@ class ViewAllCurrencies extends Component {
 
 	componentDidMount() {
 		this.interval = setInterval(() => {
-			axios.get('http://coincap.io/front').then(response => {
+			axios.get('https://coincap.io/front').then(response => {
 				let newState = [];
 				let currentSetState = [];
 				response.data.forEach((currency, index) => {
