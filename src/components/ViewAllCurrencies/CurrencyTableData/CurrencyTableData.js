@@ -121,7 +121,7 @@ class CurrencyTableData extends Component {
 	getCoinData(coinSymbol) {
 		// Get a specific coins data returns a promise that resolves with the currency data
 		return new Promise((resolve, reject) => {
-			axios.get(`http://coincap.io/page/${coinSymbol}`).then(result => {
+			axios.get(`https://coincap.io/page/${coinSymbol}`).then(result => {
 				let currency = {
 					id: result.data.id,
 					symbol: result.data.id,
