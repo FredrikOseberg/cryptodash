@@ -17,8 +17,13 @@
 	text-align: center;
 }
 
+.mobile--wallet .main--input {
+	font-size: 0.8em;
+}
+
 .mobile--wallet .sidebar--wallet--list li {
 	color: #fff;
+	justify-content: space-around;
 }
 
 .mobile--wallet .sidebar--wallet--list li img {

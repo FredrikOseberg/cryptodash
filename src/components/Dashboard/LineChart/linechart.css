@@ -91,10 +91,11 @@ li.currency--line--chart--navigation--active {
 	padding: 15px 0;
 	cursor: pointer;
 	width: 100%;
-	justify-content: center;
+	justify-content: flex-start;
 }
 
 .currency--line--chart--custom--select {
+	margin-left: 10px;
 	position: relative;
 }
 
@@ -107,6 +108,7 @@ li.currency--line--chart--navigation--active {
 	flex-direction: column;
 	visibility: hidden;
 	opacity: 0;
+	top: 254px;
 }
 
 .currency--line--chart--custom--list {

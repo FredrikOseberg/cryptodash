@@ -21,3 +21,7 @@
 .mobile--currencies {
 	padding-top: 7px;
 }
+
+.mobile--dashboard .currency--line--chart--select--container {
+	justify-content: center;
+}
