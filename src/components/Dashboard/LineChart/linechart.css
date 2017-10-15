@@ -90,6 +90,8 @@ li.currency--line--chart--navigation--active {
 	align-items: center;
 	padding: 15px;
 	cursor: pointer;
+	width: 100%;
+	justify-content: center;
 }
 
 .currency--line--chart--custom--select {

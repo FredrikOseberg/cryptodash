@@ -22,8 +22,8 @@
 }
 
 .mobile--chart .currency--line--chart--custom--select--dropdown {
-	left: -145px;
 	color: #888;
+	top: 10%;
 }
 
 .mobile--chart .currency--line--chart--navigation,

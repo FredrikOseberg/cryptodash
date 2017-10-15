@@ -182,39 +182,39 @@ class LineChart extends Component {
 		} else {
 			let currentCurrency = this.props.currentCurrency;
 			currencyNav = (
-				<div className="currency--line--chart--select--container">
-					<div className="currency--line--chart--custom--select" onClick={this.handleShowNavClick}>
+				<div className="currency--line--chart--select--container" onClick={this.handleShowNavClick}>
+					<div className={dropDownNavClasses}>
+						<ul className="currency--line--chart--custom--list">
+							{this.props.currencies.map(currency => {
+								return (
+									<li
+										className="currency--custom--select--item"
+										key={currency.id}
+										data-symbol={currency.symbol}
+										onClick={this.handleCurrencyNavTypeClick}
+									>
+										<div className="currency--custom--select--item--img">
+											<img src={currency.img} alt={currency.name} />
+										</div>
+										<p className="currency--custom--select--item--name">
+											{currency.name} ({currency.symbol})
+										</p>
+										<div className="currency--custom--select--item--price">
+											<p>
+												{currency.price}{' '}
+												<span className="price--postfix">
+													{this.props.localCurrency.currency}
+												</span>
+											</p>
+										</div>
+									</li>
+								);
+							})}
+						</ul>
+					</div>
+					<div className="currency--line--chart--custom--select">
 						<div className="currency--line--chart--custom--select--selected">
 							{currentCurrency.name} <i className="fa fa-chevron-down" aria-hidden="true" />
-						</div>
-						<div className={dropDownNavClasses}>
-							<ul className="currency--line--chart--custom--list">
-								{this.props.currencies.map(currency => {
-									return (
-										<li
-											className="currency--custom--select--item"
-											key={currency.id}
-											data-symbol={currency.symbol}
-											onClick={this.handleCurrencyNavTypeClick}
-										>
-											<div className="currency--custom--select--item--img">
-												<img src={currency.img} alt={currency.name} />
-											</div>
-											<p className="currency--custom--select--item--name">
-												{currency.name} ({currency.symbol})
-											</p>
-											<div className="currency--custom--select--item--price">
-												<p>
-													{currency.price}{' '}
-													<span className="price--postfix">
-														{this.props.localCurrency.currency}
-													</span>
-												</p>
-											</div>
-										</li>
-									);
-								})}
-							</ul>
 						</div>
 					</div>
 				</div>

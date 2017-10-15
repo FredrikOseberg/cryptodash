@@ -42,7 +42,7 @@ class MobileNavigation extends Component {
 
 		let navigationSidebarClasses, navButtonClasses;
 		if (this.state.openNav) {
-			navigationSidebarClasses = 'mobile--navigation--sidebar mobile--navigation--active';
+			navigationSidebarClasses = 'mobile--navigation--sidebar mobile--navigation--active transition';
 			navButtonClasses = 'mobile--navigation--button';
 		} else {
 			navigationSidebarClasses = 'mobile--navigation--sidebar';
