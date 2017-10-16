@@ -32,7 +32,7 @@ class LineChart extends Component {
 						pointBorderColor: this.props.styles.color,
 						pointHoverBackgroundColor: this.props.styles.color,
 						pointHoverBorderColor: 'rgba(220,220,220,1)',
-						pointRadius: 0.3,
+						pointRadius: 0.1,
 						borderWidth: 1.2,
 						pointHitRadius: 10,
 						data: []

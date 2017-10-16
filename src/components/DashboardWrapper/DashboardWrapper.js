@@ -32,6 +32,7 @@ class DashboardWrapper extends Component {
 		this.getCurrentCurrency = this.getCurrentCurrency.bind(this);
 		this.addCurrenciesToState = this.addCurrenciesToState.bind(this);
 		this.getFrequentCoinData = this.getFrequentCoinData.bind(this);
+		this.getAllCoinData = this.getAllCoinData.bind(this);
 	}
 	componentDidMount() {
 		this.props.currencies.forEach(currency => {
@@ -62,6 +63,12 @@ class DashboardWrapper extends Component {
 			this.setState({ showLoading: false });
 		}
 
+		this.getAllCoinData();
+
+		window.addEventListener('resize', this.handleWindowSizeChange);
+	}
+
+	getAllCoinData() {
 		axios.get('https://coincap.io/front').then(response => {
 			let newState = [];
 			response.data.forEach((currency, index) => {
@@ -71,8 +78,6 @@ class DashboardWrapper extends Component {
 			});
 			this.setState({ allCurrencies: newState });
 		});
-
-		window.addEventListener('resize', this.handleWindowSizeChange);
 	}
 
 	componentWillUnmount() {

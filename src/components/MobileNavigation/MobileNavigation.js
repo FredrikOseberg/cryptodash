@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { auth } from '../../firebase';
 import anonUser from '../../img/anonuser.png';
+import Hammer from 'hammerjs';
+import ReactDOM from 'react-dom';
 import './mobilenavigation.css';
 
 class MobileNavigation extends Component {
@@ -20,6 +22,28 @@ class MobileNavigation extends Component {
 		this.handleOpenNavClick = this.handleOpenNavClick.bind(this);
 		this.handleCloseNavClick = this.handleCloseNavClick.bind(this);
 		this.handleNavClick = this.handleNavClick.bind(this);
+		this.swipeLeft = this.swipeLeft.bind(this);
+		this.swipeRight = this.swipeRight.bind(this);
+	}
+
+	componentDidMount() {
+		this.hammer = Hammer(ReactDOM.findDOMNode(this));
+		this.hammer.on('swipeleft', this.swipeLeft);
+
+		this.hammer.on('swiperight', this.swipeRight);
+	}
+
+	componentWillUnmount() {
+		this.hammer.off('swipeleft', this.swipeLeft);
+		this.hammer.off('swiperight', this.swipeRight);
+	}
+
+	swipeLeft() {
+		this.setState({ openNav: true });
+	}
+
+	swipeRight() {
+		this.setState({ openNav: false });
 	}
 
 	handleOpenNavClick() {
