@@ -6,6 +6,8 @@ import { database } from '../../../firebase';
 import { addCurrency, removeCurrency, clearCurrency, addPrice } from '../../../actions/currencies';
 import coins from '../../../img/coins.jpg';
 import { convertPriceToLocalCurrency } from '../../../common/helpers';
+import Spinner from '../../Loading/Spinner/Spinner';
+
 import './currencytabledata.css';
 
 class CurrencyTableData extends Component {
@@ -13,7 +15,8 @@ class CurrencyTableData extends Component {
 		super(props);
 
 		this.state = {
-			tracked: false
+			tracked: false,
+			trackLoading: false
 		};
 
 		this.handleTrackCurrencyClick = this.handleTrackCurrencyClick.bind(this);
@@ -51,7 +54,7 @@ class CurrencyTableData extends Component {
 	handleTrackCurrencyClick(event) {
 		const user = this.props.currentUser;
 		const coinSymbol = event.target.dataset.name;
-
+		this.setState({ trackLoading: true });
 		if (user.status === 'SIGNED_IN') {
 			const storageLocation = database.ref('users/' + user.uid + '/currencies');
 			let currency = this.checkIfDataContainsCoin(coinSymbol);
@@ -62,7 +65,7 @@ class CurrencyTableData extends Component {
 					if (currency) {
 						storageLocation.child(currency.symbol).set(currency);
 						this.props.addCurrencyToState({ payload: currency });
-
+						this.setState({ trackLoading: false });
 						this.setState({ tracked: true });
 						// Otherwise, dispatch AJAX request to get data and push it onto DB and selectedCurrencies state
 					} else {
@@ -70,7 +73,7 @@ class CurrencyTableData extends Component {
 							storageLocation.child(currency.symbol).set(currency);
 							this.props.addCurrencyToState({ payload: currency });
 							this.props.addPriceToState({ payload: currency.price });
-
+							this.setState({ trackLoading: false });
 							this.setState({ tracked: true });
 						});
 					}
@@ -81,11 +84,13 @@ class CurrencyTableData extends Component {
 			let currency = this.checkIfDataContainsCoin(coinSymbol);
 			if (currency) {
 				this.props.addCurrencyToState({ payload: currency });
+				this.setState({ trackLoading: false });
 				this.setState({ tracked: true });
 			} else {
 				// If data does not exist, get data and push to state
 				this.getCoinData(coinSymbol).then(currency => {
 					this.props.addCurrencyToState({ payload: currency });
+					this.setState({ trackLoading: false });
 					this.setState({ tracked: true });
 				});
 			}
@@ -143,7 +148,7 @@ class CurrencyTableData extends Component {
 		}
 
 		let track;
-		if (this.state.tracked) {
+		if (this.state.tracked && !this.state.trackLoading) {
 			track = (
 				<div
 					className="view--all--tracked"
@@ -153,6 +158,8 @@ class CurrencyTableData extends Component {
 					<i className="fa fa-check" aria-hidden="true" data-name={this.props.short} />
 				</div>
 			);
+		} else if (this.state.trackLoading) {
+			track = <Spinner />;
 		} else {
 			track = (
 				<div className="view--all--track" data-name={this.props.short} onClick={this.handleTrackCurrencyClick}>
