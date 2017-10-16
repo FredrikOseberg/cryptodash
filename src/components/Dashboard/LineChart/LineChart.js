@@ -32,7 +32,8 @@ class LineChart extends Component {
 						pointBorderColor: this.props.styles.color,
 						pointHoverBackgroundColor: this.props.styles.color,
 						pointHoverBorderColor: 'rgba(220,220,220,1)',
-						pointRadius: 1,
+						pointRadius: 0.3,
+						borderWidth: 1.2,
 						pointHitRadius: 10,
 						data: []
 					}
@@ -121,9 +122,10 @@ class LineChart extends Component {
 				const newLabels = [],
 					newData = [];
 				const newState = { ...this.state.data };
-				results.data.price.forEach(result => {
+				results.data.price.forEach((result, index) => {
 					const date = new Date(result[0]);
 					const price = convertPriceToLocalCurrency(result[1]);
+
 					newLabels.push(this.formatDate(date));
 					newData.push(price);
 				});

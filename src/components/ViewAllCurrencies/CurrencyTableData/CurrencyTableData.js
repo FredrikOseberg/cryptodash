@@ -63,16 +63,18 @@ class CurrencyTableData extends Component {
 				if (!snapshot.hasChild(coinSymbol)) {
 					// If currency is found in local dataset, use that data.
 					if (currency) {
-						storageLocation.child(currency.symbol).set(currency);
-						this.props.addCurrencyToState({ payload: currency });
+						this.props.addCurrencyToState({ payload: currency }).then(() => {
+							storageLocation.child(currency.symbol).set(currency);
+						});
 						this.setState({ trackLoading: false });
 						this.setState({ tracked: true });
 						// Otherwise, dispatch AJAX request to get data and push it onto DB and selectedCurrencies state
 					} else {
 						this.getCoinData(coinSymbol).then(currency => {
-							storageLocation.child(currency.symbol).set(currency);
-							this.props.addCurrencyToState({ payload: currency });
-							this.props.addPriceToState({ payload: currency.price });
+							this.props.addCurrencyToState({ payload: currency }).then(() => {
+								this.props.addPriceToState({ payload: currency.price });
+								storageLocation.child(currency.symbol).set(currency);
+							});
 							this.setState({ trackLoading: false });
 							this.setState({ tracked: true });
 						});
@@ -203,7 +205,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	addCurrencyToState(obj) {
-		dispatch(addCurrency(obj));
+		return new Promise((resolve, reject) => {
+			dispatch(addCurrency(obj));
+			resolve();
+		});
 	},
 	removeCurrencyFromState(obj) {
 		dispatch(removeCurrency(obj));

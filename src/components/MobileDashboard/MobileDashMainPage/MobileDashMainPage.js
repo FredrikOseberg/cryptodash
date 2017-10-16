@@ -4,7 +4,6 @@ import MobileDashboardCurrencyItem from '../MobileDashboardCurrencyItem/MobileDa
 import './mobiledashboardmainpage.css';
 
 const MobileDashMainPage = props => {
-	console.log(props.currentCurrency);
 	let showLineChart = props.currentCurrency;
 
 	return (

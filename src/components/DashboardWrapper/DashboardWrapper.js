@@ -31,19 +31,24 @@ class DashboardWrapper extends Component {
 		this.initDashboard = this.initDashboard.bind(this);
 		this.getCurrentCurrency = this.getCurrentCurrency.bind(this);
 		this.addCurrenciesToState = this.addCurrenciesToState.bind(this);
+		this.getFrequentCoinData = this.getFrequentCoinData.bind(this);
 	}
 	componentDidMount() {
 		this.props.currencies.forEach(currency => {
 			this.getCoinData(currency.symbol);
 		});
 
+		const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
+
+		storageLocation.on('value', snapshot => {
+			if (this.interval) {
+				clearInterval(this.interval);
+				this.getFrequentCoinData();
+			}
+		});
+
 		this.initDashboard().then(() => {
-			this.props.currencies.forEach(currency => {
-				this.getCoinData(currency.symbol);
-				this.interval = setInterval(() => {
-					this.getCoinData(currency.symbol);
-				}, 10000);
-			});
+			this.getFrequentCoinData();
 		});
 
 		if (!this.props.currentUser.status) {
@@ -73,6 +78,17 @@ class DashboardWrapper extends Component {
 	componentWillUnmount() {
 		clearInterval(this.interval);
 		window.removeEventListener('resize', this.handleWindowSizeChange);
+	}
+
+	getFrequentCoinData() {
+		this.props.currencies.forEach(currency => {
+			this.getCoinData(currency.symbol);
+		});
+		this.interval = setInterval(() => {
+			this.props.currencies.forEach(currency => {
+				this.getCoinData(currency.symbol);
+			});
+		}, 10000);
 	}
 
 	handleWindowSizeChange = () => {
@@ -136,7 +152,6 @@ class DashboardWrapper extends Component {
 	}
 
 	getCoinData(symbol) {
-		console.log('running');
 		axios.get(`https://coincap.io/page/${symbol}`).then(response => {
 			this.props.addCurrencyPriceToState({
 				price: response.data.price_usd,
