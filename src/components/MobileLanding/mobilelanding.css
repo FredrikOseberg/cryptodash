@@ -1,0 +1,31 @@
+.mobile--landing {
+	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../img/starrysky.jpeg');
+	background-size: cover;
+	min-height: 100vh;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.mobile--landing--header {
+	text-align: center;
+}
+
+.mobile--landing--buttons {
+	display: flex;
+	padding-top: 125px;
+}
+
+.mobile--landing--sign--in,
+.mobile--landing--register {
+	background-color: #fff;
+	color: #888;
+	border-radius: 3px;
+	margin: 10px;
+	width: 125px;
+	padding: 15px 0;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	text-align: center;
+}

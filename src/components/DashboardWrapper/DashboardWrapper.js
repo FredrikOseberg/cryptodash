@@ -9,6 +9,7 @@ import Landing from '../../components/Landing/Landing';
 import Onboarding from '../../components/Onboarding/Onboarding';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import MobileDashboard from '../MobileDashboard/MobileDashboard';
+import MobileLanding from '../MobileLanding/MobileLanding';
 import { addCurrentCurrency } from '../../actions/currentCurrency';
 import map from 'lodash/map';
 
@@ -23,8 +24,7 @@ class DashboardWrapper extends Component {
 			showDashboard: false,
 			showLanding: false,
 			showLoading: true,
-			allCurrencies: [],
-			width: window.innerWidth
+			allCurrencies: []
 		};
 
 		this.getCoinData = this.getCoinData.bind(this);
@@ -64,8 +64,6 @@ class DashboardWrapper extends Component {
 		}
 
 		this.getAllCoinData();
-
-		window.addEventListener('resize', this.handleWindowSizeChange);
 	}
 
 	getAllCoinData() {
@@ -82,7 +80,6 @@ class DashboardWrapper extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.interval);
-		window.removeEventListener('resize', this.handleWindowSizeChange);
 	}
 
 	getFrequentCoinData() {
@@ -95,10 +92,6 @@ class DashboardWrapper extends Component {
 			});
 		}, 10000);
 	}
-
-	handleWindowSizeChange = () => {
-		this.setState({ width: window.innerWidth });
-	};
 
 	initDashboard() {
 		return new Promise((resolve, reject) => {
@@ -183,9 +176,9 @@ class DashboardWrapper extends Component {
 	}
 
 	render() {
-		let dashboard;
-		const isMobile = window.innerWidth <= 790;
-		if (isMobile) {
+		let dashboard, landing, signIn;
+
+		if (this.props.isMobile) {
 			dashboard = (
 				<MobileDashboard
 					getCurrentCurrency={this.getCurrentCurrency}
@@ -193,6 +186,8 @@ class DashboardWrapper extends Component {
 					allCurrencies={this.state.allCurrencies}
 				/>
 			);
+
+			landing = <MobileLanding />;
 		} else {
 			dashboard = (
 				<Dashboard
@@ -202,12 +197,14 @@ class DashboardWrapper extends Component {
 					addCurrenciesToState={this.addCurrenciesToState}
 				/>
 			);
+
+			landing = <Landing data={this.props.coinData} />;
 		}
 		return (
 			<div className="dashboard--wrapper">
 				{this.state.showOnboarding && <Onboarding data={this.props.coinData} />}
 				{this.state.showDashboard && dashboard}
-				{this.state.showLanding && <Landing data={this.props.coinData} />}
+				{this.state.showLanding && landing}
 				{this.state.showLoading && <Loading />}
 			</div>
 		);

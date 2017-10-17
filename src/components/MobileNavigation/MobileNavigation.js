@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { auth } from '../../firebase';
 import anonUser from '../../img/anonuser.png';
-import Hammer from 'hammerjs';
-import ReactDOM from 'react-dom';
 import './mobilenavigation.css';
 
 class MobileNavigation extends Component {
@@ -15,35 +13,15 @@ class MobileNavigation extends Component {
 				{ name: 'Dashboard', icon: 'fa fa-line-chart mobile--nav--list--icon' },
 				{ name: 'Portfolio', icon: 'fa fa-money mobile--nav--list--icon' },
 				{ name: 'Wallets', icon: 'fa fa-folder mobile--nav--list--icon' },
-				{ name: 'All Coins', icon: 'fa fa-circle mobile--nav--list--icon' }
+				{ name: 'All Coins', icon: 'fa fa-circle mobile--nav--list--icon' },
+				{ name: 'Sign Out', icon: 'fa fa-sign-out mobile--nav--list--icon' }
 			]
 		};
 
 		this.handleOpenNavClick = this.handleOpenNavClick.bind(this);
 		this.handleCloseNavClick = this.handleCloseNavClick.bind(this);
 		this.handleNavClick = this.handleNavClick.bind(this);
-		this.swipeLeft = this.swipeLeft.bind(this);
-		this.swipeRight = this.swipeRight.bind(this);
-	}
-
-	componentDidMount() {
-		this.hammer = Hammer(ReactDOM.findDOMNode(this));
-		this.hammer.on('swipeleft', this.swipeLeft);
-
-		this.hammer.on('swiperight', this.swipeRight);
-	}
-
-	componentWillUnmount() {
-		this.hammer.off('swipeleft', this.swipeLeft);
-		this.hammer.off('swiperight', this.swipeRight);
-	}
-
-	swipeLeft() {
-		this.setState({ openNav: true });
-	}
-
-	swipeRight() {
-		this.setState({ openNav: false });
+		this.handleSignOut = this.handleSignOut.bind(this);
 	}
 
 	handleOpenNavClick() {
@@ -56,9 +34,16 @@ class MobileNavigation extends Component {
 
 	handleNavClick(event) {
 		const li = event.currentTarget;
+		if (li.dataset.target === 'Sign Out') {
+			this.handleSignOut();
+		} else {
+			this.props.handleDashboardNavClick(li);
+			this.handleCloseNavClick();
+		}
+	}
 
-		this.props.handleDashboardNavClick(li);
-		this.handleCloseNavClick();
+	handleSignOut() {
+		auth.signOut();
 	}
 
 	render() {
@@ -100,6 +85,7 @@ class MobileNavigation extends Component {
 								if (this.props.currentPage === nav.name) {
 									activeClass = 'mobile--nav--list--item--active';
 								}
+
 								return (
 									<li
 										className={activeClass}
