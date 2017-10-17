@@ -24,7 +24,8 @@ class DashboardWrapper extends Component {
 			showDashboard: false,
 			showLanding: false,
 			showLoading: true,
-			allCurrencies: []
+			allCurrencies: [],
+			width: window.innerWidth
 		};
 
 		this.getCoinData = this.getCoinData.bind(this);
@@ -127,6 +128,18 @@ class DashboardWrapper extends Component {
 		});
 	}
 
+	componentWillMount() {
+		window.addEventListener('resize', this.handleWindowSizeChange);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.handleWindowSizeChange);
+	}
+
+	handleWindowSizeChange = () => {
+		this.setState({ width: window.innerWidth });
+	};
+
 	getCurrentCurrency(symbol) {
 		return new Promise((resolve, reject) => {
 			axios
@@ -178,7 +191,9 @@ class DashboardWrapper extends Component {
 	render() {
 		let dashboard, landing, signIn;
 
-		if (this.props.isMobile) {
+		const isMobile = this.state.width <= 790;
+
+		if (isMobile) {
 			dashboard = (
 				<MobileDashboard
 					getCurrentCurrency={this.getCurrentCurrency}
