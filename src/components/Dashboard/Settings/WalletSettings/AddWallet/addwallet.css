@@ -80,7 +80,7 @@
 	max-width: 300px;
 	color: #888;
 	margin: 10px;
-	flex-basis: 20%;
+	width: 20%;
 	cursor: pointer;
 }
 

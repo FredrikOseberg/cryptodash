@@ -5,6 +5,8 @@ import MobilePortfolio from './MobilePortfolio/MobilePortfolio';
 import MobileWallet from './MobileWallet/MobileWallet';
 import MobileViewAllCoins from './MobileViewAllCoins/MobileViewAllCoins';
 import MobileDashboardActionButton from './MobileDashboardActionButton/MobileDashboardActionButton';
+import MobileAddWallet from './MobileAddWallet/MobileAddWallet';
+import MobileSettings from './MobileSettings/MobileSettings';
 import { connect } from 'react-redux';
 import './mobiledashboard.css';
 
@@ -21,6 +23,8 @@ class MobileDashboard extends Component {
 
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
 		this.handleAddCurrencyClick = this.handleAddCurrencyClick.bind(this);
+		this.handleAddWalletClick = this.handleAddWalletClick.bind(this);
+		this.setDefaultState = this.setDefaultState.bind(this);
 	}
 
 	componentDidMount() {
@@ -42,6 +46,14 @@ class MobileDashboard extends Component {
 		this.setState({ mobileDashboardPage: 'All Coins' });
 	}
 
+	handleAddWalletClick() {
+		this.setState({ mobileDashboardPage: 'Add Wallet' });
+	}
+
+	setDefaultState() {
+		this.setState({ mobileDashboardPage: 'Dashboard' });
+	}
+
 	handleDashboardNavClick(listItem) {
 		switch (listItem.dataset.target) {
 			case 'Dashboard':
@@ -55,6 +67,9 @@ class MobileDashboard extends Component {
 				break;
 			case 'Wallets':
 				this.setState({ mobileDashboardPage: 'Wallets' });
+				break;
+			case 'Settings':
+				this.setState({ mobileDashboardPage: 'Settings' });
 				break;
 			default:
 				this.setState({ mobileDashboardPage: 'Dashboard' });
@@ -70,6 +85,9 @@ class MobileDashboard extends Component {
 		const showPortfolio = this.state.mobileDashboardPage === 'Portfolio';
 		const showWallets = this.state.mobileDashboardPage === 'Wallets';
 		const showAllCoins = this.state.mobileDashboardPage === 'All Coins';
+		const showAddWallet = this.state.mobileDashboardPage === 'Add Wallet';
+		const showSettings = this.state.mobileDashboardPage === 'Settings';
+		const showActionButton = this.state.mobileDashboardPage !== 'Settings';
 		return (
 			<div className="mobile--dashboard">
 				<MobileNavigation
@@ -86,7 +104,14 @@ class MobileDashboard extends Component {
 				{showPortfolio && <MobilePortfolio />}
 				{showWallets && <MobileWallet />}
 				{showAllCoins && <MobileViewAllCoins allCurrencies={this.props.allCurrencies} />}
-				<MobileDashboardActionButton handleAddCurrencyClick={this.handleAddCurrencyClick} />
+				{showAddWallet && <MobileAddWallet setDefaultState={this.setDefaultState} />}
+				{showSettings && <MobileSettings />}
+				{showActionButton && (
+					<MobileDashboardActionButton
+						handleAddCurrencyClick={this.handleAddCurrencyClick}
+						handleAddWalletClick={this.handleAddWalletClick}
+					/>
+				)}
 			</div>
 		);
 	}

@@ -60,7 +60,7 @@ class MobileDashboardActionButton extends Component {
 					<i className="fa fa-plus" aria-hidden="true" />
 					<div className="mobile--currencies--action--buttons--container">
 						<div className={actionButtonContainerClasses}>
-							<div className="mobile--action--button--add">
+							<div className="mobile--action--button--add" onClick={this.props.handleAddWalletClick}>
 								<i className="fa fa-folder" aria-hidden="true" />
 							</div>
 							<div className="mobile--action--button--add" onClick={this.props.handleAddCurrencyClick}>

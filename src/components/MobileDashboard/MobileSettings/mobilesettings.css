@@ -1,0 +1,195 @@
+.mobile--settings {
+	padding-top: 50px;
+	display: flex;
+	justify-content: center;
+}
+
+.mobile--settings .dashboard--settings {
+	background-color: transparent;
+	color: #fff;
+	width: 100%;
+	box-shadow: none;
+	border-top: 1px solid #e0dfdf;
+	margin: 1em 0;
+}
+
+/*Mobile Nav Settings*/
+
+.mobile--settings .dashboard--navigation--list {
+	color: #b1a8a8;
+}
+.mobile--settings .dashboard--navigation--list li {
+	border: none;
+}
+.mobile--settings li.dashboard--navigation--list--active {
+	color: #fff;
+	border: none;
+}
+.mobile--settings .dashboard--navigation--list li:hover {
+	border: none;
+}
+.mobile--settings .currency--wallet--header {
+	border-top: 1px solid #e0dfdf;
+	border-bottom: 1px solid #e0dfdf;
+	color: #fff;
+}
+
+/*Mobile Personal Settings */
+
+.mobile--settings .account--personal--settings--container form label {
+	color: #fff;
+}
+
+.mobile--settings .main--input {
+	background: transparent;
+	transition: all 0.4s ease;
+	color: #fff;
+	border: 2px solid #fff;
+}
+
+.mobile--settings .main--input:focus {
+	border: 2px solid transparent;
+	border-bottom: 2px solid #fff;
+}
+
+/* Mobile Currency Wallet Settings */
+
+.mobile--settings .currency--wallet--content {
+	padding: 20px;
+	border-bottom: 1px solid #e0dfdf;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.mobile--settings .currency--wallet--current {
+	box-sizing: border-box;
+	flex-direction: column;
+	align-items: center;
+	width: 45%;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	padding: 15px;
+	margin: 10px;
+	box-sizing: border-box;
+}
+
+.mobile--settings .currency--wallet--address {
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+.mobile--settings .currency--wallet--current--info {
+	width: auto;
+}
+
+.mobile--settings .currency--wallet--current--info.currency--wallet--delete {
+	font-size: 1.5em;
+	color: #fff;
+}
+
+.mobile--settings .currency--wallet--button--container {
+	width: 100%;
+	position: fixed;
+	top: 70%;
+	left: 0%;
+}
+
+.mobile--settings .currency--wallet--submit--success,
+.mobile--settings .account--password--success {
+	background-color: #30a530;
+	box-sizing: border-box;
+	color: #fff;
+	padding: 20px;
+	border-radius: 3px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.mobile--settings .account--password--success {
+	position: fixed;
+	top: 70%;
+	left: 12%;
+	width: 80%;
+}
+
+/*Mobile Account Settings */
+
+.mobile--settings .account--settings--edit--button {
+	border: 1px solid #fff;
+	color: #fff;
+}
+
+.mobile--settings .account--settings--edit--button .fa {
+	color: #fff;
+}
+
+.mobile--settings .register--box {
+	background-color: transparent;
+	width: 80%;
+	color: #fff;
+	max-width: 400px;
+	margin-top: 0;
+	box-shadow: none;
+}
+
+.mobile--settings .main--input {
+	background: transparent;
+	transition: all 0.4s ease;
+	color: #fff;
+	border: 2px solid #fff;
+}
+
+.mobile--settings .main--input:focus {
+	border: 2px solid transparent;
+	border-bottom: 2px solid #fff;
+}
+
+.mobile--settings .social--login--container .fa {
+	color: #fff;
+}
+
+.mobile--settings .account--settings--change--email--container form label {
+	color: #fff;
+}
+
+.mobile--settings .account--settings--change--password--container form label {
+	color: #fff;
+}
+
+.mobile--settings .password--back {
+	color: #fff;
+}
+
+@media (max-width: 490px) {
+	.mobile--settings .dashboard--navigation--list {
+		flex-direction: column;
+	}
+
+	.mobile--settings .dashboard--navigation--list li .fa {
+		width: 10%;
+	}
+
+	.mobile--settings .dashboard--navigation--list li p {
+		width: 30%;
+	}
+
+	.mobile--settings .personal--info--input {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.mobile--settings .dashboard--navigation--list li {
+		padding: 0;
+	}
+
+	.mobile--settings .currency--wallet--current {
+		width: 100%;
+	}
+
+	.mobile--settings .currency--wallet--content {
+		border-bottom: none;
+	}
+
+	.mobile--settings .account--settings--edit--button {
+		flex-basis: 100%;
+	}
+}

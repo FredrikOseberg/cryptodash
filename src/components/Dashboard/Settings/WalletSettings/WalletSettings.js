@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database } from '../../../../firebase';
 import { addAmountToCurrency, addWalletInfoToCurrency } from '../../../../actions/currencies';
+import { isMobile } from '../../../HoC/IsMobile';
 import CurrencyWalletInput from './CurrencyWalletInput/CurrencyWalletInput';
 import AddWallet from './AddWallet/AddWallet';
 import './walletsettings.css';
@@ -138,11 +139,17 @@ class WalletSettings extends Component {
 				))
 			: (successFlashMessage = '');
 
-		const defaultWalletInterface = (
-			<div>
-				<div className="currency--wallet--header">
-					<h3>Current Wallets</h3>
+		let addWalletMarkup, listHeaderMarkup;
+		if (this.props.isMobile) {
+			addWalletMarkup = '';
+			listHeaderMarkup = '';
+		} else {
+			addWalletMarkup = (
+				<div className={addWalletButtonClasses} onClick={this.handleAddWalletClick}>
+					<i className="fa fa-plus" />
 				</div>
+			);
+			listHeaderMarkup = (
 				<div className="currency--wallet--table--headers">
 					<div className="currency--wallet--header--name">
 						<p>Coin</p>
@@ -157,6 +164,15 @@ class WalletSettings extends Component {
 						<p>Delete</p>
 					</div>
 				</div>
+			);
+		}
+
+		const defaultWalletInterface = (
+			<div>
+				<div className="currency--wallet--header">
+					<h3>Current Wallets</h3>
+				</div>
+				{listHeaderMarkup}
 				<div className="currency--wallet--content">
 					{this.props.currencies.map(currency => {
 						if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
@@ -180,9 +196,7 @@ class WalletSettings extends Component {
 						<button className={buttonClasses} onClick={this.handleWalletSubmit}>
 							Save Changes
 						</button>
-						<div className={addWalletButtonClasses} onClick={this.handleAddWalletClick}>
-							<i className="fa fa-plus" />
-						</div>
+						{addWalletMarkup}
 					</div>
 				</div>
 			</div>
@@ -216,4 +230,4 @@ const mapDispatchToProps = dispatch => ({
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(WalletSettings);
+export default connect(mapStateToProps, mapDispatchToProps)(isMobile(WalletSettings));
