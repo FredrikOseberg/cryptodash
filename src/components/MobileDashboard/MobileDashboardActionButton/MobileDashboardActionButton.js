@@ -6,31 +6,37 @@ class MobileDashboardActionButton extends Component {
 		super(props);
 
 		this.state = {
-			scrolling: false
+			scrolling: false,
+			clicked: false
 		};
 
 		this.handleTouchMove = this.handleTouchMove.bind(this);
 		this.handleTouchEnd = this.handleTouchEnd.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 	}
 
 	componentWillMount() {
-		window.addEventListener('touchmove', this.handleTouchMove);
-		window.addEventListener('touchEnd', this.handleTouchEnd);
+		window.addEventListener('touchstart', this.handleTouchMove);
+		window.addEventListener('touchend', this.handleTouchEnd);
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('touchmove', this.handleTouchMove);
-		window.removeEventListener('touchEnd', this.handleTouchEnd);
+		window.removeEventListener('touchstart', this.handleTouchMove);
+		window.removeEventListener('touchend', this.handleTouchEnd);
 	}
 
 	handleTouchMove() {
-		console.log('touching');
-		this.setState({ scrolling: true });
+		if (this.state.clicked === false) {
+			this.setState({ scrolling: true });
+		}
 	}
 
 	handleTouchEnd() {
-		console.log('not moving');
 		this.setState({ scrolling: false });
+	}
+
+	handleClick() {
+		this.setState({ clicked: !this.state.clicked });
 	}
 
 	render() {
@@ -41,10 +47,27 @@ class MobileDashboardActionButton extends Component {
 			actionButtonClasses = 'mobile--currencies--add--button visible opacity';
 		}
 
+		let actionButtonContainerClasses;
+		if (this.state.clicked) {
+			actionButtonContainerClasses = 'mobile--currencies--action--buttons visible opacity';
+		} else {
+			actionButtonContainerClasses = 'mobile--currencies--action--buttons';
+		}
+
 		return (
 			<div className="mobile--currencies--button--container">
-				<div className={actionButtonClasses} onClick={this.props.handleAddCurrencyClick}>
-					<i className="fa fa-plus" />
+				<div className={actionButtonClasses} onClick={this.handleClick}>
+					<i className="fa fa-plus" aria-hidden="true" />
+					<div className="mobile--currencies--action--buttons--container">
+						<div className={actionButtonContainerClasses}>
+							<div className="mobile--action--button--add">
+								<i className="fa fa-folder" aria-hidden="true" />
+							</div>
+							<div className="mobile--action--button--add" onClick={this.props.handleAddCurrencyClick}>
+								<i className="fa fa-circle" aria-hidden="true" />
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		);

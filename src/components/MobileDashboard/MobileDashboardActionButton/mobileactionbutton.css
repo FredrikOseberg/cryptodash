@@ -16,8 +16,39 @@
 	justify-content: center;
 	align-items: center;
 	position: fixed;
-	top: 90%;
+	top: 85%;
 	visibility: hidden;
 	opacity: 0;
 	transition: all 0.4s ease;
+}
+
+.mobile--currencies--action--buttons--container {
+	position: relative;
+}
+
+.mobile--currencies--action--buttons {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	top: -150px;
+	left: -34px;
+	visibility: hidden;
+	opacity: 0;
+	transition: all 0.4s ease;
+}
+
+.mobile--action--button--add {
+	height: 50px;
+	width: 50px;
+	border-radius: 100%;
+	background-color: #fff;
+	color: #464444;
+	font-size: 0.7em;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.4s ease;
+	margin: 4px 0;
 }
