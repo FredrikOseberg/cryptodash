@@ -121,9 +121,9 @@ class WalletSettings extends Component {
 		if (edit) {
 			if (this.props.isMobile) {
 				buttonClasses =
-					'main-button currency--wallet--save--button visible opacity static mobile--settings--button';
+					'main-button currency--wallet--save--button visible opacity static mobile--settings--button transition';
 			} else {
-				buttonClasses = 'main-button currency--wallet--save--button visible opacity static';
+				buttonClasses = 'main-button currency--wallet--save--button visible opacity static transition';
 			}
 			addWalletButtonClasses = 'currency--wallet--add--currency';
 		} else {

@@ -49,9 +49,9 @@ class CurrencySettings extends Component {
 		if (this.state.edit) {
 			if (this.props.isMobile) {
 				buttonClasses =
-					'main-button currency--settings--button visible opacity static mobile--settings--button';
+					'main-button currency--settings--button visible opacity static mobile--settings--button transition';
 			} else {
-				buttonClasses = 'main-button currency--settings--button visible opacity static';
+				buttonClasses = 'main-button currency--settings--button visible opacity static transition';
 			}
 		} else {
 			buttonClasses = 'main-button currency--settings--button';

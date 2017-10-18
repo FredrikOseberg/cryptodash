@@ -83,9 +83,9 @@ class PersonalSettings extends Component {
 		if (this.state.edit) {
 			if (this.props.isMobile) {
 				submitButtonClasses =
-					'main-button personal--info--button static opacity visible mobile--settings--button';
+					'main-button personal--info--button static opacity visible mobile--settings--button transition';
 			} else {
-				submitButtonClasses = 'main-button personal--info--button static opacity visible';
+				submitButtonClasses = 'main-button personal--info--button static opacity visible transition';
 			}
 		} else {
 			submitButtonClasses = 'main-button personal--info--button';

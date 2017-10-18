@@ -64,9 +64,9 @@ class ChangeEmail extends Component {
 		if (this.state.showSubmit) {
 			if (this.props.isMobile) {
 				submitButtonClasses =
-					'main-button change--email--button visible opacity static mobile--settings--button';
+					'main-button change--email--button visible opacity static mobile--settings--button transition';
 			} else {
-				submitButtonClasses = 'main-button change--email--button visible opacity static';
+				submitButtonClasses = 'main-button change--email--button visible opacity static transition';
 			}
 		} else {
 			submitButtonClasses = 'main-button change--password--button';

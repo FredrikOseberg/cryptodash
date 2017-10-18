@@ -27,3 +27,7 @@
 .mobile--dashboard .currency--line--chart--select--container {
 	justify-content: center;
 }
+
+.mobile--dashboard .currency--line--chart--custom--select--dropdown {
+	min-width: 290px;
+}
