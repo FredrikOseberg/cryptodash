@@ -172,9 +172,19 @@
 		width: 30%;
 	}
 
+	.mobile--settings .account--personal--settings--container form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.mobile--settings .account--personal--info--input--container {
+		margin: 8px;
+	}
+
 	.mobile--settings .personal--info--input {
-		width: 100%;
-		max-width: 100%;
+		width: 80%;
+		max-width: 80%;
 	}
 
 	.mobile--settings .dashboard--navigation--list li {
@@ -191,5 +201,28 @@
 
 	.mobile--settings .account--settings--edit--button {
 		flex-basis: 100%;
+	}
+
+	.mobile--settings .account--settings--change--password--container form {
+		width: 80%;
+	}
+
+	.mobile--settings .account--settings--change--email--container form {
+		width: 80%;
+	}
+
+	.mobile--settings .account--settings--change--email--input {
+		width: 80%;
+	}
+
+	.mobile--settings .account--password--input {
+		width: 80%;
+	}
+
+	.mobile--settings .account--password--input--container label,
+	.account--password--confirm--container label,
+	.account--email--input--container label,
+	.account--personal--info--input--container label {
+		margin-right: 0;
 	}
 }

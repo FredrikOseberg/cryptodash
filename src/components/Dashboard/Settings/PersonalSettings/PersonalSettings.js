@@ -64,7 +64,7 @@ class PersonalSettings extends Component {
 						this.setState({ submitSuccess: 'Your personal information was successfully updated.' }, () => {
 							setTimeout(() => {
 								this.setState({ submitSuccess: '' });
-							}, 100000);
+							}, 5000);
 						});
 					});
 				})

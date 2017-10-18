@@ -24,7 +24,7 @@
 .change--email--button {
 	margin-top: 15px;
 	visibility: hidden;
-	position: absolute;
+	position: fixed;
 	transition: opacity 0.4s ease;
 	opacity: 0;
 }
