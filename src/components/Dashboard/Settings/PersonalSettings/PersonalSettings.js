@@ -80,9 +80,16 @@ class PersonalSettings extends Component {
 
 	render() {
 		let submitButtonClasses;
-		this.state.edit
-			? (submitButtonClasses = 'main-button personal--info--button static opacity visible')
-			: (submitButtonClasses = 'main-button personal--info--button');
+		if (this.state.edit) {
+			if (this.props.isMobile) {
+				submitButtonClasses =
+					'main-button personal--info--button static opacity visible mobile--settings--button';
+			} else {
+				submitButtonClasses = 'main-button personal--info--button static opacity visible';
+			}
+		} else {
+			submitButtonClasses = 'main-button personal--info--button';
+		}
 
 		let displayNameErrorMessage, displayNameErrorMarkup, displayNameInputClasses;
 		displayNameErrorMessage = this.state.displayNameErrorMessage;
@@ -144,7 +151,9 @@ class PersonalSettings extends Component {
 							{submitErrorMessage}
 							{successFlashMessage}
 						</div>
-						<button className={submitButtonClasses}>Change Personal Info</button>
+						<button className={submitButtonClasses}>
+							{this.props.isMobile ? <i className="fa fa-save" aria-hidden="true" /> : 'Update'}
+						</button>
 					</form>
 				</div>
 			</div>

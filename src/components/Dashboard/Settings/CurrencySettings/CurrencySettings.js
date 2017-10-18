@@ -46,9 +46,17 @@ class CurrencySettings extends Component {
 				))
 			: (successFlashMessage = '');
 		let buttonClasses;
-		this.state.edit
-			? (buttonClasses = 'main-button currency--settings--button visible opacity static')
-			: (buttonClasses = 'main-button currency--settings--button');
+		if (this.state.edit) {
+			if (this.props.isMobile) {
+				buttonClasses =
+					'main-button currency--settings--button visible opacity static mobile--settings--button';
+			} else {
+				buttonClasses = 'main-button currency--settings--button visible opacity static';
+			}
+		} else {
+			buttonClasses = 'main-button currency--settings--button';
+		}
+
 		return (
 			<div className="currency--settings">
 				<div className="currency--wallet--header">
@@ -71,7 +79,7 @@ class CurrencySettings extends Component {
 				</div>
 				{successFlashMessage}
 				<div className={buttonClasses} onClick={this.handleCurrencySettingsSubmit}>
-					Save changes
+					{this.props.isMobile ? <i className="fa fa-save" aria-hidden="true" /> : 'Update'}
 				</div>
 			</div>
 		);

@@ -13,6 +13,25 @@
 	margin: 1em 0;
 }
 
+/* Settings Save Button */
+
+.mobile--settings .mobile--settings--button {
+	background-color: #fff;
+	color: #555598;
+	width: 50px;
+	height: 50px;
+	position: fixed;
+	top: 80%;
+	left: 80%;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+	border-radius: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.4em;
+	padding: 0;
+}
+
 /*Mobile Nav Settings*/
 
 .mobile--settings .dashboard--navigation--list {
@@ -179,12 +198,14 @@
 	}
 
 	.mobile--settings .account--personal--info--input--container {
+		width: 100%;
 		margin: 8px;
 	}
 
 	.mobile--settings .personal--info--input {
 		width: 80%;
 		max-width: 80%;
+		margin: 12px auto;
 	}
 
 	.mobile--settings .dashboard--navigation--list li {
@@ -224,5 +245,10 @@
 	.account--email--input--container label,
 	.account--personal--info--input--container label {
 		margin-right: 0;
+	}
+
+	.mobile--settings .main--input--error--message {
+		max-width: 80%;
+		margin: 0 auto;
 	}
 }

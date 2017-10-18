@@ -119,7 +119,12 @@ class WalletSettings extends Component {
 		let buttonClasses, errorMessage, successFlashMessage, addWalletButtonClasses;
 
 		if (edit) {
-			buttonClasses = 'main-button currency--wallet--save--button visible opacity static';
+			if (this.props.isMobile) {
+				buttonClasses =
+					'main-button currency--wallet--save--button visible opacity static mobile--settings--button';
+			} else {
+				buttonClasses = 'main-button currency--wallet--save--button visible opacity static';
+			}
 			addWalletButtonClasses = 'currency--wallet--add--currency';
 		} else {
 			buttonClasses = 'main-button currency--wallet--save--button';
@@ -186,6 +191,7 @@ class WalletSettings extends Component {
 									amount={currency.wallet.amount}
 									handleWalletInfoChange={this.handleWalletInfoChange}
 									validateAmountInput={this.validateAmountInput}
+									isMobile={this.props.isMobile}
 								/>
 							);
 						}
@@ -194,7 +200,7 @@ class WalletSettings extends Component {
 						{errorMessage}
 						{successFlashMessage}
 						<button className={buttonClasses} onClick={this.handleWalletSubmit}>
-							Save Changes
+							{this.props.isMobile ? <i className="fa fa-save" aria-hidden="true" /> : 'Update'}
 						</button>
 						{addWalletMarkup}
 					</div>

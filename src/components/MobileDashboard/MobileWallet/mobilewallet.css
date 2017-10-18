@@ -33,3 +33,7 @@
 .mobile--wallet .wallet--list--item--copy--button {
 	margin-right: 20px;
 }
+
+label.currency--wallet--label {
+	margin: 8px 0;
+}

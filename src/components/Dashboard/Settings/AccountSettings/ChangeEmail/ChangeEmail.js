@@ -60,9 +60,17 @@ class ChangeEmail extends Component {
 
 	render() {
 		let submitButtonClasses, emailErrorMessage, emailErrorMarkup, emailInputClasses;
-		this.state.showSubmit
-			? (submitButtonClasses = 'main-button change--email--button visible opacity static')
-			: (submitButtonClasses = 'main-button change--email--button');
+
+		if (this.state.showSubmit) {
+			if (this.props.isMobile) {
+				submitButtonClasses =
+					'main-button change--email--button visible opacity static mobile--settings--button';
+			} else {
+				submitButtonClasses = 'main-button change--email--button visible opacity static';
+			}
+		} else {
+			submitButtonClasses = 'main-button change--password--button';
+		}
 
 		emailErrorMessage = this.state.emailError;
 		if (emailErrorMessage) {
@@ -84,7 +92,9 @@ class ChangeEmail extends Component {
 							<input type="email" className={emailInputClasses} onChange={this.handleEmailChange} />
 							{emailErrorMarkup}
 						</div>
-						<button className={submitButtonClasses}>Change Email</button>
+						<button className={submitButtonClasses}>
+							{this.props.isMobile ? <i className="fa fa-save" aria-hidden="true" /> : 'Update'}
+						</button>
 					</form>
 				</div>
 			</div>

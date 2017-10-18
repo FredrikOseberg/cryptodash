@@ -4,6 +4,7 @@ import WalletSettings from './WalletSettings/WalletSettings';
 import CurrencySettings from './CurrencySettings/CurrencySettings';
 import AccountSettings from './AccountSettings/AccountSettings';
 import PersonalSettings from './PersonalSettings/PersonalSettings';
+import { isMobile } from '../../HoC/IsMobile';
 import './settings.css';
 
 class Settings extends Component {
@@ -78,14 +79,16 @@ class Settings extends Component {
 					/>
 				</div>
 				<div className="dashboard--settings--content">
-					{showWalletSettings && <WalletSettings />}
-					{showCurrencySettings && <CurrencySettings />}
-					{showPersonalSettings && <PersonalSettings validate={this.validate} />}
-					{showAccountSettings && <AccountSettings validate={this.validate} />}
+					{showWalletSettings && <WalletSettings isMobile={this.props.isMobile} />}
+					{showCurrencySettings && <CurrencySettings isMobile={this.props.isMobile} />}
+					{showPersonalSettings && (
+						<PersonalSettings validate={this.validate} isMobile={this.props.isMobile} />
+					)}
+					{showAccountSettings && <AccountSettings validate={this.validate} isMobile={this.props.isMobile} />}
 				</div>
 			</div>
 		);
 	}
 }
 
-export default Settings;
+export default isMobile(Settings);

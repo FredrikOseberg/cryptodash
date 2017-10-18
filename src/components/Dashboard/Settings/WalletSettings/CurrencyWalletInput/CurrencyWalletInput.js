@@ -74,12 +74,23 @@ class CurrencyWalletInput extends Component {
 			amountInputClasses = 'main--input currency--wallet--settings--input';
 			amountInputErrMarkup = '';
 		}
+
+		let amountLabel, addressLabel;
+		if (this.props.isMobile) {
+			amountLabel = <label className="currency--wallet--label">Amount</label>;
+			addressLabel = <label className="currency--wallet--label">Wallet Address</label>;
+		} else {
+			amountLabel = '';
+			addressLabel = '';
+		}
 		return (
 			<div className="currency--wallet--current">
 				<div className="currency--wallet--current--info currency--wallet--image">
 					<img src={this.props.img} alt={this.props.name} />
 					<h4>{this.props.name}</h4>
 				</div>
+				{amountLabel}
+
 				<div className="currency--wallet--current--info currency--wallet--amount">
 					<input
 						name={`${this.props.name}-amount`}
@@ -89,8 +100,8 @@ class CurrencyWalletInput extends Component {
 					/>
 					{amountInputErrMarkup}
 				</div>
+				{addressLabel}
 				<div className="currency--wallet--current--info currency--wallet--address">
-					{' '}
 					<input
 						name={`${this.props.name}-address`}
 						className="main--input currency--wallet--settings--input"

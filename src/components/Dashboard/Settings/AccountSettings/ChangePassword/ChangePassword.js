@@ -122,9 +122,18 @@ class ChangePassword extends Component {
 		this.state.showConfirm
 			? (passwordConfirmContainerClasses = 'account--password--confirm--container visible opacity static')
 			: (passwordConfirmContainerClasses = 'account--password--confirm--container');
-		this.state.showSubmit
-			? (submitButtonClasses = 'main-button change--password--button visible opacity static')
-			: (submitButtonClasses = 'main-button change--password--button');
+
+		if (this.state.showSubmit) {
+			if (this.props.isMobile) {
+				submitButtonClasses =
+					'main-button change--password--button visible opacity static mobile--settings--button';
+			} else {
+				submitButtonClasses = 'main-button change--password--button visible opacity static';
+			}
+		} else {
+			submitButtonClasses = 'main-button change--password--button';
+		}
+
 		passwordErrorMessage = this.state.passwordErrMessage;
 		if (passwordErrorMessage) {
 			passwordClasses =
@@ -161,7 +170,7 @@ class ChangePassword extends Component {
 							{equalPasswordsErrorMarkup}
 						</div>
 						<button className={submitButtonClasses} onClick={this.handlePasswordSubmit}>
-							Change Password
+							{this.props.isMobile ? <i className="fa fa-save" aria-hidden="true" /> : 'Update'}
 						</button>
 					</form>
 				</div>

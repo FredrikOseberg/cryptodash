@@ -104,9 +104,15 @@ class AccountSettings extends Component {
 				{showDefaultState && defaultMarkup}
 				{showSignin && signinMarkup}
 				{showEmailEditView && (
-					<ChangeEmail validate={this.props.validate} setDefaultState={this.setDefaultState} />
+					<ChangeEmail
+						validate={this.props.validate}
+						setDefaultState={this.setDefaultState}
+						isMobile={this.props.isMobile}
+					/>
 				)}
-				{showPasswordEditView && <ChangePassword setDefaultState={this.setDefaultState} />}
+				{showPasswordEditView && (
+					<ChangePassword setDefaultState={this.setDefaultState} isMobile={this.props.isMobile} />
+				)}
 			</div>
 		);
 	}
