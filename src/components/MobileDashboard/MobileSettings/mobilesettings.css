@@ -251,4 +251,9 @@
 		max-width: 80%;
 		margin: 0 auto;
 	}
+
+	.mobile--settings span.main--input--error--message.currency--wallet--error--message {
+		padding: 10px;
+		max-width: auto;
+	}
 }

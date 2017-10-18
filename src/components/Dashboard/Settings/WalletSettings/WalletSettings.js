@@ -15,13 +15,16 @@ class WalletSettings extends Component {
 			walletState: 'defaultState',
 			walletInfo: [],
 			submitError: '',
-			submitSuccess: ''
+			submitSuccess: '',
+			error: false
 		};
 
 		this.handleWalletInfoChange = this.handleWalletInfoChange.bind(this);
 		this.handleWalletSubmit = this.handleWalletSubmit.bind(this);
 		this.handleAddWalletClick = this.handleAddWalletClick.bind(this);
 		this.setDefaultState = this.setDefaultState.bind(this);
+		this.setError = this.setError.bind(this);
+		this.clearError = this.clearError.bind(this);
 	}
 
 	validateAmountInput(input) {
@@ -60,6 +63,14 @@ class WalletSettings extends Component {
 
 	setDefaultState() {
 		this.setState({ walletState: 'defaultState' });
+	}
+
+	setError() {
+		this.setState({ error: true });
+	}
+
+	clearError() {
+		this.setState({ error: false });
 	}
 
 	handleWalletSubmit() {
@@ -118,7 +129,7 @@ class WalletSettings extends Component {
 
 		let buttonClasses, errorMessage, successFlashMessage, addWalletButtonClasses;
 
-		if (edit) {
+		if (edit && this.state.error === false) {
 			if (this.props.isMobile) {
 				buttonClasses =
 					'main-button currency--wallet--save--button visible opacity static mobile--settings--button transition';
@@ -192,6 +203,8 @@ class WalletSettings extends Component {
 									handleWalletInfoChange={this.handleWalletInfoChange}
 									validateAmountInput={this.validateAmountInput}
 									isMobile={this.props.isMobile}
+									setError={this.setError}
+									clearError={this.clearError}
 								/>
 							);
 						}

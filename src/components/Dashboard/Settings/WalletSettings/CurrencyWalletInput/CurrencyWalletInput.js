@@ -52,12 +52,14 @@ class CurrencyWalletInput extends Component {
 		const validationPassed = this.props.validateAmountInput(input);
 
 		if (validationPassed) {
+			this.props.clearError();
 			this.setState({ amountInputError: '' });
 			this.setState({ amountInput: input.toString().trim() }, () => {
 				this.pushChangedObjectToParentState();
 			});
 		} else {
 			this.setState({ amountInputError: 'Input must be a number' });
+			this.props.setError();
 		}
 	}
 
@@ -67,9 +69,7 @@ class CurrencyWalletInput extends Component {
 			amountInputErrMarkup;
 		if (amountInputError) {
 			amountInputClasses = 'main--input currency--wallet--settings--input main--input--error input--coin';
-			amountInputErrMarkup = (
-				<span className="main--input--error--message currency--wallet--error--message">{amountInputError}</span>
-			);
+			amountInputErrMarkup = <span className="currency--wallet--error--message">{amountInputError}</span>;
 		} else {
 			amountInputClasses = 'main--input currency--wallet--settings--input';
 			amountInputErrMarkup = '';
