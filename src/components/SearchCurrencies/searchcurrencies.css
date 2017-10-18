@@ -92,3 +92,15 @@
 .search--currency--fab:hover {
 	cursor: pointer;
 }
+
+@media (max-width: 790px) {
+	.search--currency--fab {
+		left: 80%;
+	}
+}
+
+@media (max-width: 490px) {
+	.search--currency--fab {
+		left: 70%;
+	}
+}

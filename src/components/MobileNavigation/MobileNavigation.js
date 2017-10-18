@@ -75,7 +75,7 @@ class MobileNavigation extends Component {
 								src={userImage}
 								alt={user.displayName}
 							/>
-							<p className="mobile--navigation--sidebar--name">{user.displayName}</p>
+							<p className="mobile--navigation--sidebar--name">{user.displayName || user.email}</p>
 						</div>
 					</div>
 					<div className="mobile--navigation--nav--container">

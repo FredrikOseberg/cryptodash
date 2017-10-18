@@ -20,3 +20,15 @@
 .currency--card img {
 	padding-top: 30px;
 }
+
+@media (max-width: 790px) {
+	.currency--card {
+		width: 45%;
+	}
+}
+
+@media (max-width: 490px) {
+	.currency--card {
+		width: 100%;
+	}
+}

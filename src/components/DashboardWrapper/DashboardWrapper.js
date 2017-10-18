@@ -11,6 +11,7 @@ import Dashboard from '../../components/Dashboard/Dashboard';
 import MobileDashboard from '../MobileDashboard/MobileDashboard';
 import MobileLanding from '../MobileLanding/MobileLanding';
 import { addCurrentCurrency } from '../../actions/currentCurrency';
+import { isMobile } from '../HoC/IsMobile';
 import map from 'lodash/map';
 
 class DashboardWrapper extends Component {
@@ -24,8 +25,7 @@ class DashboardWrapper extends Component {
 			showDashboard: false,
 			showLanding: false,
 			showLoading: true,
-			allCurrencies: [],
-			width: window.innerWidth
+			allCurrencies: []
 		};
 
 		this.getCoinData = this.getCoinData.bind(this);
@@ -128,18 +128,6 @@ class DashboardWrapper extends Component {
 		});
 	}
 
-	componentWillMount() {
-		window.addEventListener('resize', this.handleWindowSizeChange);
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.handleWindowSizeChange);
-	}
-
-	handleWindowSizeChange = () => {
-		this.setState({ width: window.innerWidth });
-	};
-
 	getCurrentCurrency(symbol) {
 		return new Promise((resolve, reject) => {
 			axios
@@ -191,9 +179,7 @@ class DashboardWrapper extends Component {
 	render() {
 		let dashboard, landing, signIn;
 
-		const isMobile = this.state.width <= 790;
-
-		if (isMobile) {
+		if (this.props.isMobile) {
 			dashboard = (
 				<MobileDashboard
 					getCurrentCurrency={this.getCurrentCurrency}
@@ -250,4 +236,4 @@ const mapDispatchToProps = dispatch => ({
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(isMobile(DashboardWrapper));

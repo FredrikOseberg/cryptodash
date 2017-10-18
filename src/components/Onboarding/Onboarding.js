@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database } from '../../firebase';
 import { addCurrency, clearCurrency } from '../../actions/currencies';
+import { isMobile } from '../HoC/IsMobile';
 import Loading from '../Loading/Loading';
 import localCurrencyData from '../../localCurrencyData';
 import SearchCurrencies from '../SearchCurrencies/SearchCurrencies';
@@ -108,6 +109,10 @@ class Onboarding extends Component {
 		storageLocation.child('localCurrency').set(this.state.localCurrency);
 
 		this.setState({ step: 'setWalletInfoStep' });
+
+		if (this.props.isMobile) {
+			this.handleFinishLaterClick();
+		}
 	}
 
 	handleFinishLaterClick() {
@@ -222,4 +227,4 @@ const mapDispatchToProps = dispatch => ({
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Onboarding);
+export default connect(mapStateToProps, mapDispatchToProps)(isMobile(Onboarding));

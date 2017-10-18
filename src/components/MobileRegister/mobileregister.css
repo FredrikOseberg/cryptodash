@@ -1,0 +1,33 @@
+.mobile--register {
+	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../img/starrysky.jpeg');
+	background-size: cover;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.mobile--register .register--box {
+	background-color: transparent;
+	width: 80%;
+	color: #fff;
+	max-width: 400px;
+	margin-top: 0;
+	box-shadow: none;
+}
+
+.mobile--register .main--input {
+	background: transparent;
+	transition: all 0.4s ease;
+	color: #fff;
+	border: 2px solid #fff;
+}
+
+.mobile--register .main--input:focus {
+	border: 2px solid transparent;
+	border-bottom: 2px solid #fff;
+}
+
+.mobile--register .social--login--container .fa {
+	color: #fff;
+}

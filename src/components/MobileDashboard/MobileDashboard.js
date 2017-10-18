@@ -4,6 +4,7 @@ import MobileNavigation from '../MobileNavigation/MobileNavigation';
 import MobilePortfolio from './MobilePortfolio/MobilePortfolio';
 import MobileWallet from './MobileWallet/MobileWallet';
 import MobileViewAllCoins from './MobileViewAllCoins/MobileViewAllCoins';
+import MobileDashboardActionButton from './MobileDashboardActionButton/MobileDashboardActionButton';
 import { connect } from 'react-redux';
 import './mobiledashboard.css';
 
@@ -80,12 +81,12 @@ class MobileDashboard extends Component {
 						getCurrentCurrency={this.props.getCurrentCurrency}
 						currentCurrency={this.state.currentCurrency}
 						currencies={this.props.currencies}
-						handleAddCurrencyClick={this.handleAddCurrencyClick}
 					/>
 				)}
 				{showPortfolio && <MobilePortfolio />}
 				{showWallets && <MobileWallet />}
 				{showAllCoins && <MobileViewAllCoins allCurrencies={this.props.allCurrencies} />}
+				<MobileDashboardActionButton handleAddCurrencyClick={this.handleAddCurrencyClick} />
 			</div>
 		);
 	}

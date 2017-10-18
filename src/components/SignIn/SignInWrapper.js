@@ -2,35 +2,18 @@ import React, { Component } from 'react';
 import Header from '../Header/Header';
 import MobileSignIn from '../MobileSignIn/MobileSignIn';
 import SignIn from './SignIn';
+import { isMobile } from '../HoC/IsMobile';
 import './signinwrapper.css';
 
 class SignInWrapper extends Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			width: window.innerWidth
-		};
 	}
-
-	componentWillMount() {
-		window.addEventListener('resize', this.handleWindowSizeChange);
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.handleWindowSizeChange);
-	}
-
-	handleWindowSizeChange = () => {
-		this.setState({ width: window.innerWidth });
-	};
 
 	render() {
 		let markup;
 
-		const isMobile = this.state.width <= 790;
-
-		if (isMobile) {
+		if (this.props.isMobile) {
 			console.log('component is mobile');
 			markup = <MobileSignIn history={this.props.history} reauth={false} />;
 		} else {
@@ -50,4 +33,4 @@ class SignInWrapper extends Component {
 	}
 }
 
-export default SignInWrapper;
+export default isMobile(SignInWrapper);

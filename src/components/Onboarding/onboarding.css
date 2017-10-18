@@ -9,6 +9,9 @@
 	background-size: cover;
 	position: relative;
 	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .onboarding--card {
@@ -87,4 +90,21 @@ h4.onboarding--wallet--address--header {
 .onboarding--error--message {
 	display: block;
 	margin: 20px auto 0;
+}
+
+@media (max-width: 790px) {
+	.onboarding--background {
+		padding: 0;
+	}
+
+	.onboarding--container {
+		width: 100%;
+	}
+
+	.onboarding--card {
+		width: 90%;
+		min-width: 90%;
+		max-width: 90%;
+		box-sizing: border-box;
+	}
 }

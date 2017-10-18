@@ -1,7 +1,6 @@
 import React from 'react';
 import MobileLineChart from '../MobileLineChart/MobileLineChart';
 import MobileDashboardCurrencyItem from '../MobileDashboardCurrencyItem/MobileDashboardCurrencyItem';
-import './mobiledashboardmainpage.css';
 
 const MobileDashMainPage = props => {
 	let showLineChart = props.currentCurrency;
@@ -25,11 +24,6 @@ const MobileDashMainPage = props => {
 						);
 					})}
 				</ul>
-				<div className="mobile--currencies--button--container">
-					<div className="mobile--currencies--add--button" onClick={props.handleAddCurrencyClick}>
-						<i className="fa fa-plus" />
-					</div>
-				</div>
 			</div>
 		</div>
 	);

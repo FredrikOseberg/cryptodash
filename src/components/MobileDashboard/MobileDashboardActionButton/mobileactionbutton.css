@@ -1,12 +1,11 @@
 .mobile--currencies--button--container {
 	display: flex;
 	justify-content: center;
-	padding: 25px 0 40px 0;
 }
 
 .mobile--currencies--add--button {
-	height: 70px;
-	width: 70px;
+	height: 60px;
+	width: 60px;
 	border-radius: 100%;
 	background-color: #fff;
 	color: #464444;
@@ -16,12 +15,9 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-.mobile--currencies {
-	padding-top: 7px;
-}
-
-.mobile--dashboard .currency--line--chart--select--container {
-	justify-content: center;
+	position: fixed;
+	top: 90%;
+	visibility: hidden;
+	opacity: 0;
+	transition: all 0.4s ease;
 }

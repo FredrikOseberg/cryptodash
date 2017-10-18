@@ -121,25 +121,6 @@ class Register extends Component {
 		this.setState({ firebaseError: errorMessage });
 	}
 	render() {
-		// Reads global application state and outputs pictures of current selected currencies
-		let stateInfo;
-		if (this.props.selectedCurrencies.length > 0) {
-			stateInfo = (
-				<div className="register--state--info">
-					<h3>Finish your registration in order to follow these currencies</h3>
-					{this.props.selectedCurrencies.map(currency => {
-						return (
-							<img
-								src={currency.img}
-								key={currency.id}
-								className="register--state--img"
-								alt={currency.name}
-							/>
-						);
-					})}
-				</div>
-			);
-		}
 		// Set email error messages if there are any
 		let emailErrMessage = this.state.emailErrMessage,
 			emailClasses,
@@ -167,50 +148,40 @@ class Register extends Component {
 			? (firebaseErrMarkup = <span className="main--input--error--message">{firebaseErrMessage}</span>)
 			: (firebaseErrMarkup = '');
 		return (
-			<div className="frontend--background">
-				<Header />
-				<div className="container register--container">
-					{stateInfo}
-					<div className="register--box--container">
-						<div className="register--box box">
-							<h3>Register</h3>
-							<form>
-								<div className="register--box--input--container">
-									<div className="register--box--input--group">
-										<label htmlFor="email">Email</label>
-										<input
-											type="text"
-											name="email"
-											className={emailClasses}
-											onChange={this.handleEmailChange}
-										/>
-										{emailErrorMarkup}
-									</div>
-									<div className="register--box--input--group">
-										<label htmlFor="password">Password</label>
-										<input
-											type="password"
-											name="password"
-											className={passwordClasses}
-											ref="registerPassword"
-											onChange={this.handlePasswordChange}
-										/>
-										{passwordErrMarkup}
-									</div>
-									{firebaseErrMarkup}
-									<button
-										type="submit"
-										className="auth--button main-button"
-										onClick={this.handleSubmit}
-									>
-										Register
-									</button>
-								</div>
-								<p>Or sign in with these</p>
-								<SocialLoginWrapper handleError={this.handleSocialError} history={this.props.history} />
-							</form>
+			<div className="register--box--container">
+				<div className="register--box box">
+					<h3>Register</h3>
+					<form>
+						<div className="register--box--input--container">
+							<div className="register--box--input--group">
+								<label htmlFor="email">Email</label>
+								<input
+									type="text"
+									name="email"
+									className={emailClasses}
+									onChange={this.handleEmailChange}
+								/>
+								{emailErrorMarkup}
+							</div>
+							<div className="register--box--input--group">
+								<label htmlFor="password">Password</label>
+								<input
+									type="password"
+									name="password"
+									className={passwordClasses}
+									ref="registerPassword"
+									onChange={this.handlePasswordChange}
+								/>
+								{passwordErrMarkup}
+							</div>
+							{firebaseErrMarkup}
+							<button type="submit" className="auth--button main-button" onClick={this.handleSubmit}>
+								Register
+							</button>
 						</div>
-					</div>
+						<p>Or sign in with these</p>
+						<SocialLoginWrapper handleError={this.handleSocialError} history={this.props.history} />
+					</form>
 				</div>
 			</div>
 		);

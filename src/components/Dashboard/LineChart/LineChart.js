@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { addCurrentCurrency } from '../../../actions/currentCurrency';
 import { convertPriceToLocalCurrency } from '../../../common/helpers';
 import { Line } from 'react-chartjs-2';
+import { isMobile } from '../../HoC/IsMobile';
 import timePeriodData from '../../../timePeriodData';
 import axios from 'axios';
 import Spinner from '../../Loading/Spinner/Spinner';
@@ -157,7 +158,7 @@ class LineChart extends Component {
 			: (dropDownNavClasses = 'currency--line--chart--custom--select--dropdown');
 
 		let currencyNav;
-		if (this.props.currencies.length < 6) {
+		if (this.props.currencies.length < 6 && !this.props.isMobile) {
 			currencyNav = (
 				<ul className="currency--line--chart--navigation">
 					{this.props.currencies.map((currency, index) => {
@@ -333,4 +334,4 @@ const mapDispatchToProps = dispatch => ({
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LineChart);
+export default connect(mapStateToProps, mapDispatchToProps)(isMobile(LineChart));

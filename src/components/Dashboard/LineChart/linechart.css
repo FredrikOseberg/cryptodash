@@ -109,6 +109,7 @@ li.currency--line--chart--navigation--active {
 	visibility: hidden;
 	opacity: 0;
 	top: 254px;
+	border-radius: 3px;
 }
 
 .currency--line--chart--custom--list {

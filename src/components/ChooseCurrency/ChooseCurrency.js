@@ -15,7 +15,8 @@ const ChooseCurrency = props => {
 	}
 	return (
 		<div className="choose--currency">
-			<h4>Choose which currencies to track</h4>
+			<h4>Choose which currencies to track.</h4>
+			<p>Click currencies below to expand selection.</p>
 			<div className="choose--currency--content--box--currency">
 				<div className="choose--currency--content--box--image--container" onClick={props.handleClickedExpand}>
 					<img src={bitcoin} className="choose--currency--content--box--image" alt="Bitcoin" />
