@@ -16,15 +16,11 @@ class MobileDashboardActionButton extends Component {
 	componentWillMount() {
 		window.addEventListener('touchmove', this.handleTouchMove);
 		window.addEventListener('touchEnd', this.handleTouchEnd);
-		window.addEventListener('pointerdown', this.handleTouchMove);
-		window.addEventListener('pointerup', this.handleTouchEnd);
 	}
 
 	componentWillUnmount() {
 		window.removeEventListener('touchmove', this.handleTouchMove);
 		window.removeEventListener('touchEnd', this.handleTouchEnd);
-		window.removeEventListener('pointerdown', this.handleTouchMove);
-		window.removeEventListener('pointerup', this.handleTouchEnd);
 	}
 
 	handleTouchMove() {
