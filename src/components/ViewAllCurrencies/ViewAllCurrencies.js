@@ -16,36 +16,69 @@ class ViewAllCurrencies extends Component {
 			currentSet: [],
 			currentIndex: 50,
 			inputValue: '',
-			loading: true
+			loading: false,
+			gettingData: false
 		};
 
 		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleScroll = this.handleScroll.bind(this);
+		this.setNewDataSet = this.setNewDataSet.bind(this);
 	}
 
 	componentDidMount() {
+		window.addEventListener('scroll', this.handleScroll, false);
+
+		this.setNewDataSet(this.props.allCurrencies, this.state.currentIndex);
 		this.interval = setInterval(() => {
 			axios.get('https://coincap.io/front').then(response => {
-				let newState = [];
-				let currentSetState = [];
-				response.data.forEach((currency, index) => {
-					let newObj = { ...currency };
-					newObj.rank = index + 1;
-					newState.push(newObj);
-					if (index < this.state.currentIndex) {
-						currentSetState.push(newObj);
-					}
-				});
-				this.setState({ allCurrencies: newState });
-				this.setState({ currentSet: currentSetState }, () => {
-					this.setState({ currentIndex: 100 });
-					this.setState({ loading: false });
-				});
+				this.setNewDataSet(response.data);
 			});
 		}, 5000);
 	}
 
+	getNewData() {
+		this.setState({ gettingData: true }, () => {
+			const newIndex = (this.state.currentIndex += 50);
+			this.setState({ currentIndex: newIndex }, () => {
+				axios.get('https://coincap.io/front').then(response => {
+					setTimeout(this.setNewDataSet(response.data), 2000);
+				});
+			});
+		});
+	}
+
+	setNewDataSet(dataSet, currentIndex = this.state.currentIndex) {
+		let newState = [];
+		let currentSetState = [];
+		dataSet.forEach((currency, index) => {
+			let newObj = { ...currency };
+			newObj.rank = index + 1;
+			newState.push(newObj);
+			if (index < this.state.currentIndex) {
+				currentSetState.push(newObj);
+			}
+		});
+		this.setState({ allCurrencies: newState });
+		this.setState({ currentSet: currentSetState }, () => {
+			this.setState({ loading: false });
+			this.setState({ currentIndex: currentIndex });
+			this.setState({ gettingData: false });
+		});
+	}
+
 	componentWillUnmount() {
+		window.removeEventListener('scroll', this.handleScroll, false);
 		clearInterval(this.interval);
+	}
+
+	handleScroll() {
+		if (this.state.gettingData) return;
+		const bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 500;
+
+		if (bottom) {
+			this.setState({ loading: true });
+			this.getNewData();
+		}
 	}
 
 	handleInputChange(event) {
@@ -108,40 +141,39 @@ class ViewAllCurrencies extends Component {
 			});
 		}
 
-		let allCoinsMarkup;
+		let allCoinsMarkup, spinner;
 		if (this.state.loading) {
-			allCoinsMarkup = <Spinner />;
+			spinner = <Spinner />;
 		} else {
-			allCoinsMarkup = (
-				<div>
-					<div className={viewAllBoxClasses}>
-						<div className="view--all--header">
-							<h2>
-								<i className="fa fa-search" aria-hidden="true" />
-								Search for currencies
-							</h2>
-							<input
-								className="main--input view--all--input"
-								type="text"
-								onChange={this.handleInputChange}
-							/>
-						</div>
-						<div className="view--all--table--headers">
-							<div className="view--all--table--header--rank">Rank</div>
-							<div className="view--all--table--header--name">Name</div>
-							<div className="view--all--table--header--marketcap">Market Cap</div>
-							<div className="view--all--table--header--price">Price</div>
-							<div className="view--all--table--header--24hvwap">24hour VWAP</div>
-							<div className="view--all--table--header--supply">Available Supply</div>
-							<div className="view--all--table--header--volume">24 Hour Volume</div>
-							<div className="view--all--table--header--percentage">%24hr</div>
-							<div className="view--all--table--header--track">Track</div>
-						</div>
-					</div>
-					{currencyTableData}
-				</div>
-			);
+			spinner = '';
 		}
+
+		allCoinsMarkup = (
+			<div>
+				<div className={viewAllBoxClasses}>
+					<div className="view--all--header">
+						<h2>
+							<i className="fa fa-search" aria-hidden="true" />
+							Search for currencies
+						</h2>
+						<input className="main--input view--all--input" type="text" onChange={this.handleInputChange} />
+					</div>
+					<div className="view--all--table--headers">
+						<div className="view--all--table--header--rank">Rank</div>
+						<div className="view--all--table--header--name">Name</div>
+						<div className="view--all--table--header--marketcap">Market Cap</div>
+						<div className="view--all--table--header--price">Price</div>
+						<div className="view--all--table--header--24hvwap">24hour VWAP</div>
+						<div className="view--all--table--header--supply">Available Supply</div>
+						<div className="view--all--table--header--volume">24 Hour Volume</div>
+						<div className="view--all--table--header--percentage">%24hr</div>
+						<div className="view--all--table--header--track">Track</div>
+					</div>
+				</div>
+				{currencyTableData}
+				{spinner}
+			</div>
+		);
 
 		return (
 			<div className={frontendClasses}>
