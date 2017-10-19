@@ -82,7 +82,6 @@ class ViewAllCurrencies extends Component {
 		const bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
 		if (bottom) {
-			alert('loading');
 			this.setState({ loading: true });
 			this.getNewData();
 		}
