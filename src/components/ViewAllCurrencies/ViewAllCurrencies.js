@@ -28,7 +28,10 @@ class ViewAllCurrencies extends Component {
 	componentDidMount() {
 		window.addEventListener('scroll', this.handleScroll, false);
 
+		document.body.style.height = 'auto';
+
 		this.setState({ currentIndex: 50 }, () => {
+			console.log('mounting', this.state.currentIndex);
 			this.setNewDataSet(this.props.allCurrencies, this.state.currentIndex);
 			this.interval = setInterval(() => {
 				axios.get('https://coincap.io/front').then(response => {
@@ -71,13 +74,15 @@ class ViewAllCurrencies extends Component {
 	componentWillUnmount() {
 		window.removeEventListener('scroll', this.handleScroll, false);
 		clearInterval(this.interval);
+		document.body.style.height = '100%';
 	}
 
 	handleScroll() {
 		if (this.state.gettingData) return;
-		const bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 500;
+		const bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
 		if (bottom) {
+			alert('loading');
 			this.setState({ loading: true });
 			this.getNewData();
 		}
