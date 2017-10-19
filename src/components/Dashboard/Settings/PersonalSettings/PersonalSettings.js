@@ -40,7 +40,7 @@ class PersonalSettings extends Component {
 		validPhotoURL = this.props.validate(this.state.photoURLInput);
 
 		if (!validName) {
-			this.setState({ displayNameErrorMessage: 'You need to prive a valid name.' });
+			this.setState({ displayNameErrorMessage: 'You need to provide a valid name.' });
 			this.setState({ edit: false });
 		}
 
@@ -49,7 +49,7 @@ class PersonalSettings extends Component {
 			this.setState({ edit: false });
 		}
 
-		if (validName || validPhotoURL) {
+		if (validName && validPhotoURL) {
 			validationPassed = true;
 		}
 

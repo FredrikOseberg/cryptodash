@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database } from '../../../../../firebase';
+import { isMobile } from '../../../../HoC/IsMobile';
 import { addAmountToCurrency, addWalletInfoToCurrency } from '../../../../../actions/currencies';
 
 import './addwallet.css';
@@ -103,9 +104,11 @@ class AddWallet extends Component {
 		);
 
 		let submitButtonClasses;
-		this.state.amountInput && this.state.addressInput
-			? (submitButtonClasses = 'main-button add--wallet--button visible opacity static')
-			: (submitButtonClasses = 'main-button add--wallet--button');
+		if (this.state.amountInput && this.state.addressInput) {
+			submitButtonClasses = 'main-button add--wallet--button visible opacity static mobile--settings--button';
+		} else {
+			submitButtonClasses = 'main-button add--wallet--button';
+		}
 
 		const showAddWalletForm = this.state.step === 'showAddWalletForm';
 		const formMarkup = (
@@ -130,7 +133,7 @@ class AddWallet extends Component {
 					</div>
 				</form>
 				<div className={submitButtonClasses} onClick={this.handleFormSubmit}>
-					Add Wallet
+					{this.props.isMobile ? <i className="fa fa-save" aria-hidden="true" /> : 'Add Wallet'}
 				</div>
 			</div>
 		);
@@ -162,4 +165,4 @@ const mapDispatchToProps = dispatch => ({
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddWallet);
+export default connect(mapStateToProps, mapDispatchToProps)(isMobile(AddWallet));

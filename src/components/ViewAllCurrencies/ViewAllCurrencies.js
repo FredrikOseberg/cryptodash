@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CurrencyTableData from './CurrencyTableData/CurrencyTableData';
 import Spinner from '../Loading/Spinner/Spinner';
 import axios from 'axios';
+import { isMobile } from '../HoC/IsMobile';
 import './viewallcurrencies.css';
 
 class ViewAllCurrencies extends Component {
@@ -42,11 +43,13 @@ class ViewAllCurrencies extends Component {
 	}
 
 	getNewData() {
-		this.setState({ gettingData: true }, () => {
-			const newIndex = (this.state.currentIndex += 50);
-			this.setState({ currentIndex: newIndex }, () => {
-				axios.get('https://coincap.io/front').then(response => {
-					setTimeout(this.setNewDataSet(response.data), 2000);
+		this.setState({ loading: true }, () => {
+			this.setState({ gettingData: true }, () => {
+				const newIndex = (this.state.currentIndex += 50);
+				this.setState({ currentIndex: newIndex }, () => {
+					axios.get('https://coincap.io/front').then(response => {
+						setTimeout(this.setNewDataSet(response.data), 2000);
+					});
 				});
 			});
 		});
@@ -67,8 +70,8 @@ class ViewAllCurrencies extends Component {
 		this.setState({ currentSet: currentSetState }, () => {
 			this.setState({ loading: false });
 			this.setState({ currentIndex: currentIndex });
-			this.setState({ gettingData: false });
 		});
+		this.setState({ gettingData: false });
 	}
 
 	componentWillUnmount() {
@@ -78,11 +81,16 @@ class ViewAllCurrencies extends Component {
 	}
 
 	handleScroll() {
-		if (this.state.gettingData) return;
-		const bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+		let bottom;
+		if (this.props.isMobile) {
+			bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+		} else {
+			const sidebar = document.querySelector('.dashboard--sidebar ');
 
-		if (bottom) {
-			this.setState({ loading: true });
+			bottom = sidebar.scrollTop === sidebar.scrollHeight - sidebar.offsetHeight;
+		}
+
+		if (bottom && this.state.gettingData === false) {
 			this.getNewData();
 		}
 	}
@@ -196,4 +204,4 @@ const mapStateToProps = state => ({
 	currentUser: state.auth
 });
 
-export default connect(mapStateToProps)(ViewAllCurrencies);
+export default connect(mapStateToProps)(isMobile(ViewAllCurrencies));

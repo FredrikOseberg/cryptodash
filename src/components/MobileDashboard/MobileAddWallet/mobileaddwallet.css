@@ -16,6 +16,23 @@
 	font-size: 1.4em;
 }
 
+.mobile--add--wallet .mobile--settings--button {
+	background-color: #fff;
+	color: #555598;
+	width: 50px;
+	height: 50px;
+	position: fixed;
+	top: 80%;
+	left: 80%;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+	border-radius: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.4em;
+	padding: 0;
+}
+
 .mobile--add--wallet .currency--add--wallet--currency {
 	border: 1px solid #fff;
 	text-align: center;
