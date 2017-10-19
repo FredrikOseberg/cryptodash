@@ -14,7 +14,7 @@ class ViewAllCurrencies extends Component {
 		this.state = {
 			allCurrencies: this.props.allCurrencies,
 			currentSet: [],
-			currentIndex: 50,
+			currentIndex: 0,
 			inputValue: '',
 			loading: false,
 			gettingData: false
@@ -28,12 +28,14 @@ class ViewAllCurrencies extends Component {
 	componentDidMount() {
 		window.addEventListener('scroll', this.handleScroll, false);
 
-		this.setNewDataSet(this.props.allCurrencies, this.state.currentIndex);
-		this.interval = setInterval(() => {
-			axios.get('https://coincap.io/front').then(response => {
-				this.setNewDataSet(response.data);
-			});
-		}, 5000);
+		this.setState({ currentIndex: 50 }, () => {
+			this.setNewDataSet(this.props.allCurrencies, this.state.currentIndex);
+			this.interval = setInterval(() => {
+				axios.get('https://coincap.io/front').then(response => {
+					this.setNewDataSet(response.data);
+				});
+			}, 5000);
+		});
 	}
 
 	getNewData() {
