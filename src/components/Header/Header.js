@@ -72,7 +72,7 @@ class Header extends Component {
 			<div className={headerClasses}>
 				<div className="container">
 					<Link to="/">
-						<h1 className="header--logo">cDash</h1>
+						<h1 className="header--logo">CryptoDasher</h1>
 					</Link>
 					{navLinks}
 				</div>

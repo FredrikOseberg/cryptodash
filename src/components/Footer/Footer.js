@@ -69,7 +69,7 @@ class Footer extends Component {
 			<div className="footer">
 				<div className="footer--container">
 					<div className="footer--logo">
-						<h1>CryptoDash</h1>
+						<h1>CryptoDasher</h1>
 					</div>
 					<div className="footer--support">
 						<h3>Support this Project</h3>
