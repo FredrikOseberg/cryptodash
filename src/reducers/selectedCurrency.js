@@ -19,6 +19,7 @@ const selectedCurrencies = (state = [], action) => {
 		case 'ADD_PRICE':
 			oldState.forEach(obj => {
 				newObj = { ...obj };
+
 				if (obj.symbol === action.symbol) {
 					newObj.price = action.price;
 					newObj.percentage = action.percentage;

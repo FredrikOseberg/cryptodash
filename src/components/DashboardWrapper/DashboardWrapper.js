@@ -135,7 +135,7 @@ class DashboardWrapper extends Component {
 				.then(response => {
 					const obj = {
 						name: response.data.display_name,
-						price: response.data.price_usd,
+						price: response.data.price,
 						symbol: response.data.id,
 						percentage: response.data.cap24hrChange,
 						id: response.data._id
@@ -153,7 +153,7 @@ class DashboardWrapper extends Component {
 	getCoinData(symbol) {
 		axios.get(`https://coincap.io/page/${symbol}`).then(response => {
 			this.props.addCurrencyPriceToState({
-				price: response.data.price_usd,
+				price: response.data.price,
 				percentage: response.data.cap24hrChange,
 				symbol: response.data.id
 			});

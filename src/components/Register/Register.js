@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database } from '../../firebase';
 import firebase from '../../firebase';
-import Header from '../Header/Header';
+import Recaptcha from 'react-gcaptcha';
 import SocialLoginWrapper from '../Auth/SocialLoginWrapper/SocialLoginWrapper';
 
 class Register extends Component {
@@ -14,7 +14,8 @@ class Register extends Component {
 			passwordErrMessage: '',
 			firebaseError: '',
 			password: '',
-			email: ''
+			email: '',
+			verifiedUser: false
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,9 +25,13 @@ class Register extends Component {
 		this.validatePassword = this.validatePassword.bind(this);
 		this.validateInput = this.validateInput.bind(this);
 		this.handleSocialError = this.handleSocialError.bind(this);
+		this.verifyCallback = this.verifyCallback.bind(this);
 	}
 	componentDidMount() {
 		this.refs.registerPassword.focus();
+	}
+	verifyCallback() {
+		this.setState({ verifiedUser: true });
 	}
 	handleEmailChange(event) {
 		this.setState({ email: event.target.value.toString().trim() });
@@ -81,33 +86,37 @@ class Register extends Component {
 
 		const validationPassed = this.validateInput();
 
-		if (validationPassed) {
-			const email = this.state.email;
-			const password = this.state.password;
-			firebase
-				.auth()
-				.createUserWithEmailAndPassword(email, password)
-				.then(user => {
-					const storageLocation = database.ref('users/' + user.uid + '/currencies');
+		if (this.state.verifiedUser) {
+			if (validationPassed) {
+				const email = this.state.email;
+				const password = this.state.password;
+				firebase
+					.auth()
+					.createUserWithEmailAndPassword(email, password)
+					.then(user => {
+						const storageLocation = database.ref('users/' + user.uid + '/currencies');
 
-					this.props.selectedCurrencies.forEach(currency => {
-						storageLocation.child(currency.symbol).set(currency);
+						this.props.selectedCurrencies.forEach(currency => {
+							storageLocation.child(currency.symbol).set(currency);
+						});
+
+						this.setState({ email: '' });
+						this.setState({ password: '' });
+
+						this.props.history.push('/');
+					})
+					.catch(error => {
+						let errorMessage;
+						if (error.code) {
+							errorMessage = error.message;
+						} else {
+							errorMessage = 'Something went wrong.';
+						}
+						this.setState({ firebaseError: errorMessage });
 					});
-
-					this.setState({ email: '' });
-					this.setState({ password: '' });
-
-					this.props.history.push('/');
-				})
-				.catch(error => {
-					let errorMessage;
-					if (error.code) {
-						errorMessage = error.message;
-					} else {
-						errorMessage = 'Something went wrong.';
-					}
-					this.setState({ firebaseError: errorMessage });
-				});
+			}
+		} else {
+			this.setState({ firebaseError: 'Click the recaptcha in order to continue with your registration' });
 		}
 	}
 	// Handle errors that happens when a user tries to log in with a social account
@@ -175,6 +184,10 @@ class Register extends Component {
 								{passwordErrMarkup}
 							</div>
 							{firebaseErrMarkup}
+							<Recaptcha
+								sitekey="6LfmIzUUAAAAACy4n-7a9BLUYITzQ3dSZgDSrAoE"
+								verifyCallback={this.verifyCallback}
+							/>
 							<button type="submit" className="auth--button main-button" onClick={this.handleSubmit}>
 								Register
 							</button>

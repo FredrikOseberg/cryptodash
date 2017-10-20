@@ -17,7 +17,6 @@ class ViewAllCurrencies extends Component {
 			currentSet: [],
 			currentIndex: 0,
 			inputValue: '',
-			loading: false,
 			gettingData: false
 		};
 
@@ -68,7 +67,6 @@ class ViewAllCurrencies extends Component {
 		});
 		this.setState({ allCurrencies: newState });
 		this.setState({ currentSet: currentSetState }, () => {
-			this.setState({ loading: false });
 			this.setState({ currentIndex: currentIndex });
 		});
 		this.setState({ gettingData: false });
@@ -156,7 +154,7 @@ class ViewAllCurrencies extends Component {
 		}
 
 		let allCoinsMarkup, spinner;
-		if (this.state.loading) {
+		if (this.state.gettingData) {
 			spinner = <Spinner />;
 		} else {
 			spinner = '';

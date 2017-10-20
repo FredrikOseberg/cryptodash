@@ -1,6 +1,7 @@
 import store from '../store/store';
 
 export const convertPriceToLocalCurrency = priceInDollars => {
+	// console.log(priceInDollars);
 	let convertedPrice;
 	const state = store.getState();
 	if (state.localCurrency.currency !== 'USD') {
