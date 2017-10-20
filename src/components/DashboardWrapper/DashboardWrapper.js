@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database, auth } from '../../firebase';
+import firebase from '../../firebase';
 import { addLocalCurrency } from '../../actions/localCurrency';
 import { addPrice, addCurrency, clearCurrency } from '../../actions/currencies';
 import axios from 'axios';
@@ -49,20 +50,18 @@ class DashboardWrapper extends Component {
 			}
 		});
 
-		this.initDashboard().then(() => {
-			this.getFrequentCoinData();
+		firebase.auth().onAuthStateChanged(user => {
+			if (user) {
+				this.setState({ showLanding: false });
+				this.setState({ showLoading: false });
+				this.initDashboard().then(() => {
+					this.getFrequentCoinData();
+				});
+			} else {
+				this.setState({ showLanding: true });
+				this.setState({ showLoading: false });
+			}
 		});
-
-		if (!this.props.currentUser.status) {
-			this.setState({ showLanding: true });
-			this.setState({ showLoading: false });
-		} else if (this.props.currentUser.status === 'ANONYMOUS') {
-			this.setState({ showLoading: false });
-			this.setState({ showLanding: true });
-		} else if (this.props.currentUser.status === 'SIGNED_IN') {
-			this.setState({ showLanding: false });
-			this.setState({ showLoading: false });
-		}
 
 		this.getAllCoinData();
 	}
@@ -203,10 +202,10 @@ class DashboardWrapper extends Component {
 		}
 		return (
 			<div className="dashboard--wrapper">
+				{this.state.showLoading && <Loading />}
 				{this.state.showOnboarding && <Onboarding data={this.props.coinData} />}
 				{this.state.showDashboard && dashboard}
 				{this.state.showLanding && landing}
-				{this.state.showLoading && <Loading />}
 			</div>
 		);
 	}

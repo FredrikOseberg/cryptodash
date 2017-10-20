@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { auth } from '../../firebase';
+import { isMobile } from '../HoC/IsMobile';
 import Header from '../Header/Header';
 import './forgotpassword.css';
 
@@ -62,9 +63,16 @@ class ForgotPassword extends Component {
 			emailClasses = 'main--input';
 		}
 
+		let headerMarkup;
+		if (this.props.isMobile) {
+			headerMarkup = '';
+		} else {
+			headerMarkup = <Header />;
+		}
+
 		return (
 			<div className="frontend--background">
-				<Header />
+				{headerMarkup}
 				<div className="forgot--password">
 					<div className="container register--container">
 						<div className="register--box--container">
@@ -98,4 +106,4 @@ class ForgotPassword extends Component {
 	}
 }
 
-export default ForgotPassword;
+export default isMobile(ForgotPassword);
