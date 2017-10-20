@@ -6,6 +6,7 @@ import DashboardWrapper from './components/DashboardWrapper/DashboardWrapper';
 import RegisterWrapper from './components/Register/RegisterWrapper';
 import SignInWrapper from './components/SignIn/SignInWrapper';
 import ViewAllCurrencies from './components/ViewAllCurrencies/ViewAllCurrencies';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import './App.css';
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
                     <Route path="/register" component={RegisterWrapper} />
                     <Route path="/signin" component={SignInWrapper} />
                     <Route path="/all" component={ViewAllCurrencies} />
+                    <Route path="/resetpassword" component={ForgotPassword} />
                 </Switch>
             </BrowserRouter>
         );

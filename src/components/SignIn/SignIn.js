@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
+import { Link } from 'react-router-dom';
 import SocialLoginWrapper from '../Auth/SocialLoginWrapper/SocialLoginWrapper';
 
 class SignIn extends Component {
@@ -93,6 +94,20 @@ class SignIn extends Component {
 			firebaseErrMarkup = '';
 			passwordClasses = 'main--input';
 		}
+
+		let resetPasswordMarkup;
+		if (this.props.reauth) {
+			resetPasswordMarkup = '';
+		} else {
+			resetPasswordMarkup = (
+				<p>
+					Forgot your password?{' '}
+					<Link to="/resetpassword">
+						<span className="forgotpassword--link">Click here to reset</span>
+					</Link>
+				</p>
+			);
+		}
 		return (
 			<div className="register--box box">
 				<h3>Sign In</h3>
@@ -119,6 +134,7 @@ class SignIn extends Component {
 							/>
 						</div>
 						{firebaseErrMarkup}
+						{resetPasswordMarkup}
 						<button type="submit" className="auth--button main-button" onClick={this.handleSubmit}>
 							Sign In
 						</button>

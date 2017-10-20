@@ -199,7 +199,7 @@ class DashboardWrapper extends Component {
 				/>
 			);
 
-			landing = <Landing data={this.props.coinData} />;
+			landing = <Landing data={this.props.coinData} history={this.props.history} />;
 		}
 		return (
 			<div className="dashboard--wrapper">

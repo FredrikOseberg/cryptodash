@@ -44,7 +44,6 @@ class Header extends Component {
 			navLinks = (
 				<ul className="header--nav">
 					<li className="header--nav--signed--in" onClick={this.handleClickedNav}>
-						{/* Add an anonymous picture here*/}
 						<img
 							src={this.props.auth.photoURL || anonymousUserPicture}
 							alt={this.props.auth.displayName || this.props.auth.email}
@@ -73,7 +72,7 @@ class Header extends Component {
 			<div className={headerClasses}>
 				<div className="container">
 					<Link to="/">
-						<h1 className="header--logo">CryptoDash</h1>
+						<h1 className="header--logo">cDash</h1>
 					</Link>
 					{navLinks}
 				</div>
