@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { auth } from '../../firebase';
+import { clearCurrency } from '../../actions/currencies';
+import { connect } from 'react-redux';
 import anonUser from '../../img/anonuser.png';
 import './mobilenavigation.css';
 
@@ -45,6 +47,7 @@ class MobileNavigation extends Component {
 
 	handleSignOut() {
 		auth.signOut();
+		this.props.clearCurrencyFromState();
 	}
 
 	render() {
@@ -107,4 +110,10 @@ class MobileNavigation extends Component {
 	}
 }
 
-export default MobileNavigation;
+const mapDispatchToProps = dispatch => ({
+	clearCurrencyFromState() {
+		dispatch(clearCurrency());
+	}
+});
+
+export default connect(null, mapDispatchToProps)(MobileNavigation);

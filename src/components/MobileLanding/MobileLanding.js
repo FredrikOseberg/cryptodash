@@ -5,7 +5,7 @@ import './mobilelanding.css';
 const MobileLanding = () => (
 	<div className="mobile--landing">
 		<div className="mobile--landing--header">
-			<h1>CryptoDash</h1>
+			<h1>CryptoDasher</h1>
 			<p>Track any cryptocurrencies in realtime.</p>
 		</div>
 		<div className="mobile--landing--buttons">

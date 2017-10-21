@@ -3,7 +3,6 @@ import Header from '../Header/Header';
 import SearchCurrencies from '../SearchCurrencies/SearchCurrencies';
 import ChooseCurrency from '../ChooseCurrency/ChooseCurrency';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 class Landing extends Component {
 	constructor(props) {
@@ -38,9 +37,6 @@ class Landing extends Component {
 						<div className="landing--cover--content--box--container">
 							<div className="landing--cover--content--box">
 								<ChooseCurrency handleClickedExpand={this.handleClickedExpand} />
-								<Link to="/register">
-									<div className="landing--cover--content--box--button main-button">Continue</div>
-								</Link>
 							</div>
 						</div>
 					</div>

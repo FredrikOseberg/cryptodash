@@ -27,17 +27,25 @@
 }
 
 .search--currency--exit {
-	margin-right: 15px;
-	padding: 15px 20px;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	border: none;
-	border-radius: 3px;
+	border-radius: 100%;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 	font-size: 2.5em;
-	background-color: #fff;
+	color: #fff;
+	background-color: #ea4f4f;
 	font-family: Roboto;
+	position: fixed;
+	left: 90%;
 }
 
 .search--currency--exit:hover {
-	background-color: #ededed;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+
 	cursor: pointer;
 }
 

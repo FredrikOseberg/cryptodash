@@ -20,9 +20,10 @@
 }
 
 .register--state--img {
-	height: 50px;
-	width: 50px;
+	height: 40px;
+	width: 40px;
 	padding: 10px;
+	border-radius: 100%;
 }
 
 .register--box {
@@ -60,3 +61,5 @@
 .register--alternative--signup {
 	display: flex;
 }
+
+

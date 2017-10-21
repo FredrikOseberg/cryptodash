@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import anonymousUserPicture from '../../img/anonuser.png';
+import { clearCurrency } from '../../actions/currencies';
 import { connect } from 'react-redux';
 import firebase from './../../firebase';
 import { Link } from 'react-router-dom';
@@ -13,6 +14,7 @@ class Header extends Component {
 		};
 
 		this.handleClickedNav = this.handleClickedNav.bind(this);
+		this.handleSignOutClick = this.handleSignOutClick.bind(this);
 	}
 
 	handleClickedNav() {
@@ -20,6 +22,7 @@ class Header extends Component {
 	}
 	handleSignOutClick() {
 		firebase.auth().signOut();
+		this.props.clearCurrencyFromState();
 	}
 	render() {
 		let navLinks,
@@ -85,4 +88,10 @@ const mapStateToProps = state => ({
 	auth: state.auth
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => ({
+	clearCurrencyFromState() {
+		dispatch(clearCurrency());
+	}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
