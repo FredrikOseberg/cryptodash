@@ -42,7 +42,7 @@ class MobileDashboardActionButton extends Component {
 	}
 
 	handleAddWalletClick() {
-		this.props.setPage('Wallets');
+		this.props.setPage('Add Wallet');
 	}
 
 	handleAddCurrencyClick() {

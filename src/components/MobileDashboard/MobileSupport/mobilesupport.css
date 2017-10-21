@@ -1,0 +1,115 @@
+.mobile--support {
+	padding-top: 50px;
+}
+
+.mobile--support--header {
+	font-size: 1.4em;
+	border-top: 1px solid #e0dfdf;
+	border-bottom: 1px solid #e0dfdf;
+	padding: 25px 0;
+	width: 100%;
+	text-align: center;
+	margin: 1em 0;
+}
+
+.mobile--support--header h3 {
+	margin: 0;
+}
+
+.mobile--support--subheader {
+	line-height: 1.4;
+	font-size: 1.2em;
+}
+
+.mobile--support--link {
+	color: #4f76ec;
+}
+
+.mobile--support--container {
+	padding: 20px 40px 60px 40px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.mobile--support--address--container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.mobile--support--bitcoin--address,
+.mobile--support--ethereum--address {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #fff;
+	box-sizing: border-box;
+	padding: 15px;
+	align-items: center;
+	border-radius: 3px;
+	margin: 15px 0;
+	width: 100%;
+}
+
+.mobile--support--address {
+	display: flex;
+	align-items: center;
+}
+
+.mobile--support--address img {
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+}
+
+.mobile--support--address p {
+	margin-left: 8px;
+}
+
+.mobile--support--copy {
+	width: 50px;
+	height: 50px;
+	color: #fff;
+	background-color: #555598;
+	border-radius: 100%;
+	margin: 15px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	cursor: pointer;
+}
+
+.mobile--support--success--message {
+	background-color: #30a530;
+	box-sizing: border-box;
+	color: #fff;
+	padding: 20px;
+	border-radius: 3px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+	position: fixed;
+	top: 60%;
+	width: 300px;
+	height: 60px;
+	margin: 5% auto; /* Will not center vertically and won't work in IE6/7. */
+	left: 0;
+	right: 0;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.mobile--support .main--input {
+	margin: 15px;
+	padding: 13px 0;
+	max-width: 80%;
+}
+
+@media (max-width: 520px) {
+	.mobile--support--address {
+		flex-direction: column;
+	}
+}

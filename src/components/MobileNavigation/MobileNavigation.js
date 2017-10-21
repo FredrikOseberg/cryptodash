@@ -17,6 +17,7 @@ class MobileNavigation extends Component {
 				{ name: 'Wallets', icon: 'fa fa-folder mobile--nav--list--icon' },
 				{ name: 'All Coins', icon: 'fa fa-circle mobile--nav--list--icon' },
 				{ name: 'Settings', icon: 'fa fa-cog mobile--nav--list--icon' },
+				{ name: 'Support', icon: 'fa fa-life-ring mobile--nav--list--icon' },
 				{ name: 'Sign Out', icon: 'fa fa-sign-out mobile--nav--list--icon' }
 			]
 		};

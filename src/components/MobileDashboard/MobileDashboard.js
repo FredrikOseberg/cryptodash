@@ -7,6 +7,7 @@ import MobileViewAllCoins from './MobileViewAllCoins/MobileViewAllCoins';
 import MobileDashboardActionButton from './MobileDashboardActionButton/MobileDashboardActionButton';
 import MobileAddWallet from './MobileAddWallet/MobileAddWallet';
 import MobileSettings from './MobileSettings/MobileSettings';
+import MobileSupport from './MobileSupport/MobileSupport';
 import { connect } from 'react-redux';
 import { debounce } from '../../common/helpers';
 import './mobiledashboard.css';
@@ -77,7 +78,6 @@ class MobileDashboard extends Component {
 			case 'Dashboard':
 				this.setState({ mobileDashboardPage: 'Dashboard' });
 				this.setState({ actionButtonStick: false });
-				document.body.style.height = 'auto';
 				break;
 			case 'Portfolio':
 				this.setState({ mobileDashboardPage: 'Portfolio' });
@@ -93,6 +93,10 @@ class MobileDashboard extends Component {
 				break;
 			case 'Settings':
 				this.setState({ mobileDashboardPage: 'Settings' });
+				this.setState({ actionButtonStick: false });
+				break;
+			case 'Support':
+				this.setState({ mobileDashboardPage: 'Support' });
 				this.setState({ actionButtonStick: false });
 				break;
 			default:
@@ -112,8 +116,11 @@ class MobileDashboard extends Component {
 		const showAllCoins = this.state.mobileDashboardPage === 'All Coins';
 		const showAddWallet = this.state.mobileDashboardPage === 'Add Wallet';
 		const showSettings = this.state.mobileDashboardPage === 'Settings';
+		const showSupport = this.state.mobileDashboardPage === 'Support';
 		const showActionButton =
-			this.state.mobileDashboardPage !== 'Settings' && this.state.mobileDashboardPage !== 'All Coins';
+			this.state.mobileDashboardPage !== 'Settings' &&
+			this.state.mobileDashboardPage !== 'All Coins' &&
+			this.state.mobileDashboardPage !== 'Support';
 		return (
 			<div className="mobile--dashboard">
 				<MobileNavigation
@@ -132,6 +139,7 @@ class MobileDashboard extends Component {
 				{showAllCoins && <MobileViewAllCoins allCurrencies={this.props.allCurrencies} />}
 				{showAddWallet && <MobileAddWallet setDefaultState={this.setDefaultState} />}
 				{showSettings && <MobileSettings />}
+				{showSupport && <MobileSupport />}
 				{showActionButton && (
 					<MobileDashboardActionButton setPage={this.setPage} bottomOfPage={this.state.actionButtonStick} />
 				)}

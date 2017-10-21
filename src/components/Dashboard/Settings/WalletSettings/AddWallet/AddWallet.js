@@ -75,7 +75,7 @@ class AddWallet extends Component {
 		const showSelectCurrency = this.state.step === 'chooseCurrency';
 		const selectCurrencyMarkup = (
 			<div className="currency--add--wallet--select--currency--container">
-				<h4>Pick a currency</h4>
+				<h3>Pick a currency</h3>
 				<div className="currency--add--wallet--currency--container">
 					{availableWallets.map(currency => {
 						let currencyClasses;
@@ -113,7 +113,7 @@ class AddWallet extends Component {
 		const showAddWalletForm = this.state.step === 'showAddWalletForm';
 		const formMarkup = (
 			<div className="add--wallet--form">
-				<h4>Add wallet information for {this.state.selected}</h4>
+				<h3>Add wallet information for {this.state.selected}</h3>
 				<form>
 					<div className="add--wallet--form--input--container add--wallet--amount--input--container">
 						<label>Amount</label>

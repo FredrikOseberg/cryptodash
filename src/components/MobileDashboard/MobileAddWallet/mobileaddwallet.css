@@ -6,6 +6,10 @@
 	border: none;
 }
 
+.mobile--add--wallet .currency--add--wallet--content {
+	padding: 0;
+}
+
 .mobile--add--wallet .currency--wallet--header h3 {
 	border-top: 1px solid #e0dfdf;
 	border-bottom: 1px solid #e0dfdf;
@@ -40,11 +44,15 @@
 	width: 30%;
 }
 
+.mobile--add--wallet .add--wallet--form {
+	padding: 0;
+}
+
 .mobile--add--wallet .add--wallet--form form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 40px 0 20px 0;
+	padding: 15px 0 15px 0;
 }
 
 .mobile--add--wallet .add--wallet--form label {
