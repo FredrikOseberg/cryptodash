@@ -38,7 +38,10 @@ class AddWallet extends Component {
 		const validationPassed = this.props.validateAmountInput(input);
 
 		if (validationPassed) {
+			this.setState({ amountError: '' });
 			this.setState({ amountInput: input.toString().trim() });
+		} else {
+			this.setState({ amountError: 'Amount needs to be a number' });
 		}
 	}
 
@@ -111,17 +114,23 @@ class AddWallet extends Component {
 		}
 
 		const showAddWalletForm = this.state.step === 'showAddWalletForm';
+
+		let amountInputClasses, amountErrorMarkup;
+		if (this.state.amountError) {
+			amountInputClasses = 'main--input add--wallet--amount main--input--error';
+			amountErrorMarkup = <span className="main--input--error--message">{this.state.amountError}</span>;
+		} else {
+			amountInputClasses = 'main--input add--wallet--amount';
+			amountErrorMarkup = '';
+		}
 		const formMarkup = (
 			<div className="add--wallet--form">
 				<h3>Add wallet information for {this.state.selected}</h3>
 				<form>
 					<div className="add--wallet--form--input--container add--wallet--amount--input--container">
 						<label>Amount</label>
-						<input
-							type="text"
-							className="main--input add--wallet--amount"
-							onChange={this.handleAmountInputChange}
-						/>
+						<input type="text" className={amountInputClasses} onChange={this.handleAmountInputChange} />
+						{amountErrorMarkup}
 					</div>
 					<div className="add--wallet--form--input--container add--wallet--address--input--container">
 						<label>Wallet Address</label>
