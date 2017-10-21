@@ -15,7 +15,6 @@ class SearchCurrencies extends Component {
 
 		this.handleSearchTermChange = this.handleSearchTermChange.bind(this);
 		this.setRenderData = this.setRenderData.bind(this);
-		this.handleScroll = this.handleScroll.bind(this);
 	}
 	componentDidMount() {
 		this.setRenderData();
