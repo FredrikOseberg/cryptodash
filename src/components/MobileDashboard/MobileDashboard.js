@@ -31,7 +31,7 @@ class MobileDashboard extends Component {
 
 	componentDidMount() {
 		this.setState({ actionButtonStick: false });
-		window.addEventListener('scroll', debounce(this.handleScroll, 50), false);
+		window.addEventListener('scroll', debounce(this.handleScroll, 100), false);
 		document.body.style.height = 'auto';
 
 		this.props.addCurrenciesToState().then(() => {
@@ -77,6 +77,7 @@ class MobileDashboard extends Component {
 			case 'Dashboard':
 				this.setState({ mobileDashboardPage: 'Dashboard' });
 				this.setState({ actionButtonStick: false });
+				document.body.style.height = 'auto';
 				break;
 			case 'Portfolio':
 				this.setState({ mobileDashboardPage: 'Portfolio' });
