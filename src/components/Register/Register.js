@@ -28,9 +28,6 @@ class Register extends Component {
 		this.handleSocialError = this.handleSocialError.bind(this);
 		this.verifyCallback = this.verifyCallback.bind(this);
 	}
-	componentDidMount() {
-		this.refs.registerPassword.focus();
-	}
 	verifyCallback() {
 		this.setState({ verifiedUser: true });
 	}

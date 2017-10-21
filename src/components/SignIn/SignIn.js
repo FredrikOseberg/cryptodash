@@ -8,6 +8,7 @@ class SignIn extends Component {
 		super();
 
 		this.state = {
+			signinMarkup: 'signin',
 			emailErrMessage: '',
 			passwordErrMessage: '',
 			firebaseError: '',
