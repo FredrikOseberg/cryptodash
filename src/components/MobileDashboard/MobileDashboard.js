@@ -22,9 +22,8 @@ class MobileDashboard extends Component {
 		};
 
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
-		this.handleAddCurrencyClick = this.handleAddCurrencyClick.bind(this);
-		this.handleAddWalletClick = this.handleAddWalletClick.bind(this);
 		this.setDefaultState = this.setDefaultState.bind(this);
+		this.setPage = this.setPage.bind(this);
 	}
 
 	componentDidMount() {
@@ -41,16 +40,12 @@ class MobileDashboard extends Component {
 		});
 	}
 
-	handleAddCurrencyClick() {
-		this.setState({ mobileDashboardPage: 'All Coins' });
-	}
-
-	handleAddWalletClick() {
-		this.setState({ mobileDashboardPage: 'Add Wallet' });
-	}
-
 	setDefaultState() {
 		this.setState({ mobileDashboardPage: 'Dashboard' });
+	}
+
+	setPage(page) {
+		this.setState({ mobileDashboardPage: page });
 	}
 
 	handleDashboardNavClick(listItem) {
@@ -105,12 +100,7 @@ class MobileDashboard extends Component {
 				{showAllCoins && <MobileViewAllCoins allCurrencies={this.props.allCurrencies} />}
 				{showAddWallet && <MobileAddWallet setDefaultState={this.setDefaultState} />}
 				{showSettings && <MobileSettings />}
-				{showActionButton && (
-					<MobileDashboardActionButton
-						handleAddCurrencyClick={this.handleAddCurrencyClick}
-						handleAddWalletClick={this.handleAddWalletClick}
-					/>
-				)}
+				{showActionButton && <MobileDashboardActionButton setPage={this.setPage} />}
 			</div>
 		);
 	}

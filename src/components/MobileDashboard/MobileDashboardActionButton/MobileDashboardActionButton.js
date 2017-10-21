@@ -13,6 +13,8 @@ class MobileDashboardActionButton extends Component {
 		this.handleTouchMove = this.handleTouchMove.bind(this);
 		this.handleTouchEnd = this.handleTouchEnd.bind(this);
 		this.handleClick = this.handleClick.bind(this);
+		this.handleAddWalletClick = this.handleAddWalletClick.bind(this);
+		this.handleAddCurrencyClick = this.handleAddCurrencyClick.bind(this);
 	}
 
 	componentWillMount() {
@@ -39,6 +41,14 @@ class MobileDashboardActionButton extends Component {
 		this.setState({ clicked: !this.state.clicked });
 	}
 
+	handleAddWalletClick() {
+		this.props.setPage('Wallets');
+	}
+
+	handleAddCurrencyClick() {
+		this.props.setPage('All Coins');
+	}
+
 	render() {
 		let actionButtonClasses;
 		if (this.state.scrolling) {
@@ -60,10 +70,10 @@ class MobileDashboardActionButton extends Component {
 					<i className="fa fa-plus" aria-hidden="true" />
 					<div className="mobile--currencies--action--buttons--container">
 						<div className={actionButtonContainerClasses}>
-							<div className="mobile--action--button--add" onClick={this.props.handleAddWalletClick}>
+							<div className="mobile--action--button--add" onClick={this.handleAddWalletClick}>
 								<i className="fa fa-folder" aria-hidden="true" />
 							</div>
-							<div className="mobile--action--button--add" onClick={this.props.handleAddCurrencyClick}>
+							<div className="mobile--action--button--add" onClick={this.handleAddCurrencyClick}>
 								<i className="fa fa-circle" aria-hidden="true" />
 							</div>
 						</div>

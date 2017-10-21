@@ -37,7 +37,6 @@ class DashboardWrapper extends Component {
 		this.getAllCoinData = this.getAllCoinData.bind(this);
 	}
 	componentDidMount() {
-		console.log(this.props.currentUser);
 		this.props.currencies.forEach(currency => {
 			this.getCoinData(currency.symbol);
 		});

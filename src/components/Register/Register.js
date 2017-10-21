@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database } from '../../firebase';
+import { isMobile } from '../HoC/IsMobile';
 import firebase from '../../firebase';
 import Recaptcha from 'react-gcaptcha';
 import SocialLoginWrapper from '../Auth/SocialLoginWrapper/SocialLoginWrapper';
@@ -156,6 +157,21 @@ class Register extends Component {
 		firebaseErrMessage
 			? (firebaseErrMarkup = <span className="main--input--error--message">{firebaseErrMessage}</span>)
 			: (firebaseErrMarkup = '');
+
+		let recaptcha;
+		if (this.props.isMobile) {
+			recaptcha = (
+				<Recaptcha
+					sitekey="6LfmIzUUAAAAACy4n-7a9BLUYITzQ3dSZgDSrAoE"
+					verifyCallback={this.verifyCallback}
+					size="compact"
+				/>
+			);
+		} else {
+			recaptcha = (
+				<Recaptcha sitekey="6LfmIzUUAAAAACy4n-7a9BLUYITzQ3dSZgDSrAoE" verifyCallback={this.verifyCallback} />
+			);
+		}
 		return (
 			<div className="register--box--container">
 				<div className="register--box box">
@@ -184,10 +200,7 @@ class Register extends Component {
 								{passwordErrMarkup}
 							</div>
 							{firebaseErrMarkup}
-							<Recaptcha
-								sitekey="6LfmIzUUAAAAACy4n-7a9BLUYITzQ3dSZgDSrAoE"
-								verifyCallback={this.verifyCallback}
-							/>
+							{recaptcha}
 							<button type="submit" className="auth--button main-button" onClick={this.handleSubmit}>
 								Register
 							</button>
@@ -205,4 +218,4 @@ const mapStateToProps = state => ({
 	selectedCurrencies: state.selectedCurrencies
 });
 
-export default connect(mapStateToProps)(Register);
+export default connect(mapStateToProps)(isMobile(Register));

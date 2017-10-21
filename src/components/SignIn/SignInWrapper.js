@@ -14,7 +14,6 @@ class SignInWrapper extends Component {
 		let markup;
 
 		if (this.props.isMobile) {
-			console.log('component is mobile');
 			markup = <MobileSignIn history={this.props.history} reauth={false} />;
 		} else {
 			markup = (

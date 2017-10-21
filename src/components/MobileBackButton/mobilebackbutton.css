@@ -1,0 +1,10 @@
+.mobile--back {
+	color: #fff;
+	font-size: 1.5em;
+	padding: 20px;
+	box-sizing: border-box;
+	cursor: pointer;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}

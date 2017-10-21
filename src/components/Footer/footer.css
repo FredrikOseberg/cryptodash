@@ -1,6 +1,7 @@
 .footer {
 	background-color: #1f517b;
 	color: #fff;
+	position: relative;
 }
 
 .footer--container {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { auth } from '../../firebase';
 import { isMobile } from '../HoC/IsMobile';
+import MobileBackButton from '../MobileBackButton/MobileBackButton';
+
 import Header from '../Header/Header';
 import './forgotpassword.css';
 
@@ -65,7 +67,7 @@ class ForgotPassword extends Component {
 
 		let headerMarkup;
 		if (this.props.isMobile) {
-			headerMarkup = '';
+			headerMarkup = <MobileBackButton history={this.props.history} emailReset={true} />;
 		} else {
 			headerMarkup = <Header />;
 		}
