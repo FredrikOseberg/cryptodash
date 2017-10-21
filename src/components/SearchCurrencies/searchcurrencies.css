@@ -102,8 +102,17 @@
 }
 
 @media (max-width: 790px) {
+	.search--currency--header {
+		margin-top: 50px;
+	}
+
 	.search--currency--fab {
 		left: 80%;
+	}
+
+	.search--currency--exit {
+		left: 80%;
+		top: 3%;
 	}
 }
 

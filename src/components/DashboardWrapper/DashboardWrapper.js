@@ -37,6 +37,7 @@ class DashboardWrapper extends Component {
 		this.getAllCoinData = this.getAllCoinData.bind(this);
 	}
 	componentDidMount() {
+		console.log(this.props.currentUser);
 		this.props.currencies.forEach(currency => {
 			this.getCoinData(currency.symbol);
 		});
@@ -50,20 +51,19 @@ class DashboardWrapper extends Component {
 			}
 		});
 
-		firebase.auth().onAuthStateChanged(user => {
+		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
 				this.setState({ showLoading: false });
 				this.initDashboard().then(() => {
 					this.getFrequentCoinData();
+					this.getAllCoinData();
 				});
 			} else {
 				this.setState({ showLanding: true });
 				this.setState({ showLoading: false });
 			}
 		});
-
-		this.getAllCoinData();
 	}
 
 	getAllCoinData() {
@@ -80,6 +80,7 @@ class DashboardWrapper extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.interval);
+		this.unsubscribe();
 	}
 
 	getFrequentCoinData() {

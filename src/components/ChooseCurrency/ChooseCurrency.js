@@ -46,7 +46,6 @@ class ChooseCurrency extends Component {
 	setCurrency(stateToChange) {
 		let curOne;
 		const randomNumberOne = this.getRandomNumber();
-		console.log(this.state.currencyPool, randomNumberOne);
 		curOne = { ...this.state.currencyPool[randomNumberOne] };
 		this.setState({ [stateToChange]: curOne });
 	}
@@ -67,11 +66,22 @@ class ChooseCurrency extends Component {
 					<p>You have selected {this.props.selectedCurrencies.length} currencies to track.</p>
 				</div>
 			);
-			buttonMarkup = (
-				<Link to="/register">
-					<div className="landing--cover--content--box--button main-button">Continue</div>
-				</Link>
-			);
+			if (this.props.handleCurrencySubmit) {
+				buttonMarkup = (
+					<div
+						className="landing--cover--content--box--button main-button"
+						onClick={this.props.handleCurrencySubmit}
+					>
+						Continue
+					</div>
+				);
+			} else {
+				buttonMarkup = (
+					<Link to="/register">
+						<div className="landing--cover--content--box--button main-button">Continue</div>
+					</Link>
+				);
+			}
 		} else {
 			buttonMarkup = (
 				<div
