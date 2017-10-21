@@ -7,10 +7,49 @@ class SearchCurrencies extends Component {
 		super(props);
 
 		this.state = {
-			searchTerm: ''
+			searchTerm: '',
+			allData: this.props.data,
+			renderData: [],
+			currentIndex: 0
 		};
 
 		this.handleSearchTermChange = this.handleSearchTermChange.bind(this);
+		this.setRenderData = this.setRenderData.bind(this);
+		this.handleScroll = this.handleScroll.bind(this);
+	}
+	componentDidMount() {
+		this.setRenderData();
+		window.addEventListener('scroll', this.handleScroll, false);
+	}
+
+	componentWillUnMount() {
+		window.removeEventListener('scroll', this.handleScroll, false);
+	}
+
+	handleScroll() {
+		const sidebar = document.querySelector('.search--currency--container');
+
+		const bottom = sidebar.scrollTop === sidebar.scrollHeight - sidebar.offsetHeight;
+
+		if (bottom && this.state.gettingData === false) {
+			this.getNewData();
+		}
+	}
+
+	setRenderData() {
+		this.setState({ loading: true });
+		let index = (this.state.currentIndex += 50);
+		this.setState({ currentIndex: index });
+		let renderData = [];
+		console.log(index);
+		for (let i = 0; i < index; i++) {
+			let object = this.state.allData[i];
+			renderData.push(object);
+		}
+
+		this.setState({ renderData }, () => {
+			this.setState({ loading: false });
+		});
 	}
 	// Handles state change for search input
 	handleSearchTermChange(event) {
@@ -24,13 +63,35 @@ class SearchCurrencies extends Component {
 		// First: Filter out data based on what the user types in the search field
 		// Second: Map over the data and check whether or not each item in the dataset is already in application state.
 		// If it is, set it's active property to true.
-		const currencyCards = this.props.data
-			.filter(
-				currency =>
-					`${currency.name} ${currency.symbol}`.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >=
-					0
-			)
-			.map(currency => {
+		let currencyCards;
+		if (this.state.searchTerm !== '') {
+			currencyCards = this.props.data
+				.filter(
+					currency =>
+						`${currency.name} ${currency.symbol}`
+							.toUpperCase()
+							.indexOf(this.state.searchTerm.toUpperCase()) >= 0
+				)
+				.map(currency => {
+					let active = false;
+					this.props.selectedCurrencies.forEach(curr => {
+						if (curr.name === currency.name) {
+							active = true;
+						}
+					});
+					return (
+						<CurrencyCard
+							key={currency.id}
+							id={currency.id}
+							name={currency.name}
+							img={currency.img}
+							symbol={currency.symbol}
+							active={active}
+						/>
+					);
+				});
+		} else {
+			currencyCards = this.state.renderData.map(currency => {
 				let active = false;
 				this.props.selectedCurrencies.forEach(curr => {
 					if (curr.name === currency.name) {
@@ -48,6 +109,7 @@ class SearchCurrencies extends Component {
 					/>
 				);
 			});
+		}
 		return (
 			<div className={currencyLayoverClasses}>
 				<div className="search--currency--container">
@@ -66,6 +128,9 @@ class SearchCurrencies extends Component {
 					<div className="search--currency--results">{currencyCards}</div>
 					<div className="search--currency--fab" onClick={this.props.handleClickedExpand}>
 						<i className="fa fa-floppy-o" aria-hidden="true" />
+					</div>
+					<div className="main-button load--more--button" onClick={this.setRenderData}>
+						Load More
 					</div>
 				</div>
 			</div>

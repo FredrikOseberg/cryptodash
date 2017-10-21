@@ -44,7 +44,7 @@ class CurrencyCard extends Component {
 		return (
 			<div className={currencyCardClasses} onClick={this.handleClickedCard}>
 				<img src={this.props.img} alt={this.props.name} />
-				<h5>{this.props.name}</h5>
+				<h3>{this.props.name}</h3>
 				<p>{this.props.symbol}</p>
 			</div>
 		);

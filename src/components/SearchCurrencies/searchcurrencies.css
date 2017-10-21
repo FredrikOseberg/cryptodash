@@ -50,7 +50,7 @@
 }
 
 .search--currency--selector--layover--active {
-	overflow-y: auto;
+	height: auto;
 }
 
 .search--currency--container h2 {
@@ -95,6 +95,10 @@
 	font-size: 2em;
 	top: 85%;
 	left: 85%;
+}
+
+.load--more--button {
+	margin-top: 30px;
 }
 
 .search--currency--fab:hover {
