@@ -19,21 +19,6 @@ class SearchCurrencies extends Component {
 	}
 	componentDidMount() {
 		this.setRenderData();
-		window.addEventListener('scroll', this.handleScroll, false);
-	}
-
-	componentWillUnMount() {
-		window.removeEventListener('scroll', this.handleScroll, false);
-	}
-
-	handleScroll() {
-		const sidebar = document.querySelector('.search--currency--container');
-
-		const bottom = sidebar.scrollTop === sidebar.scrollHeight - sidebar.offsetHeight;
-
-		if (bottom && this.state.gettingData === false) {
-			this.getNewData();
-		}
 	}
 
 	setRenderData() {
