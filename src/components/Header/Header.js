@@ -60,10 +60,6 @@ class Header extends Component {
 										<i className="fa fa-sign-out" aria-hidden="true" />
 										Sign out
 									</li>
-									<li>
-										<i className="fa fa-cog" aria-hidden="true" />
-										Settings
-									</li>
 								</ul>
 							</div>
 						</div>

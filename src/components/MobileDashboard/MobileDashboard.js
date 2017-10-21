@@ -8,6 +8,7 @@ import MobileDashboardActionButton from './MobileDashboardActionButton/MobileDas
 import MobileAddWallet from './MobileAddWallet/MobileAddWallet';
 import MobileSettings from './MobileSettings/MobileSettings';
 import { connect } from 'react-redux';
+import { debounce } from '../../common/helpers';
 import './mobiledashboard.css';
 
 class MobileDashboard extends Component {
@@ -18,15 +19,21 @@ class MobileDashboard extends Component {
 
 		this.state = {
 			currentCurrency: false,
-			mobileDashboardPage: 'Dashboard'
+			mobileDashboardPage: 'Dashboard',
+			actionButtonStick: false
 		};
 
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
 		this.setDefaultState = this.setDefaultState.bind(this);
 		this.setPage = this.setPage.bind(this);
+		this.handleScroll = this.handleScroll.bind(this);
 	}
 
 	componentDidMount() {
+		this.setState({ actionButtonStick: false });
+		window.addEventListener('scroll', debounce(this.handleScroll, 50), false);
+		document.body.style.height = 'auto';
+
 		this.props.addCurrenciesToState().then(() => {
 			if (this.props.currencies.length > 0) {
 				this.props.getCurrentCurrency(this.props.currencies[0].symbol).then(() => {
@@ -38,6 +45,23 @@ class MobileDashboard extends Component {
 				}, 5000);
 			}
 		});
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('scroll', this.handleScroll, false);
+		document.body.style.height = '100%';
+	}
+
+	handleScroll() {
+		let bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+
+		if (bottom && this.state.mobileDashboardPage === 'Dashboard') {
+			this.setState({ actionButtonStick: true }, () => {
+				window.scrollTo(0, document.body.scrollHeight);
+			});
+		} else {
+			this.setState({ actionButtonStick: false });
+		}
 	}
 
 	setDefaultState() {
@@ -52,21 +76,27 @@ class MobileDashboard extends Component {
 		switch (listItem.dataset.target) {
 			case 'Dashboard':
 				this.setState({ mobileDashboardPage: 'Dashboard' });
+				this.setState({ actionButtonStick: false });
 				break;
 			case 'Portfolio':
 				this.setState({ mobileDashboardPage: 'Portfolio' });
+				this.setState({ actionButtonStick: false });
 				break;
 			case 'All Coins':
 				this.setState({ mobileDashboardPage: 'All Coins' });
+				this.setState({ actionButtonStick: false });
 				break;
 			case 'Wallets':
 				this.setState({ mobileDashboardPage: 'Wallets' });
+				this.setState({ actionButtonStick: false });
 				break;
 			case 'Settings':
 				this.setState({ mobileDashboardPage: 'Settings' });
+				this.setState({ actionButtonStick: false });
 				break;
 			default:
 				this.setState({ mobileDashboardPage: 'Dashboard' });
+				this.setState({ actionButtonStick: false });
 		}
 	}
 
@@ -81,7 +111,8 @@ class MobileDashboard extends Component {
 		const showAllCoins = this.state.mobileDashboardPage === 'All Coins';
 		const showAddWallet = this.state.mobileDashboardPage === 'Add Wallet';
 		const showSettings = this.state.mobileDashboardPage === 'Settings';
-		const showActionButton = this.state.mobileDashboardPage !== 'Settings';
+		const showActionButton =
+			this.state.mobileDashboardPage !== 'Settings' && this.state.mobileDashboardPage !== 'All Coins';
 		return (
 			<div className="mobile--dashboard">
 				<MobileNavigation
@@ -100,7 +131,9 @@ class MobileDashboard extends Component {
 				{showAllCoins && <MobileViewAllCoins allCurrencies={this.props.allCurrencies} />}
 				{showAddWallet && <MobileAddWallet setDefaultState={this.setDefaultState} />}
 				{showSettings && <MobileSettings />}
-				{showActionButton && <MobileDashboardActionButton setPage={this.setPage} />}
+				{showActionButton && (
+					<MobileDashboardActionButton setPage={this.setPage} bottomOfPage={this.state.actionButtonStick} />
+				)}
 			</div>
 		);
 	}

@@ -53,3 +53,39 @@
 .currency--stat--percentage--negative {
 	color: #ff6262;
 }
+
+.currency--stat--card--menu {
+	margin-left: auto;
+	position: relative;
+	font-size: 1.2em;
+	cursor: pointer;
+}
+
+.currency--stat--card--dropdown {
+	position: absolute;
+	background-color: #fff;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	border-radius: 3px;
+	color: #888;
+	right: -10px;
+	width: 150px;
+	border-radius: 3px;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.currency--stat--card--dropdown li {
+	font-size: 0.9em;
+}
+
+.currency--stat--card--dropdown--delete {
+	padding: 10px;
+}
+
+.currency--stat--card--dropdown li:hover {
+	background-color: #d0cfd2;
+	border-radius: 3px;
+}

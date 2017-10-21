@@ -64,8 +64,28 @@ class MobileDashboardActionButton extends Component {
 			actionButtonContainerClasses = 'mobile--currencies--action--buttons';
 		}
 
-		return (
-			<div className="mobile--currencies--button--container">
+		let buttonMarkup;
+		if (this.props.bottomOfPage) {
+			buttonMarkup = (
+				<div
+					className="mobile--currencies--add--button visible opacity mobile--currencies--add--button--bottom"
+					onClick={this.handleClick}
+				>
+					<i className="fa fa-plus" aria-hidden="true" />
+					<div className="mobile--currencies--action--buttons--container">
+						<div className={actionButtonContainerClasses}>
+							<div className="mobile--action--button--add" onClick={this.handleAddWalletClick}>
+								<i className="fa fa-folder" aria-hidden="true" />
+							</div>
+							<div className="mobile--action--button--add" onClick={this.handleAddCurrencyClick}>
+								<i className="fa fa-circle" aria-hidden="true" />
+							</div>
+						</div>
+					</div>
+				</div>
+			);
+		} else {
+			buttonMarkup = (
 				<div className={actionButtonClasses} onClick={this.handleClick}>
 					<i className="fa fa-plus" aria-hidden="true" />
 					<div className="mobile--currencies--action--buttons--container">
@@ -79,8 +99,10 @@ class MobileDashboardActionButton extends Component {
 						</div>
 					</div>
 				</div>
-			</div>
-		);
+			);
+		}
+
+		return <div className="mobile--currencies--button--container">{buttonMarkup}</div>;
 	}
 }
 

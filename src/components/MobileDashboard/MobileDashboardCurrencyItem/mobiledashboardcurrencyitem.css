@@ -2,6 +2,8 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	position: relative;
+	cursor: pointer;
 }
 
 .mobile--currencies--list--item--img {
@@ -38,4 +40,28 @@
 	display: flex;
 	justify-content: center;
 	font-family: Montserrat, sans-serif;
+}
+
+.mobile--currency--menu {
+	background-color: #cc5151;
+	border-radius: 3px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+	position: absolute;
+	right: 0;
+	top: 0;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.mobile--currency--menu--list {
+	list-style-type: none;
+	padding: 0;
+	border-radius: 3px;
+}
+
+.mobile--currency--menu--list li {
+	padding: 10px;
+	border-radius: 3px;
+	color: #fff;
+	cursor: pointer;
 }
