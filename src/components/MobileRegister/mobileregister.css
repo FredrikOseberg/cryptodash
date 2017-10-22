@@ -2,7 +2,6 @@
 	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../img/starrysky.jpeg');
 	background-size: cover;
 	min-height: 100vh;
-	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
