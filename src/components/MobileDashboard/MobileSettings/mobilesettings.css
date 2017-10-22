@@ -1,8 +1,9 @@
 .mobile--settings {
-	padding-top: 50px;
+	padding: 50px 0;
 	display: flex;
 	justify-content: center;
 	min-height: 100vh;
+	height: 100%;
 }
 
 .mobile--settings .dashboard--settings {
@@ -31,11 +32,10 @@
 	width: 50px;
 	height: 50px;
 	position: fixed;
-	top: 80%;
+	top: 75%;
 	left: 80%;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 	border-radius: 100%;
-	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-size: 1.4em;

@@ -1,4 +1,5 @@
 .account--personal--settings--container {
+	display: flex;
 	justify-content: center;
 	padding: 40px 0;
 	text-align: center;
@@ -23,6 +24,6 @@
 	margin-top: 20px;
 	visibility: hidden;
 	opacity: 0;
-	position: absolute;
+	position: fixed;
 	width: 200px;
 }

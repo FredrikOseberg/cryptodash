@@ -61,7 +61,7 @@
 .currency--total--value {
 	color: #555598;
 	background-color: #fff;
-	padding: 26px;
+	padding: 26px 0;
 	margin-bottom: 0;
 	font-weight: bold;
 	text-align: right;
