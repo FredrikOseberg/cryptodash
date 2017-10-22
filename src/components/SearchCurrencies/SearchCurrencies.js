@@ -47,7 +47,7 @@ class SearchCurrencies extends Component {
 		// First: Filter out data based on what the user types in the search field
 		// Second: Map over the data and check whether or not each item in the dataset is already in application state.
 		// If it is, set it's active property to true.
-		let currencyCards;
+		let currencyCards, loadMoreClasses;
 		if (this.state.searchTerm !== '') {
 			currencyCards = this.props.data
 				.filter(
@@ -74,6 +74,8 @@ class SearchCurrencies extends Component {
 						/>
 					);
 				});
+
+			loadMoreClasses = 'main-button load--more--button';
 		} else {
 			currencyCards = this.state.renderData.map(currency => {
 				let active = false;
@@ -93,7 +95,10 @@ class SearchCurrencies extends Component {
 					/>
 				);
 			});
+
+			loadMoreClasses = 'main-button load--more--button visible opacity transition';
 		}
+
 		return (
 			<div className={currencyLayoverClasses}>
 				<div className="search--currency--container">
@@ -113,7 +118,7 @@ class SearchCurrencies extends Component {
 					<div className="search--currency--fab" onClick={this.props.handleClickedExpand}>
 						<i className="fa fa-floppy-o" aria-hidden="true" />
 					</div>
-					<div className="main-button load--more--button" onClick={this.setRenderData}>
+					<div className={loadMoreClasses} onClick={this.setRenderData}>
 						Load More
 					</div>
 				</div>
