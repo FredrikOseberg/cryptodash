@@ -175,7 +175,6 @@ class DashboardWrapper extends Component {
 
 	render() {
 		let dashboard, landing;
-		console.log(this.props.history);
 		if (this.props.isMobile) {
 			dashboard = (
 				<MobileDashboard

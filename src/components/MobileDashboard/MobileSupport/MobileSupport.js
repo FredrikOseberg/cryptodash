@@ -25,11 +25,33 @@ class MobileSupport extends Component {
 			textField.innerText = this.state.bitcoinAddress;
 		}
 
-		textField.classList.add('copy--address--field');
-		document.body.appendChild(textField);
-		textField.select();
-		document.execCommand('copy');
-		textField.remove();
+		if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+			const input = document.querySelector(`.mobile--support--input--${coinType}`);
+
+			var el = input;
+			var editable = el.contentEditable;
+			var readOnly = el.readOnly;
+			el.contentEditable = true;
+			el.readOnly = false;
+			var range = document.createRange();
+			range.selectNodeContents(el);
+			var sel = window.getSelection();
+			sel.removeAllRanges();
+			sel.addRange(range);
+			el.setSelectionRange(0, 999999);
+			el.contentEditable = editable;
+			el.readOnly = readOnly;
+
+			var successful = document.execCommand('copy');
+
+			var msg = successful ? 'successful ' : 'un-successful ';
+		} else {
+			textField.classList.add('copy--address--field');
+			document.body.appendChild(textField);
+			textField.select();
+			document.execCommand('copy');
+			textField.remove();
+		}
 
 		let successMessage = `You successfully copied the ${event.currentTarget.dataset.name} address.`;
 		this.setState({ copySuccess: successMessage }, () => {
@@ -68,7 +90,7 @@ class MobileSupport extends Component {
 							<div className="mobile--support--address">
 								<img src={bitcoin} alt="Bitcoin" />
 								<input
-									className="main--input mobile--support--input"
+									className="main--input mobile--support--input mobile--support--input--BTC"
 									disabled
 									value={this.state.bitcoinAddress}
 								/>
@@ -88,7 +110,7 @@ class MobileSupport extends Component {
 							<div className="mobile--support--address">
 								<img src={ethereum} alt="Ethereum" />
 								<input
-									className="main--input mobile--support--input"
+									className="main--input mobile--support--input mobile--support--input--ETH"
 									disabled
 									value={this.state.ethereumAddress}
 								/>
