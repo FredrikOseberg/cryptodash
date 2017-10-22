@@ -73,4 +73,8 @@ label.currency--wallet--label {
 	.mobile--wallet .wallet--list--item--copy--button {
 		margin: 10px 0;
 	}
+
+	.mobile--wallet .sidebar--wallet--list li p {
+		width: auto;
+	}
 }

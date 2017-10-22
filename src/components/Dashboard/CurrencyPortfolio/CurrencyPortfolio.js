@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Spinner from '../../Loading/Spinner/Spinner';
 
 class CurrencyPortfolio extends Component {
 	constructor(props) {
@@ -43,6 +44,18 @@ class CurrencyPortfolio extends Component {
 			);
 		});
 
+		let totalValueMarkup;
+		if (this.state.totalVal && this.state.totalVal !== 'NaN') {
+			totalValueMarkup = (
+				<h2>
+					{this.state.totalVal}
+					<span className="currency--total--value--postfix">{this.props.localCurrency.currency}</span>
+				</h2>
+			);
+		} else {
+			totalValueMarkup = '';
+		}
+
 		if (portfolioPieces.length > 0) {
 			portfolioMarkup = (
 				<div>
@@ -51,6 +64,17 @@ class CurrencyPortfolio extends Component {
 					</div>
 					<ul className="currency--portfolio--list">
 						{portfolioPieces.map(currency => {
+							let priceMarkup;
+							if (currency.price && currency.price !== 'NaN') {
+								priceMarkup = (
+									<p className="currency--portfolio--item--value">
+										{(currency.wallet.amount * Number(currency.price)).toFixed(2)}
+										<span className="currency--postfix">{this.props.localCurrency.currency}</span>
+									</p>
+								);
+							} else {
+								priceMarkup = '';
+							}
 							return (
 								<li className="currency--portfolio--item" key={currency.id}>
 									<img src={currency.img} alt={currency.name} />
@@ -58,20 +82,14 @@ class CurrencyPortfolio extends Component {
 									<p className="currency--portfolio--item--amount">
 										{currency.wallet.amount} {currency.symbol}
 									</p>
-									<p className="currency--portfolio--item--value">
-										{(currency.wallet.amount * Number(currency.price)).toFixed(2)}
-										<span className="currency--postfix">{this.props.localCurrency.currency}</span>
-									</p>
+									{priceMarkup}
 								</li>
 							);
 						})}
 					</ul>
 					<div className="currency--total--value">
 						<h3>Total value</h3>
-						<h2>
-							{this.state.totalVal}
-							<span className="currency--total--value--postfix">{this.props.localCurrency.currency}</span>
-						</h2>
+						{totalValueMarkup}
 					</div>
 				</div>
 			);

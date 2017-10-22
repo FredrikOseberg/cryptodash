@@ -116,7 +116,8 @@ class MobileDashboard extends Component {
 		const showActionButton =
 			this.state.mobileDashboardPage !== 'Settings' &&
 			this.state.mobileDashboardPage !== 'All Coins' &&
-			this.state.mobileDashboardPage !== 'Support';
+			this.state.mobileDashboardPage !== 'Support' &&
+			this.state.mobileDashboardPage !== 'Portfolio';
 		return (
 			<div className="mobile--dashboard">
 				<MobileNavigation
