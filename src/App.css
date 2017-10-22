@@ -25,7 +25,7 @@
   transition: all 0.4s ease;
   background-color: #ededed;
   outline: none;
-  -webkit-text-fill-color: #ededed;
+  -webkit-text-fill-color: #000;
 }
 
 .main--input--hidden {
