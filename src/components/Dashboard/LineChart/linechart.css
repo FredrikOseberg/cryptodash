@@ -161,3 +161,11 @@ li.currency--line--chart--navigation--active {
 .currency--line--chart--custom--select--selected {
 	font-size: 1.5em;
 }
+
+@media (max-width: 790px) {
+	.currency--line--chart--custom--select--dropdown {
+		margin: 0 auto; /* Will not center vertically and won't work in IE6/7. */
+		left: 0;
+		right: 0;
+	}
+}
