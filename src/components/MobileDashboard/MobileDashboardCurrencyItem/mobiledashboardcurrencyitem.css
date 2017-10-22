@@ -86,19 +86,19 @@
 
 	.mobile--currencies--list--item--img {
 		width: auto;
-		flex: 1;
+		width: 33%;
 	}
 
 	.mobile--currencies--list--item--name {
 		text-align: center;
 		width: auto;
-		flex: 1;
+		width: 33%;
 		margin-left: 0;
 	}
 
 	.mobile--currencies--list--item--percentage {
 		width: auto;
-		flex: 1;
+		width: 33%;
 	}
 
 	.mobile--currencies--list--item--price {
