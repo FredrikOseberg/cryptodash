@@ -27,6 +27,10 @@
   outline: none;
 }
 
+.main--input--hidden {
+  display: none;
+}
+
 .main--input--error {
   border-bottom: 2px solid #ff6262;
   color: #ff6262;

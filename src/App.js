@@ -15,7 +15,7 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route exact path="/" component={DashboardWrapper} />
+                    <Route exact path="/" component={props => <DashboardWrapper coinData={coinData} />} />
                     <Route path="/register" component={RegisterWrapper} />
                     <Route path="/signin" component={SignInWrapper} />
                     <Route path="/all" component={ViewAllCurrencies} />

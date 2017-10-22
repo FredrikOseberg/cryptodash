@@ -21,6 +21,10 @@
 	font-size: 0.8em;
 }
 
+.mobile--wallet .sidebar--wallet--header {
+	color: #fff;
+}
+
 .mobile--wallet .sidebar--wallet--list li {
 	color: #fff;
 	justify-content: space-around;

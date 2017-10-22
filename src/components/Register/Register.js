@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { database } from '../../firebase';
 import { isMobile } from '../HoC/IsMobile';
 import firebase from '../../firebase';
-import Recaptcha from 'react-gcaptcha';
 import SocialLoginWrapper from '../Auth/SocialLoginWrapper/SocialLoginWrapper';
 
 class Register extends Component {
@@ -16,7 +15,7 @@ class Register extends Component {
 			firebaseError: '',
 			password: '',
 			email: '',
-			verifiedUser: false
+			honeypot: ''
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,6 +26,7 @@ class Register extends Component {
 		this.validateInput = this.validateInput.bind(this);
 		this.handleSocialError = this.handleSocialError.bind(this);
 		this.verifyCallback = this.verifyCallback.bind(this);
+		this.handleHiddenChange = this.handleHiddenChange.bind(this);
 	}
 	verifyCallback() {
 		this.setState({ verifiedUser: true });
@@ -79,12 +79,17 @@ class Register extends Component {
 			return true;
 		}
 	}
+
+	handleHiddenChange(event) {
+		this.setState({ honeypot: event.target.value.toString().trim() });
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
 
 		const validationPassed = this.validateInput();
 
-		if (this.state.verifiedUser) {
+		if (this.state.honeypot === '') {
 			if (validationPassed) {
 				const email = this.state.email;
 				const password = this.state.password;
@@ -113,8 +118,6 @@ class Register extends Component {
 						this.setState({ firebaseError: errorMessage });
 					});
 			}
-		} else {
-			this.setState({ firebaseError: 'Click the recaptcha in order to continue with your registration' });
 		}
 	}
 	// Handle errors that happens when a user tries to log in with a social account
@@ -155,20 +158,6 @@ class Register extends Component {
 			? (firebaseErrMarkup = <span className="main--input--error--message">{firebaseErrMessage}</span>)
 			: (firebaseErrMarkup = '');
 
-		let recaptcha;
-		if (this.props.isMobile) {
-			recaptcha = (
-				<Recaptcha
-					sitekey="6LfmIzUUAAAAACy4n-7a9BLUYITzQ3dSZgDSrAoE"
-					verifyCallback={this.verifyCallback}
-					size="compact"
-				/>
-			);
-		} else {
-			recaptcha = (
-				<Recaptcha sitekey="6LfmIzUUAAAAACy4n-7a9BLUYITzQ3dSZgDSrAoE" verifyCallback={this.verifyCallback} />
-			);
-		}
 		return (
 			<div className="register--box--container">
 				<div className="register--box box">
@@ -185,6 +174,15 @@ class Register extends Component {
 								/>
 								{emailErrorMarkup}
 							</div>
+							<div className="register--box--hidden--group">
+								<label>If you are human do not fill this field</label>
+								<input
+									type="text"
+									name="email"
+									className="main--input main--input--hidden"
+									onChange={this.handleHiddenChange}
+								/>
+							</div>
 							<div className="register--box--input--group">
 								<label htmlFor="password">Password</label>
 								<input
@@ -197,7 +195,6 @@ class Register extends Component {
 								{passwordErrMarkup}
 							</div>
 							{firebaseErrMarkup}
-							{recaptcha}
 							<button type="submit" className="auth--button main-button" onClick={this.handleSubmit}>
 								Register
 							</button>

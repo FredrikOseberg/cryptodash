@@ -158,7 +158,7 @@ class LineChart extends Component {
 			: (dropDownNavClasses = 'currency--line--chart--custom--select--dropdown');
 
 		let currencyNav;
-		if (this.props.currencies.length < 6 && !this.props.isMobile) {
+		if (this.props.currencies.length < 4 && !this.props.isMobile) {
 			currencyNav = (
 				<ul className="currency--line--chart--navigation">
 					{this.props.currencies.map((currency, index) => {

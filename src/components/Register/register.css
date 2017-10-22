@@ -62,4 +62,8 @@
 	display: flex;
 }
 
+.register--box--hidden--group {
+	display: none;
+}
+
 
