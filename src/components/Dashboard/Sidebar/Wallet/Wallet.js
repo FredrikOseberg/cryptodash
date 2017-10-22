@@ -12,7 +12,7 @@ const Wallet = props => {
 
 	if (currenciesThatHaveWallet.length > 0) {
 		walletMarkup = (
-			<div className="sidebar--wallet--container">
+			<div className="sidebar--wallet--inner--container">
 				<h3 className="sidebar--wallet--header">Wallets</h3>
 				<ul className="sidebar--wallet--list">
 					{currenciesThatHaveWallet.map(currency => {
@@ -30,7 +30,7 @@ const Wallet = props => {
 		);
 	} else {
 		walletMarkup = (
-			<div className="sidebar--wallet--container">
+			<div className="sidebar--wallet--inner--container">
 				<h3 className="sidebar--wallet--placeholder">
 					You have no wallet information to display. Add one to easily access your addresses.
 				</h3>

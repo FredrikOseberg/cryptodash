@@ -29,7 +29,6 @@ class MobileDashboard extends Component {
 	}
 
 	componentDidMount() {
-		this.setState({ actionButtonStick: false });
 		window.addEventListener('scroll', debounce(this.handleScrollBound, 50), false);
 		document.body.style.height = 'auto';
 
@@ -54,8 +53,10 @@ class MobileDashboard extends Component {
 
 	handleScroll() {
 		let bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
-
-		if (bottom && this.state.mobileDashboardPage === 'Dashboard') {
+		if (
+			bottom &&
+			(this.state.mobileDashboardPage === 'Dashboard' || this.state.mobileDashboardPage === 'Wallets')
+		) {
 			this.setState({ actionButtonStick: true }, () => {
 				window.scrollTo(0, document.body.scrollHeight);
 			});

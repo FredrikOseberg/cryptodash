@@ -17,6 +17,11 @@
 	width: 100%;
 }
 
+.sidebar--wallet--header {
+	text-align: center;
+	color: #000;
+}
+
 .sidebar--wallet--list {
 	padding: 0;
 	list-style-type: none;
@@ -60,7 +65,7 @@
 	background-color: #565698;
 }
 
-.sidebar--wallet--container {
+.sidebar--wallet--inner--container {
 	width: 100%;
 	color: #888;
 	display: flex;

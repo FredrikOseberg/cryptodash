@@ -36,6 +36,16 @@
 
 .mobile--wallet .wallet--list--item--copy--button {
 	margin-right: 20px;
+	width: 50px;
+	height: 50px;
+	color: #fff;
+	background-color: #555598;
+	border-radius: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	cursor: pointer;
 }
 
 .mobile--wallet .sidebar--wallet--placeholder {
@@ -44,4 +54,22 @@
 
 label.currency--wallet--label {
 	margin: 8px 0;
+}
+
+@media (max-width: 420px) {
+	.mobile--wallet .sidebar--wallet--list li {
+		display: flex;
+		flex-direction: column;
+		border: 1px solid #fff;
+		width: 80%;
+		margin: 20px auto;
+		border-radius: 3px;
+		padding: 15px;
+		box-sizing: border-box;
+		align-items: center;
+	}
+
+	.mobile--wallet .wallet--list--item--copy--button {
+		margin: 10px 0;
+	}
 }

@@ -43,7 +43,7 @@ class WalletListItem extends Component {
 					{copyMarkup}
 				</div>
 				<div onClick={this.handleListItemCopyClick} className="wallet--list--item--copy--button">
-					<i className="fa fa-clone" aria-hidden="true" />
+					<i className="fa fa-copy" aria-hidden="true" />
 				</div>
 			</li>
 		);
