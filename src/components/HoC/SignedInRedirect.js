@@ -1,16 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { auth } from '../../firebase';
+import { connect } from 'react-redux';
 
-export function signedInRedirect(WrappedComponent) {
-	return class extends Component {
+export function requireAuthentication(Component) {
+	class AuthenticatedComponent extends React.Component {
 		componentWillMount() {
-			if (auth.currentUser) {
+			this.checkAuth();
+		}
+
+		checkAuth() {
+			if (this.props.isAuthenticated.status === 'SIGNED_IN') {
 				this.props.history.push('/');
 			}
 		}
 
 		render() {
-			return <WrappedComponent />;
+			return (
+				<div>{this.props.isAuthenticated.status === 'ANONYMOUS' ? <Component {...this.props} /> : null}</div>
+			);
 		}
-	};
+	}
+
+	const mapStateToProps = state => ({
+		isAuthenticated: state.auth
+	});
+
+	return connect(mapStateToProps)(AuthenticatedComponent);
 }

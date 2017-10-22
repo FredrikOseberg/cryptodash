@@ -6,4 +6,5 @@
 	align-items: center;
 	background: #555598;
 	color: #fff;
+	min-height: 100vh;
 }

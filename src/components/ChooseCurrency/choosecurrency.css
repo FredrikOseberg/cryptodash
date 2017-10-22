@@ -14,6 +14,10 @@
 	flex-direction: column;
 }
 
+.choose--currency--header {
+	color: #545353;
+}
+
 .choose--currency--content--box--image--container:hover {
 	background-color: #dadada;
 	cursor: pointer;

@@ -1,11 +1,33 @@
 import React, { Component } from 'react';
 import { isMobile } from '../HoC/IsMobile';
 import { connect } from 'react-redux';
+import firebase from '../../firebase';
 import Header from '../Header/Header';
+import Loading from '../Loading/Loading';
 import Register from './Register';
 import MobileRegister from '../MobileRegister/MobileRegister';
 
 class RegisterWrapper extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			loading: true
+		};
+	}
+
+	componentDidMount() {
+		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+			if (!user) {
+				this.setState({ loading: false });
+			}
+		});
+	}
+
+	componentWillUnmount() {
+		this.unsubscribe();
+	}
+
 	render() {
 		let stateInfo;
 		if (this.props.selectedCurrencies.length > 0) {
@@ -38,6 +60,10 @@ class RegisterWrapper extends Component {
 					<Register history={this.props.history} />
 				</div>
 			);
+		}
+
+		if (this.state.loading) {
+			markup = <Loading />;
 		}
 
 		return <div className="registerwrapper--container">{markup}</div>;

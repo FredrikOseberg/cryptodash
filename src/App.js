@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { requireAuthentication } from './components/HoC/SignedInRedirect';
 import coinData from './coinData';
 import DashboardWrapper from './components/DashboardWrapper/DashboardWrapper';
 import RegisterWrapper from './components/Register/RegisterWrapper';
@@ -15,8 +16,8 @@ class App extends Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" component={props => <DashboardWrapper coinData={coinData} />} />
-                    <Route path="/register" component={RegisterWrapper} />
-                    <Route path="/signin" component={SignInWrapper} />
+                    <Route path="/register" component={requireAuthentication(RegisterWrapper)} />
+                    <Route path="/signin" component={requireAuthentication(SignInWrapper)} />
                     <Route path="/all" component={ViewAllCurrencies} />
                     <Route path="/resetpassword" component={ForgotPassword} />
                 </Switch>

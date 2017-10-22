@@ -92,7 +92,7 @@ class ChooseCurrency extends Component {
 		}
 		return (
 			<div className="choose--currency">
-				<h3>Choose which currencies to track.</h3>
+				<h3 className="choose--currency--header">Choose which currencies to track.</h3>
 				<p>Click currencies below to expand selection.</p>
 				<div className="choose--currency--content--box--currency">
 					<div
