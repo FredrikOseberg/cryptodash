@@ -19,6 +19,10 @@
 	height: 100%;
 }
 
+.mobile--settings .account--personal--settings--container {
+	padding: 40px 0 0 0;
+}
+
 /* Settings Save Button */
 
 .mobile--settings .mobile--settings--button {
