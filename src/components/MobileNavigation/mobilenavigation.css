@@ -101,4 +101,8 @@
 	p.mobile--navigation--sidebar--name {
 		font-size: 0.8em;
 	}
+
+	.mobile--navigation--nav--list li {
+		font-size: 0.8em;
+	}
 }

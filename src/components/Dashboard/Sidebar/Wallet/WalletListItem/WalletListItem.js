@@ -30,7 +30,7 @@ class WalletListItem extends Component {
 			this.setState({ copySuccess: successMessage }, () => {
 				setTimeout(() => {
 					this.setState({ copySuccess: '' });
-				}, 100000);
+				}, 5000);
 			});
 		}
 	}

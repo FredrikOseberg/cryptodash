@@ -43,8 +43,8 @@ class WalletSettings extends Component {
 	}
 
 	handleWalletInfoChange(currency) {
+		this.setState({ submitError: '' });
 		this.setState({ walletState: 'edit' });
-
 		let currencyExistsInArray = false,
 			arrayPosition;
 		let newWalletInfo = [...this.state.walletInfo];
@@ -115,7 +115,11 @@ class WalletSettings extends Component {
 				}, 3000);
 			});
 		} else {
-			this.setState({ submitError: 'Something went wrong. Did you fill out all the fields? ' });
+			this.setState({ submitError: 'Something went wrong. Did you fill out all the fields? ' }, () => {
+				setTimeout(() => {
+					this.setState({ submitError: '' });
+				}, 3000);
+			});
 		}
 	}
 

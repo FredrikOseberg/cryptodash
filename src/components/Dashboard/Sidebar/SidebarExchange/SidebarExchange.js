@@ -50,7 +50,7 @@ class SidebarExchange extends Component {
 			axios.get(`https://www.coincap.io/page/${symbol}`).then(response => {
 				newState.forEach(currency => {
 					if (currency.symbol === response.data.id) {
-						currency.price = convertPriceToLocalCurrency(response.data.price_usd);
+						currency.price = convertPriceToLocalCurrency(response.data.price);
 					}
 				});
 

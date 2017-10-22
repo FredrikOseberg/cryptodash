@@ -113,3 +113,9 @@
 		flex-direction: column;
 	}
 }
+
+@media (max-width: 400px) {
+	.mobile--support--subheader {
+		font-size: 1em;
+	}
+}
