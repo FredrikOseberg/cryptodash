@@ -74,4 +74,29 @@
 	.mobile--currencies--list p {
 		font-size: 0.9em;
 	}
+
+	.mobile--currencies--list--item {
+		flex-wrap: wrap;
+		border: 1px solid #fff;
+		margin: 10px;
+		border-radius: 3px;
+		padding: 10px;
+		box-sizing: border-box;
+	}
+
+	.mobile--currencies--list--item--img {
+		width: auto;
+	}
+
+	.mobile--currencies--list--item--name {
+		width: auto;
+	}
+
+	.mobile--currencies--list--item--percentage {
+		width: auto;
+	}
+
+	.mobile--currencies--list--item--price {
+		width: 100%;
+	}
 }
