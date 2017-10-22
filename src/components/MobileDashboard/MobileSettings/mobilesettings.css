@@ -11,6 +11,7 @@
 	box-shadow: none;
 	border-top: 1px solid #e0dfdf;
 	margin: 1em 0;
+	min-height: 100vh;
 }
 
 /* Settings Save Button */

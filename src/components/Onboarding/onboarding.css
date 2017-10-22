@@ -24,6 +24,13 @@
 	min-width: 450px;
 }
 
+.onboarding--card--header--name {
+	padding: 0 0 20px 0;
+	font-family: Montserrat;
+	color: #3e3c3c;
+	font-size: 1.1em;
+}
+
 .onboarding--container {
 	display: flex;
 	justify-content: center;
