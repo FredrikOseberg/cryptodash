@@ -119,7 +119,7 @@ class PersonalSettings extends Component {
 		let submitErrorMessage;
 		this.state.submitError
 			? (submitErrorMessage = <span className="main--input--error--message">{this.state.submitError}</span>)
-			: '';
+			: (submitErrorMessage = '');
 		return (
 			<div className="account--personal--settings">
 				<div className="currency--wallet--header">

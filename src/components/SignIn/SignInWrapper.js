@@ -6,10 +6,6 @@ import { isMobile } from '../HoC/IsMobile';
 import './signinwrapper.css';
 
 class SignInWrapper extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		let markup;
 

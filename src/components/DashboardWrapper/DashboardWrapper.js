@@ -20,8 +20,6 @@ class DashboardWrapper extends Component {
 	constructor(props) {
 		super(props);
 
-		this.interval;
-
 		this.state = {
 			showOnboarding: false,
 			showDashboard: false,
@@ -177,7 +175,7 @@ class DashboardWrapper extends Component {
 	}
 
 	render() {
-		let dashboard, landing, signIn;
+		let dashboard, landing;
 
 		if (this.props.isMobile) {
 			dashboard = (

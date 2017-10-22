@@ -10,8 +10,6 @@ class ViewAllCurrencies extends Component {
 	constructor(props) {
 		super(props);
 
-		this.interval;
-
 		this.state = {
 			allCurrencies: this.props.allCurrencies,
 			currentSet: [],
@@ -44,7 +42,8 @@ class ViewAllCurrencies extends Component {
 	getNewData() {
 		this.setState({ loading: true }, () => {
 			this.setState({ gettingData: true }, () => {
-				const newIndex = (this.state.currentIndex += 50);
+				let newIndex = this.state.currentIndex;
+				newIndex += 50;
 				this.setState({ currentIndex: newIndex }, () => {
 					axios.get('https://coincap.io/front').then(response => {
 						setTimeout(this.setNewDataSet(response.data), 2000);

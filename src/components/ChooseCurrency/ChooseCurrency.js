@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import bitcoin from '../../img/coins/bitcoin.png';
-import ether from '../../img/coins/ether.png';
 import { Link } from 'react-router-dom';
 import coinData from '../../coinData';
 import './choosecurrency.css';

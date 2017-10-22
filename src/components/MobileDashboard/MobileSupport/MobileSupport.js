@@ -56,7 +56,7 @@ class MobileSupport extends Component {
 					<p className="mobile--support--subheader">
 						If you are enjoying this project, consider buying me lunch. You can donate directly by using the
 						addresses below, or support indirectly by{' '}
-						<a href="https://changelly.com/?ref_id=172ccf841be7" rel="noopener" target="_blank">
+						<a href="https://changelly.com/?ref_id=172ccf841be7" rel="noopener noreferrer" target="_blank">
 							<span className="mobile--support--link">
 								signing up for an account on changelly using this url.
 							</span>

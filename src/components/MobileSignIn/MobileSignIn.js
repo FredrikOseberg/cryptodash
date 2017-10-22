@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SignIn from '../SignIn/SignIn';
 import MobileBackButton from '../MobileBackButton/MobileBackButton';
 import './mobilesignin.css';

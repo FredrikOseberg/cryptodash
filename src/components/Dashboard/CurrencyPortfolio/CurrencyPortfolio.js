@@ -5,8 +5,6 @@ class CurrencyPortfolio extends Component {
 	constructor(props) {
 		super(props);
 
-		this.interval;
-
 		this.state = {
 			totalVal: 0
 		};
@@ -37,8 +35,7 @@ class CurrencyPortfolio extends Component {
 	}
 
 	render() {
-		let totalVal = 0,
-			portfolioMarkup;
+		let portfolioMarkup;
 
 		let portfolioPieces = this.props.currencies.filter(currency => {
 			return (

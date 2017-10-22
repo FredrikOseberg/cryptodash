@@ -60,7 +60,6 @@ class Onboarding extends Component {
 		this.props.clearCurrenciesFromState();
 		const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
 
-		const user = this.props.currentUser;
 		storageLocation.once('value', snapshot => {
 			const currencies = snapshot.val();
 			// Lodash Object Map

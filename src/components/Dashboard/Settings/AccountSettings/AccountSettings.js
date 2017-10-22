@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './accountsettings.css';
-import { auth } from '../../../../firebase';
 import ChangePassword from './ChangePassword/ChangePassword';
 import ChangeEmail from './ChangeEmail/ChangeEmail';
 import SignIn from '../../../SignIn/SignIn';

@@ -22,10 +22,11 @@ class SearchCurrencies extends Component {
 
 	setRenderData() {
 		this.setState({ loading: true });
-		let index = (this.state.currentIndex += 50);
+		let index = this.state.currentIndex;
+		index += 50;
 		this.setState({ currentIndex: index });
 		let renderData = [];
-		console.log(index);
+
 		for (let i = 0; i < index; i++) {
 			let object = this.state.allData[i];
 			renderData.push(object);

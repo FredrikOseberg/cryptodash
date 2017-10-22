@@ -4,10 +4,6 @@ import MobileDashboardCurrencyItem from '../MobileDashboardCurrencyItem/MobileDa
 import './mobiledashboardmainpage.css';
 
 class MobileDashMainPage extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		document.body.style.height = 'auto';
 		window.scrollTo(0, 0);

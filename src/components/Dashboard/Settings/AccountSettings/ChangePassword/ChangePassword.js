@@ -118,7 +118,7 @@ class ChangePassword extends Component {
 			? (equalPasswordsErrorMarkup = (
 					<span className="main--input--error--message">{this.state.equalPasswordsErrMessage}</span>
 				))
-			: '';
+			: (equalPasswordsErrorMarkup = '');
 		this.state.showConfirm
 			? (passwordConfirmContainerClasses = 'account--password--confirm--container visible opacity static')
 			: (passwordConfirmContainerClasses = 'account--password--confirm--container');

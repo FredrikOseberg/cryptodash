@@ -16,8 +16,6 @@ class MobileDashboard extends Component {
 	constructor(props) {
 		super(props);
 
-		this.interval;
-
 		this.state = {
 			currentCurrency: false,
 			mobileDashboardPage: 'Dashboard',
@@ -51,6 +49,7 @@ class MobileDashboard extends Component {
 	componentWillUnmount() {
 		window.removeEventListener('scroll', debounce(this.handleScrollBound, 50), false);
 		document.body.style.height = '100%';
+		clearInterval(this.interval);
 	}
 
 	handleScroll() {
@@ -103,10 +102,6 @@ class MobileDashboard extends Component {
 				this.setState({ mobileDashboardPage: 'Dashboard' });
 				this.setState({ actionButtonStick: false });
 		}
-	}
-
-	componentWillUnmount() {
-		clearInterval(this.interval);
 	}
 
 	render() {

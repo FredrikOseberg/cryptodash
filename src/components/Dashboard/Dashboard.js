@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import { database, auth } from '../../firebase';
-import CurrencyStatCard from './CurrencyStatCard/CurrencyStatCard';
-import CurrencyPortfolio from './CurrencyPortfolio/CurrencyPortfolio';
 import Header from '../Header/Header';
-import LineChart from './LineChart/LineChart';
 import Loading from '../Loading/Loading';
 import DashboardMainPage from './DashboardMainPage/DashboardMainPage';
 import Exchange from '../Exchange/Exchange';
@@ -19,8 +14,6 @@ class Dashboard extends Component {
 	// Get the users currencies from the database and save it to component state
 	constructor(props) {
 		super(props);
-
-		this.interval;
 
 		this.state = {
 			loading: true,

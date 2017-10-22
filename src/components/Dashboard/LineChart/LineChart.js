@@ -13,8 +13,6 @@ class LineChart extends Component {
 	constructor(props) {
 		super(props);
 
-		this.interval;
-
 		this.state = {
 			currentCurrency: this.props.currentCurrency,
 			symbol: this.props.currentCurrency.symbol,

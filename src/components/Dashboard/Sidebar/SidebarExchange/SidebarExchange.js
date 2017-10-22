@@ -10,8 +10,6 @@ class SidebarExchange extends Component {
 	constructor(props) {
 		super(props);
 
-		this.interval;
-
 		this.state = {
 			currencySymbols: [],
 			currencyInformation: []

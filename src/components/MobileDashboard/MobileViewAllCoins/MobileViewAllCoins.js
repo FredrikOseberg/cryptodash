@@ -3,10 +3,6 @@ import ViewAllCurrencies from '../../ViewAllCurrencies/ViewAllCurrencies';
 import './mobileviewallcoins.css';
 
 class MobileViewAllCoins extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		window.scrollTo(0, 0);
 	}

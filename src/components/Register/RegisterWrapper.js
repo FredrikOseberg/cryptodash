@@ -6,10 +6,6 @@ import Register from './Register';
 import MobileRegister from '../MobileRegister/MobileRegister';
 
 class RegisterWrapper extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		let stateInfo;
 		if (this.props.selectedCurrencies.length > 0) {

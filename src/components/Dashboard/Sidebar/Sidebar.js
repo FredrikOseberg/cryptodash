@@ -16,9 +16,7 @@ const Sidebar = props => {
 	const showPortfolio = props.component === 'portfolio';
 	const showAllCoins = props.component === 'allcoins';
 
-	showAllCoins
-		? (sidebarClasses = 'dashboard--sidebar dashboard--sidebar--active sidebar--full--width')
-		: 'dashboard--sidebar';
+	showAllCoins ? (sidebarClasses = 'dashboard--sidebar dashboard--sidebar--active sidebar--full--width') : '';
 
 	return (
 		<div className={sidebarClasses}>

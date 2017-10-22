@@ -20,6 +20,7 @@ const Exchange = () => {
 					className="changelly"
 					scrolling="no"
 					style={iframeStyles}
+					title="exchange"
 				>
 					Can't load widget
 				</iframe>
