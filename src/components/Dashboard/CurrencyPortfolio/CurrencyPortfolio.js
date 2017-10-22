@@ -37,20 +37,23 @@ class CurrencyPortfolio extends Component {
 	}
 
 	render() {
-		let totalVal = 0;
-		return (
-			<div className="currency--portfolio">
-				<div className="currency--portfolio--header">
-					<h3>Your Portfolio</h3>
-				</div>
-				<ul className="currency--portfolio--list">
-					{this.props.currencies.map(currency => {
-						if (
-							currency.wallet &&
-							currency.wallet.wallet &&
-							currency.wallet.amount &&
-							currency.wallet.amount !== '0'
-						) {
+		let totalVal = 0,
+			portfolioMarkup;
+
+		let portfolioPieces = this.props.currencies.filter(currency => {
+			return (
+				currency.wallet && currency.wallet.wallet && currency.wallet.amount && currency.wallet.amount !== '0'
+			);
+		});
+
+		if (portfolioPieces.length > 0) {
+			portfolioMarkup = (
+				<div>
+					<div className="currency--portfolio--header">
+						<h3>Your Portfolio</h3>
+					</div>
+					<ul className="currency--portfolio--list">
+						{portfolioPieces.map(currency => {
 							return (
 								<li className="currency--portfolio--item" key={currency.id}>
 									<img src={currency.img} alt={currency.name} />
@@ -64,18 +67,31 @@ class CurrencyPortfolio extends Component {
 									</p>
 								</li>
 							);
-						}
-					})}
-				</ul>
-				<div className="currency--total--value">
-					<h3>Total value</h3>
-					<h2>
-						{this.state.totalVal}
-						<span className="currency--total--value--postfix">{this.props.localCurrency.currency}</span>
-					</h2>
+						})}
+					</ul>
+					<div className="currency--total--value">
+						<h3>Total value</h3>
+						<h2>
+							{this.state.totalVal}
+							<span className="currency--total--value--postfix">{this.props.localCurrency.currency}</span>
+						</h2>
+					</div>
 				</div>
-			</div>
-		);
+			);
+		} else {
+			portfolioMarkup = (
+				<div>
+					<h3 className="currency--portfolio--placeholder">
+						You have no portfolio. Add a wallet to calculate your total holdings.
+					</h3>
+					<div className="currency--portfolio--add--button" onClick={this.props.handleAddWalletClick}>
+						<i className="fa fa-plus" aria-hidden="true" />
+					</div>
+				</div>
+			);
+		}
+
+		return <div className="currency--portfolio">{portfolioMarkup}</div>;
 	}
 }
 

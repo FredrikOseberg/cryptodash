@@ -27,6 +27,10 @@ class WalletSettings extends Component {
 		this.clearError = this.clearError.bind(this);
 	}
 
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
+
 	validateAmountInput(input) {
 		const inputToValidate = Number(input);
 
@@ -183,6 +187,14 @@ class WalletSettings extends Component {
 			);
 		}
 
+		let existingWallets = this.props.currencies.filter(currency => {
+			return currency.wallet && currency.wallet.wallet && currency.wallet.amount;
+		});
+
+		if (!existingWallets.length) {
+			listHeaderMarkup = '';
+		}
+
 		const defaultWalletInterface = (
 			<div>
 				<div className="currency--wallet--header">
@@ -190,24 +202,22 @@ class WalletSettings extends Component {
 				</div>
 				{listHeaderMarkup}
 				<div className="currency--wallet--content">
-					{this.props.currencies.map(currency => {
-						if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
-							return (
-								<CurrencyWalletInput
-									key={currency.id}
-									img={currency.img}
-									name={currency.name}
-									symbol={currency.symbol}
-									wallet={currency.wallet.wallet}
-									amount={currency.wallet.amount}
-									handleWalletInfoChange={this.handleWalletInfoChange}
-									validateAmountInput={this.validateAmountInput}
-									isMobile={this.props.isMobile}
-									setError={this.setError}
-									clearError={this.clearError}
-								/>
-							);
-						}
+					{existingWallets.map(currency => {
+						return (
+							<CurrencyWalletInput
+								key={currency.id}
+								img={currency.img}
+								name={currency.name}
+								symbol={currency.symbol}
+								wallet={currency.wallet.wallet}
+								amount={currency.wallet.amount}
+								handleWalletInfoChange={this.handleWalletInfoChange}
+								validateAmountInput={this.validateAmountInput}
+								isMobile={this.props.isMobile}
+								setError={this.setError}
+								clearError={this.clearError}
+							/>
+						);
 					})}
 					<div className="currency--wallet--button--container">
 						{errorMessage}

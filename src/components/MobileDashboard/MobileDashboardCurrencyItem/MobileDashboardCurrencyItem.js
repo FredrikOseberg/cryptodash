@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteItemFromDBandState } from '../../../common/helpers';
+import Spinner from '../../Loading/Spinner/Spinner';
 
 import './mobiledashboardcurrencyitem.css';
 
@@ -41,16 +42,33 @@ class MobileDashboardCurrencyItem extends Component {
 		} else {
 			mobileCurrencyMenuClasses = 'mobile--currency--menu';
 		}
+
+		let priceMarkup;
+		if (this.props.price) {
+			priceMarkup = (
+				<p className="mobile--currencies--list--item--price">
+					{this.props.price} <span className="price--postfix">{this.props.localCurrency.currency}</span>
+				</p>
+			);
+		} else {
+			priceMarkup = <Spinner />;
+		}
+
+		let percentageMarkup;
+		if (this.props.percentage) {
+			percentageMarkup = <p className={percentageClasses}>{this.props.percentage}%</p>;
+		} else {
+			percentageMarkup = <Spinner />;
+		}
+
 		return (
 			<li className="mobile--currencies--list--item" onClick={this.handleCurrencyItemClick}>
 				<div className="mobile--currencies--list--item--img">
 					<img src={this.props.img} alt={this.props.name} />
 				</div>
 				<p className="mobile--currencies--list--item--name">{this.props.name}</p>
-				<p className={percentageClasses}>{this.props.percentage}%</p>
-				<p className="mobile--currencies--list--item--price">
-					{this.props.price} <span className="price--postfix">{this.props.localCurrency.currency}</span>
-				</p>
+				{percentageMarkup}
+				{priceMarkup}
 				<div className={mobileCurrencyMenuClasses}>
 					<ul className="mobile--currency--menu--list">
 						<li onClick={this.handleRemoveCurrency} data-symbol={this.props.symbol}>

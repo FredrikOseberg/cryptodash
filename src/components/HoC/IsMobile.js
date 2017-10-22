@@ -24,7 +24,8 @@ export function isMobile(WrappedComponent) {
 
 		render() {
 			const isMobile = this.state.width <= 790;
-			return <WrappedComponent isMobile={isMobile} {...this.props} />;
+			const isSmallMobile = this.state.width <= 490;
+			return <WrappedComponent isSmallMobile={isSmallMobile} isMobile={isMobile} {...this.props} />;
 		}
 	};
 }

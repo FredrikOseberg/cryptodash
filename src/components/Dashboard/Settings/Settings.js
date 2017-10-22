@@ -12,7 +12,7 @@ class Settings extends Component {
 		super(props);
 
 		this.state = {
-			settingsPage: 'Personal Info',
+			settingsPage: this.props.startPage,
 			settingsPages: [
 				{
 					name: 'Personal Info',

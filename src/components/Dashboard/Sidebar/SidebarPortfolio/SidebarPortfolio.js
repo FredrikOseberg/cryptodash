@@ -4,7 +4,7 @@ import './sidebarportfolio.css';
 
 const SidebarPortfolio = props => (
 	<div className="sidebar--portfolio">
-		<CurrencyPortfolio />
+		<CurrencyPortfolio handleAddWalletClick={props.handleAddWalletClick} />
 	</div>
 );
 

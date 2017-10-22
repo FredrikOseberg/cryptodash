@@ -33,7 +33,7 @@ const DashboardMainPage = props => {
 
 	let portfolioMarkup;
 	if (portfolio) {
-		portfolioMarkup = <CurrencyPortfolio />;
+		portfolioMarkup = <CurrencyPortfolio handleAddWalletClick={props.handleAddWalletClick} />;
 	} else {
 		portfolioMarkup = (
 			<div className="currency--portfolio">

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MobileLineChart from '../MobileLineChart/MobileLineChart';
 import MobileDashboardCurrencyItem from '../MobileDashboardCurrencyItem/MobileDashboardCurrencyItem';
+import './mobiledashboardmainpage.css';
 
 class MobileDashMainPage extends Component {
 	constructor(props) {

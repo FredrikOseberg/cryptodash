@@ -29,6 +29,7 @@ class Dashboard extends Component {
 			showAllCurrencies: true,
 			displaySidebar: false,
 			currentCurrency: false,
+			settingsPage: 'Personal Info',
 			firstload: true,
 			sidebarComponent: '',
 			dashboardPage: 'Dashboard',
@@ -42,6 +43,7 @@ class Dashboard extends Component {
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
 		this.showSidebar = this.showSidebar.bind(this);
 		this.setSidebarComponent = this.setSidebarComponent.bind(this);
+		this.handleAddWalletClick = this.handleAddWalletClick.bind(this);
 	}
 	componentDidMount() {
 		if (this.state.firstload) {
@@ -66,7 +68,6 @@ class Dashboard extends Component {
 	}
 
 	componentWillUnmount() {
-		console.log('unmounting');
 		clearInterval(this.interval);
 	}
 
@@ -80,6 +81,12 @@ class Dashboard extends Component {
 
 	setSidebarComponent(component) {
 		this.setState({ sidebarComponent: component });
+	}
+
+	handleAddWalletClick() {
+		this.setState({ dashboardPage: 'Settings' });
+		this.setState({ settingsPage: 'Wallets' });
+		this.setState({ displaySidebar: false });
 	}
 
 	handleDashboardNavClick(event) {
@@ -119,8 +126,13 @@ class Dashboard extends Component {
 				<div className="dashboard--content">
 					<div className="container">
 						<div className="dashboard--container">
-							{showDashboard && <DashboardMainPage getCurrentCurrency={this.props.getCurrentCurrency} />}
-							{showSettings && <Settings />}
+							{showDashboard && (
+								<DashboardMainPage
+									getCurrentCurrency={this.props.getCurrentCurrency}
+									handleAddWalletClick={this.handleAddWalletClick}
+								/>
+							)}
+							{showSettings && <Settings startPage={this.state.settingsPage} />}
 							{showExchange && <Exchange />}
 							<DashboardActionButton
 								showSidebar={this.showSidebar}
@@ -131,6 +143,7 @@ class Dashboard extends Component {
 								showSidebar={this.showSidebar}
 								component={this.state.sidebarComponent}
 								allCurrencies={this.props.allCurrencies}
+								handleAddWalletClick={this.handleAddWalletClick}
 							/>
 						</div>
 					</div>

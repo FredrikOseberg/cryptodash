@@ -26,9 +26,9 @@ const Sidebar = props => {
 				&times;
 			</div>
 			<div className="sidebar--content">
-				{showWallet && <Wallet />}
+				{showWallet && <Wallet handleAddWalletClick={props.handleAddWalletClick} />}
 				{showExchange && <SidebarExchange showSidebar={props.show} />}
-				{showPortfolio && <SidebarPortfolio />}
+				{showPortfolio && <SidebarPortfolio handleAddWalletClick={props.handleAddWalletClick} />}
 				{showAllCoins && <SidebarAllCoins allCurrencies={props.allCurrencies} />}
 			</div>
 		</div>

@@ -27,12 +27,12 @@ class MobileDashboard extends Component {
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
 		this.setDefaultState = this.setDefaultState.bind(this);
 		this.setPage = this.setPage.bind(this);
-		this.handleScroll = this.handleScroll.bind(this);
+		this.handleScrollBound = this.handleScroll.bind(this);
 	}
 
 	componentDidMount() {
 		this.setState({ actionButtonStick: false });
-		window.addEventListener('scroll', debounce(this.handleScroll, 100), false);
+		window.addEventListener('scroll', this.handleScrollBound, false);
 		document.body.style.height = 'auto';
 
 		this.props.addCurrenciesToState().then(() => {
@@ -49,7 +49,7 @@ class MobileDashboard extends Component {
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('scroll', this.handleScroll, false);
+		window.removeEventListener('scroll', this.handleScrollBound, false);
 		document.body.style.height = '100%';
 	}
 

@@ -4,7 +4,7 @@ import './mobilesettings.css';
 
 const MobileSettings = () => (
 	<div className="mobile--settings">
-		<Settings />
+		<Settings startPage={'Personal Info'} />
 	</div>
 );
 

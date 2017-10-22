@@ -13,6 +13,7 @@ import MobileDashboard from '../MobileDashboard/MobileDashboard';
 import MobileLanding from '../MobileLanding/MobileLanding';
 import { addCurrentCurrency } from '../../actions/currentCurrency';
 import { isMobile } from '../HoC/IsMobile';
+import coinData from '../../coinData';
 import map from 'lodash/map';
 
 class DashboardWrapper extends Component {
@@ -203,7 +204,7 @@ class DashboardWrapper extends Component {
 		return (
 			<div className="dashboard--wrapper">
 				{this.state.showLoading && <Loading />}
-				{this.state.showOnboarding && <Onboarding data={this.props.coinData} />}
+				{this.state.showOnboarding && <Onboarding data={coinData} />}
 				{this.state.showDashboard && dashboard}
 				{this.state.showLanding && landing}
 			</div>
