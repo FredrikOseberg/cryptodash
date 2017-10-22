@@ -30,6 +30,8 @@
 .mobile--chart .currency--line--chart--timeperiod--navigation {
 	padding: 20px;
 	margin: 0;
+	display: flex;
+	align-items: center;
 }
 
 .mobile--chart .currency--line--chart--wrapper {
@@ -43,6 +45,6 @@
 .mobile--chart .currency--line--chart--navigation--active {
 	color: #fff;
 	background-color: #555598;
-	padding: 0 10px;
+	padding: 10px;
 	border-radius: 3px;
 }

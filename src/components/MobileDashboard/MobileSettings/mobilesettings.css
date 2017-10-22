@@ -2,6 +2,7 @@
 	padding-top: 50px;
 	display: flex;
 	justify-content: center;
+	min-height: 100vh;
 }
 
 .mobile--settings .dashboard--settings {

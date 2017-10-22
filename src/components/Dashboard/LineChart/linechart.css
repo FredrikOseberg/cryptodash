@@ -86,7 +86,6 @@ li.currency--line--chart--navigation--active {
 
 .currency--line--chart--select--container {
 	height: 100%;
-	display: flex;
 	align-items: center;
 	padding: 15px 0;
 	cursor: pointer;
@@ -167,5 +166,9 @@ li.currency--line--chart--navigation--active {
 		margin: 0 auto; /* Will not center vertically and won't work in IE6/7. */
 		left: 0;
 		right: 0;
+	}
+
+	.currency--line--chart--select--container {
+		text-align: center;
 	}
 }

@@ -25,11 +25,11 @@ class MobileDashboard extends Component {
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
 		this.setDefaultState = this.setDefaultState.bind(this);
 		this.setPage = this.setPage.bind(this);
-		this.handleScrollBound = this.handleScroll.bind(this);
+		this.handleScrollBound = debounce(this.handleScroll.bind(this), 25);
 	}
 
 	componentDidMount() {
-		window.addEventListener('scroll', debounce(this.handleScrollBound, 50), false);
+		window.addEventListener('scroll', this.handleScrollBound, false);
 		document.body.style.height = 'auto';
 
 		this.props.addCurrenciesToState().then(() => {
@@ -46,9 +46,10 @@ class MobileDashboard extends Component {
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('scroll', debounce(this.handleScrollBound, 50), false);
+		window.removeEventListener('scroll', this.handleScrollBound, false);
 		document.body.style.height = '100%';
 		clearInterval(this.interval);
+		console.log('unmounting dashboard');
 	}
 
 	handleScroll() {
