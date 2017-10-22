@@ -32,7 +32,7 @@ class MobileDashboard extends Component {
 
 	componentDidMount() {
 		this.setState({ actionButtonStick: false });
-		window.addEventListener('scroll', this.handleScrollBound, false);
+		window.addEventListener('scroll', debounce(this.handleScrollBound, 50), false);
 		document.body.style.height = 'auto';
 
 		this.props.addCurrenciesToState().then(() => {
@@ -49,7 +49,7 @@ class MobileDashboard extends Component {
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('scroll', this.handleScrollBound, false);
+		window.removeEventListener('scroll', debounce(this.handleScrollBound, 50), false);
 		document.body.style.height = '100%';
 	}
 
