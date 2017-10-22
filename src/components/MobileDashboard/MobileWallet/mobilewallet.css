@@ -1,5 +1,6 @@
 .mobile--wallet {
 	padding-top: 50px;
+	min-height: 100vh;
 }
 
 .mobile--wallet .sidebar--wallet {

@@ -44,7 +44,7 @@ class MobileDashboardCurrencyItem extends Component {
 		}
 
 		let priceMarkup;
-		if (this.props.price && !Number.isNaN(this.props.price)) {
+		if (this.props.price && this.props.price !== 'NaN') {
 			priceMarkup = (
 				<p className="mobile--currencies--list--item--price">
 					{this.props.price} <span className="price--postfix">{this.props.localCurrency.currency}</span>
