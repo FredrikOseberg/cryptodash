@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { iosSafariCopy, copyText } from '../../../../../common/helpers';
 
 class WalletListItem extends Component {
 	constructor(props) {
@@ -13,19 +14,25 @@ class WalletListItem extends Component {
 	}
 
 	handleListItemCopyClick(event) {
-		const textField = document.createElement('textarea');
-		textField.innerText = this.state.address;
-		textField.classList.add('copy--address--field');
-		document.body.appendChild(textField);
-		textField.select();
-		document.execCommand('copy');
-		textField.remove();
+		let successMessage, successful;
+		let coinType = event.currentTarget.dataset.type;
 
-		this.setState({ copySuccess: 'Copied!' }, () => {
-			setTimeout(() => {
-				this.setState({ copySuccess: '' });
-			}, 3000);
-		});
+		if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+			const input = document.querySelector('.wallet--list--item--input');
+			successful = iosSafariCopy(input);
+			successMessage = successful ? `You successfully copied the ${this.props.name} wallet address.` : ' ';
+		} else {
+			successful = copyText(this.state.address);
+		}
+
+		if (successful) {
+			successMessage = `You successfully copied the ${this.props.name} wallet address.`;
+			this.setState({ copySuccess: successMessage }, () => {
+				setTimeout(() => {
+					this.setState({ copySuccess: '' });
+				}, 100000);
+			});
+		}
 	}
 
 	render() {
@@ -39,7 +46,7 @@ class WalletListItem extends Component {
 				<img src={this.props.img} alt={this.props.name} />
 				<p>{this.props.name}</p>
 				<div className="wallet--list--item--copy">
-					<input className="main--input" disabled value={this.props.wallet} />
+					<input className="main--input wallet--list--item--input" disabled value={this.props.wallet} />
 					{copyMarkup}
 				</div>
 				<div onClick={this.handleListItemCopyClick} className="wallet--list--item--copy--button">

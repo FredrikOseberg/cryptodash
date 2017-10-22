@@ -49,6 +49,26 @@
 	cursor: pointer;
 }
 
+.mobile--wallet .copy--flash--message {
+	background-color: #30a530;
+	box-sizing: border-box;
+	color: #fff;
+	padding: 20px;
+	border-radius: 3px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+	position: fixed;
+	top: 60%;
+	width: 300px;
+	height: 60px;
+	margin: 5% auto; /* Will not center vertically and won't work in IE6/7. */
+	left: 0;
+	right: 0;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .mobile--wallet .sidebar--wallet--placeholder {
 	color: #fff;
 }
