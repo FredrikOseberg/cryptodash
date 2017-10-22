@@ -46,6 +46,8 @@ class SocialLoginWrapper extends Component {
 
 		resolve();
 	}
+	addCurrencyThenRedirect() {}
+
 	userHasCurrencies(uid, resolve) {
 		const storageLocation = database.ref('users/' + uid);
 		storageLocation.once('value', snapshot => {

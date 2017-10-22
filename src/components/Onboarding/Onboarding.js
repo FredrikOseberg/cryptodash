@@ -42,18 +42,20 @@ class Onboarding extends Component {
 	}
 
 	componentDidMount() {
-		this.checkFirebaseForCryptoCurrencyValue().then(() => {
-			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
-			storageLocation.once('value', snapshot => {
-				console.log('running');
-				this.setState({ loading: false });
-				this.setState({ showStep: true });
-				if (snapshot.hasChild('localCurrency')) {
-					this.setState({ step: 'setWalletInfoStep' });
-				}
+		setTimeout(() => {
+			this.checkFirebaseForCryptoCurrencyValue().then(() => {
+				const storageLocation = database.ref('users/' + this.props.currentUser.uid);
+				storageLocation.once('value', snapshot => {
+					console.log(snapshot.val());
+					this.setState({ loading: false });
+					this.setState({ showStep: true });
+					if (snapshot.hasChild('localCurrency')) {
+						this.setState({ step: 'setWalletInfoStep' });
+					}
+				});
 			});
-		});
-		this.updateSelectedCurrencies();
+			this.updateSelectedCurrencies();
+		}, 1000);
 	}
 
 	updateSelectedCurrencies() {
@@ -73,6 +75,7 @@ class Onboarding extends Component {
 		return new Promise(resolve => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 			storageLocation.once('value', snapshot => {
+				console.log(snapshot.val());
 				if (snapshot.hasChild('currencies')) {
 					this.setState({ step: 'localCurrencyStep' });
 					this.setState({ amountOfSteps: 2 });
