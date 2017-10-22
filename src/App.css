@@ -25,7 +25,10 @@
   transition: all 0.4s ease;
   background-color: #ededed;
   outline: none;
-  -webkit-text-fill-color: #000;
+}
+
+input[disabled] {
+  -webkit-opacity: 1;
 }
 
 .main--input--hidden {
