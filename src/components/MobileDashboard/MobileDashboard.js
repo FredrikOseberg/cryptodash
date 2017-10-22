@@ -106,6 +106,12 @@ class MobileDashboard extends Component {
 	}
 
 	render() {
+		let portfolioExists = this.props.currencies.filter(currency => {
+			return (
+				currency.wallet && currency.wallet.wallet && currency.wallet.amount && currency.wallet.amount !== '0'
+			);
+		});
+
 		const showDashboard = this.state.mobileDashboardPage === 'Dashboard';
 		const showPortfolio = this.state.mobileDashboardPage === 'Portfolio';
 		const showWallets = this.state.mobileDashboardPage === 'Wallets';
@@ -113,11 +119,18 @@ class MobileDashboard extends Component {
 		const showAddWallet = this.state.mobileDashboardPage === 'Add Wallet';
 		const showSettings = this.state.mobileDashboardPage === 'Settings';
 		const showSupport = this.state.mobileDashboardPage === 'Support';
-		const showActionButton =
+		let showActionButton =
 			this.state.mobileDashboardPage !== 'Settings' &&
 			this.state.mobileDashboardPage !== 'All Coins' &&
-			this.state.mobileDashboardPage !== 'Support' &&
-			this.state.mobileDashboardPage !== 'Portfolio';
+			this.state.mobileDashboardPage !== 'Support';
+
+		if (this.state.mobileDashboardPage === 'Portfolio') {
+			if (portfolioExists.length > 0) {
+				showActionButton = false;
+			} else {
+				showActionButton = true;
+			}
+		}
 		return (
 			<div className="mobile--dashboard">
 				<MobileNavigation
