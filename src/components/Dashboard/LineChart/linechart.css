@@ -168,6 +168,14 @@ li.currency--line--chart--navigation--active {
 		right: 0;
 	}
 
+	.currency--line--chart--details--price h3 {
+		font-size: 2em;
+	}
+
+	.currency--line--chart--custom--select--selected {
+		font-size: 1.2em;
+	}
+
 	.currency--line--chart--select--container {
 		text-align: center;
 	}
