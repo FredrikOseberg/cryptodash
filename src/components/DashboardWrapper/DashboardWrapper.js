@@ -176,13 +176,14 @@ class DashboardWrapper extends Component {
 
 	render() {
 		let dashboard, landing;
-
+		console.log(this.props.history);
 		if (this.props.isMobile) {
 			dashboard = (
 				<MobileDashboard
 					getCurrentCurrency={this.getCurrentCurrency}
 					addCurrenciesToState={this.addCurrenciesToState}
 					allCurrencies={this.state.allCurrencies}
+					history={this.props.history}
 				/>
 			);
 
@@ -197,7 +198,7 @@ class DashboardWrapper extends Component {
 				/>
 			);
 
-			landing = <Landing data={this.props.coinData} history={this.props.history} />;
+			landing = <Landing data={coinData} />;
 		}
 		return (
 			<div className="dashboard--wrapper">
