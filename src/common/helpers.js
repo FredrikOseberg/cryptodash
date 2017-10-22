@@ -51,3 +51,40 @@ export const debounce = (func, wait, immediate) => {
 		if (callNow) func.apply(context, args);
 	};
 };
+
+export const iosSafariCopy = domNode => {
+	const input = domNode;
+
+	const el = input;
+	const editable = el.contentEditable;
+	const readOnly = el.readOnly;
+	el.contentEditable = true;
+	el.readOnly = false;
+	const range = document.createRange();
+	range.selectNodeContents(el);
+	const sel = window.getSelection();
+	sel.removeAllRanges();
+	sel.addRange(range);
+	el.setSelectionRange(0, 999999);
+	el.contentEditable = editable;
+	el.readOnly = readOnly;
+
+	const successful = document.execCommand('copy');
+
+	if (successful) {
+		return true;
+	}
+};
+
+export const copyText = textToCopy => {
+	const textField = document.createElement('textarea');
+	textField.innerText = textToCopy;
+	textField.classList.add('copy--address--field');
+	document.body.appendChild(textField);
+	textField.select();
+	const successful = document.execCommand('copy');
+	textField.remove();
+	if (successful) {
+		return true;
+	}
+};

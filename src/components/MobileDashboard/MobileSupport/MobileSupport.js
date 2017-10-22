@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import bitcoin from '../../../img/coins/bitcoin.png';
 import ethereum from '../../../img/coins/ether.png';
+import { iosSafariCopy, copyText } from '../../../common/helpers';
 import './mobilesupport.css';
 
 class MobileSupport extends Component {
@@ -17,48 +18,33 @@ class MobileSupport extends Component {
 	}
 
 	handleCopyClick(event) {
-		const textField = document.createElement('textarea');
+		let successMessage, successful;
 		let coinType = event.currentTarget.dataset.type;
-		if (coinType === 'ETH') {
-			textField.innerText = this.state.ethereumAddress;
-		} else if (coinType === 'BTC') {
-			textField.innerText = this.state.bitcoinAddress;
-		}
 
 		if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
 			const input = document.querySelector(`.mobile--support--input--${coinType}`);
-
-			var el = input;
-			var editable = el.contentEditable;
-			var readOnly = el.readOnly;
-			el.contentEditable = true;
-			el.readOnly = false;
-			var range = document.createRange();
-			range.selectNodeContents(el);
-			var sel = window.getSelection();
-			sel.removeAllRanges();
-			sel.addRange(range);
-			el.setSelectionRange(0, 999999);
-			el.contentEditable = editable;
-			el.readOnly = readOnly;
-
-			var successful = document.execCommand('copy');
-
-			var msg = successful ? 'successful ' : 'un-successful ';
+			successful = iosSafariCopy(input);
+			successMessage = successful
+				? `You successfully copied the ${event.currentTarget.dataset.name} address.`
+				: ' ';
 		} else {
-			textField.classList.add('copy--address--field');
-			document.body.appendChild(textField);
-			textField.select();
-			document.execCommand('copy');
-			textField.remove();
+			let textToCopy;
+			if (coinType === 'ETH') {
+				textToCopy = this.state.ethereumAddress;
+			} else if (coinType === 'BTC') {
+				textToCopy = this.state.bitcoinAddress;
+			}
+			successful = copyText(textToCopy);
 		}
 
-		let successMessage = `You successfully copied the ${event.currentTarget.dataset.name} address.`;
-		this.setState({ copySuccess: successMessage }, () => {
-			setTimeout(() => {
-				this.setState({ copySuccess: '' });
-			}, 4000);
-		});
+		if (successful) {
+			successMessage = `You successfully copied the ${event.currentTarget.dataset.name} address.`;
+			this.setState({ copySuccess: successMessage }, () => {
+				setTimeout(() => {
+					this.setState({ copySuccess: '' });
+				}, 4000);
+			});
+		}
 	}
 
 	render() {
