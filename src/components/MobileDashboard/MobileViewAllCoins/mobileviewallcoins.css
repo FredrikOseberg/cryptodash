@@ -157,3 +157,25 @@
 		margin-right: 10px;
 	}
 }
+
+@media (max-width: 400px) {
+	.mobile--dashboard--all--coins .view--all--table--header--rank,
+	.mobile--dashboard--all--coins .currency--table--card--rank {
+		display: none;
+	}
+
+	.mobile--dashboard--all--coins .view--all--table--header--name,
+	.mobile--dashboard--all--coins .view--all--name {
+		width: 40%;
+	}
+
+	.mobile--dashboard--all--coins .view--all--table--header--price,
+	.mobile--dashboard--all--coins .currency--table--card--price {
+		width: 40%;
+	}
+
+	.mobile--dashboard--all--coins .view--all--table--header--track,
+	.mobile--dashboard--all--coins .currency--table--card--track {
+		width: 20%;
+	}
+}

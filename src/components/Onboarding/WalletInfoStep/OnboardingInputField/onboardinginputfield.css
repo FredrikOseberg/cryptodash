@@ -16,6 +16,8 @@ input.main--input.onboarding--wallet--input.input--coin {
 .onboarding--coin--img img {
 	width: 30px;
 	height: 30px;
+	border-radius: 100%;
+	padding: 5px;
 }
 
 .onboarding--coin--img p {
