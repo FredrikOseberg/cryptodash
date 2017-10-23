@@ -1,0 +1,24 @@
+[debug] [2017-10-23T01:02:40.190Z] ----------------------------------------------------------------------
+[debug] [2017-10-23T01:02:40.193Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2017-10-23T01:02:40.194Z] CLI Version:   3.11.0
+[debug] [2017-10-23T01:02:40.194Z] Platform:      darwin
+[debug] [2017-10-23T01:02:40.194Z] Node Version:  v7.6.0
+[debug] [2017-10-23T01:02:40.196Z] Time:          Mon Oct 23 2017 11:02:40 GMT+1000 (AEST)
+[debug] [2017-10-23T01:02:40.196Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-10-23T01:02:40.212Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-10-23T01:02:40.212Z] > authorizing via signed-in user
+[debug] [2017-10-23T01:02:40.214Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/cryptodash-da623  
+ Mon Oct 23 2017 11:02:40 GMT+1000 (AEST)
+[debug] [2017-10-23T01:02:41.657Z] <<< HTTP RESPONSE 200
+[debug] [2017-10-23T01:02:41.658Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/cryptodash-da623/tokens  
+ Mon Oct 23 2017 11:02:41 GMT+1000 (AEST)
+[debug] [2017-10-23T01:02:43.862Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'cryptodash-da623'...
+[info] 
+[info] i  deploying database, hosting
+[info] ✔  database: rules ready to deploy.
+[info] i  hosting: preparing build directory for upload...
+[debug] [2017-10-23T01:02:47.120Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/cryptodash-da623/uploads/-Kx5kD1e3slQWhMZ6TDe?fileCount=20&message=  
+ Mon Oct 23 2017 11:02:47 GMT+1000 (AEST)
