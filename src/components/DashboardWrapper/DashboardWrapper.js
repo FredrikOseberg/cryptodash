@@ -52,14 +52,16 @@ class DashboardWrapper extends Component {
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
+
 				this.setState({ showLoading: false });
 				this.initDashboard().then(() => {
 					this.getFrequentCoinData();
 					this.getAllCoinData();
 				});
 			} else {
-				this.setState({ showLanding: true });
-				this.setState({ showLoading: false });
+				this.setState({ showLanding: true }, () => {
+					this.setState({ showLoading: false });
+				});
 			}
 		});
 	}
@@ -99,11 +101,13 @@ class DashboardWrapper extends Component {
 				storageLocation.on('value', snapshot => {
 					if (snapshot.hasChild('completedOnboarding')) {
 						this.setState({ showOnboarding: false });
-						this.setState({ showDashboard: true });
-						this.setState({ showLoading: false });
+						this.setState({ showDashboard: true }, () => {
+							this.setState({ showLoading: false });
+						});
 					} else {
-						this.setState({ showOnboarding: true });
-						this.setState({ showLoading: false });
+						this.setState({ showOnboarding: true }, () => {
+							this.setState({ showLoading: false });
+						});
 					}
 
 					if (snapshot.hasChild('localCurrency')) {
