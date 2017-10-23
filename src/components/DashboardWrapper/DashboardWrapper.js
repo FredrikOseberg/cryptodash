@@ -52,8 +52,6 @@ class DashboardWrapper extends Component {
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
-
-				this.setState({ showLoading: false });
 				this.initDashboard().then(() => {
 					this.getFrequentCoinData();
 					this.getAllCoinData();
