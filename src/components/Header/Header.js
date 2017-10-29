@@ -36,6 +36,9 @@ class Header extends Component {
 					<Link to="/register">
 						<li>Register</li>
 					</Link>
+					<Link to="/all">
+						<li>All Coins</li>
+					</Link>
 				</ul>
 			);
 		} else if (this.props.auth.status === 'SIGNED_IN') {

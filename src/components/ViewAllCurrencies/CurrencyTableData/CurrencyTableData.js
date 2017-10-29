@@ -17,6 +17,7 @@ class CurrencyTableData extends Component {
 		this.state = {
 			tracked: false,
 			trackLoading: false,
+			updated: false,
 			localCurrency: this.props.localCurrency.currency
 		};
 
@@ -37,8 +38,15 @@ class CurrencyTableData extends Component {
 		});
 	}
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({ updated: true }, () => {
+			setTimeout(() => {
+				this.setState({ updated: false });
+			}, 3000);
+		});
+	}
+
 	formatNumber(number) {
-		console.log(number);
 		let postfix = 'USD';
 		if (this.props.localCurrency.currency) {
 			postfix = this.props.localCurrency.currency;
@@ -158,6 +166,13 @@ class CurrencyTableData extends Component {
 			percentageClasses = 'currency--table--card--percentage currency--table--card--percentage--negative';
 		}
 
+		let updatedClasses;
+		if (this.state.updated) {
+			updatedClasses = 'currency--table--updated currency--table--updated--active';
+		} else {
+			updatedClasses = 'currency--table--updated';
+		}
+
 		let track;
 		if (this.state.tracked && !this.state.trackLoading) {
 			track = (
@@ -181,6 +196,7 @@ class CurrencyTableData extends Component {
 
 		return (
 			<div key={this.props.short} className="currency--table--card">
+				<div className={updatedClasses} />
 				<div className="currency--table--card--rank">{this.props.rank}</div>
 				<div className="view--all--name">
 					{this.props.long} {this.props.short}

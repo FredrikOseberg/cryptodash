@@ -28,6 +28,7 @@
 .view--all--table--headers {
 	display: flex;
 	text-align: center;
+	justify-content: center;
 }
 
 .view--all--track,
