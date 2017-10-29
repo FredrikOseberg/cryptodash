@@ -3,6 +3,12 @@
 	color: #fff;
 }
 
+.view--all--background {
+	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../img/starrysky3.jpg');
+	background-repeat-y: repeat;
+	color: #fff;
+}
+
 .view--all--header {
 	margin: 40px 0;
 }

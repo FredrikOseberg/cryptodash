@@ -1,0 +1,17 @@
+.frontend--view--all--currencies {
+	min-height: 100vh;
+	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../img/starrysky3.jpg');
+	background-repeat-y: repeat;
+	color: #fff;
+}
+
+.frontend--view--all--currencies--container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+@media (max-width: 790px) {
+	.frontend--view--all--currencies--container {
+		width: 100%;
+	}
+}

@@ -21,6 +21,7 @@ class ViewAllCurrencies extends Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleScroll = this.handleScroll.bind(this);
 		this.setNewDataSet = this.setNewDataSet.bind(this);
+		this.setDataFetchInterval = this.setDataFetchInterval.bind(this);
 	}
 
 	componentDidMount() {
@@ -29,13 +30,21 @@ class ViewAllCurrencies extends Component {
 		document.body.style.height = 'auto';
 
 		this.setState({ currentIndex: 50 }, () => {
-			this.setNewDataSet(this.props.allCurrencies, this.state.currentIndex);
-			this.interval = setInterval(() => {
-				axios.get('https://coincap.io/front').then(response => {
-					this.setNewDataSet(response.data);
-				});
-			}, 5000);
+			if (this.props.allCurrencies && this.props.allCurrencies.length > 0) {
+				this.setNewDataSet(this.props.allCurrencies, this.state.currentIndex);
+				this.setDataFetchInterval();
+			} else {
+				this.setDataFetchInterval();
+			}
 		});
+	}
+
+	setDataFetchInterval() {
+		this.interval = setInterval(() => {
+			axios.get('https://coincap.io/front').then(response => {
+				this.setNewDataSet(response.data);
+			});
+		}, 5000);
 	}
 
 	getNewData() {
@@ -78,7 +87,7 @@ class ViewAllCurrencies extends Component {
 
 	handleScroll() {
 		let bottom;
-		if (this.props.isMobile) {
+		if (this.props.isMobile || this.props.landing) {
 			bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
 		} else {
 			const sidebar = document.querySelector('.dashboard--sidebar ');
@@ -102,12 +111,12 @@ class ViewAllCurrencies extends Component {
 			frontendClasses = '';
 			viewAllBoxClasses = 'view--all--box view--all--box--dashboard';
 		} else {
-			frontendClasses = 'frontend--background';
+			frontendClasses = 'view--all--background';
 			viewAllBoxClasses = 'view--all--box';
 		}
 
 		let currencyTableData;
-		if (this.state.inputValue) {
+		if (this.state.inputValue && this.state.currentSet.length > 0) {
 			currencyTableData = this.state.allCurrencies
 				.filter(currency => {
 					return (

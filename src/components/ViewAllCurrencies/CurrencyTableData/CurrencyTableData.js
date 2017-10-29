@@ -16,7 +16,8 @@ class CurrencyTableData extends Component {
 
 		this.state = {
 			tracked: false,
-			trackLoading: false
+			trackLoading: false,
+			localCurrency: this.props.localCurrency.currency
 		};
 
 		this.handleTrackCurrencyClick = this.handleTrackCurrencyClick.bind(this);
@@ -25,6 +26,10 @@ class CurrencyTableData extends Component {
 	}
 
 	componentDidMount() {
+		if (!this.props.localCurrency.currency) {
+			this.setState({ localCurrency: 'USD' });
+		}
+
 		this.props.currencies.forEach(cur => {
 			if (cur.symbol === this.props.short) {
 				this.setState({ tracked: true });
@@ -33,9 +38,13 @@ class CurrencyTableData extends Component {
 	}
 
 	formatNumber(number) {
-		const formattedNumber = Number(convertPriceToLocalCurrency(number)).toLocaleString(
-			`en-${this.props.localCurrency.currency}`
-		);
+		console.log(number);
+		let postfix = 'USD';
+		if (this.props.localCurrency.currency) {
+			postfix = this.props.localCurrency.currency;
+		}
+
+		const formattedNumber = Number(convertPriceToLocalCurrency(number)).toLocaleString(`en-${postfix}`);
 		return formattedNumber;
 	}
 
@@ -178,17 +187,17 @@ class CurrencyTableData extends Component {
 				</div>
 				<div className="currency--table--card--marketcap">
 					{this.formatNumber(this.props.mktcap)}
-					<span className="price--postfix">{this.props.localCurrency.currency}</span>
+					<span className="price--postfix">{this.state.localCurrency}</span>
 				</div>
 				<div className="currency--table--card--price">
 					{convertPriceToLocalCurrency(this.props.price)}{' '}
-					<span className="price--postfix">{this.props.localCurrency.currency}</span>
+					<span className="price--postfix">{this.state.localCurrency}</span>
 				</div>
 				<div className="currency--table--card--vwap">{this.props.vwapData.toFixed(0)}</div>
 				<div className="currency--table--card--supply">{this.props.supply.toFixed(0)}</div>
 				<div className="currency--table--card--usdVolume">
 					{this.formatNumber(this.props.usdVolume)}
-					<span className="price--postfix">{this.props.localCurrency.currency}</span>
+					<span className="price--postfix">{this.state.localCurrency}</span>
 				</div>
 				<div className={percentageClasses}>{this.props.perc}%</div>
 				<div className="currency--table--card--track">{track}</div>
