@@ -4,6 +4,7 @@ import { database, auth } from '../../firebase';
 import firebase from '../../firebase';
 import { addLocalCurrency } from '../../actions/localCurrency';
 import { addPrice, addCurrency, clearCurrency } from '../../actions/currencies';
+import { clearLocalCurrency } from '../../actions/localCurrency';
 import axios from 'axios';
 import Loading from '../Loading/Loading';
 import Landing from '../../components/Landing/Landing';
@@ -94,6 +95,7 @@ class DashboardWrapper extends Component {
 
 	initDashboard() {
 		return new Promise((resolve, reject) => {
+			this.props.clearLocalCurrencyFromState();
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 			if (this.props.currentUser.status === 'SIGNED_IN') {
 				storageLocation.on('value', snapshot => {
@@ -233,6 +235,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	clearCurrencyFromState() {
 		dispatch(clearCurrency());
+	},
+	clearLocalCurrencyFromState() {
+		dispatch(clearLocalCurrency());
 	}
 });
 

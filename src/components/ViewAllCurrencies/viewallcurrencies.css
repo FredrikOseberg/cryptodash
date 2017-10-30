@@ -161,10 +161,7 @@ td.view--all--percentage--negative {
 	width: 5%;
 }
 
-.view--all--table--header--name {
-	width: 15%;
-}
-
+.view--all--table--header--name,
 .view--all--name {
 	width: 15%;
 }
@@ -191,18 +188,12 @@ td.view--all--percentage--negative {
 	color: #60f160;
 }
 
-.view--all--table--header--24hvwap {
-	width: 5%;
-}
-
+.view--all--table--header--24hvwap,
 .currency--table--card--vwap {
 	width: 5%;
 }
 
-.view--all--table--header--supply {
-	width: 10%;
-}
-
+.view--all--table--header--supply,
 .currency--table--card--supply {
 	width: 10%;
 }
@@ -217,18 +208,12 @@ td.view--all--percentage--negative {
 	justify-content: center;
 }
 
-.view--all--table--header--percentage {
-	width: 10%;
-}
-
+.view--all--table--header--percentage,
 .currency--table--card--percentage {
 	width: 10%;
 }
 
-.view--all--table--card--track {
-	width: 10%;
-}
-
+.view--all--table--card--track,
 .currency--table--card-track {
 	width: 10%;
 }
@@ -243,4 +228,55 @@ td.view--all--percentage--negative {
 
 .currency--table--card--percentage--negative {
 	color: #ff6a6a;
+}
+
+@media (max-width: 1200px) {
+	.view--all--table--header--supply,
+	.currency--table--card--supply {
+		display: none;
+	}
+
+	.view--all--table--header--price,
+	.currency--table--card--price {
+		width: 15%;
+	}
+
+	.view--all--table--header--volume,
+	.currency--table--card--usdVolume {
+		width: 20%;
+	}
+}
+
+@media (max-width: 1050px) {
+	.view--all--table--header--24hvwap,
+	.currency--table--card--vwap {
+		display: none;
+	}
+
+	.view--all--table--header--marketcap,
+	.currency--table--card--marketcap {
+		width: 25%;
+	}
+}
+
+@media (max-width: 890px) {
+	.view--all--table--header--volume,
+	.currency--table--card--usdVolume {
+		display: none;
+	}
+
+	.view--all--table--header--marketcap,
+	.currency--table--card--marketcap {
+		width: 30%;
+	}
+
+	.view--all--table--header--price,
+	.currency--table--card--price {
+		width: 20%;
+	}
+
+	.view--all--table--header--percentage,
+	.currency--table--card--percentage {
+		width: 15%;
+	}
 }
