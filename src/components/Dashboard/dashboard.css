@@ -1,3 +1,7 @@
+.dashboard {
+	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../img/starrysky3.jpg');
+}
+
 .dashboard--navigation {
 	background-color: #fff;
 	display: flex;
@@ -8,9 +12,8 @@
 }
 
 .dashboard--content {
-	background-color: #ededed;
-	padding-bottom: 60px;
 	min-height: 100vh;
+	padding: 60px 0;
 }
 
 .dashboard--navigation--list {
@@ -56,14 +59,9 @@ li.dashboard--navigation--list--active:hover {
 }
 
 .dashboard--content--chart {
-	background-color: #fff;
+	background-color: transparent;
 	border-radius: 3px;
-	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 	margin: 10px;
-}
-
-.dashboard--content {
-	padding: 20px 0;
 }
 
 .dashboard--currency {

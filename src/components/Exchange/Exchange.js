@@ -9,7 +9,7 @@ const Exchange = () => {
 	};
 	return (
 		<div className="exchange">
-			<div className="currency--wallet--header">
+			<div className="currency--wallet--header currency--exchange--header">
 				<h3>Exchange Cryptocurrencies</h3>
 			</div>
 			<div className="exchange--content">

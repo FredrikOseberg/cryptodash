@@ -26,7 +26,7 @@ class LineChart extends Component {
 						label: [this.props.symbol + ' Price'],
 						fill: this.props.styles.fill,
 						lineTension: 0.1,
-						backgroundColor: 'rgba(232,127,0,0.4)',
+						backgroundColor: this.props.styles.fillColor,
 						borderColor: this.props.styles.color,
 						pointBorderColor: this.props.styles.color,
 						pointHoverBackgroundColor: this.props.styles.color,
@@ -260,9 +260,17 @@ class LineChart extends Component {
 							ticks: {
 								autoSkip: true,
 								maxTicksLimit: 2,
+								fontColor: '#fff',
 								minRotation: 0,
 								maxRotation: 0,
 								fontFamily: 'Montserrat'
+							}
+						}
+					],
+					yAxes: [
+						{
+							ticks: {
+								fontColor: '#fff'
 							}
 						}
 					]

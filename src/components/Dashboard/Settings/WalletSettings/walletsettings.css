@@ -1,8 +1,8 @@
 .currency--wallet--header {
 	text-align: center;
 	padding: 20px 0;
-	color: #565698;
-	border-bottom: 1px solid #888;
+	color: #fff;
+	border-bottom: 1px solid #e0dfdf;
 }
 
 .currency--wallet--content {
@@ -15,7 +15,7 @@
 	justify-content: space-around;
 	text-align: center;
 	padding: 10px;
-	color: #888;
+	color: #fff;
 }
 
 .currency--wallet--header--name {
@@ -60,22 +60,17 @@
 }
 
 .currency--wallet--add--currency {
-	background-color: #555598;
+	background-color: #fff;
 	height: 70px;
 	width: 70px;
 	border-radius: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: #fff;
+	color: #555598;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 	cursor: pointer;
 	visibility: hidden;
 	opacity: 0;
 	position: absolute;
 }
-
-
-
-
-

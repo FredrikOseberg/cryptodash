@@ -5,6 +5,7 @@
 
 .currency--wallet--image h4 {
 	margin-left: 10px;
+	color: #fff;
 }
 
 .currency--wallet--current img {
@@ -69,6 +70,7 @@
 .currency--wallet--delete .fa {
 	cursor: pointer;
 	font-size: 1.2em;
+	color: #fff;
 }
 
 .currency--wallet--error--message {

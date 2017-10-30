@@ -15,6 +15,7 @@
 
 .account--email--input--container label {
 	margin-right: auto;
+	color: #e0dfdf;
 }
 
 .account--settings--change--email--input {

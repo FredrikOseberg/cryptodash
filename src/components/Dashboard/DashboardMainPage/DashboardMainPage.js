@@ -43,7 +43,8 @@ const DashboardMainPage = props => {
 	}
 
 	const lineChartStyle = {
-		color: 'rgba(246, 146, 26, 1)',
+		color: '#fff',
+		fillColor: 'rgba(255, 255, 255, 0.4)',
 		fill: true
 	};
 	return (
