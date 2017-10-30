@@ -14,7 +14,7 @@ const FrontendViewAllCurrencies = props => {
 	}
 	return (
 		<div className="frontend--view--all--currencies">
-			<Header />
+			<Header frontend={true} />
 			<div className="frontend--view--all--currencies--container">{component}</div>
 		</div>
 	);

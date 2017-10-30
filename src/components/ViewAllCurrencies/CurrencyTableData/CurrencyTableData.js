@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import coinData from '../../../coinData';
 import { database } from '../../../firebase';
+import firebase from '../../../firebase';
 import { addCurrency, removeCurrency, clearCurrency, addPrice } from '../../../actions/currencies';
 import coins from '../../../img/coins.jpg';
 import { convertPriceToLocalCurrency } from '../../../common/helpers';
@@ -17,8 +18,7 @@ class CurrencyTableData extends Component {
 		this.state = {
 			tracked: false,
 			trackLoading: false,
-			updated: false,
-			localCurrency: this.props.localCurrency.currency
+			updated: false
 		};
 
 		this.handleTrackCurrencyClick = this.handleTrackCurrencyClick.bind(this);
@@ -27,27 +27,41 @@ class CurrencyTableData extends Component {
 	}
 
 	componentDidMount() {
-		if (!this.props.localCurrency.currency) {
-			this.setState({ localCurrency: 'USD' });
-		}
-
 		this.props.currencies.forEach(cur => {
 			if (cur.symbol === this.props.short) {
 				this.setState({ tracked: true });
 			}
 		});
-	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({ updated: true }, () => {
-			setTimeout(() => {
-				this.setState({ updated: false });
-			}, 3000);
+		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+			if (!user) {
+				this.setState({ tracked: false });
+			}
 		});
 	}
 
+	componentWillUnmount() {
+		this.unsubscribe();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (
+			nextProps.price !== this.props.price ||
+			nextProps.perc !== this.props.perc ||
+			nextProps.mktcap !== this.props.mktcap ||
+			nextProps.rank !== this.props.rank ||
+			nextProps.usdVolume !== this.props.usdVolume
+		) {
+			this.setState({ updated: true }, () => {
+				setTimeout(() => {
+					this.setState({ updated: false });
+				}, 3000);
+			});
+		}
+	}
+
 	formatNumber(number) {
-		let postfix = 'USD';
+		let postfix = this.props.fiat;
 		if (this.props.localCurrency.currency) {
 			postfix = this.props.localCurrency.currency;
 		}
@@ -203,17 +217,17 @@ class CurrencyTableData extends Component {
 				</div>
 				<div className="currency--table--card--marketcap">
 					{this.formatNumber(this.props.mktcap)}
-					<span className="price--postfix">{this.state.localCurrency}</span>
+					<span className="price--postfix">{this.props.fiat}</span>
 				</div>
 				<div className="currency--table--card--price">
 					{convertPriceToLocalCurrency(this.props.price)}{' '}
-					<span className="price--postfix">{this.state.localCurrency}</span>
+					<span className="price--postfix">{this.props.fiat}</span>
 				</div>
 				<div className="currency--table--card--vwap">{this.props.vwapData.toFixed(0)}</div>
 				<div className="currency--table--card--supply">{this.props.supply.toFixed(0)}</div>
 				<div className="currency--table--card--usdVolume">
 					{this.formatNumber(this.props.usdVolume)}
-					<span className="price--postfix">{this.state.localCurrency}</span>
+					<span className="price--postfix">{this.props.fiat}</span>
 				</div>
 				<div className={percentageClasses}>{this.props.perc}%</div>
 				<div className="currency--table--card--track">{track}</div>
@@ -224,8 +238,8 @@ class CurrencyTableData extends Component {
 
 const mapStateToProps = state => ({
 	currentUser: state.auth,
-	currencies: state.selectedCurrencies,
-	localCurrency: state.localCurrency
+	localCurrency: state.localCurrency,
+	currencies: state.selectedCurrencies
 });
 
 const mapDispatchToProps = dispatch => ({

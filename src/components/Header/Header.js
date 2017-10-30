@@ -46,7 +46,11 @@ class Header extends Component {
 			this.state.clickedNav
 				? (dropdownClasses = 'header--nav--dropdown header--nav--dropdown--clicked')
 				: (dropdownClasses = 'header--nav--dropdown');
-			headerClasses = 'header header--dashboard';
+			if (this.props.frontend) {
+				headerClasses = 'header';
+			} else {
+				headerClasses = 'header header--dashboard';
+			}
 			navLinks = (
 				<ul className="header--nav">
 					<li className="header--nav--signed--in" onClick={this.handleClickedNav}>
@@ -63,6 +67,12 @@ class Header extends Component {
 										<i className="fa fa-sign-out" aria-hidden="true" />
 										Sign out
 									</li>
+									<Link to="/all">
+										<li>
+											<i className="fa fa-money" aria-hidden="true" />
+											All Coins
+										</li>
+									</Link>
 								</ul>
 							</div>
 						</div>

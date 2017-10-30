@@ -95,7 +95,6 @@
 
 .mobile--dashboard--all--coins .view--all--table--header--track,
 .mobile--dashboard--all--coins .currency--table--card--track {
-	width: 15%;
 	display: flex;
 	justify-content: center;
 }
@@ -120,10 +119,6 @@
 		width: 20%;
 	}
 
-	.mobile--dashboard--all--coins .view--all--table--header--track,
-	.mobile--dashboard--all--coins .currency--table--card--track {
-		width: 20%;
-	}
 	.mobile--dashboard--all--coins .main--input {
 		width: 70%;
 	}
@@ -153,7 +148,6 @@
 
 	.mobile--dashboard--all--coins .view--all--table--header--track,
 	.mobile--dashboard--all--coins .currency--table--card--track {
-		width: 20%;
 		margin-right: 10px;
 	}
 }
@@ -172,10 +166,5 @@
 	.mobile--dashboard--all--coins .view--all--table--header--price,
 	.mobile--dashboard--all--coins .currency--table--card--price {
 		width: 40%;
-	}
-
-	.mobile--dashboard--all--coins .view--all--table--header--track,
-	.mobile--dashboard--all--coins .currency--table--card--track {
-		width: 20%;
 	}
 }

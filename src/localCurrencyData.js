@@ -1,5 +1,10 @@
 const localCurrency = [
 	{
+		ticker: 'USD',
+		name: 'United States Dollar',
+		id: 32
+	},
+	{
 		ticker: 'AUD',
 		name: 'Australian Dollar',
 		id: 1
@@ -153,11 +158,6 @@ const localCurrency = [
 		ticker: 'EUR',
 		name: 'Euro',
 		id: 31
-	},
-	{
-		ticker: 'USD',
-		name: 'United States Dollar',
-		id: 32
 	}
 ];
 
