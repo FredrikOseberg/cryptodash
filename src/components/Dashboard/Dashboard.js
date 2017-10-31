@@ -8,6 +8,7 @@ import Nav from '../Nav/Nav';
 import Settings from './Settings/Settings';
 import DashboardActionButton from '../DashboardActionButton/DashboardActionButton';
 import Footer from '../Footer/Footer';
+import Wallet from './Sidebar/Wallet/Wallet';
 import Sidebar from './Sidebar/Sidebar';
 
 class Dashboard extends Component {
@@ -29,7 +30,8 @@ class Dashboard extends Component {
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
 				{ name: 'Exchange', icon: 'fa fa-exchange' },
-				{ name: 'Settings', icon: 'fa fa-cog' }
+				{ name: 'Settings', icon: 'fa fa-cog' },
+				{ name: 'Wallets', icon: 'fa fa-folder' }
 			]
 		};
 
@@ -94,6 +96,9 @@ class Dashboard extends Component {
 			case 'Settings':
 				this.setState({ dashboardPage: 'Settings' });
 				break;
+			case 'Wallets':
+				this.setState({ dashboardPage: 'Wallets' });
+				break;
 			default:
 				this.setState({ dashboardPage: 'Dashboard' });
 		}
@@ -103,6 +108,7 @@ class Dashboard extends Component {
 		const showDashboard = this.state.dashboardPage === 'Dashboard' && this.state.currentCurrency === true;
 		const showExchange = this.state.dashboardPage === 'Exchange';
 		const showSettings = this.state.dashboardPage === 'Settings';
+		const showWallets = this.state.dashboardPage === 'Wallets';
 
 		const dashboard = (
 			<div className="dashboard">
@@ -127,17 +133,7 @@ class Dashboard extends Component {
 							)}
 							{showSettings && <Settings startPage={this.state.settingsPage} />}
 							{showExchange && <Exchange />}
-							<DashboardActionButton
-								showSidebar={this.showSidebar}
-								setSidebarComponent={this.setSidebarComponent}
-							/>
-							<Sidebar
-								show={this.state.displaySidebar}
-								showSidebar={this.showSidebar}
-								component={this.state.sidebarComponent}
-								allCurrencies={this.props.allCurrencies}
-								handleAddWalletClick={this.handleAddWalletClick}
-							/>
+							{showWallets && <Wallet handleAddWalletClick={this.handleAddWalletClick} />}
 						</div>
 					</div>
 				</div>

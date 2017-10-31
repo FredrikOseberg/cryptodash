@@ -13,7 +13,9 @@ const Wallet = props => {
 	if (currenciesThatHaveWallet.length > 0) {
 		walletMarkup = (
 			<div className="sidebar--wallet--inner--container">
-				<h3 className="sidebar--wallet--header">Wallets</h3>
+				<div className="sidebar--wallet--header">
+					<h3>Wallets</h3>
+				</div>
 				<ul className="sidebar--wallet--list">
 					{currenciesThatHaveWallet.map(currency => {
 						return (

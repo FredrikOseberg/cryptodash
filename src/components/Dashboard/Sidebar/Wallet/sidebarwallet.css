@@ -1,12 +1,14 @@
 .sidebar--wallet {
-	width: 80%;
+	width: 100%;
 	margin: 0 auto;
-	background-color: #fff;
+	background-color: transparent;
+	border: 1px solid #fff;
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 	border-radius: 3px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	color: #fff;
 }
 
 .sidebar--wallet--container {
@@ -19,13 +21,16 @@
 
 .sidebar--wallet--header {
 	text-align: center;
-	color: #000;
+	color: #fff;
+	padding: 20px 0;
+	border-bottom: 1px solid #e0dfdf;
 }
 
 .sidebar--wallet--list {
 	padding: 0;
 	list-style-type: none;
 	width: 100%;
+	padding: 25px 0;
 }
 
 .sidebar--wallet--list li {
@@ -33,7 +38,8 @@
 	justify-content: space-around;
 	align-items: center;
 	width: 100%;
-	color: #888;
+	color: #fff;
+	padding: 8px 0;
 }
 
 .sidebar--wallet--list li img {
@@ -53,16 +59,35 @@
 
 .wallet--list--item--copy {
 	position: relative;
+	width: 60%;
+}
+
+.wallet--list--item--input {
+	width: 80%;
+}
+
+.wallet--list--item--copy--button {
+	margin-right: 20px;
+	width: 50px;
+	height: 50px;
+	color: #fff;
+	background-color: #555598;
+	border-radius: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	cursor: pointer;
 }
 
 .copy--flash--message {
 	color: #fff;
 	border-radius: 3px;
-	padding: 8px;
+	padding: 15px;
 	position: absolute;
 	left: 5%;
 	top: 25%;
-	background-color: #565698;
+	background-color: #30a530;
 }
 
 .sidebar--wallet--inner--container {

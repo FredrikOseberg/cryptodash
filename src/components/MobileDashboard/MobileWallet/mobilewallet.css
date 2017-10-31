@@ -7,14 +7,16 @@
 	background-color: transparent;
 	box-shadow: none;
 	width: 100%;
+	border: none;
 }
 
 .mobile--wallet .sidebar--wallet--header {
-	font-size: 1.4em;
+	font-size: 1.3em;
 	border-top: 1px solid #e0dfdf;
 	border-bottom: 1px solid #e0dfdf;
-	padding: 25px 0;
 	width: 100%;
+	margin: 1em 0;
+	padding: 0;
 	text-align: center;
 }
 
@@ -33,6 +35,10 @@
 
 .mobile--wallet .sidebar--wallet--list li img {
 	display: none;
+}
+
+.mobile--wallet .wallet--list--item--copy {
+	width: auto;
 }
 
 .mobile--wallet .wallet--list--item--copy--button {

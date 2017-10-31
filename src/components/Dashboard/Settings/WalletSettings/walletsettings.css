@@ -55,8 +55,11 @@
 }
 
 .currency--wallet--submit--success {
-	color: #27ab27;
+	color: #fff;
+	border-radius: 3px;
+	padding: 15px;
 	margin-bottom: 15px;
+	background-color: #30a530;
 }
 
 .currency--wallet--add--currency {
