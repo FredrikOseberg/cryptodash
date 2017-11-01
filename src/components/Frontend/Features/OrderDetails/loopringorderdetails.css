@@ -1,0 +1,142 @@
+.orderdetails--card--order {
+	background-color: #fff;
+	color: #555598;
+	border-radius: 3px;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	width: 420px;
+	padding: 30px 0;
+	z-index: 5;
+}
+
+.orderdetails--card--order--container {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.orderdetails--card--order--header {
+	display: flex;
+	align-items: center;
+}
+
+.orderdetails--card-order--header--img .cc {
+	font-size: 2em;
+	color: #555598;
+}
+
+.orderdetails--card--order--header--information {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-left: 15px;
+}
+
+.orderdetails--card--order--header--information h2 {
+	font-size: 1.3rem;
+	text-align: left;
+	margin: 0;
+}
+
+.orderdetails--card--order--header--information p {
+	font-size: 0.8rem;
+	margin: 3px 0 0 0;
+}
+
+.orderdetails--card--order--header--border {
+	height: 1px;
+	width: 100%;
+	background-color: #555598;
+	margin: 20px 0;
+}
+
+.orderdetails--card--order--header--transaction {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.orderdetails--card--order--header--transaction .fa {
+	font-size: 1.5rem;
+}
+
+.orderdetails--card--order--header--transaction .cc {
+	color: #555598;
+	font-size: 1.2rem;
+}
+
+.orderdetails--card--order--status--container {
+	display: flex;
+	flex-direction: column;
+}
+
+.orderdetails--card--order--status--information {
+	display: flex;
+	width: 100%;
+	align-items: center;
+}
+
+.orderdetails--card--order--status--information .fa {
+	font-size: 2em;
+}
+
+.orderdetails--card--order--status {
+	margin-left: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.orderdetails--card--order--status h3 {
+	margin: 0;
+	text-align: left;
+	font-size: 1rem;
+}
+
+.orderdetails--card--order--status p {
+	margin: 4px 0 0 0;
+}
+
+.orderdetails--card--order--status .fa-lock {
+	font-size: 1rem;
+	margin-right: 8px;
+}
+
+.orderdetails--card--order--status--progress {
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+}
+
+.orderdetails--card--order--status--progress p {
+	width: auto;
+	background: rgba(0, 0, 50, 0.08);
+	margin: 0;
+	padding: 8px 15px;
+	border-radius: 50px;
+	text-align: center;
+	width: 30%;
+}
+
+.orderdetails--card--order--progress--bar {
+	margin-top: 15px;
+	height: 10px;
+	border-radius: 50px;
+	border: 1px solid #555598;
+}
+
+.orderdetails--card--order--progress--bar--progress {
+	width: 70%;
+	background-color: #555598;
+	height: 100%;
+}
+
+@media (max-width: 600px) {
+	.orderdetails--card--order {
+		width: 100%;
+	}
+}
+
+@media (max-width: 480px) {
+	.orderdetails--card--order--header--information p {
+		display: none;
+	}
+}

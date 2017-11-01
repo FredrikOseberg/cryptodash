@@ -186,13 +186,17 @@
 
 /* FRONTEND CURRENCY FEATURE */
 
+.frontend--features--currency {
+	border-bottom: 1px solid #e0dfdf;
+}
+
 .frontend--features--currency--header {
 	font-size: 1.5em;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	max-width: 80%;
-	margin: 0 auto;
+	margin: 40px auto;
 }
 
 .frontend--features--currency--header .fa {
@@ -200,6 +204,10 @@
 }
 
 .frontend--features--currency--information {
+	width: 50%;
+}
+
+.frontend--features--currency--stickman {
 	width: 50%;
 }
 
@@ -329,4 +337,44 @@
 
 .fiat--currency--box--gbp {
 	transform: translateY(-409px) translateX(-150px) rotate(30deg);
+}
+
+.frontend--features--currency--information--button {
+	margin: 20px 0;
+	width: 200px;
+	height: 60px;
+	border-radius: 3px;
+	color: #555598;
+	background-color: #fff;
+	box-shadow: 0 10px 20px rgba(0, 0, 80, 0.19), 0 6px 6px rgba(0, 0, 80, 0.23);
+	border: none;
+	font-size: 1.1em;
+	font-family: Montserrat, sans-serif;
+}
+
+/* FRONTEND FEATURES TRADE */
+
+.frontend--features--trade--header {
+	font-size: 1.5em;
+	justify-content: center;
+	max-width: 80%;
+	margin: 40px auto;
+	display: flex;
+	align-items: center;
+}
+
+.frontend--features--trade--header .fa {
+	margin-right: 10px;
+}
+
+.frontend--features--trade--container {
+	display: flex;
+	margin: 0 auto;
+	width: 80%;
+	justify-content: space-around;
+}
+
+.frontend--features--trade--order--details,
+.frontend--features--trade--container--information {
+	width: 50%;
 }

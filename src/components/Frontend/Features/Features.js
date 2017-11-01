@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import featuresDash from '../../../img/featuresDashboard.png';
 import SampleCurrency from './SampleCurrency/SampleCurrency';
+import OrderDetails from './OrderDetails/OrderDetails';
 import axios from 'axios';
 import './features.css';
 
@@ -75,6 +76,9 @@ class Features extends Component {
 								supports over 30 fiat currencies including USD, EUR, SEK, NOK, TRY, RUB, SGD, JPY and
 								many, many more.
 							</p>
+							<button className="frontend--features--currency--information--button">
+								Start Tracking
+							</button>
 						</div>
 						<div className="frontend--features--currency--stickman">
 							<div className="stickman--head" />
@@ -103,6 +107,27 @@ class Features extends Component {
 							</div>
 							<div className="stickman--left--leg" />
 							<div className="stickman--right--leg" />
+						</div>
+					</div>
+				</div>
+				<div className="frontend--features--trade">
+					<div className="frontend--features--trade--header">
+						<i className="fa fa-exchange" aria-hidden="true" />
+						<h3>Trade Crypto Currencies</h3>
+					</div>
+					<div className="frontend--features--trade--container">
+						<OrderDetails
+							name={'Bitcoin'}
+							fromIcon={'BTC-alt'}
+							toIcon={'ETH'}
+							fromAmount={'0.275'}
+							toAmount={'4.53'}
+							fromSymbol={'BTC'}
+							toSymbol={'ETH'}
+							color={'white'}
+						/>
+						<div className="frontend--features--trade--container--information">
+							<p>Info here</p>
 						</div>
 					</div>
 				</div>
