@@ -8,7 +8,7 @@ import { database } from '../../firebase';
 import firebase from '../../firebase';
 import map from 'lodash/map';
 import { isMobile } from '../HoC/IsMobile';
-import { addLocalCurrency } from '../../actions/localCurrency';
+import { addLocalCurrency, clearLocalCurrency } from '../../actions/localCurrency';
 import { addCurrency, clearCurrency } from '../../actions/currencies';
 
 import './viewallcurrencies.css';
@@ -122,6 +122,7 @@ class ViewAllCurrencies extends Component {
 		window.removeEventListener('scroll', this.handleScroll, false);
 		clearInterval(this.interval);
 		this.unsubscribe();
+		this.props.clearLocalCurrencyFromState();
 		document.body.style.height = '100%';
 	}
 
@@ -336,6 +337,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	clearCurrencyFromState() {
 		dispatch(clearCurrency());
+	},
+	clearLocalCurrencyFromState() {
+		dispatch(clearLocalCurrency());
 	}
 });
 

@@ -37,6 +37,8 @@ class DashboardWrapper extends Component {
 		this.getAllCoinData = this.getAllCoinData.bind(this);
 	}
 	componentDidMount() {
+		this.props.clearLocalCurrencyFromState();
+
 		this.props.currencies.forEach(currency => {
 			this.getCoinData(currency.symbol);
 		});
@@ -95,7 +97,6 @@ class DashboardWrapper extends Component {
 
 	initDashboard() {
 		return new Promise((resolve, reject) => {
-			this.props.clearLocalCurrencyFromState();
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 			if (this.props.currentUser.status === 'SIGNED_IN') {
 				storageLocation.on('value', snapshot => {

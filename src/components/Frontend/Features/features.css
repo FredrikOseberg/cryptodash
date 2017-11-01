@@ -1,0 +1,142 @@
+.frontend--features {
+	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../../img/starrysky3.jpg');
+	background-repeat-y: repeat;
+	color: #fff;
+	text-align: center;
+	padding-bottom: 60px;
+}
+
+.frontend--features h1 {
+	margin-top: 0;
+	border-top: 1px solid #e0dfdf;
+	border-bottom: 1px solid #e0dfdf;
+	padding: 20px;
+}
+
+.frontend--features--container {
+	width: 80%;
+	margin: 0 auto;
+	display: flex;
+}
+
+.frontend--features--track {
+	height: 100vh;
+}
+
+.frontend--track--img {
+	height: 250px;
+	border-radius: 3px;
+	box-shadow: 0 10px 20px rgba(0, 0, 80, 0.19), 0 6px 6px rgba(0, 0, 80, 0.23);
+}
+
+.frontend--features--track--information {
+	width: 100%;
+	box-sizing: border-box;
+	margin-left: 20px;
+	padding: 60px 20px 20px 20px;
+	text-align: center;
+}
+
+.frontend--features--track--information p {
+	max-width: 400px;
+	margin: 30px auto;
+}
+
+.frontend--features--track--header {
+	display: flex;
+	align-items: center;
+	font-size: 1.5em;
+	justify-content: center;
+}
+
+.frontend--features--track--header .fa {
+	margin-right: 10px;
+}
+
+.frontend--features--track--box--container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+}
+
+.frontend--features--track--box {
+	width: 300px;
+	height: 300px;
+	background-color: #fff;
+	color: #555598;
+	border-radius: 3px;
+	box-shadow: 0 10px 20px rgba(0, 0, 80, 0.19), 0 6px 6px rgba(0, 0, 80, 0.23);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.frontend--features--track--box--left--handle,
+.frontend--features--track--box--right--handle {
+	width: 150px;
+	height: 5px;
+	position: absolute;
+	transform: rotate(45deg);
+	transform-origin: 100% 100%;
+	top: -2px;
+	left: -149px;
+	background-color: #fff;
+}
+
+.frontend--features--track--box--right--handle {
+	top: -4px;
+	left: 146px;
+	transform: rotate(135deg);
+}
+
+.features--box--currency {
+	height: 65px;
+	width: 65px;
+	border-radius: 3px;
+	box-shadow: 0 10px 20px rgba(0, 0, 80, 0.19), 0 6px 6px rgba(0, 0, 80, 0.23);
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+	margin: 10px;
+	color: #555598;
+	font-size: 1.5em;
+	animation: boxAnimation 2s ease forwards;
+}
+
+.features--box--currency .cc {
+	color: #555598;
+}
+
+.features--box--currency.features--box--currency--bitcoin {
+	transform: translateY(80px) translateX(-29px) rotate(30deg);
+}
+
+.features--box--currency.features--box--currency--ethereum {
+	transform: translateY(52px) translateX(65px) rotate(40deg);
+}
+
+.features--box--currency.features--box--currency--neo {
+	transform: translateY(30px) translateX(-30px) rotate(-30deg);
+}
+
+.features--box--currency.features--box--currency--gno {
+	transform: translateY(6px) translateX(67px) rotate(30deg);
+}
+
+.features--box--currency.features--box--currency--doge {
+	transform: translateY(-20px) translateX(-14px) rotate(-30deg);
+}
+
+@keyframes boxAnimation {
+	0% {
+		transform: translateY(inherit) rotate(inherit);
+	}
+	100% {
+		transform: translateY(200px) rotate(inherit);
+	}
+}
