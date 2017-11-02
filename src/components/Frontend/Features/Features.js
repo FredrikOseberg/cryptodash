@@ -3,6 +3,7 @@ import featuresDash from '../../../img/featuresDashboard.png';
 import SampleCurrency from './SampleCurrency/SampleCurrency';
 import OrderDetails from './OrderDetails/OrderDetails';
 import axios from 'axios';
+import changelly from '../../../img/changelly.png';
 import './features.css';
 
 class Features extends Component {
@@ -116,18 +117,89 @@ class Features extends Component {
 						<h3>Trade Crypto Currencies</h3>
 					</div>
 					<div className="frontend--features--trade--container">
-						<OrderDetails
-							name={'Bitcoin'}
-							fromIcon={'BTC-alt'}
-							toIcon={'ETH'}
-							fromAmount={'0.275'}
-							toAmount={'4.53'}
-							fromSymbol={'BTC'}
-							toSymbol={'ETH'}
-							color={'white'}
-						/>
+						<div className="frontend--features--trade--order--details">
+							<OrderDetails
+								name={'Bitcoin'}
+								fromIcon={'BTC-alt'}
+								toIcon={'ETH'}
+								fromAmount={'0.275'}
+								toAmount={'4.53'}
+								fromSymbol={'BTC'}
+								toSymbol={'ETH'}
+								color={'white'}
+							/>
+						</div>
 						<div className="frontend--features--trade--container--information">
-							<p>Info here</p>
+							<p>
+								CryptoDasher is integrated with a trusted 3rd party that handles all trades. Using the
+								built in widget, or going{' '}
+								<a
+									href="https://changelly.com/?ref_id=172ccf841be7"
+									target="_blank"
+									rel="noreferrer noopener"
+									className="features--link"
+								>
+									directly to their web page
+								</a>{' '}
+								you can easily trade in over 70 different cryptocurrencies
+							</p>
+							<a
+								href="https://changelly.com/?ref_id=172ccf841be7"
+								target="_blank"
+								rel="noreferrer noopener"
+							>
+								<img src={changelly} alt="Changelly" />
+							</a>
+						</div>
+					</div>
+				</div>
+				<div className="frontend--features--store">
+					<div className="frontend--features--store--header">
+						<i className="fa fa-folder" />
+						<h3>Store your wallet information</h3>
+					</div>
+					<div className="frontend--features--store--container">
+						<div className="frontend--features--store--information">
+							<p>
+								Once you get up and running in the crypto currency space, you might end up with a lot of
+								different wallets to store different cryptocurrencies. Having lots of different wallet
+								addresses in different apps and balances makes it hard to keep an overview over your
+								addresses and total balance. Not here.
+							</p>
+							<p>
+								Simply add the amount of coins you own and your public address key, and you can easily
+								access and copy the address at the click of a button, as well as seeing your total
+								portfolio value update in real time.
+							</p>
+						</div>
+						<div className="frontend--features--store--wallet--container">
+							<div className="frontend--features--store--wallet--currencies">
+								<div className="features--box--currency wallet--currency--box--btc">
+									<i className="cc BTC" />
+								</div>
+								<div className="features--box--currency wallet--currency--box--eth">
+									<i className="cc ETH" />
+								</div>
+								<div className="features--box--currency wallet--currency--box--neo">
+									<i className="cc NEO" />
+								</div>
+								<div className="features--box--currency wallet--currency--box--gno">
+									<i className="cc GNO" />
+								</div>
+								<div className="features--box--currency wallet--currency--box--doge">
+									<i className="cc DOGE-alt" />
+								</div>
+							</div>
+							<div className="frontend--features--store--wallet">
+								<div className="frontend--features--store--inner--wallet">
+									<div className="frontend--features--store--inner--wallet--text">
+										<h3>
+											Total Balance: 6122<span className="price--postfix">USD</span>
+										</h3>
+									</div>
+									<div className="frontend--features--store--wallet--button" />
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
