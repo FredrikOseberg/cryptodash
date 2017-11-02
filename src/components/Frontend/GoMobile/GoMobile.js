@@ -1,5 +1,5 @@
 import React from 'react';
-import mobileScreen from '../../../img/cryptodashermobile.png';
+import mobileScreen from '../../../img/cryptodashermobileResized.png';
 import './gomobile.css';
 
 const GoMobile = () => (

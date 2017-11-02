@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import featuresDash from '../../../img/featuresDashboard.png';
+import featuresDash from '../../../img/featuresDashboardResized.png';
 import SampleCurrency from './SampleCurrency/SampleCurrency';
 import OrderDetails from './OrderDetails/OrderDetails';
 import axios from 'axios';
