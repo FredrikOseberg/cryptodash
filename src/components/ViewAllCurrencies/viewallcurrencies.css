@@ -280,3 +280,24 @@ td.view--all--percentage--negative {
 		width: 15%;
 	}
 }
+
+@media (max-width: 790px) {
+	.view--all--choose--currency {
+		margin-top: 15px;
+		width: 70%;
+	}
+	.view--all--choose-currency--header {
+		flex-direction: row;
+		justify-content: center;
+	}
+	.view--all--choose-currency--header .fa {
+		margin-right: 10px;
+	}
+	.view--all--choose--dropdown--menu {
+		width: 100%;
+	}
+	.view--all--choose--dropdown {
+		width: 80%;
+		margin: 0 auto;
+	}
+}

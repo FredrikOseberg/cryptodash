@@ -3,6 +3,8 @@ import Header from '../Header/Header';
 import SearchCurrencies from '../SearchCurrencies/SearchCurrencies';
 import ChooseCurrency from '../ChooseCurrency/ChooseCurrency';
 import Features from '../Frontend/Features/Features';
+import GoMobile from '../Frontend/GoMobile/GoMobile';
+import Footer from '../Footer/Footer';
 import { connect } from 'react-redux';
 
 class Landing extends Component {
@@ -45,6 +47,8 @@ class Landing extends Component {
 					</div>
 				</div>
 				<Features />
+				<GoMobile />
+				<Footer frontend={true} />
 			</div>
 		);
 	}

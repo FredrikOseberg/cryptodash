@@ -122,7 +122,9 @@ class ViewAllCurrencies extends Component {
 		window.removeEventListener('scroll', this.handleScroll, false);
 		clearInterval(this.interval);
 		this.unsubscribe();
-		this.props.clearLocalCurrencyFromState();
+		if (this.props.currentUser.status !== 'SIGNED_IN') {
+			this.props.clearLocalCurrencyFromState();
+		}
 		document.body.style.height = '100%';
 	}
 

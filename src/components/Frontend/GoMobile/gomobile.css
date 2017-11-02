@@ -1,0 +1,110 @@
+.frontend--gomobile {
+	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../../img/starrysky3.jpg');
+	background-repeat-y: repeat;
+	min-height: 100vh;
+	color: #fff;
+}
+
+.frontend--gomobile--header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid #e0dfdf;
+	border-bottom: 1px solid #e0dfdf;
+}
+
+.frontend--gomobile--container {
+	width: 80%;
+	display: flex;
+	margin: 0 auto;
+	padding: 60px 0;
+}
+
+.frontend--gomobile--mobile--container,
+.frontend--gomobile--information {
+	width: 50%;
+}
+
+.frontend--gomobile--mobile--container {
+	display: flex;
+	justify-content: center;
+}
+
+.frontend--gomobile--information {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.frontend--gomobile--information > p {
+	font-size: 1.1em;
+	line-height: 1.5;
+	max-width: 450px;
+}
+
+.frontend--gomobile--mobile {
+	width: 300px;
+	border-radius: 15px;
+	background-color: #fff;
+	padding: 15px;
+	box-sizing: border-box;
+}
+
+.frontend--gomobile--mobile--header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.frontend--mobile--top--round--button {
+	width: 10px;
+	height: 10px;
+	background-color: #555598;
+	border-radius: 50%;
+}
+
+.frontend--mobile--top--long--button {
+	width: 40px;
+	height: 5px;
+	background-color: #555598;
+	border-radius: 50px;
+	margin-left: 10px;
+}
+
+.frontend--gomobile--mobile img {
+	max-width: 100%;
+	margin-top: 20px;
+	box-shadow: inset 10px 10px 15px rgba(0, 0, 0, 1);
+}
+
+.frontend--mobile--home--button {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin: 0 auto;
+	border: 2px solid #555598;
+	margin-top: 10px;
+}
+
+@media (max-width: 1200px) {
+	.frontend--gomobile--container {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.frontend--gomobile--mobile {
+		order: 1;
+	}
+
+	.frontend--gomobile--information {
+		order: 2;
+		margin-top: 40px;
+		max-width: 80%;
+		width: auto;
+	}
+
+	.frontend--gomobile--information p {
+		max-width: 80%;
+	}
+}

@@ -65,8 +65,16 @@ class Footer extends Component {
 					<div className="footer--copy--flash--message">{this.state.copyBitcoinSuccess}</div>
 				))
 			: (copyBitcoinSuccessMarkup = '');
+
+		let mainFooterClasses;
+
+		if (this.props.frontend) {
+			mainFooterClasses = 'footer footer--frontend';
+		} else {
+			mainFooterClasses = 'footer';
+		}
 		return (
-			<div className="footer">
+			<div className={mainFooterClasses}>
 				<div className="footer--container">
 					<div className="footer--logo">
 						<h1>CryptoDasher</h1>

@@ -39,6 +39,9 @@ class Header extends Component {
 					<Link to="/all">
 						<li>All Coins</li>
 					</Link>
+					<Link to="http://www.changelly.com/?ref_id=172ccf841be7" target="_blank" rel="noreferrer noopener">
+						<li>Trade</li>
+					</Link>
 				</ul>
 			);
 		} else if (this.props.auth.status === 'SIGNED_IN') {
@@ -63,16 +66,26 @@ class Header extends Component {
 							<i className="fa fa-chevron-down" aria-hidden="true" />
 							<div className={dropdownClasses}>
 								<ul className="header--nav--dropdown--list">
-									<li onClick={this.handleSignOutClick}>
-										<i className="fa fa-sign-out" aria-hidden="true" />
-										Sign out
-									</li>
 									<Link to="/all">
 										<li>
 											<i className="fa fa-money" aria-hidden="true" />
 											All Coins
 										</li>
 									</Link>
+									<Link
+										to="http://www.changelly.com/?ref_id=172ccf841be7"
+										target="_blank"
+										rel="noreferrer noopener"
+									>
+										<li>
+											<i className="fa fa-exchange" aria-hidden="true" />
+											Trade
+										</li>
+									</Link>
+									<li onClick={this.handleSignOutClick}>
+										<i className="fa fa-sign-out" aria-hidden="true" />
+										Sign out
+									</li>
 								</ul>
 							</div>
 						</div>

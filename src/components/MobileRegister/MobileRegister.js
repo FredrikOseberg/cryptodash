@@ -1,12 +1,14 @@
 import React from 'react';
 import Register from '../Register/Register';
-import MobileBackButton from '../MobileBackButton/MobileBackButton';
+import MobileNavigation from '../MobileNavigation/MobileNavigation';
 import './mobileregister.css';
 
 const MobileRegister = props => (
-	<div className="mobile--register">
-		<MobileBackButton history={props.history} />
-		<Register history={props.history} />
+	<div>
+		<MobileNavigation />
+		<div className="mobile--register">
+			<Register history={props.history} />
+		</div>
 	</div>
 );
 

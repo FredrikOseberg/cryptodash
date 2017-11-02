@@ -1,6 +1,6 @@
 .mobile--landing {
-	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../img/starrysky.jpeg');
-	background-size: cover;
+	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../img/starrysky3.jpg');
+	background-repeat-y: repeat;
 	min-height: 100vh;
 	color: #fff;
 	display: flex;

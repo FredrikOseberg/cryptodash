@@ -21,8 +21,9 @@ class Features extends Component {
 				<h1>Features</h1>
 				<div className="frontend--features--track">
 					<div className="frontend--features--track--header">
-						<i className="fa fa-line-chart" aria-hidden="true" />
-						<h3>Track</h3>
+						<h3>
+							<i className="fa fa-line-chart" aria-hidden="true" />Track
+						</h3>
 					</div>
 					<div className="frontend--features--container">
 						<div className="frontend--features--track--box--container">
@@ -48,7 +49,9 @@ class Features extends Component {
 							</div>
 						</div>
 						<div className="frontend--features--track--information">
-							<img src={featuresDash} alt="Dashboard" className="frontend--track--img" />
+							<div className="frontend--features--track--img--container">
+								<img src={featuresDash} alt="Dashboard" className="frontend--track--img" />
+							</div>
 							<p>
 								Track over 800 different cryptocurrencies, and select only the ones you care about. Your
 								dashboard will only be populated with the currencies you choose to follow, and you can
@@ -66,8 +69,9 @@ class Features extends Component {
 				</div>
 				<div className="frontend--features--currency">
 					<div className="frontend--features--currency--header">
-						<i className="fa fa-money" aria-hidden="true" />
-						<h3>Track in your own currency</h3>
+						<h3>
+							<i className="fa fa-money" aria-hidden="true" />Local Currency
+						</h3>
 					</div>
 					<div className="frontend--features--currency--container">
 						<div className="frontend--features--currency--information">
@@ -77,9 +81,6 @@ class Features extends Component {
 								supports over 30 fiat currencies including USD, EUR, SEK, NOK, TRY, RUB, SGD, JPY and
 								many, many more.
 							</p>
-							<button className="frontend--features--currency--information--button">
-								Start Tracking
-							</button>
 						</div>
 						<div className="frontend--features--currency--stickman">
 							<div className="stickman--head" />
@@ -113,8 +114,10 @@ class Features extends Component {
 				</div>
 				<div className="frontend--features--trade">
 					<div className="frontend--features--trade--header">
-						<i className="fa fa-exchange" aria-hidden="true" />
-						<h3>Trade Crypto Currencies</h3>
+						<h3>
+							{' '}
+							<i className="fa fa-exchange" aria-hidden="true" />Trade
+						</h3>
 					</div>
 					<div className="frontend--features--trade--container">
 						<div className="frontend--features--trade--order--details">
@@ -155,8 +158,9 @@ class Features extends Component {
 				</div>
 				<div className="frontend--features--store">
 					<div className="frontend--features--store--header">
-						<i className="fa fa-folder" />
-						<h3>Store your wallet information</h3>
+						<h3>
+							<i className="fa fa-folder" aria-hidden="true" />Store Wallet Information
+						</h3>
 					</div>
 					<div className="frontend--features--store--container">
 						<div className="frontend--features--store--information">

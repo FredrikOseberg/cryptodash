@@ -9,7 +9,12 @@
 	opacity: 0;
 }
 
-.mobile--navigation--sidebar {
+.mobile--sidebar--signed--in--container {
+	height: 100%;
+}
+
+.mobile--navigation--sidebar,
+.frontend--sidebar {
 	height: 100%;
 	width: 0;
 	position: fixed;
@@ -95,6 +100,33 @@
 	width: 80%;
 	margin: 0;
 	font-family: Montserrat, sans-serif;
+}
+
+/* Mobile navigation when user is not signed in */
+
+.frontend--sidebar {
+	background-color: #fff;
+	color: #555598;
+}
+
+.frontend--sidebar .fa {
+	color: #555598;
+}
+
+.frontend--sidebar > h3 {
+	text-align: center;
+}
+
+.frontend--sidebar > ul {
+	margin: 0;
+	padding: 0;
+}
+
+.frontend--sidebar > ul > a > li {
+	color: #555598;
+	display: flex;
+	justify-content: center;
+	padding: 8px;
 }
 
 @media (max-width: 400px) {

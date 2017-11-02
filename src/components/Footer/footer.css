@@ -4,6 +4,11 @@
 	position: relative;
 }
 
+.footer--frontend {
+	background-color: #fff;
+	color: #555598;
+}
+
 .footer--container {
 	display: flex;
 	justify-content: space-between;
@@ -54,5 +59,12 @@
 
 	.footer--support h3 {
 		text-align: center;
+	}
+}
+
+@media (max-width: 490px) {
+	.footer--support--address {
+		max-width: 100%;
+		font-size: 0.8em;
 	}
 }

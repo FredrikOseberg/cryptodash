@@ -15,6 +15,7 @@
 .mobile--dashboard--all--coins .view--all {
 	padding: 0 20px 20px 20px;
 	width: auto;
+	min-height: 100vh;
 }
 
 .mobile--dashboard--all--coins .main--input {

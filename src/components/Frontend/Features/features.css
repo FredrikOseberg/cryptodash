@@ -18,6 +18,10 @@
 	padding: 20px;
 }
 
+.frontend--features h3 {
+	max-width: 80%;
+}
+
 .frontend--features--container {
 	width: 80%;
 	margin: 0 auto;
@@ -36,11 +40,14 @@
 }
 
 .frontend--features--track--information {
-	width: 100%;
 	box-sizing: border-box;
 	margin-left: 20px;
 	padding: 60px 20px 20px 20px;
 	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .frontend--features--track--information p {
@@ -82,6 +89,10 @@
 	justify-content: center;
 	align-items: center;
 	position: relative;
+}
+
+.frontend--features--track--sample--currencies {
+	width: 80%;
 }
 
 .frontend--features--track--box--left--handle,
@@ -343,19 +354,6 @@
 	position: absolute;
 }
 
-.frontend--features--currency--information--button {
-	margin: 20px 0;
-	width: 200px;
-	height: 60px;
-	border-radius: 3px;
-	color: #555598;
-	background-color: #fff;
-	box-shadow: 0 10px 20px rgba(0, 0, 80, 0.19), 0 6px 6px rgba(0, 0, 80, 0.23);
-	border: none;
-	font-size: 1.1em;
-	font-family: Montserrat, sans-serif;
-}
-
 /* FRONTEND FEATURES TRADE */
 
 .frontend--features--trade {
@@ -505,6 +503,10 @@
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
+.frontend--features--store--inner--wallet--text h3 {
+	display: flex;
+}
+
 .wallet--currency--box--btc {
 	transform: translateY(-57px) translateX(20px)rotate(21deg);
 }
@@ -523,4 +525,201 @@
 
 .wallet--currency--box--doge {
 	transform: translateY(-59px) translateX(-69px) rotate(20deg);
+}
+
+@media (max-width: 1200px) {
+	.frontend--features--container {
+		flex-direction: column;
+		align-items: center;
+	}
+	/* FRONTEND TRACK MOBILE 1200px */
+	.frontend--features--track--information {
+		margin-left: 0;
+		max-width: 80%;
+		width: auto;
+	}
+
+	.frontend--features--track--information p {
+		max-width: 80%;
+	}
+	/* FRONTEND CURRENCY MOBILE 1200px */
+	.frontend--features--currency--container {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.frontend--features--currency--header {
+		margin-bottom: 0;
+	}
+
+	.frontend--features--currency--information {
+		max-width: 80%;
+		width: auto;
+	}
+
+	.frontend--features--currency--information p {
+		max-width: 80%;
+	}
+
+	/* FRONTEND TRADE MOBILE 1200px */
+	.frontend--features--trade--container {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.frontend--features--trade--header {
+		margin-bottom: 0;
+	}
+
+	.frontend--features--trade--order--details {
+		width: 100%;
+	}
+
+	.frontend--features--trade--order--details,
+	.frontend--features--trade--container--information {
+		max-width: 80%;
+		width: auto;
+		margin-top: 40px;
+	}
+
+	.frontend--features--trade--container--information > p {
+		max-width: 80%;
+	}
+
+	/* FRONTEND STORE MOBILE 1200px */
+	.frontend--features--store--container {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.frontend--features--store--inner--wallet {
+		order: 1;
+	}
+
+	.frontend--features--store--information {
+		order: 2;
+		margin-top: 45px;
+		max-width: 80%;
+		width: auto;
+	}
+
+	.frontend--features--store--information p {
+		max-width: 80%;
+	}
+}
+
+@media (max-width: 790px) {
+	.frontend--features--track {
+		padding-bottom: 0;
+	}
+
+	.frontend--features--track--box--container {
+		transform: scale(0.8) translateY(-100px);
+	}
+
+	.frontend--features--track--information {
+		padding: 0;
+		transform: translateY(-100px);
+	}
+
+	.frontend--features--track--information p {
+		max-width: 100%;
+	}
+
+	.frontend--features--currency--stickman {
+		width: auto;
+		transform: scale(0.8);
+	}
+
+	.frontend--features--currency--information p {
+		max-width: 100%;
+	}
+
+	.orderdetails--card--order {
+		transform: scale(0.8);
+	}
+
+	div.frontend--features--trade--container--information {
+		margin-top: 0;
+	}
+
+	.frontend--features--trade--container--information {
+		max-width: 100%;
+	}
+
+	.frontend--features--trade--order--details {
+		max-width: 100%;
+		width: 100%;
+	}
+
+	.frontend--features--store--wallet--container {
+		width: 400px;
+		transform: scale(0.8);
+	}
+
+	.frontend--features--store--information p {
+		max-width: 100%;
+	}
+
+	div.frontend--gomobile--mobile--container {
+		width: auto;
+	}
+
+	div.frontend--gomobile--information {
+		margin-top: 0;
+	}
+
+	div.frontend--gomobile--information p {
+		max-width: 100%;
+	}
+
+	.frontend--gomobile--mobile {
+		transform: scale(0.8);
+	}
+}
+
+@media (max-width: 490px) {
+	.frontend--features--track--information p,
+	div.frontend--gomobile--information p,
+	.frontend--features--trade--container--information p,
+	.frontend--features--store--information p,
+	.frontend--features--currency--information p,
+	li {
+		font-size: 0.9em;
+	}
+
+	.frontend--features--track--sample--currencies,
+	.frontend--features--track--sample--list {
+		width: 100%;
+	}
+
+	.frontend--features--track--box--container {
+		transform: scale(0.5) translateY(-250px);
+	}
+
+	.frontend--features--track--information {
+		transform: translateY(-200px);
+	}
+
+	.frontend--features--track--img--container {
+		width: 100%;
+	}
+
+	.frontend--features--track--img--container img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.frontend--features--store--wallet--container {
+		transform: scale(0.6) translateY(-100px);
+	}
+
+	.frontend--features--store--information {
+		margin-top: 0;
+		transform: translateY(-50px);
+	}
+
+	.frontend--features--store {
+		padding-bottom: 0;
+	}
 }

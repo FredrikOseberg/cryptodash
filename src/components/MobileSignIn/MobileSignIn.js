@@ -1,13 +1,15 @@
 import React from 'react';
 import SignIn from '../SignIn/SignIn';
-import MobileBackButton from '../MobileBackButton/MobileBackButton';
+import MobileNavigation from '../MobileNavigation/MobileNavigation';
 import './mobilesignin.css';
 
 const MobileSignIn = props => {
 	return (
-		<div className="mobile--signin">
-			<MobileBackButton history={props.history} />
-			<SignIn history={props.history} reauth={false} />
+		<div>
+			<MobileNavigation />
+			<div className="mobile--signin">
+				<SignIn history={props.history} reauth={false} />
+			</div>
 		</div>
 	);
 };
