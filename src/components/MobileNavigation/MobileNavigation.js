@@ -87,41 +87,23 @@ class MobileNavigation extends Component {
 					</div>
 					<div className="mobile--navigation--nav--container">
 						<ul className="mobile--navigation--nav--list">
-							{this.state.navigation.map((nav, index) => {
+							{this.state.navigation.map(nav => {
 								let activeClass;
 								if (this.props.currentPage === nav.name) {
 									activeClass = 'mobile--nav--list--item--active';
 								}
 
-								if (index === 3) {
-									return (
-										<Link
-											to="http://www.changelly.com/?ref_id=172ccf841be7"
-											target="_blank"
-											rel="noreferrer noopener"
-										>
-											<li>
-												<i
-													className="fa fa-exchange mobile--nav--list--icon"
-													aria-hidden="true"
-												/>
-												<p className="mobile--nav--list--name">Trade</p>
-											</li>
-										</Link>
-									);
-								} else {
-									return (
-										<li
-											className={activeClass}
-											key={nav.icon}
-											data-target={nav.name}
-											onClick={this.handleNavClick}
-										>
-											<i className={nav.icon} aria-hidden="true" />
-											<p className="mobile--nav--list--name">{nav.name}</p>
-										</li>
-									);
-								}
+								return (
+									<li
+										className={activeClass}
+										key={nav.icon}
+										data-target={nav.name}
+										onClick={this.handleNavClick}
+									>
+										<i className={nav.icon} aria-hidden="true" />
+										<p className="mobile--nav--list--name">{nav.name}</p>
+									</li>
+								);
 							})}
 						</ul>
 					</div>

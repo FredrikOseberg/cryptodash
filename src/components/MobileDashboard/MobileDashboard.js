@@ -98,7 +98,7 @@ class MobileDashboard extends Component {
 				this.setState({ actionButtonStick: false });
 				break;
 			case 'Support':
-				this.setState({ mobileDashboardPage: 'Support' });
+				this.setState({ mobileDashboardPage: 'Support Me' });
 				this.setState({ actionButtonStick: false });
 				break;
 			default:
