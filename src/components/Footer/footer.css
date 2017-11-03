@@ -68,3 +68,9 @@
 		font-size: 0.8em;
 	}
 }
+
+@media (max-width: 400px) {
+	.footer--support--address {
+		font-size: 0.6em;
+	}
+}
