@@ -37,6 +37,7 @@ class Landing extends Component {
 							<div className="landing--cover--content--text">
 								<h2>Your personalized crypto dashboard.</h2>
 								<p>The easiest way to keep up to date on your digital currency.</p>
+								<p>It's free. Get started today.</p>
 							</div>
 							<div className="landing--cover--content--box--container">
 								<div className="landing--cover--content--box">
