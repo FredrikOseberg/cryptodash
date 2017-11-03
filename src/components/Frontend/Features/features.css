@@ -679,11 +679,6 @@
 }
 
 @media (max-width: 490px) {
-	.frontend--features--track--information p,
-	div.frontend--gomobile--information p,
-	.frontend--features--trade--container--information p,
-	.frontend--features--store--information p,
-	.frontend--features--currency--information p,
 	li {
 		font-size: 0.9em;
 	}
