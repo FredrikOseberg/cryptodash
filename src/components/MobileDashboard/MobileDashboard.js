@@ -120,7 +120,7 @@ class MobileDashboard extends Component {
 		const showAllCoins = this.state.mobileDashboardPage === 'All Coins';
 		const showAddWallet = this.state.mobileDashboardPage === 'Add Wallet';
 		const showSettings = this.state.mobileDashboardPage === 'Settings';
-		const showSupport = this.state.mobileDashboardPage === 'Support';
+		const showSupport = this.state.mobileDashboardPage === 'Support Me';
 		let showActionButton =
 			this.state.mobileDashboardPage !== 'Settings' &&
 			this.state.mobileDashboardPage !== 'All Coins' &&

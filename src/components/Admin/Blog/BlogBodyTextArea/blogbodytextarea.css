@@ -1,0 +1,10 @@
+.admin--blog--text--input {
+	height: 200px;
+	padding-bottom: 42px;
+}
+
+.admin--blog--body--text--area label {
+	color: #888;
+	display: block;
+	margin: 8px 0 15px 0;
+}

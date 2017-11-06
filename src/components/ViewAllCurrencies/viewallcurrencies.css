@@ -29,6 +29,7 @@
 input.view--all--input {
 	background: transparent;
 	border: 2px solid #fff;
+	color: #fff;
 }
 
 input.view--all--input:focus {

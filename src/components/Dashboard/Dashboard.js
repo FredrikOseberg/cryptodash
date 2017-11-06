@@ -6,7 +6,6 @@ import DashboardMainPage from './DashboardMainPage/DashboardMainPage';
 import Exchange from '../Exchange/Exchange';
 import Nav from '../Nav/Nav';
 import Settings from './Settings/Settings';
-import DashboardActionButton from '../DashboardActionButton/DashboardActionButton';
 import Footer from '../Footer/Footer';
 import Wallet from './Sidebar/Wallet/Wallet';
 import Sidebar from './Sidebar/Sidebar';

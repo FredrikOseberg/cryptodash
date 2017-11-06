@@ -1,0 +1,9 @@
+.admin {
+	background: linear-gradient(0deg, rgba(38, 38, 97, 0.8), rgba(38, 38, 97, 0.8)), url('../../../img/starrysky3.jpg');
+	min-height: 100vh;
+}
+
+.admin--container {
+	width: 80%;
+	margin: 0 auto;
+}

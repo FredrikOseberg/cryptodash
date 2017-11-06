@@ -9,6 +9,7 @@ import SignInWrapper from './components/SignIn/SignInWrapper';
 import ViewAllCurrencies from './components/ViewAllCurrencies/ViewAllCurrencies';
 import FrontendViewAllCurrencies from './components/Frontend/FrontendViewAllCurrencies';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import AdminPanel from './components/Admin/AdminPanel/AdminPanel';
 import './App.css';
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
                     <Route path="/signin" component={requireAuthentication(SignInWrapper)} />
                     <Route path="/all" component={FrontendViewAllCurrencies} />} />
                     <Route path="/resetpassword" component={ForgotPassword} />
+                    <Route path="/admin" component={AdminPanel} />
                 </Switch>
             </BrowserRouter>
         );
