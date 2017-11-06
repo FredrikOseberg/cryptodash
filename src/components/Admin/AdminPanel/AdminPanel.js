@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../Header/Header';
-import AddBlog from './AddBlog/AddBlog.js';
+import AddBlog from './AddBlog/AddBlog';
+import AddCategory from './AddCategory/AddCategory';
 import './adminpanel.css';
 
 class AdminPanel extends Component {
@@ -10,6 +11,12 @@ class AdminPanel extends Component {
 		this.state = {
 			adminPage: 'Add Blog'
 		};
+
+		this.setAdminPage = this.setAdminPage.bind(this);
+	}
+
+	setAdminPage(page) {
+		this.setState({ adminPage: page });
 	}
 
 	render() {
@@ -20,14 +27,16 @@ class AdminPanel extends Component {
 		);
 
 		const showAdminDashboard = this.state.adminPage === 'Default';
-		const showAddBlog = (this.state.adminPage = 'Add Blog');
+		const showAddBlog = this.state.adminPage === 'Add Blog';
+		const showAddCategory = this.state.adminPage === 'Add Category';
 
 		return (
 			<div className="admin">
 				<Header />
 				<div className="admin--container">
 					{showAdminDashboard && adminDashboard}
-					{showAddBlog && <AddBlog />}
+					{showAddBlog && <AddBlog setAdminPage={this.setAdminPage} />}
+					{showAddCategory && <AddCategory setAdminPage={this.setAdminPage} />}
 				</div>
 			</div>
 		);
