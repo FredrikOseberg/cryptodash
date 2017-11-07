@@ -1,0 +1,22 @@
+.admin--blog--published--select {
+	display: flex;
+	flex-direction: column;
+}
+
+.admin--blog--published--select label {
+	color: #888;
+	margin: 8px 0;
+	display: block;
+}
+
+.admin--blog--published--select > select {
+	padding: 8px;
+	height: 30px;
+	border: none;
+	font-size: 1.1em;
+	width: 50%;
+	background-color: #ededed;
+	font-family: Montserrat;
+	margin-right: 10px;
+	margin: 10px 10px 10px 0;
+}

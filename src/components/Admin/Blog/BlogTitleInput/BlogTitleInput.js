@@ -5,15 +5,11 @@ class BlogTitleInput extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			inputField: ''
-		};
-
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
 	handleInputChange(event) {
-		this.setState({ inputField: event.target.value });
+		this.props.handleBlogTitleChange(event.target.value);
 	}
 
 	render() {

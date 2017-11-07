@@ -7,26 +7,18 @@ class BlogBodyTextArea extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			textarea: ''
-		};
-
 		this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
 	}
 
 	handleTextAreaChange(value) {
-		this.setState({ textarea: value });
+		this.props.handleBlogContentChange(value);
 	}
 
 	render() {
 		return (
 			<div className="admin--blog--body--text--area">
 				<label>Blog Content</label>
-				<ReactQuill
-					value={this.state.textarea}
-					onChange={this.handleTextAreaChange}
-					className="admin--blog--text--input"
-				/>
+				<ReactQuill onChange={this.handleTextAreaChange} className="admin--blog--text--input" />
 			</div>
 		);
 	}

@@ -12,6 +12,7 @@ class BlogCategorySelect extends Component {
 		};
 
 		this.addCategory = this.addCategory.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	}
 
 	componentDidMount() {
@@ -25,13 +26,17 @@ class BlogCategorySelect extends Component {
 			map(categories, category => {
 				newCategories.push(category.name);
 			});
-
+			this.props.setCategory(newCategories[0]);
 			this.setState({ categories: newCategories });
 		});
 	}
 
 	addCategory() {
 		this.props.setAdminPage('Add Category');
+	}
+
+	handleChange(event) {
+		this.props.handleBlogCategoryChange(event.target.value);
 	}
 
 	render() {

@@ -20,3 +20,45 @@
 	height: 0.01px;
 	z-index: -1;
 }
+
+.admin--blog--upload--progress--bar {
+	width: 100%;
+	height: 8px;
+	border-radius: 50px;
+	border: 2px solid #555598;
+	margin: 20px 0;
+}
+
+.admin--blog--upload--progress--bar--inner--bar {
+	height: 100%;
+	background-color: #555598;
+}
+
+.admin--blog--upload--image {
+	display: flex;
+	align-items: center;
+}
+
+.admin--blog--upload--image--container {
+	width: 50%;
+}
+
+.admin--blog--upload--image--container img {
+	width: 100%;
+	border-radius: 3px;
+}
+
+.admin--blog--upload--image--delete {
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	background-color: #ededed;
+	color: #555598;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	margin-left: 20px;
+	font-size: 1.2em;
+}

@@ -45,6 +45,7 @@ class AddCategory extends Component {
 	}
 
 	validate() {
+		this.setState({ error: '' });
 		this.checkIfCategoryExistsInDatabase().then(categoryIsInDB => {
 			let categoryExists = categoryIsInDB;
 
@@ -69,6 +70,7 @@ class AddCategory extends Component {
 		const categoryName = this.state.categoryField;
 		if (validationPassed) {
 			blogRef
+				.child('categories')
 				.child(categoryName)
 				.child('name')
 				.set(categoryName);
