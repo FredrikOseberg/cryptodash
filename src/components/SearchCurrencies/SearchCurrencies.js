@@ -109,13 +109,14 @@ class SearchCurrencies extends Component {
 						<button className="search--currency--exit" onClick={this.props.handleClickedExpand}>
 							&times;
 						</button>
+						<input
+							type="text"
+							placeholder="Search for currencies"
+							className="search--currency--searchfield"
+							onChange={this.handleSearchTermChange}
+						/>
 					</div>
-					<input
-						type="text"
-						placeholder="Search for currencies"
-						className="search--currency--searchfield"
-						onChange={this.handleSearchTermChange}
-					/>
+
 					<div className="search--currency--results">{currencyCards}</div>
 					<div className="search--currency--fab" onClick={this.props.handleClickedExpand}>
 						<i className="fa fa-floppy-o" aria-hidden="true" />

@@ -28,7 +28,6 @@ class SampleCurrency extends Component {
 
 	getCoinData() {
 		axios.get(`https://coincap.io/page/${this.props.ticker}`).then(results => {
-			console.log(results);
 			let updatedCurrency = {
 				name: results.data.display_name,
 				ticker: results.data.id,
