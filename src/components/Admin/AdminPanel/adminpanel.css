@@ -3,8 +3,62 @@
 	min-height: 100vh;
 }
 
+.admin .dashboard--navigation--list {
+	margin: 0 auto;
+	width: 80%;
+}
+
+.admin--nav--container {
+	background-color: #fff;
+}
+
 .admin--container {
 	width: 80%;
 	margin: 0 auto;
+	display: flex;
 	padding: 60px 0;
+	flex-direction: column;
+	align-items: center;
+}
+
+.admin--modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.admin--modal--box {
+	background-color: #fff;
+	padding: 20px;
+	box-sizing: border-box;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	border-radius: 3px;
+	max-width: 600px;
+}
+
+.admin--modal--confirm,
+.admin--modal--cancel {
+	width: 150px;
+	height: 60x;
+	border-radius: 3px;
+	margin: 15px;
+	border: none;
+	padding: 15px;
+	font-size: 1.1em;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	cursor: pointer;
+}
+
+.admin--modal--confirm {
+	background-color: #ff6a6a;
+	color: #fff;
 }

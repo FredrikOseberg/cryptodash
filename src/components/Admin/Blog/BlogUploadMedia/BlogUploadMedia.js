@@ -19,6 +19,13 @@ class BlogUploadMedia extends Component {
 		this.removeImage = this.removeImage.bind(this);
 	}
 
+	componentDidMount() {
+		if (this.props.downloadURL) {
+			this.setState({ compState: 'Uploaded' });
+			this.setState({ imageURL: this.props.downloadURL });
+		}
+	}
+
 	validate(file) {
 		let validFile = false;
 		const allowedExtensions = ['jpg', 'png', 'jpeg'];

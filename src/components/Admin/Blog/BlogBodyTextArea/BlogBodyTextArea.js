@@ -15,10 +15,22 @@ class BlogBodyTextArea extends Component {
 	}
 
 	render() {
+		let quill;
+		if (this.props.content) {
+			quill = (
+				<ReactQuill
+					onChange={this.handleTextAreaChange}
+					value={this.props.content}
+					className="admin--blog--text--input"
+				/>
+			);
+		} else {
+			quill = <ReactQuill onChange={this.handleTextAreaChange} className="admin--blog--text--input" />;
+		}
 		return (
 			<div className="admin--blog--body--text--area">
 				<label>Blog Content</label>
-				<ReactQuill onChange={this.handleTextAreaChange} className="admin--blog--text--input" />
+				{quill}
 			</div>
 		);
 	}

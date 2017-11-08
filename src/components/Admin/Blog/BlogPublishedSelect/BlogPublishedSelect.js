@@ -16,7 +16,7 @@ class BlogPublishedSelect extends Component {
 		return (
 			<div className="admin--blog--published--select">
 				<label>Blog Status</label>
-				<select onChange={this.handleSelectChange}>
+				<select onChange={this.handleSelectChange} value={this.props.published}>
 					<option value={false}>Draft</option>
 					<option value={true}>Published</option>
 				</select>

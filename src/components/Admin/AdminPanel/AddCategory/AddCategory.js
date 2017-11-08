@@ -10,7 +10,8 @@ class AddCategory extends Component {
 
 		this.state = {
 			categoryField: '',
-			error: ''
+			error: '',
+			validationPassed: false
 		};
 
 		this.handleCategoryInputChange = this.handleCategoryInputChange.bind(this);
@@ -26,57 +27,64 @@ class AddCategory extends Component {
 	checkIfCategoryExistsInDatabase() {
 		return new Promise(resolve => {
 			let categoryIsInDB = false;
-
 			const blogRef = database.ref('blogs');
 
 			blogRef.once('value', snapshot => {
 				const categories = snapshot.val();
 
-				map(categories, category => {
-					const categoryInDBIsEqualToInput =
-						category.name.toLowerCase() === this.state.categoryField.toLowerCase();
-					if (categoryInDBIsEqualToInput) {
-						categoryIsInDB = true;
-					}
-				});
+				if (categories) {
+					map(categories.categories, category => {
+						const categoryInDBIsEqualToInput =
+							category.name.toLowerCase() === this.state.categoryField.toLowerCase();
+						if (categoryInDBIsEqualToInput) {
+							categoryIsInDB = true;
+						}
+					});
+				}
+
 				resolve(categoryIsInDB);
 			});
 		});
 	}
 
 	validate() {
-		this.setState({ error: '' });
-		this.checkIfCategoryExistsInDatabase().then(categoryIsInDB => {
-			let categoryExists = categoryIsInDB;
+		return new Promise(resolve => {
+			this.setState({ error: '' });
+			this.checkIfCategoryExistsInDatabase().then(categoryIsInDB => {
+				let categoryExists = categoryIsInDB;
 
-			const categoryIsLessThanTwo = this.state.categoryField.length < 3;
-			if (categoryIsLessThanTwo) {
-				this.setState({ error: 'Category must be longer than 3 characters' });
-				return;
-			} else if (categoryExists) {
-				this.setState({ error: 'Category already exists in the database' });
-				return;
-			} else {
-				return true;
-			}
+				const categoryIsLessThanTwo = this.state.categoryField.length < 3;
+				if (categoryIsLessThanTwo) {
+					this.setState({ error: 'Category must be longer than 3 characters' });
+					this.setState({ validationPassed: false });
+				} else if (categoryExists) {
+					this.setState({ error: 'Category already exists in the database' });
+					this.setState({ validationPassed: false });
+				} else {
+					this.setState({ validationPassed: true });
+				}
+				resolve();
+			});
 		});
 	}
 
 	handleSubmit(event) {
 		event.preventDefault();
 		const blogRef = database.ref('blogs');
-		const validationPassed = this.validate();
+		this.validate().then(() => {
+			const validationPassed = this.state.validationPassed;
 
-		const categoryName = this.state.categoryField;
-		if (validationPassed) {
-			blogRef
-				.child('categories')
-				.child(categoryName)
-				.child('name')
-				.set(categoryName);
+			const categoryName = this.state.categoryField;
+			if (validationPassed) {
+				blogRef
+					.child('categories')
+					.child(categoryName)
+					.child('name')
+					.set(categoryName);
 
-			this.props.setAdminPage('Add Blog');
-		}
+				this.props.setAdminPage('Add Blog');
+			}
+		});
 	}
 
 	render() {

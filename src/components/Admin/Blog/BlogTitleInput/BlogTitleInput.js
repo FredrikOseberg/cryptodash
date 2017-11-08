@@ -16,7 +16,12 @@ class BlogTitleInput extends Component {
 		return (
 			<div className="admin--blog--title--input">
 				<label>Title</label>
-				<input type="text" onChange={this.handleInputChange} className="admin--blog--title--input--field" />
+				<input
+					type="text"
+					onChange={this.handleInputChange}
+					value={this.props.title}
+					className="admin--blog--title--input--field"
+				/>
 			</div>
 		);
 	}

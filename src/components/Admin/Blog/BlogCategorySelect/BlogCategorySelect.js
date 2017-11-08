@@ -18,15 +18,22 @@ class BlogCategorySelect extends Component {
 	componentDidMount() {
 		let newCategories = [];
 
-		const blogRef = database.ref('blogs');
+		const blogRef = database.ref('blogs/categories');
 
 		blogRef.once('value', snapshot => {
 			const categories = snapshot.val();
 
-			map(categories, category => {
-				newCategories.push(category.name);
-			});
-			this.props.setCategory(newCategories[0]);
+			if (categories) {
+				console.log(categories);
+				console.log(this.props.selected);
+				map(categories, category => {
+					newCategories.push(category.name);
+				});
+			}
+
+			if (!this.props.selected) {
+				this.props.setCategory(newCategories[0]);
+			}
 			this.setState({ categories: newCategories });
 		});
 	}
@@ -49,7 +56,7 @@ class BlogCategorySelect extends Component {
 		if (this.state.categories.length > 0) {
 			categoriesMarkup = (
 				<div className="admin--blog--category--categories">
-					<select>
+					<select value={this.props.selected} onChange={this.handleChange}>
 						{this.state.categories.map(category => {
 							return (
 								<option key={category} value={category}>
