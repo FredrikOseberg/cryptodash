@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { database } from '../../../../firebase';
+import { database, storage } from '../../../../firebase';
 import map from 'lodash/map';
 import './bloglist.css';
 
@@ -16,12 +16,27 @@ class BlogList extends Component {
 		this.setEditBlogInformation = this.setEditBlogInformation.bind(this);
 		this.deleteBlog = this.deleteBlog.bind(this);
 		this.showConfirm = this.showConfirm.bind(this);
+		this.closeConfirm = this.closeConfirm.bind(this);
+		this.deletePostImage = this.deletePostImage.bind(this);
+		this.deletePostFromCategory = this.deletePostFromCategory.bind(this);
+		this.deletePost = this.deletePost.bind(this);
+		this.updateList = this.updateList.bind(this);
 	}
 
 	componentDidMount() {
-		const posts = [];
-		const databaseRef = database.ref('blogs/posts');
+		this.updateList();
+	}
 
+	setEditBlogInformation(event) {
+		const id = event.target.dataset.id;
+		this.props.setAdminPage('Edit Blog');
+		this.props.setBlogPostToEdit(id);
+	}
+
+	updateList() {
+		const posts = [];
+
+		const databaseRef = database.ref('blogs/posts');
 		databaseRef.once('value', snapshot => {
 			const blogPosts = snapshot.val();
 
@@ -29,14 +44,8 @@ class BlogList extends Component {
 				posts.push(blogPost);
 			});
 
-			this.setState({ posts });
+			this.setState({ posts: posts });
 		});
-	}
-
-	setEditBlogInformation(event) {
-		const id = event.target.dataset.id;
-		this.props.setAdminPage('Edit Blog');
-		this.props.setBlogPostToEdit(id);
 	}
 
 	showConfirm(event) {
@@ -46,12 +55,13 @@ class BlogList extends Component {
 		}
 	}
 
-	deleteBlog() {
-		this.showConfirm();
+	closeConfirm() {
+		this.setState({ showConfirm: false });
+	}
 
-		// Delete Image
-		// Delete From Category
-		// Delete Post
+	deleteBlog() {
+		this.closeConfirm();
+
 		const databaseRef = database.ref('blogs/posts');
 
 		databaseRef.once('value', snapshot => {
@@ -63,13 +73,38 @@ class BlogList extends Component {
 					postToDelete = post;
 				}
 			});
-			console.log(postToDelete);
+
+			this.deletePostImage(postToDelete.imageRef);
+			this.deletePostFromCategory(postToDelete.category, postToDelete.slug);
+			this.deletePost(postToDelete.slug);
+			this.updateList();
 		});
 	}
 
-	deletePostImage() {}
+	deletePostImage(imageRef) {
+		const imageToDeleteRef = storage.ref(imageRef);
 
-	deletePostFromCategory() {}
+		if (imageRef) {
+			imageToDeleteRef
+				.delete()
+				.then(() => {
+					console.log('image deleted');
+				})
+				.catch(error => {
+					console.log(error);
+				});
+		}
+	}
+
+	deletePostFromCategory(category, slug) {
+		const databaseRef = database.ref(`blogs/categories/${category}/${slug}`);
+		databaseRef.remove();
+	}
+
+	deletePost(slug) {
+		const databaseRef = database.ref(`blogs/posts/${slug}`);
+		databaseRef.remove();
+	}
 
 	render() {
 		let modalClasses;

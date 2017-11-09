@@ -97,6 +97,8 @@ class AddBlog extends Component {
 			.child(blogPost.slug)
 			.set({ postID: blogPost.slug });
 		databaseRef.child(slug).set(blogPost);
+
+		this.props.setAdminPage('Dashboard');
 	}
 
 	render() {
