@@ -23,12 +23,25 @@
 	height: 20px;
 	border-radius: 50%;
 	background-color: #fff;
-	color: #555598;
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	position: relative;
+}
+
+.cryptograph--line--point--one--crypto--info--group,
+.cryptograph--line--point--two--info--group {
+	position: absolute;
+	display: flex;
+	top: -130px;
+	width: 250px;
+	left: -34px;
+}
+
+.cryptograph--line--point--two--info--group {
+	top: 65px;
+	left: -30px;
 }
 
 .cryptograph--line--point--info {
@@ -44,39 +57,46 @@
 	margin: 10px;
 	color: #555598;
 	font-size: 1.5em;
-	position: absolute;
+	position: relative;
 }
 
-.cryptograph--line--point--one--info:after {
-	content: '';
-	width: 0;
-	height: 0;
+.cryptograph--line--point--one--info--text,
+.cryptograph--line--point--two--info--text {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.cryptograph--line--point--one--info--text > p,
+.cryptograph--line--point--two--info--text > p {
+	margin: 3px 0;
+	width: 100%;
+	text-align: left;
+	font-family: Montserrat, sans-serif;
+	display: flex;
+}
+
+.cryptograph--line--one--info--text--header {
+	color: #fff;
+}
+
+.cryptograph--line--one--point--info--arrow {
 	border-left: 20px solid transparent;
 	border-right: 20px solid transparent;
 	border-top: 20px solid #fff;
 	position: absolute;
 	bottom: -10px;
-	left: 0;
-	right: 0;
-	margin: 0 auto;
+	left: 12px;
 }
 
-.cryptograph--line--point--two--info:after {
-	content: '';
-	width: 0;
-	height: 0;
+.cryptograph--line--two--point--arrow {
 	border-left: 20px solid transparent;
 	border-right: 20px solid transparent;
 	border-bottom: 20px solid #fff;
 	position: absolute;
 	top: -10px;
-	left: 0;
-	right: 0;
-	margin: 0 auto;
-}
-
-.cryptograph--line--point--one--info {
-	transform: translateY(-100px) translateX(-10px);
+	left: 12px;
 }
 
 .cryptograph--line--point--one--crypto--info,
@@ -89,27 +109,8 @@
 	font-family: Montserrat, sans-serif;
 }
 
-.cryptograph--line--point--one--crypto--info > p,
-.cryptograph--line--point--two--crypto--info > p {
-	display: flex;
-	margin: 5px 0;
-	width: 150px;
-}
-
-.cryptograph--line--point--crypto--info--price {
+p.cryptograph--line--point--crypto--info--price {
 	color: #60f160;
-}
-
-.cryptograph--line--point--one--crypto--info {
-	transform: translateY(-97px) translateX(95px);
-}
-
-.cryptograph--line--point--two--crypto--info {
-	transform: translateY(71px) translateX(95px);
-}
-
-.cryptograph--line--point--two--info {
-	transform: translateY(70px) translateX(-10px);
 }
 
 .cryptograph--line--one {
