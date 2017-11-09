@@ -5,6 +5,7 @@ import AddCategory from './AddCategory/AddCategory';
 import EditBlog from './EditBlog/EditBlog';
 import AdminDashboardMainPage from '../AdminPanel/AdminDashboardMainPage/AdminDashboardMainPage';
 import Nav from '../../Nav/Nav';
+import { AdminMiddleware } from '../../HoC/AdminMiddleware';
 import './adminpanel.css';
 
 class AdminPanel extends Component {
@@ -83,4 +84,4 @@ class AdminPanel extends Component {
 	}
 }
 
-export default AdminPanel;
+export default AdminMiddleware(AdminPanel);

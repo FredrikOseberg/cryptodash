@@ -1,5 +1,4 @@
 import React from 'react';
-import { auth } from '../../firebase';
 import { connect } from 'react-redux';
 
 export function requireAuthentication(Component) {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Spinner from '../../Loading/Spinner/Spinner';
 
 class CurrencyPortfolio extends Component {
 	constructor(props) {

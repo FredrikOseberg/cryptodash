@@ -8,14 +8,10 @@ import localCurrencyData from '../../localCurrencyData';
 import SearchCurrencies from '../SearchCurrencies/SearchCurrencies';
 import CryptoCurrencyStep from './CryptoCurrencyStep/CryptoCurrencyStep';
 import LocalCurrencyStep from './LocalCurrencyStep/LocalCurrencyStep';
+import SignupForChangellyStep from './SignupForChangellyStep/SignupForChangellyStep';
 import WalletInfoStep from './WalletInfoStep/WalletInfoStep';
 import map from 'lodash/map';
 import './onboarding.css';
-
-// 1. If the logged in user has no currencies, choose crypto currencies.
-// 2. Set user Currency
-// 3. Set user wallet keys and amount.
-// 4. Set completedOnboarding to true in databse
 
 class Onboarding extends Component {
 	constructor(props) {
@@ -24,7 +20,7 @@ class Onboarding extends Component {
 		this.state = {
 			clickedExpandBox: false,
 			amountOfSteps: 3,
-			step: 'cryptoCurrencyStep',
+			step: 'signupForChangellyStep',
 			localCurrency: 'AUD',
 			validationError: '',
 			loading: true,
@@ -39,6 +35,7 @@ class Onboarding extends Component {
 		this.updateSelectedCurrencies = this.updateSelectedCurrencies.bind(this);
 		this.handleWalletInfoSubmit = this.handleWalletInfoSubmit.bind(this);
 		this.handleFinishLaterClick = this.handleFinishLaterClick.bind(this);
+		this.handleChangellySubmit = this.handleChangellySubmit.bind(this);
 	}
 
 	componentDidMount() {
@@ -46,7 +43,6 @@ class Onboarding extends Component {
 			this.checkFirebaseForCryptoCurrencyValue().then(() => {
 				const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 				storageLocation.once('value', snapshot => {
-					console.log(snapshot.val());
 					this.setState({ loading: false });
 					this.setState({ showStep: true });
 					if (snapshot.hasChild('localCurrency')) {
@@ -75,7 +71,6 @@ class Onboarding extends Component {
 		return new Promise(resolve => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 			storageLocation.once('value', snapshot => {
-				console.log(snapshot.val());
 				if (snapshot.hasChild('currencies')) {
 					this.setState({ step: 'localCurrencyStep' });
 					this.setState({ amountOfSteps: 2 });
@@ -110,11 +105,15 @@ class Onboarding extends Component {
 
 		storageLocation.child('localCurrency').set(this.state.localCurrency);
 
-		this.setState({ step: 'setWalletInfoStep' });
+		this.setState({ step: 'signupForChangellyStep' });
 
 		if (this.props.isMobile) {
 			this.handleFinishLaterClick();
 		}
+	}
+
+	handleChangellySubmit() {
+		this.setState({ step: 'setWalletInfoStep' });
 	}
 
 	handleFinishLaterClick() {
@@ -183,6 +182,13 @@ class Onboarding extends Component {
 					handleLocalCurrencyChange={this.handleLocalCurrencyChange}
 					currentUser={this.props.currentUser}
 					currencyData={localCurrencyData}
+				/>
+			);
+		} else if (this.state.step === 'signupForChangellyStep') {
+			onboardingStep = (
+				<SignupForChangellyStep
+					handleChangellySubmit={this.handleChangellySubmit}
+					currentUser={this.props.currentUser}
 				/>
 			);
 		} else if (this.state.step === 'setWalletInfoStep') {

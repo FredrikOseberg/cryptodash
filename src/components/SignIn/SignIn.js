@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from '../../firebase';
-import { auth } from '../../firebase';
 import { Link } from 'react-router-dom';
 import SocialLoginWrapper from '../Auth/SocialLoginWrapper/SocialLoginWrapper';
 

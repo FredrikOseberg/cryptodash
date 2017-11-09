@@ -13,7 +13,6 @@ import Dashboard from '../../components/Dashboard/Dashboard';
 import MobileDashboard from '../MobileDashboard/MobileDashboard';
 import MobileLanding from '../MobileLanding/MobileLanding';
 import { addCurrentCurrency } from '../../actions/currentCurrency';
-import coinData from '../../coinData';
 import { isMobile } from '../HoC/IsMobile';
 import map from 'lodash/map';
 

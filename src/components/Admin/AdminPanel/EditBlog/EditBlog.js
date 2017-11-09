@@ -120,7 +120,6 @@ class EditBlog extends Component {
 	}
 
 	render() {
-		const blogPost = this.state.blogPost;
 		return (
 			<div className="admin--add--blog">
 				<h1>Edit Blog</h1>

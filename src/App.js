@@ -6,7 +6,6 @@ import coinData from './coinData';
 import DashboardWrapper from './components/DashboardWrapper/DashboardWrapper';
 import RegisterWrapper from './components/Register/RegisterWrapper';
 import SignInWrapper from './components/SignIn/SignInWrapper';
-import ViewAllCurrencies from './components/ViewAllCurrencies/ViewAllCurrencies';
 import FrontendViewAllCurrencies from './components/Frontend/FrontendViewAllCurrencies';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import AdminPanel from './components/Admin/AdminPanel/AdminPanel';

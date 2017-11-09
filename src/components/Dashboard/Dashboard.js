@@ -8,7 +8,6 @@ import Nav from '../Nav/Nav';
 import Settings from './Settings/Settings';
 import Footer from '../Footer/Footer';
 import Wallet from './Sidebar/Wallet/Wallet';
-import Sidebar from './Sidebar/Sidebar';
 
 class Dashboard extends Component {
 	// Get the users currencies from the database and save it to component state

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import featuresDash from '../../../img/featuresDashboardResized.png';
 import SampleCurrency from './SampleCurrency/SampleCurrency';
 import OrderDetails from './OrderDetails/OrderDetails';
-import axios from 'axios';
 import changelly from '../../../img/changelly.png';
 import './features.css';
 

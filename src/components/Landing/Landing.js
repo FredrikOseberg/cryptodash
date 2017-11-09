@@ -24,13 +24,14 @@ class Landing extends Component {
 		this.setState({ clickedExpandBox: !this.state.clickedExpandBox });
 	}
 	render() {
-		let buttonMarkup;
+		let buttonMarkup, trackedCurrencies;
 		if (this.props.selectedCurrencies.length === 0) {
 			buttonMarkup = (
 				<button className="landing--cover--start--tracking--button" onClick={this.handleClickedExpand}>
 					Select currencies to track
 				</button>
 			);
+			trackedCurrencies = '';
 		} else {
 			buttonMarkup = (
 				<Link to="/register">
@@ -38,6 +39,12 @@ class Landing extends Component {
 						Register to start tracking
 					</button>
 				</Link>
+			);
+			trackedCurrencies = (
+				<div className="landing--cover--tracked--currencies--info">
+					You have selected {this.props.selectedCurrencies.length} currencies to track. Finish registration to
+					get started.
+				</div>
 			);
 		}
 		return (
@@ -55,6 +62,7 @@ class Landing extends Component {
 								<h2>Your personalized crypto dashboard.</h2>
 								<p>The easiest way to keep up to date on your digital currency.</p>
 								<p>It's free. Get started today.</p>
+								{trackedCurrencies}
 								{buttonMarkup}
 							</div>
 							<div className="landing--cover--content--box--container">

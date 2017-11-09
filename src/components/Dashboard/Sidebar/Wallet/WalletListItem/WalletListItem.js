@@ -15,7 +15,6 @@ class WalletListItem extends Component {
 
 	handleListItemCopyClick(event) {
 		let successMessage, successful;
-		let coinType = event.currentTarget.dataset.type;
 
 		if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
 			const input = document.querySelector('.wallet--list--item--input');

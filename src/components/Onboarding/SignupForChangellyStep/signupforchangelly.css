@@ -1,0 +1,16 @@
+.onboarding--changelly > h3 {
+	color: #3e3c3c;
+}
+
+.onboarding--changelly > img {
+	width: 250px;
+	margin: 30px 0;
+}
+
+.onboarding--changelly--signup--button {
+	color: #60f160;
+}
+
+.onboarding--changelly--cta {
+	color: #5454f9;
+}
