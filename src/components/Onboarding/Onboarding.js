@@ -20,7 +20,7 @@ class Onboarding extends Component {
 		this.state = {
 			clickedExpandBox: false,
 			amountOfSteps: 3,
-			step: 'signupForChangellyStep',
+			step: 'cryptoCurrencyStep',
 			localCurrency: 'AUD',
 			validationError: '',
 			loading: true,

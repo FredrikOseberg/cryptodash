@@ -56,6 +56,9 @@
 	border-top: 20px solid #fff;
 	position: absolute;
 	bottom: -10px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
 }
 
 .cryptograph--line--point--two--info:after {
@@ -67,6 +70,9 @@
 	border-bottom: 20px solid #fff;
 	position: absolute;
 	top: -10px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
 }
 
 .cryptograph--line--point--one--info {
