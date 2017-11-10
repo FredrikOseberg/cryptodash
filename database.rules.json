@@ -7,6 +7,9 @@
 				".read": "auth.uid === $userId",
 				".write": "auth.uid === $userId"
 			}
+		},
+		"blogs": {
+			".read": true
 		}
 	}
 }
