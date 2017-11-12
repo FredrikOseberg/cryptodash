@@ -15,10 +15,29 @@
 }
 
 .frontend--blog--post--card--details {
-	width: 100%;
+	width: 80%;
+	margin: 0 auto;
 	color: #888;
 }
 
 .frontend--blog--post--card--details h3 {
 	color: #000;
+}
+
+.frontend--blog--post--card--dummy--text--short,
+.frontend--blog--post--card--dummy--text--long,
+.frontend--blog--post--card--dummy--text--medium {
+	height: 12px;
+	width: 50%;
+	border-radius: 3px;
+	background-color: #ededed;
+	margin: 10px 0;
+}
+
+.frontend--blog--post--card--dummy--text--long {
+	width: 80%;
+}
+
+.frontend--blog--post--card--dummy--text--medium {
+	width: 65%;
 }
