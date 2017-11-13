@@ -10,6 +10,7 @@ import FrontendViewAllCurrencies from './components/Frontend/FrontendViewAllCurr
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import AdminPanel from './components/Admin/AdminPanel/AdminPanel';
 import Blog from './components/Frontend/Blog/Blog';
+import BlogPost from './components/Frontend/Blog/BlogPost/BlogPost';
 import './App.css';
 
 class App extends Component {
@@ -23,7 +24,8 @@ class App extends Component {
                     <Route path="/all" component={FrontendViewAllCurrencies} />} />
                     <Route path="/resetpassword" component={ForgotPassword} />
                     <Route path="/admin" component={AdminPanel} />
-                    <Route path="/blog" component={Blog} />
+                    <Route exact path="/blog" component={Blog} />
+                    <Route path="/blog/:id" component={BlogPost} />
                 </Switch>
             </BrowserRouter>
         );

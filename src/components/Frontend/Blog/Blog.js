@@ -3,6 +3,7 @@ import Header from '../../Header/Header';
 import BlogPostCard from './BlogPostCard/BlogPostCard';
 import { database } from '../../../firebase';
 import map from 'lodash/map';
+import { Link } from 'react-router-dom';
 import './blog.css';
 
 class Blog extends Component {
@@ -32,7 +33,11 @@ class Blog extends Component {
 
 	render() {
 		let blogPostCards = this.state.blogs.map(post => {
-			return <BlogPostCard image={post.image} title={post.title} category={post.category} />;
+			return (
+				<Link to={`/blog/${post.slug}`}>
+					<BlogPostCard image={post.image} title={post.title} category={post.category} key={post.slug} />
+				</Link>
+			);
 		});
 		return (
 			<div className="frontend--background">
