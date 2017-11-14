@@ -34,14 +34,14 @@ class Blog extends Component {
 	render() {
 		let blogPostCards = this.state.blogs.map(post => {
 			return (
-				<Link to={`/blog/${post.slug}`}>
-					<BlogPostCard image={post.image} title={post.title} category={post.category} key={post.slug} />
+				<Link to={`/blog/${post.slug}`} key={post.slug}>
+					<BlogPostCard image={post.image} title={post.title} category={post.category} />
 				</Link>
 			);
 		});
 		return (
 			<div className="frontend--background">
-				<Header />
+				<Header frontend={true} />
 				<div className="frontend--blog">
 					<div className="frontend--blog--container">
 						<h1>Blog</h1>
