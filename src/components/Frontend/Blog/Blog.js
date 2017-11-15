@@ -46,6 +46,7 @@ class Blog extends Component {
 					<div className="frontend--blog--container">
 						<h1>Blog</h1>
 						{blogPostCards}
+						<p>Blogposts</p>
 					</div>
 				</div>
 			</div>
