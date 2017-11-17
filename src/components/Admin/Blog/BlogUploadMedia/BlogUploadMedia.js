@@ -20,9 +20,12 @@ class BlogUploadMedia extends Component {
 	}
 
 	componentDidMount() {
+		console.log('mounting', this.props.downloadURL);
 		if (this.props.downloadURL) {
 			this.setState({ compState: 'Uploaded' });
 			this.setState({ imageURL: this.props.downloadURL });
+		} else {
+			this.setState({ compState: 'Default' });
 		}
 	}
 

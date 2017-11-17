@@ -39,7 +39,7 @@ class BlogList extends Component {
 		const databaseRef = database.ref('blogs/posts');
 		databaseRef.once('value', snapshot => {
 			const blogPosts = snapshot.val();
-
+			console.log(blogPosts);
 			map(blogPosts, blogPost => {
 				posts.push(blogPost);
 			});

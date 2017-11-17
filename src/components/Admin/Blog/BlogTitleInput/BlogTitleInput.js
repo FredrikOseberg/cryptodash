@@ -19,7 +19,7 @@ class BlogTitleInput extends Component {
 				<input
 					type="text"
 					onChange={this.handleInputChange}
-					value={this.props.readingTime}
+					value={this.props.title}
 					className="admin--blog--title--input--field"
 				/>
 			</div>

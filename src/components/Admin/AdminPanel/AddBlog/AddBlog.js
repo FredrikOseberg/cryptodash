@@ -49,7 +49,9 @@ class AddBlog extends Component {
 
 	removeImageFromFirebase() {
 		const storageRef = storage.ref(this.state.uploadRef);
+		const databaseRef = database.ref(`blogs/posts/${this.slugifyTitle(this.state.blogTitle)}`);
 
+		databaseRef.child('image').set('');
 		storageRef.delete();
 	}
 

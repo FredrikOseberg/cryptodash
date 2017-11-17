@@ -44,6 +44,32 @@
 	margin-right: 10px;
 }
 
+.frontend--blog--blogpost ol {
+	font-size: 1.1em;
+	color: #585858;
+	font-family: Montserrat, sans-serif;
+}
+
+.frontend--blog--blogpost ol > li {
+	margin: 15px 0;
+	line-height: 2;
+}
+
+.frontend--blog--blogpost h3 {
+	color: #000;
+	margin: 0;
+	font-size: 1.5em;
+}
+
+.frontend--blog--blogpost a {
+	color: #5555ff;
+}
+
+.frontend--blog--blogpost strong {
+	color: #000;
+	font-weight: bold;
+}
+
 .frontend--blog--blogpost--content p {
 	font-size: 1.2em;
 	line-height: 2;

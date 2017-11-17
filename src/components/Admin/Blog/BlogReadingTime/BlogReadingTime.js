@@ -18,7 +18,7 @@ class BlogReadingTime extends Component {
 				<input
 					type="number"
 					onChange={this.handleInputChange}
-					value={this.props.number}
+					value={this.props.readingTime}
 					className="admin--blog--title--input--field"
 				/>
 			</div>

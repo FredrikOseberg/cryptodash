@@ -21,6 +21,7 @@ class EditBlog extends Component {
 			blogCategory: '',
 			blogReadingTime: 0,
 			blogContent: '',
+			previousTitle: '',
 			blogPost: {}
 		};
 
@@ -52,6 +53,7 @@ class EditBlog extends Component {
 					this.setState({ blogContent: post.body });
 					this.setState({ downloadURL: post.image });
 					this.setState({ readingTime: post.readingTime });
+					this.setState({ previousTitle: post.title });
 				}
 			});
 		});
@@ -71,7 +73,9 @@ class EditBlog extends Component {
 
 	removeImageFromFirebase() {
 		const storageRef = storage.ref(this.state.uploadRef);
+		const databaseRef = database.ref(`blogs/posts/${this.slugifyTitle(this.state.blogTitle)}`);
 
+		databaseRef.child('image').set('');
 		storageRef.delete();
 	}
 
@@ -113,6 +117,7 @@ class EditBlog extends Component {
 			published: this.state.blogPublished,
 			timestamp: Date.now(),
 			category: this.state.blogCategory,
+			readingTime: this.state.readingTime,
 			body: this.state.blogContent,
 			author: {
 				name: auth.currentUser.displayName,
@@ -153,18 +158,17 @@ class EditBlog extends Component {
 						handleBlogContentChange={this.handleBlogContentChange}
 						content={this.state.blogContent}
 					/>
-					{this.state.downloadURL && (
-						<div>
-							<label>Please upload a 800x550px photo</label>
-							<BlogUploadMedia
-								setDownloadURL={this.setDownloadURL}
-								setUploadRef={this.setUploadRef}
-								uploadRef={this.state.uploadRef}
-								removeImageFromFirebase={this.removeImageFromFirebase}
-								downloadURL={this.state.downloadURL}
-							/>
-						</div>
-					)}
+
+					<div>
+						<label>Please upload a 800x550px photo</label>
+						<BlogUploadMedia
+							setDownloadURL={this.setDownloadURL}
+							setUploadRef={this.setUploadRef}
+							uploadRef={this.state.uploadRef}
+							removeImageFromFirebase={this.removeImageFromFirebase}
+							downloadURL={this.state.downloadURL}
+						/>
+					</div>
 
 					<button type="submit" className="main-button" onClick={this.handleSubmit}>
 						Add Blog
