@@ -61,6 +61,7 @@ class BlogUploadMedia extends Component {
 
 		if (validationPassed) {
 			const fileName = file.name;
+
 			const storageRef = storage.ref(`/blogImages/${fileName}`);
 
 			this.setState({ compState: 'Uploading' });

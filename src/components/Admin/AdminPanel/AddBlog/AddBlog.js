@@ -3,6 +3,7 @@ import BlogTitleInput from '../../Blog/BlogTitleInput/BlogTitleInput';
 import BlogBodyTextArea from '../../Blog/BlogBodyTextArea/BlogBodyTextArea';
 import BlogUploadMedia from '../../Blog/BlogUploadMedia/BlogUploadMedia';
 import BlogCategorySelect from '../../Blog/BlogCategorySelect/BlogCategorySelect';
+import BlogReadingTime from '../../Blog/BlogReadingTime/BlogReadingTime';
 import BlogPublishedSelect from '../../Blog/BlogPublishedSelect/BlogPublishedSelect';
 import { database, storage, auth } from '../../../../firebase';
 import './addblog.css';
@@ -17,6 +18,7 @@ class AddBlog extends Component {
 			blogTitle: '',
 			blogPublished: false,
 			blogCategory: '',
+			blogReadingTime: 0,
 			blogContent: ''
 		};
 
@@ -30,6 +32,7 @@ class AddBlog extends Component {
 		this.handleBlogTitleChange = this.handleBlogTitleChange.bind(this);
 		this.slugifyTitle = this.slugifyTitle.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleBlogReadingTimeChange = this.handleBlogReadingTimeChange.bind(this);
 	}
 
 	setDownloadURL(downloadURL) {
@@ -66,6 +69,10 @@ class AddBlog extends Component {
 		this.setState({ blogTitle: title });
 	}
 
+	handleBlogReadingTimeChange(time) {
+		this.setState({ blogReadingTime: time });
+	}
+
 	slugifyTitle(title) {
 		return title.replace(/\s/gi, '-').toLowerCase();
 	}
@@ -85,6 +92,7 @@ class AddBlog extends Component {
 			timestamp: Date.now(),
 			category: this.state.blogCategory,
 			body: this.state.blogContent,
+			readingTime: this.state.blogReadingTime,
 			imageRef: this.state.uploadRef,
 			author: {
 				name: auth.currentUser.displayName,
@@ -107,6 +115,7 @@ class AddBlog extends Component {
 				<h1>Add Blog</h1>
 				<form>
 					<BlogTitleInput handleBlogTitleChange={this.handleBlogTitleChange} />
+					<BlogReadingTime handleBlogReadingTimeChange={this.handleBlogReadingTimeChange} />
 					<BlogCategorySelect
 						setAdminPage={this.props.setAdminPage}
 						handleBlogCategoryChange={this.handleBlogCategoryChange}
@@ -114,6 +123,7 @@ class AddBlog extends Component {
 					/>
 					<BlogPublishedSelect handleBlogPublishedChange={this.handleBlogPublishedChange} />
 					<BlogBodyTextArea handleBlogContentChange={this.handleBlogContentChange} />
+					<label>Please upload a 800x550px photo</label>
 					<BlogUploadMedia
 						setDownloadURL={this.setDownloadURL}
 						setUploadRef={this.setUploadRef}

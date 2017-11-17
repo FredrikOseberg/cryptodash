@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './blogtitleinput.css';
 
-class BlogTitleInput extends Component {
+class BlogReadingTime extends Component {
 	constructor(props) {
 		super(props);
 
@@ -9,17 +8,17 @@ class BlogTitleInput extends Component {
 	}
 
 	handleInputChange(event) {
-		this.props.handleBlogTitleChange(event.target.value);
+		this.props.handleBlogReadingTimeChange(event.target.value);
 	}
 
 	render() {
 		return (
 			<div className="admin--blog--title--input">
-				<label>Title</label>
+				<label>Reading Time</label>
 				<input
-					type="text"
+					type="number"
 					onChange={this.handleInputChange}
-					value={this.props.readingTime}
+					value={this.props.number}
 					className="admin--blog--title--input--field"
 				/>
 			</div>
@@ -27,4 +26,4 @@ class BlogTitleInput extends Component {
 	}
 }
 
-export default BlogTitleInput;
+export default BlogReadingTime;

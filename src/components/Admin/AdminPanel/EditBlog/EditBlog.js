@@ -4,6 +4,7 @@ import BlogBodyTextArea from '../../Blog/BlogBodyTextArea/BlogBodyTextArea';
 import BlogUploadMedia from '../../Blog/BlogUploadMedia/BlogUploadMedia';
 import BlogCategorySelect from '../../Blog/BlogCategorySelect/BlogCategorySelect';
 import BlogPublishedSelect from '../../Blog/BlogPublishedSelect/BlogPublishedSelect';
+import BlogReadingTime from '../../Blog/BlogReadingTime/BlogReadingTime';
 import { database, storage, auth } from '../../../../firebase';
 import map from 'lodash/map';
 import '../AddBlog/addblog.css';
@@ -18,6 +19,7 @@ class EditBlog extends Component {
 			blogTitle: '',
 			blogPublished: false,
 			blogCategory: '',
+			blogReadingTime: 0,
 			blogContent: '',
 			blogPost: {}
 		};
@@ -32,6 +34,7 @@ class EditBlog extends Component {
 		this.handleBlogTitleChange = this.handleBlogTitleChange.bind(this);
 		this.slugifyTitle = this.slugifyTitle.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleBlogReadingTimeChange = this.handleBlogReadingTimeChange.bind(this);
 	}
 
 	componentDidMount() {
@@ -48,6 +51,7 @@ class EditBlog extends Component {
 					this.setState({ blogCategory: post.category });
 					this.setState({ blogContent: post.body });
 					this.setState({ downloadURL: post.image });
+					this.setState({ readingTime: post.readingTime });
 				}
 			});
 		});
@@ -81,6 +85,10 @@ class EditBlog extends Component {
 
 	handleBlogContentChange(content) {
 		this.setState({ blogContent: content });
+	}
+
+	handleBlogReadingTimeChange(time) {
+		this.setState({ blogReadingTime: time });
 	}
 
 	handleBlogTitleChange(title) {
@@ -125,6 +133,10 @@ class EditBlog extends Component {
 				<h1>Edit Blog</h1>
 				<form>
 					<BlogTitleInput handleBlogTitleChange={this.handleBlogTitleChange} title={this.state.blogTitle} />
+					<BlogReadingTime
+						handleBlogReadingTimeChange={this.handleBlogReadingTimeChange}
+						readingTime={this.state.readingTime}
+					/>
 					{this.state.blogCategory && (
 						<BlogCategorySelect
 							setAdminPage={this.props.setAdminPage}
@@ -142,13 +154,16 @@ class EditBlog extends Component {
 						content={this.state.blogContent}
 					/>
 					{this.state.downloadURL && (
-						<BlogUploadMedia
-							setDownloadURL={this.setDownloadURL}
-							setUploadRef={this.setUploadRef}
-							uploadRef={this.state.uploadRef}
-							removeImageFromFirebase={this.removeImageFromFirebase}
-							downloadURL={this.state.downloadURL}
-						/>
+						<div>
+							<label>Please upload a 800x550px photo</label>
+							<BlogUploadMedia
+								setDownloadURL={this.setDownloadURL}
+								setUploadRef={this.setUploadRef}
+								uploadRef={this.state.uploadRef}
+								removeImageFromFirebase={this.removeImageFromFirebase}
+								downloadURL={this.state.downloadURL}
+							/>
+						</div>
 					)}
 
 					<button type="submit" className="main-button" onClick={this.handleSubmit}>
