@@ -22,6 +22,7 @@ class EditBlog extends Component {
 			blogReadingTime: 0,
 			blogContent: '',
 			previousTitle: '',
+			previousCategory: '',
 			blogPost: {}
 		};
 
@@ -41,7 +42,7 @@ class EditBlog extends Component {
 	componentDidMount() {
 		const databaseRef = database.ref('/blogs/posts');
 
-		databaseRef.once('value', snapshot => {
+		databaseRef.on('value', snapshot => {
 			const posts = snapshot.val();
 
 			map(posts, post => {
@@ -51,9 +52,10 @@ class EditBlog extends Component {
 					this.setState({ blogPublished: post.published });
 					this.setState({ blogCategory: post.category });
 					this.setState({ blogContent: post.body });
-					this.setState({ downloadURL: post.image });
+					this.setState({ downloadURL: post.image || 'noPhoto' });
 					this.setState({ readingTime: post.readingTime });
 					this.setState({ previousTitle: post.title });
+					this.setState({ previousCategory: post.category });
 				}
 			});
 		});
@@ -73,10 +75,15 @@ class EditBlog extends Component {
 
 	removeImageFromFirebase() {
 		const storageRef = storage.ref(this.state.uploadRef);
-		const databaseRef = database.ref(`blogs/posts/${this.slugifyTitle(this.state.blogTitle)}`);
+		if (storageRef) {
+			const databaseRef = database.ref(`blogs/posts/${this.slugifyTitle(this.state.blogTitle)}`);
 
-		databaseRef.child('image').set('');
-		storageRef.delete();
+			this.setState({ downloadURL: 'noPhoto' });
+			this.setState({ uploadRef: '' });
+
+			databaseRef.child('image').set('');
+			storageRef.delete();
+		}
 	}
 
 	handleBlogPublishedChange(boolean) {
@@ -125,10 +132,18 @@ class EditBlog extends Component {
 			}
 		};
 
+		const previousBlogpostID = this.slugifyTitle(this.state.previousTitle);
+		console.log(previousBlogpostID, this.state.previousCategory);
+		databaseRef.child(previousBlogpostID).remove();
+		categoriesRef
+			.child(this.state.previousCategory)
+			.child(previousBlogpostID)
+			.remove();
+
 		categoriesRef
 			.child(blogPost.category)
-			.child('postID')
-			.set(blogPost.slug);
+			.child(slug)
+			.set({ postID: slug });
 		databaseRef.child(slug).set(blogPost);
 	}
 
@@ -161,13 +176,15 @@ class EditBlog extends Component {
 
 					<div>
 						<label>Please upload a 800x550px photo</label>
-						<BlogUploadMedia
-							setDownloadURL={this.setDownloadURL}
-							setUploadRef={this.setUploadRef}
-							uploadRef={this.state.uploadRef}
-							removeImageFromFirebase={this.removeImageFromFirebase}
-							downloadURL={this.state.downloadURL}
-						/>
+						{this.state.downloadURL && (
+							<BlogUploadMedia
+								setDownloadURL={this.setDownloadURL}
+								setUploadRef={this.setUploadRef}
+								uploadRef={this.state.uploadRef}
+								removeImageFromFirebase={this.removeImageFromFirebase}
+								downloadURL={this.state.downloadURL}
+							/>
+						)}
 					</div>
 
 					<button type="submit" className="main-button" onClick={this.handleSubmit}>
