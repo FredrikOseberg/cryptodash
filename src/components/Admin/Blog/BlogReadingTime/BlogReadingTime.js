@@ -12,15 +12,26 @@ class BlogReadingTime extends Component {
 	}
 
 	render() {
-		return (
-			<div className="admin--blog--title--input">
-				<label>Reading Time</label>
+		let input;
+
+		if (this.props.value) {
+			input = (
 				<input
 					type="number"
 					onChange={this.handleInputChange}
 					value={this.props.readingTime}
 					className="admin--blog--title--input--field"
 				/>
+			);
+		} else {
+			input = (
+				<input type="number" onChange={this.handleInputChange} className="admin--blog--title--input--field" />
+			);
+		}
+		return (
+			<div className="admin--blog--title--input">
+				<label>Reading Time</label>
+				{input}
 			</div>
 		);
 	}

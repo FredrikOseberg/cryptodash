@@ -29,12 +29,18 @@
 
 .frontend--blog--blogpost--title {
 	color: #000;
+	text-align: center;
+}
+
+.frontend--blog--blogpost--author--header {
+	margin-bottom: 0;
+	margin-top: 30px;
 }
 
 .frontend--blog--blogpost--author {
 	display: flex;
 	align-items: center;
-	margin: 30px 0;
+	margin: 10px 0 30px 0;
 }
 
 .frontend--blog--blogpost--author img {
@@ -76,4 +82,23 @@
 	max-width: 500px;
 	color: #585858;
 	margin: 0 auto;
+}
+
+.frontend--blog--blogpost--reading--time {
+	color: #585858;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+	font-size: 1.1em;
+}
+
+.frontend--blog--blogpost--reading--time .fa {
+	font-size: 1.2em;
+	margin-right: 8px;
+}
+
+h3.frontend--blog--blogpost--author--name {
+	font-size: 1.2em;
+	color: #585858;
 }

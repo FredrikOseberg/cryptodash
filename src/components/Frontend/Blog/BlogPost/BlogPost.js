@@ -39,9 +39,16 @@ class BlogPost extends Component {
 						<img src={blogpost.image} alt="blogpost" />
 						<div className="frontend--blog--blogpost--inner--container">
 							<h1 className="frontend--blog--blogpost--title">{blogpost.title}</h1>
+							<div className="frontend--blog--blogpost--author--header">
+								<p>By</p>
+							</div>
 							<div className="frontend--blog--blogpost--author">
 								<img src={blogpost.author.image} alt={blogpost.author.name} />
-								<h3>{blogpost.author.name}</h3>
+								<h3 className="frontend--blog--blogpost--author--name">{blogpost.author.name}</h3>
+							</div>
+							<div className="frontend--blog--blogpost--reading--time">
+								<i className="fa fa-book" aria-hidden="true" />
+								<p>Reading time: {blogpost.readingTime} mins</p>
 							</div>
 							<div
 								className="frontend--blog--blogpost--content"
