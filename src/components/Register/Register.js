@@ -100,7 +100,7 @@ class Register extends Component {
 					.then(user => {
 						const storageLocation = database.ref('users/' + user.uid + '/currencies');
 
-						axios.post(`https://www.websmith.no/addtoemail?email=${email}`);
+						axios.post(`https://www.websmith.no/addtoemail?email=${user.email}`);
 
 						this.props.selectedCurrencies.forEach(currency => {
 							storageLocation.child(currency.symbol).set(currency);
