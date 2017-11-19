@@ -66,6 +66,12 @@ class Header extends Component {
 							<i className="fa fa-chevron-down" aria-hidden="true" />
 							<div className={dropdownClasses}>
 								<ul className="header--nav--dropdown--list">
+									<Link to="/">
+										<li>
+											<i className="fa fa-dashboard" aria-hidden="true" />Dashboard
+										</li>
+									</Link>
+
 									<Link to="/all">
 										<li>
 											<i className="fa fa-money" aria-hidden="true" />
