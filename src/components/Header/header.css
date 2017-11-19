@@ -22,6 +22,12 @@
 	padding: 0 15px;
 }
 
+li.header--nav--selected {
+	border: 2px solid #fff;
+	border-radius: 3px;
+	padding: 8px 15px;
+}
+
 .header--nav--signed--in {
 	display: flex;
 	justify-content: center;

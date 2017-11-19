@@ -34,13 +34,16 @@ class Header extends Component {
 						<li>Sign In</li>
 					</Link>
 					<Link to="/register">
-						<li>Register</li>
+						<li className="header--nav--selected">Register</li>
 					</Link>
 					<Link to="/all">
 						<li>All Coins</li>
 					</Link>
 					<Link to="http://www.changelly.com/?ref_id=172ccf841be7" target="_blank" rel="noreferrer noopener">
 						<li>Trade</li>
+					</Link>
+					<Link to="/blog">
+						<li>Blog</li>
 					</Link>
 				</ul>
 			);

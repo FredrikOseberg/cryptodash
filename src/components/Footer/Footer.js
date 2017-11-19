@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import bitcoin from '../../img/coins/bitcoin.png';
 import ethereum from '../../img/coins/ether.png';
+import { Link } from 'react-router-dom';
 import './footer.css';
 
 class Footer extends Component {
@@ -78,6 +79,24 @@ class Footer extends Component {
 				<div className="footer--container">
 					<div className="footer--logo">
 						<h1>CryptoDasher</h1>
+					</div>
+					<div className="footer--links">
+						<h3>Resources</h3>
+						<ul>
+							<Link to="/blog">
+								<li>Blog</li>
+							</Link>
+							<Link to="/all">
+								<li>All Coins</li>
+							</Link>
+							<Link
+								to="http://www.changelly.com/?ref_id=172ccf841be7"
+								target="_blank"
+								rel="noreferrer noopener"
+							>
+								<li>Trade</li>
+							</Link>
+						</ul>
 					</div>
 					<div className="footer--support">
 						<h3>Support this Project</h3>
