@@ -3,6 +3,7 @@ import { auth, database, githubAuthProvider, facebookAuthProvider, googleAuthPro
 import { clearCurrency } from '../../../actions/currencies';
 import { connect } from 'react-redux';
 import GithubButton from './GithubButton/GithubButton';
+import axios from 'axios';
 import FacebookButton from './FacebookButton/FacebookButton';
 import GoogleButton from './GoogleButton/GoogleButton';
 
@@ -27,6 +28,7 @@ class SocialLoginWrapper extends Component {
 		if (!this.props.reauth) {
 			return new Promise(resolve => {
 				const uniqueId = result.user.uid;
+				axios.post(`https://www.websmith.no/addtoemail?email=${result.user.email}`);
 				this.userHasCurrencies(uniqueId, resolve);
 			});
 		} else {

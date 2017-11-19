@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database } from '../../firebase';
 import { isMobile } from '../HoC/IsMobile';
+import axios from 'axios';
 import firebase from '../../firebase';
 import SocialLoginWrapper from '../Auth/SocialLoginWrapper/SocialLoginWrapper';
 
@@ -98,6 +99,8 @@ class Register extends Component {
 					.createUserWithEmailAndPassword(email, password)
 					.then(user => {
 						const storageLocation = database.ref('users/' + user.uid + '/currencies');
+
+						axios.post(`https://www.websmith.no/addtoemail?email=${email}`);
 
 						this.props.selectedCurrencies.forEach(currency => {
 							storageLocation.child(currency.symbol).set(currency);

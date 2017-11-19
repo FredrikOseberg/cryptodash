@@ -14,7 +14,7 @@ class BlogReadingTime extends Component {
 	render() {
 		let input;
 
-		if (this.props.value) {
+		if (this.props.readingTime) {
 			input = (
 				<input
 					type="number"

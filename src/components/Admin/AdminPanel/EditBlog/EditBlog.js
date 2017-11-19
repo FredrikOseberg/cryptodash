@@ -42,7 +42,7 @@ class EditBlog extends Component {
 	componentDidMount() {
 		const databaseRef = database.ref('/blogs/posts');
 
-		databaseRef.on('value', snapshot => {
+		this.listener = databaseRef.once('value', snapshot => {
 			const posts = snapshot.val();
 
 			map(posts, post => {
@@ -133,7 +133,7 @@ class EditBlog extends Component {
 		};
 
 		const previousBlogpostID = this.slugifyTitle(this.state.previousTitle);
-		console.log(previousBlogpostID, this.state.previousCategory);
+
 		databaseRef.child(previousBlogpostID).remove();
 		categoriesRef
 			.child(this.state.previousCategory)
