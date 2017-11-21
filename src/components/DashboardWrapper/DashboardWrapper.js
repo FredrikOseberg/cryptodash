@@ -24,7 +24,7 @@ class DashboardWrapper extends Component {
 			showOnboarding: false,
 			showDashboard: false,
 			showLanding: false,
-			showLoading: true,
+			showLoading: false,
 			allCurrencies: []
 		};
 

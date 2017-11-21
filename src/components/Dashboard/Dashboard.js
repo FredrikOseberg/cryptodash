@@ -15,7 +15,7 @@ class Dashboard extends Component {
 		super(props);
 
 		this.state = {
-			loading: true,
+			loading: false,
 			showDashboard: false,
 			showDashboardMainPage: false,
 			showAllCurrencies: true,
