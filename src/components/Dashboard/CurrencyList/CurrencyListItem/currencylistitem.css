@@ -1,0 +1,15 @@
+.currency--list--item--image {
+	height: 35px;
+	width: 35px;
+	border-radius: 50%;
+	margin-right: 8px;
+}
+
+.currency--list--item--name {
+	width: 200px;
+}
+
+.currency--list--item--price {
+	margin-left: auto;
+	display: flex;
+}

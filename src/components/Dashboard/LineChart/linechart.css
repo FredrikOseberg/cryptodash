@@ -1,7 +1,9 @@
+.dashboard--content--chart {
+	width: 50%;
+}
+
 .currency--line--chart--container {
-	border: 1px solid #fff;
 	border-radius: 3px;
-	box-shadow: 0 10px 20px rgba(0, 0, 80, 0.19), 0 6px 6px rgba(0, 0, 80, 0.23);
 }
 
 .currency--line--chart--header {
@@ -9,7 +11,6 @@
 	justify-content: space-between;
 	color: #e0dfdf;
 	align-items: center;
-	border-bottom: 1px solid #e0dfdf;
 }
 
 .currency--line--chart--navigation,
@@ -53,7 +54,8 @@ li.currency--line--chart--navigation--active {
 	align-items: center;
 	margin-top: 20px;
 	color: #e0dfdf;
-	border-bottom: 1px solid #e0dfdf;
+	padding: 15px;
+	border: 1px solid #e0dfdf;
 }
 
 .currency--line--chart--details--price,

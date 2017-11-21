@@ -55,7 +55,7 @@ class SampleCurrency extends Component {
 
 		let updatedMarkup;
 		if (this.state.updated) {
-			updatedMarkup = 'samplecurrency--updated opacity';
+			updatedMarkup = 'samplecurrency--updated visible';
 		} else {
 			updatedMarkup = 'samplecurrency--updated';
 		}

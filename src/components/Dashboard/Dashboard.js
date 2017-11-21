@@ -19,11 +19,9 @@ class Dashboard extends Component {
 			showDashboard: false,
 			showDashboardMainPage: false,
 			showAllCurrencies: true,
-			displaySidebar: false,
 			currentCurrency: false,
 			settingsPage: 'Personal Info',
 			firstload: true,
-			sidebarComponent: '',
 			dashboardPage: 'Dashboard',
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
@@ -34,7 +32,6 @@ class Dashboard extends Component {
 		};
 
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
-		this.showSidebar = this.showSidebar.bind(this);
 		this.setSidebarComponent = this.setSidebarComponent.bind(this);
 		this.handleAddWalletClick = this.handleAddWalletClick.bind(this);
 	}
@@ -62,14 +59,6 @@ class Dashboard extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.interval);
-	}
-
-	showSidebar() {
-		this.setState({ displaySidebar: !this.state.displaySidebar }, () => {
-			if (this.state.displaySidebar === false) {
-				this.setState({ sidebarComponent: '' });
-			}
-		});
 	}
 
 	setSidebarComponent(component) {

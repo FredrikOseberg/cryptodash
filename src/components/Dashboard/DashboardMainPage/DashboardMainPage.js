@@ -2,63 +2,39 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CurrencyStatCard from '../CurrencyStatCard/CurrencyStatCard';
 import CurrencyPortfolio from '../CurrencyPortfolio/CurrencyPortfolio';
+import CurrencyList from '../CurrencyList/CurrencyList';
 import LineChart from '../LineChart/LineChart';
 import Spinner from '../../Loading/Spinner/Spinner';
+import { Link } from 'react-router-dom';
 
 const DashboardMainPage = props => {
-	let currencyCard = props.currencies.map(currency => {
-		if (currency.price && currency.price !== 'NaN') {
-			return (
-				<CurrencyStatCard
-					name={currency.name}
-					img={currency.img}
-					key={currency.id}
-					symbol={currency.symbol}
-					price={currency.price}
-					percentage={currency.percentage}
-				/>
-			);
-		} else {
-			return (
-				<div className="currency--stat--card" key={currency.id}>
-					<Spinner />
-				</div>
-			);
-		}
-	});
-
-	let portfolio = props.currencies.every(currency => {
-		return currency.price && currency.price !== 'NaN';
-	});
-
-	let portfolioMarkup;
-	if (portfolio) {
-		portfolioMarkup = <CurrencyPortfolio handleAddWalletClick={props.handleAddWalletClick} />;
-	} else {
-		portfolioMarkup = (
-			<div className="currency--portfolio">
-				<Spinner />
-			</div>
-		);
-	}
-
 	const lineChartStyle = {
 		color: '#fff',
 		fillColor: 'rgba(255, 255, 255, 0.4)',
-		fill: true
+		fill: true,
+		width: '100%'
 	};
 	return (
-		<div>
+		<div className="dashboard--main--page--content">
+			<div className="dashboard--main--page--currency--list">
+				<div className="dashboard--main--page--currency--list--header">
+					<h3>
+						<i className="fa fa-line-chart" aria-hidden="true" /> Tracked Currencies
+					</h3>
+					<Link to="/all">
+						<div className="dashboard--main--page--currency--list--add--button">
+							<i className="fa fa-plus" aria-hidden="true" />
+						</div>
+					</Link>
+				</div>
+				<CurrencyList currencies={props.currencies} />
+			</div>
 			<div className="dashboard--content--chart">
 				{props.firstCurrency ? (
 					<LineChart getCurrentCurrency={props.getCurrentCurrency} styles={lineChartStyle} isMobile={false} />
 				) : (
 					<Spinner />
 				)}
-			</div>
-			<div className="dashboard--currency">
-				<div className="dashboard--currency--container">{currencyCard}</div>
-				{portfolioMarkup}
 			</div>
 		</div>
 	);
