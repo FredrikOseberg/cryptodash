@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { deleteItemFromDBandState } from '../../../../common/helpers';
+import { iosSafariCopy, copyText } from '../../../../common/helpers';
 import './currencylistitem.css';
 
 class CurrencyListItem extends Component {
@@ -13,11 +15,17 @@ class CurrencyListItem extends Component {
 			supply: 0,
 			volume: 0,
 			usdPrice: 0,
-			marketCap: 0
+			marketCap: 0,
+			copySuccess: '',
+			address: ''
 		};
 
 		this.updateSecondaryInformation = this.updateSecondaryInformation.bind(this);
 		this.sendAjaxRequestToGetSecondaryInformation = this.sendAjaxRequestToGetSecondaryInformation.bind(this);
+		this.handleAddWallet = this.handleAddWallet.bind(this);
+		this.handleStopTrackingClick = this.handleStopTrackingClick.bind(this);
+		this.handleEllipsisClick = this.handleEllipsisClick.bind(this);
+		this.handleListItemCopyClick = this.handleListItemCopyClick.bind(this);
 	}
 
 	componentDidMount() {
@@ -25,10 +33,48 @@ class CurrencyListItem extends Component {
 		this.interval = setInterval(() => {
 			this.sendAjaxRequestToGetSecondaryInformation();
 		}, 8000);
+
+		if (this.props.wallet) {
+			this.setState({ address: this.props.wallet.wallet });
+		}
 	}
 
 	componentWillUnmount() {
 		clearInterval(this.interval);
+	}
+
+	handleAddWallet() {
+		this.props.handleAddWalletClick();
+	}
+
+	handleStopTrackingClick(event) {
+		const symbol = event.target.dataset.symbol;
+		deleteItemFromDBandState(symbol);
+	}
+
+	handleEllipsisClick() {
+		this.setState({ clicked: !this.state.clicked });
+	}
+
+	handleListItemCopyClick(event) {
+		let successMessage, successful;
+
+		if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+			const input = document.querySelector('.currency--list--dropdown--menu--wallet--information--address');
+			successful = iosSafariCopy(input);
+			successMessage = successful ? `You successfully copied the ${this.props.name} wallet address.` : '';
+		} else {
+			successful = copyText(this.state.address);
+		}
+
+		if (successful) {
+			successMessage = `You successfully copied the ${this.props.name} wallet address.`;
+			this.setState({ copySuccess: successMessage }, () => {
+				setTimeout(() => {
+					this.setState({ copySuccess: '' });
+				}, 3000);
+			});
+		}
 	}
 
 	sendAjaxRequestToGetSecondaryInformation() {
@@ -77,13 +123,27 @@ class CurrencyListItem extends Component {
 			updatedClasses = 'currency--list--item--updated';
 		}
 
+		let copySuccessMessage;
+		if (this.state.copySuccess) {
+			copySuccessMessage = (
+				<div className="currency--list--dropdown--menu--copy--success">{this.state.copySuccess}</div>
+			);
+		} else {
+			copySuccessMessage = '';
+		}
+
 		let walletMarkup;
 		if (this.props.wallet) {
 			walletMarkup = (
 				<div className="currency--list--dropdown--menu--wallet--information">
 					<div className="currency--list--dropdown--menu--wallet--information--container">
-						<p>{this.props.wallet.wallet}</p>
-						<div className="currency--list--dropdown--menu--wallet--copy">
+						<p className="currency--list--dropdown--menu--wallet--information--address">
+							{this.props.wallet.wallet} {copySuccessMessage}
+						</p>
+						<div
+							className="currency--list--dropdown--menu--wallet--copy"
+							onClick={this.handleListItemCopyClick}
+						>
 							<i className="fa fa-copy" aria-hidden="true" />
 						</div>
 					</div>
@@ -94,15 +154,19 @@ class CurrencyListItem extends Component {
 				<div className="currency--list--dropdown--menu--wallet--information">
 					<div className="currency--list--dropdown--menu--wallet--information--container">
 						<p>No wallet information to display.</p>
-						<div
-							className="currency--list--dropdown--menu--wallet--add"
-							onClick={this.props.handleAddWalletClick}
-						>
+						<div className="currency--list--dropdown--menu--wallet--add" onClick={this.handleAddWallet}>
 							<i className="fa fa-plus" aria-hidden="true" />
 						</div>
 					</div>
 				</div>
 			);
+		}
+
+		let dropdownClasses;
+		if (this.state.clicked) {
+			dropdownClasses = 'currency--list--dropdown--menu opacity transition block';
+		} else {
+			dropdownClasses = 'currency--list--dropdown--menu';
 		}
 		return (
 			<li>
@@ -116,8 +180,8 @@ class CurrencyListItem extends Component {
 					{this.props.price}
 					<span className="price--postfix">{this.props.localCurrency.currency}</span>
 				</p>
-				<i className="fa fa-ellipsis-v" aria-hidden="true" />
-				<div className={`currency--list--dropdown--menu currency--list--dropdown--menu--${this.props.name}`}>
+				<i className="fa fa-ellipsis-v" aria-hidden="true" onClick={this.handleEllipsisClick} />
+				<div className={dropdownClasses}>
 					<div className="currency--list--dropdown--menu--header">
 						<h3>{this.props.name} Information</h3>
 					</div>
@@ -148,7 +212,13 @@ class CurrencyListItem extends Component {
 						<h3>{this.props.name} Wallet</h3>
 						{walletMarkup}
 					</div>
-					<button className="currency--list--stop--tracking">Stop Tracking</button>
+					<button
+						className="currency--list--stop--tracking"
+						onClick={this.handleStopTrackingClick}
+						data-symbol={this.props.symbol}
+					>
+						Stop Tracking
+					</button>
 				</div>
 			</li>
 		);

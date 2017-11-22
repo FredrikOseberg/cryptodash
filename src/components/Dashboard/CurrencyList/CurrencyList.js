@@ -13,7 +13,7 @@ const CurrencyList = props => {
 				price={currency.price}
 				percentage={currency.percentage}
 				wallet={currency.wallet}
-				handleAddWalletClicK={props.handleAddWalletClick}
+				handleAddWalletClick={props.handleAddWalletClick}
 			/>
 		);
 	});

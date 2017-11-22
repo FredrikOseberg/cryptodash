@@ -59,29 +59,32 @@
 	margin-left: 15px;
 	font-size: 1.2em;
 	cursor: pointer;
+	padding: 10px;
 }
 
 .currency--list--dropdown--menu {
 	position: absolute;
 	width: 100%;
-	top: 33px;
+	top: 40px;
 	border-radius: 3px;
 	background-color: #fff;
 	color: #585858;
 	z-index: 999;
 	box-sizing: border-box;
 	padding: 15px;
+	opacity: 0;
 	display: none;
+}
+
+.currency--list--dropdown--menu--wallet--information--address {
+	font-size: 0.8em;
+	position: relative;
 }
 
 .currency--list--dropdown--menu--header h3 {
 	margin-top: 0;
 	padding-bottom: 15px;
 	border-bottom: 1px solid #ededed;
-}
-
-.currency--list--dropdown--menu--Cardano {
-	display: block;
 }
 
 .currency--list--dropdown--wallet--information {
@@ -146,9 +149,21 @@
 	background-color: #e44d4d;
 	color: #fff;
 	border-radius: 3px;
+	cursor: pointer;
 	height: 50px;
 	margin: 15px auto;
 	display: block;
 	font-size: 1.2em;
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.currency--list--dropdown--menu--copy--success {
+	position: absolute;
+	padding: 15px;
+	color: #fff;
+	background-color: #42ce42;
+	font-size: 1.1em;
+	border-radius: 3px;
+	width: 100%;
+	top: -25px;
 }
