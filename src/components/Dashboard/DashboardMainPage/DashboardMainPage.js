@@ -35,6 +35,7 @@ const DashboardMainPage = props => {
 				) : (
 					<Spinner />
 				)}
+				<CurrencyPortfolio />
 			</div>
 		</div>
 	);

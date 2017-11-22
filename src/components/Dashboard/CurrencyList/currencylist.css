@@ -63,7 +63,7 @@
 }
 
 .currency--list--dropdown--menu {
-	position: absolute;
+	position: fixed;
 	width: 100%;
 	top: 40px;
 	border-radius: 3px;
@@ -73,7 +73,7 @@
 	box-sizing: border-box;
 	padding: 15px;
 	opacity: 0;
-	display: none;
+	visibility: hidden;
 }
 
 .currency--list--dropdown--menu--wallet--information--address {

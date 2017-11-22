@@ -126,7 +126,7 @@ class CurrencyListItem extends Component {
 		let copySuccessMessage;
 		if (this.state.copySuccess) {
 			copySuccessMessage = (
-				<div className="currency--list--dropdown--menu--copy--success">{this.state.copySuccess}</div>
+				<span className="currency--list--dropdown--menu--copy--success">{this.state.copySuccess}</span>
 			);
 		} else {
 			copySuccessMessage = '';
@@ -164,7 +164,7 @@ class CurrencyListItem extends Component {
 
 		let dropdownClasses;
 		if (this.state.clicked) {
-			dropdownClasses = 'currency--list--dropdown--menu opacity transition block';
+			dropdownClasses = 'currency--list--dropdown--menu opacity transition visible absolute';
 		} else {
 			dropdownClasses = 'currency--list--dropdown--menu';
 		}

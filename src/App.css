@@ -103,6 +103,10 @@ input[disabled] {
   display: block;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .static {
   position: static;
 }
