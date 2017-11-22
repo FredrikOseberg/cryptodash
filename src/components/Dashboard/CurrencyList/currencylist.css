@@ -54,3 +54,101 @@
 	margin-left: auto;
 	display: flex;
 }
+
+.dashboard--currency--list > ul > li .fa-ellipsis-v {
+	margin-left: 15px;
+	font-size: 1.2em;
+	cursor: pointer;
+}
+
+.currency--list--dropdown--menu {
+	position: absolute;
+	width: 100%;
+	top: 33px;
+	border-radius: 3px;
+	background-color: #fff;
+	color: #585858;
+	z-index: 999;
+	box-sizing: border-box;
+	padding: 15px;
+	display: none;
+}
+
+.currency--list--dropdown--menu--header h3 {
+	margin-top: 0;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #ededed;
+}
+
+.currency--list--dropdown--menu--Cardano {
+	display: block;
+}
+
+.currency--list--dropdown--wallet--information {
+	padding-bottom: 15px;
+	border-bottom: 1px solid #ededed;
+}
+
+.currency--list--dropdown--menu--information > ul {
+	list-style-type: none;
+	padding: 0;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #ededed;
+}
+
+.currency--list--dropdown--menu--information > ul > li {
+	display: flex;
+	justify-content: space-between;
+	padding: 8px 0;
+}
+
+.currency--list--dropdown--menu--information > ul > li > p {
+	margin: 0;
+}
+
+.currency--list--dropdown--menu--information--price {
+	display: flex;
+}
+
+.currency--list--dropdown--wallet--information h3 {
+	padding-bottom: 15px;
+	border-bottom: 1px solid #ededed;
+}
+
+.currency--list--dropdown--menu--wallet--information--container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.currency--list--dropdown--menu--wallet--add,
+.currency--list--dropdown--menu--wallet--copy {
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	background-color: #555598;
+	color: #fff;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.currency--list--dropdown--menu--wallet--add .fa,
+.currency--list--dropdown--menu--wallet--copy .fa {
+	margin-left: 0;
+}
+
+.currency--list--stop--tracking {
+	width: 250px;
+	border: none;
+	background-color: #e44d4d;
+	color: #fff;
+	border-radius: 3px;
+	height: 50px;
+	margin: 15px auto;
+	display: block;
+	font-size: 1.2em;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}

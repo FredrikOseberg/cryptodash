@@ -27,7 +27,7 @@ const DashboardMainPage = props => {
 						</div>
 					</Link>
 				</div>
-				<CurrencyList currencies={props.currencies} />
+				<CurrencyList currencies={props.currencies} handleAddWalletClick={props.handleAddWalletClick} />
 			</div>
 			<div className="dashboard--content--chart">
 				{props.firstCurrency ? (

@@ -12,6 +12,8 @@ const CurrencyList = props => {
 				symbol={currency.symbol}
 				price={currency.price}
 				percentage={currency.percentage}
+				wallet={currency.wallet}
+				handleAddWalletClicK={props.handleAddWalletClick}
 			/>
 		);
 	});
