@@ -50,10 +50,7 @@ class DashboardWrapper extends Component {
 					.then(this.setLocalCurrency)
 					.then(this.addCurrencyPrice)
 					.then(this.setIntervalToGetCoinData)
-					.then(this.getAllCoinData)
-					.catch(error => {
-						console.log(error);
-					});
+					.then(this.getAllCoinData);
 			} else {
 				this.showLandingPage();
 			}
