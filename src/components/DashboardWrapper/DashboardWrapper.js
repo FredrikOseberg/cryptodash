@@ -24,7 +24,7 @@ class DashboardWrapper extends Component {
 			showOnboarding: false,
 			showDashboard: false,
 			showLanding: false,
-			showLoading: false,
+			showLoading: true,
 			allCurrencies: []
 		};
 
@@ -34,35 +34,56 @@ class DashboardWrapper extends Component {
 		this.addCurrenciesToState = this.addCurrenciesToState.bind(this);
 		this.getFrequentCoinData = this.getFrequentCoinData.bind(this);
 		this.getAllCoinData = this.getAllCoinData.bind(this);
+		this.clearLocalCurrency = this.clearLocalCurrency.bind(this);
+		this.addCurrencyPrice = this.addCurrencyPrice.bind(this);
+		this.setIntervalToGetCoinData = this.setIntervalToGetCoinData.bind(this);
+		this.setLocalCurrency = this.setLocalCurrency.bind(this);
+		this.showLandingPage = this.showLandingPage.bind(this);
 	}
+
 	componentDidMount() {
-		this.props.clearLocalCurrencyFromState();
-
-		this.props.currencies.forEach(currency => {
-			this.getCoinData(currency.symbol);
-		});
-
-		const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
-
-		storageLocation.on('value', snapshot => {
-			if (this.interval) {
-				clearInterval(this.interval);
-				this.getFrequentCoinData();
-			}
-		});
-
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
-				this.initDashboard().then(() => {
-					this.getFrequentCoinData();
-					this.getAllCoinData();
-				});
+				this.initDashboard()
+					.then(this.clearLocalCurrency)
+					.then(this.setLocalCurrency)
+					.then(this.addCurrencyPrice)
+					.then(this.setIntervalToGetCoinData)
+					.then(this.getAllCoinData)
+					.catch(error => {
+						console.log(error);
+					});
 			} else {
-				this.setState({ showLanding: true }, () => {
-					this.setState({ showLoading: false });
-				});
+				this.showLandingPage();
 			}
+		});
+	}
+
+	clearLocalCurrency() {
+		return new Promise(resolve => {
+			this.props.clearLocalCurrencyFromState();
+			resolve();
+		});
+	}
+
+	showLandingPage() {
+		this.setState({ showLanding: true }, () => {
+			this.setState({ showLoading: false });
+		});
+	}
+
+	setIntervalToGetCoinData() {
+		return new Promise(resolve => {
+			const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
+
+			storageLocation.on('value', snapshot => {
+				if (this.interval) {
+					clearInterval(this.interval);
+					this.getFrequentCoinData();
+				}
+			});
+			resolve();
 		});
 	}
 
@@ -98,35 +119,49 @@ class DashboardWrapper extends Component {
 		return new Promise((resolve, reject) => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 			if (this.props.currentUser.status === 'SIGNED_IN') {
-				storageLocation.on('value', snapshot => {
+				storageLocation.once('value', snapshot => {
 					if (snapshot.hasChild('completedOnboarding')) {
 						this.setState({ showOnboarding: false });
 						this.setState({ showDashboard: true }, () => {
 							this.setState({ showLoading: false });
 						});
+						resolve();
 					} else {
 						this.setState({ showOnboarding: true }, () => {
 							this.setState({ showLoading: false });
 						});
-					}
-
-					if (snapshot.hasChild('localCurrency')) {
-						const localCurrency = snapshot.child('localCurrency').val();
-						if (localCurrency === 'USD') {
-							this.props.addLocalCurrencyToState({ currency: localCurrency, rate: null });
-						} else {
-							axios.get(`https://api.fixer.io/latest?base=USD`).then(response => {
-								const rateComparedToUsd = response.data.rates[localCurrency];
-								this.props.addLocalCurrencyToState({
-									currency: localCurrency,
-									rate: rateComparedToUsd
-								});
-							});
-						}
 						resolve();
 					}
 				});
 			}
+		});
+	}
+
+	setLocalCurrency() {
+		return new Promise((resolve, reject) => {
+			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
+
+			storageLocation.once('value', snapshot => {
+				if (snapshot.hasChild('localCurrency')) {
+					const localCurrency = snapshot.child('localCurrency').val();
+
+					const localCurrencyIsUSD = localCurrency === 'USD';
+
+					if (localCurrencyIsUSD) {
+						this.props.addLocalCurrencyToState({ currency: localCurrency, rate: null });
+						resolve();
+					} else {
+						axios.get(`https://api.fixer.io/latest?base=USD`).then(response => {
+							const rateComparedToUsd = response.data.rates[localCurrency];
+							this.props.addLocalCurrencyToState({
+								currency: localCurrency,
+								rate: rateComparedToUsd
+							});
+							resolve();
+						});
+					}
+				}
+			});
 		});
 	}
 
@@ -159,6 +194,15 @@ class DashboardWrapper extends Component {
 				percentage: response.data.cap24hrChange,
 				symbol: response.data.id
 			});
+		});
+	}
+
+	addCurrencyPrice() {
+		return new Promise(resolve => {
+			this.props.currencies.forEach(currency => {
+				this.getCoinData(currency.symbol);
+			});
+			resolve();
 		});
 	}
 

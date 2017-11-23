@@ -42,3 +42,9 @@
 	color: #555598;
 	cursor: pointer;
 }
+
+@media (max-width: 1200px) {
+	.dashboard--main--page--content {
+		flex-direction: column;
+	}
+}

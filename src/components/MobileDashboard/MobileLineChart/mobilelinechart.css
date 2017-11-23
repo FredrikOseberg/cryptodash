@@ -12,6 +12,7 @@
 }
 
 .mobile--chart .currency--line--chart--details {
+	border: none;
 	border-bottom: 1px solid #e0dfdf;
 }
 

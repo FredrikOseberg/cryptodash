@@ -15,7 +15,7 @@ class Dashboard extends Component {
 		super(props);
 
 		this.state = {
-			loading: false,
+			loading: true,
 			showDashboard: false,
 			showDashboardMainPage: false,
 			showAllCurrencies: true,
@@ -39,6 +39,7 @@ class Dashboard extends Component {
 		if (this.state.firstload) {
 			this.props.addCurrenciesToState().then(() => {
 				if (this.props.currencies.length > 0) {
+					console.log(this.props.currencies[0].symbol);
 					this.props.getCurrentCurrency(this.props.currencies[0].symbol).then(() => {
 						this.setState({ loading: false });
 						this.setState({ showDashboard: true });
