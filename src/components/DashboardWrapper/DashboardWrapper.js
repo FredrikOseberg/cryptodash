@@ -13,6 +13,7 @@ import Dashboard from '../../components/Dashboard/Dashboard';
 import MobileDashboard from '../MobileDashboard/MobileDashboard';
 import MobileLanding from '../MobileLanding/MobileLanding';
 import { addCurrentCurrency } from '../../actions/currentCurrency';
+import { convertPriceToLocalCurrency } from '../../common/helpers';
 import { isMobile } from '../HoC/IsMobile';
 import map from 'lodash/map';
 
@@ -25,7 +26,8 @@ class DashboardWrapper extends Component {
 			showDashboard: false,
 			showLanding: false,
 			showLoading: true,
-			allCurrencies: []
+			allCurrencies: [],
+			globalData: {}
 		};
 
 		this.getCoinData = this.getCoinData.bind(this);
@@ -39,9 +41,12 @@ class DashboardWrapper extends Component {
 		this.setIntervalToGetCoinData = this.setIntervalToGetCoinData.bind(this);
 		this.setLocalCurrency = this.setLocalCurrency.bind(this);
 		this.showLandingPage = this.showLandingPage.bind(this);
+		this.getGlobalData = this.getGlobalData.bind(this);
 	}
 
 	componentDidMount() {
+		this.clearLocalCurrency().then(this.setIntervalToGetCoinData);
+
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
@@ -50,7 +55,8 @@ class DashboardWrapper extends Component {
 					.then(this.setLocalCurrency)
 					.then(this.addCurrencyPrice)
 					.then(this.setIntervalToGetCoinData)
-					.then(this.getAllCoinData);
+					.then(this.getAllCoinData)
+					.then(this.getGlobalData);
 			} else {
 				this.showLandingPage();
 			}
@@ -61,6 +67,28 @@ class DashboardWrapper extends Component {
 		return new Promise(resolve => {
 			this.props.clearLocalCurrencyFromState();
 			resolve();
+		});
+	}
+
+	getGlobalData() {
+		axios.get('https://coincap.io/global').then(response => {
+			let responseData = {
+				altCapUSD: response.data.altCap,
+				btcCapUSD: response.data.btcCap,
+				btcPrice: response.data.btcPrice,
+				btcCapLocal: convertPriceToLocalCurrency(response.data.btcCap),
+				altCapLocal: convertPriceToLocalCurrency(response.data.altCap),
+				btcPriceLocal: convertPriceToLocalCurrency(response.data.btcPrice),
+				totalCap: response.data.totalCap,
+				volumeAlt: response.data.volumeAlt,
+				volumeBtc: response.data.volumeBtc,
+				volumeTotal: response.data.volumeTotal,
+				volumeAltLocal: convertPriceToLocalCurrency(response.data.volumeAlt),
+				volumeBtcLocal: convertPriceToLocalCurrency(response.data.volumeBtc),
+				volumeTotalLocal: convertPriceToLocalCurrency(response.data.volumeTotal)
+			};
+
+			this.setState({ globalData: responseData });
 		});
 	}
 
@@ -239,6 +267,7 @@ class DashboardWrapper extends Component {
 					allCurrencies={this.state.allCurrencies}
 					getCurrentCurrency={this.getCurrentCurrency}
 					addCurrenciesToState={this.addCurrenciesToState}
+					globalData={this.state.globalData}
 				/>
 			);
 

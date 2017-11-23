@@ -1,0 +1,35 @@
+.dashboard--information--bar {
+	background-color: #555598;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
+}
+
+.dashboard--information--bar--container {
+	width: 80%;
+	margin: 0 auto;
+	display: flex;
+}
+
+.dashboard--information--bar--bitcoin--price--container {
+	display: flex;
+	align-items: center;
+}
+
+.dashboard--information--bar--header {
+	margin-bottom: 0;
+}
+
+.dashboard--information--bar--bitcoin--price--container img {
+	width: 30px;
+	height: 30px;
+	margin-right: 8px;
+}
+
+.dashboard--information--bar--bitcoin--prices > p,
+.dashboard--information--bar--bitcoin--cap--container > p {
+	margin: 8px;
+	display: flex;
+	font-family: Montserrat, sans-serif;
+}
