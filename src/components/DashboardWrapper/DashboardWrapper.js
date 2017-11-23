@@ -45,8 +45,6 @@ class DashboardWrapper extends Component {
 	}
 
 	componentDidMount() {
-		this.clearLocalCurrency().then(this.setIntervalToGetCoinData);
-
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
@@ -99,16 +97,15 @@ class DashboardWrapper extends Component {
 	}
 
 	setIntervalToGetCoinData() {
-		return new Promise(resolve => {
-			const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
+		const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
 
-			storageLocation.on('value', snapshot => {
-				if (this.interval) {
-					clearInterval(this.interval);
-					this.getFrequentCoinData();
-				}
-			});
-			resolve();
+		storageLocation.on('value', snapshot => {
+			if (this.interval) {
+				clearInterval(this.interval);
+				this.getFrequentCoinData();
+			} else {
+				this.getFrequentCoinData();
+			}
 		});
 	}
 

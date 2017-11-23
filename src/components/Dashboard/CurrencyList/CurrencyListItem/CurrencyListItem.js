@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { deleteItemFromDBandState } from '../../../../common/helpers';
 import { iosSafariCopy, copyText } from '../../../../common/helpers';
-import { convertPriceToLocalCurrency } from '../../../../common/helpers';
 import './currencylistitem.css';
 
 class CurrencyListItem extends Component {
@@ -18,9 +17,7 @@ class CurrencyListItem extends Component {
 			usdPrice: 0,
 			marketCap: 0,
 			copySuccess: '',
-			address: '',
-			price: this.props.price,
-			percentage: this.props.percentage
+			address: ''
 		};
 
 		this.updateSecondaryInformation = this.updateSecondaryInformation.bind(this);
@@ -95,8 +92,6 @@ class CurrencyListItem extends Component {
 		this.setState({ volume: data.volume });
 		this.setState({ usdPrice: data.price });
 		this.setState({ marketCap: data.market_cap });
-		this.setState({ price: convertPriceToLocalCurrency(data.price) });
-		this.setState({ percentage: data.cap24hrChange });
 
 		this.setState({ newData: true }, () => {
 			setTimeout(() => {
@@ -180,9 +175,9 @@ class CurrencyListItem extends Component {
 				<p className="currency--list--item--name">
 					{this.props.name} ({this.props.symbol})
 				</p>
-				<p className={percentageClasses}>{this.state.percentage}%</p>
+				<p className={percentageClasses}>{this.props.percentage}%</p>
 				<p className="currency--list--item--price">
-					{this.state.price}
+					{this.props.price}
 					<span className="price--postfix">{this.props.localCurrency.currency}</span>
 				</p>
 				<i className="fa fa-ellipsis-v" aria-hidden="true" onClick={this.handleEllipsisClick} />
