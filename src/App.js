@@ -6,6 +6,7 @@ import coinData from './coinData';
 import DashboardWrapper from './components/DashboardWrapper/DashboardWrapper';
 import RegisterWrapper from './components/Register/RegisterWrapper';
 import SignInWrapper from './components/SignIn/SignInWrapper';
+import CurrencyDetail from './components/CurrencyDetail/CurrencyDetail';
 import FrontendViewAllCurrencies from './components/Frontend/FrontendViewAllCurrencies';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import AdminPanel from './components/Admin/AdminPanel/AdminPanel';
@@ -21,7 +22,8 @@ class App extends Component {
                     <Route exact path="/" component={props => <DashboardWrapper coinData={coinData} />} />
                     <Route path="/register" component={requireAuthentication(RegisterWrapper)} />
                     <Route path="/signin" component={requireAuthentication(SignInWrapper)} />
-                    <Route path="/all" component={FrontendViewAllCurrencies} />} />
+                    <Route path="/all" component={FrontendViewAllCurrencies} />
+                    <Route path="/currencies/:currency" component={CurrencyDetail} />
                     <Route path="/resetpassword" component={ForgotPassword} />
                     <Route path="/admin" component={AdminPanel} />
                     <Route exact path="/blog" component={Blog} />

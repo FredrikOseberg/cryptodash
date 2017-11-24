@@ -15,7 +15,7 @@ class LineChart extends Component {
 
 		this.state = {
 			currentCurrency: this.props.currentCurrency,
-			symbol: this.props.currentCurrency.symbol,
+			symbol: this.props.currentCurrency.symbol || this.props.symbol,
 			timePeriods: timePeriodData,
 			showDropdownNav: false,
 			currentTime: '30',
