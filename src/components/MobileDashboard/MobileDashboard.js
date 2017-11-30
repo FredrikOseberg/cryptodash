@@ -97,7 +97,7 @@ class MobileDashboard extends Component {
 				this.setState({ mobileDashboardPage: 'Settings' });
 				this.setState({ actionButtonStick: false });
 				break;
-			case 'Support':
+			case 'Support Me':
 				this.setState({ mobileDashboardPage: 'Support Me' });
 				this.setState({ actionButtonStick: false });
 				break;
@@ -124,7 +124,7 @@ class MobileDashboard extends Component {
 		let showActionButton =
 			this.state.mobileDashboardPage !== 'Settings' &&
 			this.state.mobileDashboardPage !== 'All Coins' &&
-			this.state.mobileDashboardPage !== 'Support';
+			this.state.mobileDashboardPage !== 'Support Me';
 
 		if (this.state.mobileDashboardPage === 'Portfolio') {
 			if (portfolioExists.length > 0) {
