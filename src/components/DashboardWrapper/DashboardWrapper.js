@@ -6,6 +6,7 @@ import { addLocalCurrency } from '../../actions/localCurrency';
 import { addPrice, addCurrency, clearCurrency } from '../../actions/currencies';
 import { clearLocalCurrency } from '../../actions/localCurrency';
 import axios from 'axios';
+import { addTotalPortfolioValue } from '../../actions/portfolio';
 import Loading from '../Loading/Loading';
 import Landing from '../../components/Landing/Landing';
 import Onboarding from '../../components/Onboarding/Onboarding';
@@ -42,13 +43,15 @@ class DashboardWrapper extends Component {
 		this.setLocalCurrency = this.setLocalCurrency.bind(this);
 		this.showLandingPage = this.showLandingPage.bind(this);
 		this.getGlobalData = this.getGlobalData.bind(this);
+		// this.setTotalPortfolioValue = this.setTotalPortfolioValue.bind(this);
 	}
 
 	componentDidMount() {
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
-				this.initDashboard()
+				this.addCurrenciesToState()
+					.then(this.initDashboard)
 					.then(this.clearLocalCurrency)
 					.then(this.setLocalCurrency)
 					.then(this.addCurrencyPrice)
@@ -67,6 +70,22 @@ class DashboardWrapper extends Component {
 			resolve();
 		});
 	}
+
+	// setTotalPortfolioValue() {
+	// 	let amount = 0;
+	// 	this.props.currencies.forEach(currency => {
+	// 		if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
+	// 			console.log(currency);
+	// 			amount += Number(currency.wallet.amount) * Number(currency.price);
+
+	// 			let portfolioValue = {
+	// 				totalVal: amount
+	// 			};
+
+	// 			this.props.addPortfolioValueToState(portfolioValue);
+	// 		}
+	// 	});
+	// }
 
 	getGlobalData() {
 		axios.get('https://coincap.io/global').then(response => {
@@ -189,6 +208,7 @@ class DashboardWrapper extends Component {
 
 	getCurrentCurrency(symbol) {
 		return new Promise((resolve, reject) => {
+			console.log('promise is running');
 			axios
 				.get(`https://coincap.io/page/${symbol}`)
 				.then(response => {
@@ -305,6 +325,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	clearLocalCurrencyFromState() {
 		dispatch(clearLocalCurrency());
+	},
+	addPortfolioValueToState(obj) {
+		dispatch(addTotalPortfolioValue(obj));
 	}
 });
 
