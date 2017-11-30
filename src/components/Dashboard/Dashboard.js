@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Header from '../Header/Header';
 import Loading from '../Loading/Loading';
 import DashboardMainPage from './DashboardMainPage/DashboardMainPage';
+import DashboardPortfolio from './DashboardPortfolio/DashboardPortfolio';
 import Exchange from '../Exchange/Exchange';
 import Nav from '../Nav/Nav';
 import Settings from './Settings/Settings';
@@ -26,7 +27,8 @@ class Dashboard extends Component {
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
 				{ name: 'Exchange', icon: 'fa fa-exchange' },
 				{ name: 'Settings', icon: 'fa fa-cog' },
-				{ name: 'Wallets', icon: 'fa fa-folder' }
+				{ name: 'Wallets', icon: 'fa fa-folder' },
+				{ name: 'Portfolio', icon: 'fa fa-money' }
 			]
 		};
 
@@ -69,6 +71,9 @@ class Dashboard extends Component {
 			case 'Wallets':
 				this.setState({ dashboardPage: 'Wallets' });
 				break;
+			case 'Portfolio':
+				this.setState({ dashboardPage: 'Portfolio' });
+				break;
 			default:
 				this.setState({ dashboardPage: 'Dashboard' });
 		}
@@ -79,6 +84,7 @@ class Dashboard extends Component {
 		const showExchange = this.state.dashboardPage === 'Exchange';
 		const showSettings = this.state.dashboardPage === 'Settings';
 		const showWallets = this.state.dashboardPage === 'Wallets';
+		const showPortfolio = this.state.dashboardPage === 'Portfolio';
 
 		const dashboard = (
 			<div className="dashboard">
@@ -104,6 +110,7 @@ class Dashboard extends Component {
 							{showSettings && <Settings startPage={this.state.settingsPage} />}
 							{showExchange && <Exchange />}
 							{showWallets && <Wallet handleAddWalletClick={this.handleAddWalletClick} />}
+							{showPortfolio && <DashboardPortfolio />}
 						</div>
 					</div>
 				</div>
