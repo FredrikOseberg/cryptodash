@@ -91,10 +91,4 @@ const mapStateToProps = state => ({
 	currentUser: state.auth
 });
 
-// const mapDispatchToProps = dispatch => ({
-// 	addLocalCurrencyToState() {
-
-// 	}
-// })
-
 export default connect(mapStateToProps)(CurrencySettings);

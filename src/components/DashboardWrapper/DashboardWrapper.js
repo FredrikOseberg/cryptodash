@@ -165,7 +165,7 @@ class DashboardWrapper extends Component {
 		return new Promise((resolve, reject) => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 
-			storageLocation.once('value', snapshot => {
+			storageLocation.on('value', snapshot => {
 				if (snapshot.hasChild('localCurrency')) {
 					const localCurrency = snapshot.child('localCurrency').val();
 
