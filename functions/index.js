@@ -51,7 +51,7 @@ exports.addPortfolioValue = functions.https.onRequest((request, response) => {
 					response.send('Added portfoliovalue');
 				})
 				.catch(error => {
-					addPortfolioVal(requests);
+					addPortfolioValue();
 				});
 		}
 
