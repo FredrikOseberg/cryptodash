@@ -1,24 +1,31 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { connect } from 'react-redux';
 import './dashboardportfoliochart.css';
 
-const DashboardPortfolioChart = () => {
+const DashboardPortfolioChart = props => {
 	const data = {
 		labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
 		datasets: [
 			{
 				label: 'Portfolio',
 				data: [30000, 37000, 33000, 40000, 42000, 45000, 41000, 42000, 50000],
-				backgroundColor: 'rgba(255,255,255,0.4)'
+				color: '#fff',
+				borderColor: '#fff',
+				pointBorderColor: '#fff',
+				pointBorderFillColor: '#fff',
+				pointBorderRadius: 1.2,
+				fill: false
 			}
 		]
 	};
+
 	return (
 		<section className="dashboard--portfolio--chart">
 			<header>
 				<div className="dashboard--portfolio--value">
 					<h1>
-						37000<span className="price--postfix" />
+						37000<span className="price--postfix">{props.localCurrency.currency}</span>
 					</h1>
 					<p>Portfolio value</p>
 				</div>
@@ -32,4 +39,8 @@ const DashboardPortfolioChart = () => {
 	);
 };
 
-export default DashboardPortfolioChart;
+const mapStateToProps = state => ({
+	localCurrency: state.localCurrency
+});
+
+export default connect(mapStateToProps)(DashboardPortfolioChart);

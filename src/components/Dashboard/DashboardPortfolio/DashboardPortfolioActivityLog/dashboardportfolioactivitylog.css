@@ -1,0 +1,13 @@
+.dashboard--portfolio--activity--log {
+	border-radius: 3px;
+	box-sizing: border-box;
+	background-color: #fff;
+	width: 35%;
+	margin: 0 0 0 30px;
+	overflow-y: scroll;
+}
+
+.dashboard--portfolio--activity--log > ul {
+	list-style-type: none;
+	padding: 0;
+}

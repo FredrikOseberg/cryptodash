@@ -16,14 +16,14 @@ class Dashboard extends Component {
 		super(props);
 
 		this.state = {
-			loading: true,
-			showDashboard: false,
+			loading: false,
+			showDashboard: true,
 			showDashboardMainPage: false,
 			showAllCurrencies: true,
 			currentCurrency: false,
 			settingsPage: 'Personal Info',
 			firstload: true,
-			dashboardPage: 'Dashboard',
+			dashboardPage: 'Portfolio',
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
 				{ name: 'Exchange', icon: 'fa fa-exchange' },
