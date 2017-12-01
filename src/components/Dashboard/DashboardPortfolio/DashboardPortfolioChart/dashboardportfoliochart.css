@@ -1,8 +1,25 @@
 .dashboard--portfolio--chart {
 	box-sizing: border-box;
+	width: 65%;
 }
 
 .dashboard--portfolio--chart header {
 	border-radius: 3px;
 	border: 1px solid #fff;
+	display: flex;
+	justify-content: space-around;
+	color: #fff;
+}
+
+.dashboard--portfolio--value,
+.dashboard--portfolio--24hr--percentage {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+.dashboard--portfolio--value h1 {
+	display: flex;
+	font-size: 2em;
 }
