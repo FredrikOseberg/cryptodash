@@ -1,4 +1,4 @@
-.dashboard--actvity--log--list--item {
+.dashboard--activity--log--list--item {
 	display: flex;
 	width: 100%;
 	align-items: center;
@@ -8,7 +8,20 @@
 	color: #585858;
 }
 
-.dashboard--activity--log--list--item--add,
+.dashboard--activity--log--list--item {
+	border-top: 1px solid #ededed;
+	border-bottom: 1px solid #ededed;
+}
+
+.dashboard--portfolio--activity--log li:first-child {
+	border-top: none;
+}
+
+.dashboard--portfolio--activity--log li:last-child {
+	border-bottom: none;
+}
+
+.dashboard--activity--log--list--item .dashboard--activity--log--list--item--add,
 .dashboard--activity--log--list--item--remove {
 	width: 30px;
 	height: 30px;
@@ -21,7 +34,7 @@
 }
 
 .dashboard--activity--log--list--item--add {
-	background-color: #32d232;
+	background-color: #555598;
 }
 
 .dashboard--activity--log--list--item--remove {

@@ -14,8 +14,9 @@ const DashboardPortfolioChart = props => {
 				borderColor: '#fff',
 				pointBorderColor: '#fff',
 				pointBorderFillColor: '#fff',
+				backgroundColor: 'rgba(255,255,255,0.4)',
 				pointBorderRadius: 1.2,
-				fill: false
+				fill: true
 			}
 		]
 	};

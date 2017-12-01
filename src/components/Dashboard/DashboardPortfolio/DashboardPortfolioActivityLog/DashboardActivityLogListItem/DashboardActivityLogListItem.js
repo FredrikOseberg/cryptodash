@@ -6,7 +6,7 @@ const DashboardActivityLogListItem = props => {
 	let listItem;
 	if (props.eventType === 'add') {
 		listItem = (
-			<li className="dashboard--actvity--log--list--item">
+			<li className="dashboard--activity--log--list--item">
 				<div className="dashboard--activity--log--list--item--add">
 					<i className="fa fa-plus" aria-hidden="true" />
 				</div>
@@ -20,7 +20,7 @@ const DashboardActivityLogListItem = props => {
 		);
 	} else {
 		listItem = (
-			<li className="dashboard--actvity--log--list--item">
+			<li className="dashboard--activity--log--list--item">
 				<div className="dashboard--activity--log--list--item--remove">
 					<i className="fa fa-minus" aria-hidden="true" />
 				</div>
