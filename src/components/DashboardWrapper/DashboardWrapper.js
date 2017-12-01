@@ -45,7 +45,6 @@ class DashboardWrapper extends Component {
 		this.getGlobalData = this.getGlobalData.bind(this);
 		this.setTotalPortfolioValue = this.setTotalPortfolioValue.bind(this);
 		this.getFrequentPortfolioValue = this.getFrequentPortfolioValue.bind(this);
-
 	}
 
 	componentDidMount() {
@@ -53,9 +52,7 @@ class DashboardWrapper extends Component {
 			if (user) {
 				this.setState({ showLanding: false });
 				this.addCurrenciesToState()
-
 					.then(() => this.getCurrentCurrency(this.props.currencies[0].symbol))
-
 					.then(this.initDashboard)
 					.then(this.clearLocalCurrency)
 					.then(this.setLocalCurrency)
@@ -78,7 +75,6 @@ class DashboardWrapper extends Component {
 		});
 	}
 
-<<<<<<< HEAD
 	setTotalPortfolioValue() {
 		let amount = 0;
 		this.props.currencies.forEach(currency => {
@@ -100,23 +96,6 @@ class DashboardWrapper extends Component {
 			this.setTotalPortfolioValue();
 		}, 5000);
 	}
-=======
-	// setTotalPortfolioValue() {
-	// 	let amount = 0;
-	// 	this.props.currencies.forEach(currency => {
-	// 		if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
-	// 			console.log(currency);
-	// 			amount += Number(currency.wallet.amount) * Number(currency.price);
-
-	// 			let portfolioValue = {
-	// 				totalVal: amount
-	// 			};
-
-	// 			this.props.addPortfolioValueToState(portfolioValue);
-	// 		}
-	// 	});
-	// }
->>>>>>> ff0f7a2b19ee6f292189f31bd0a2ce451e0af2f9
 
 	getGlobalData() {
 		axios.get('https://coincap.io/global').then(response => {
