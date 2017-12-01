@@ -15,11 +15,10 @@ class Dashboard extends Component {
 		super(props);
 
 		this.state = {
-			loading: true,
-			showDashboard: false,
+			loading: false,
+			showDashboard: true,
 			showDashboardMainPage: false,
 			showAllCurrencies: true,
-			currentCurrency: false,
 			settingsPage: 'Personal Info',
 			firstload: true,
 			dashboardPage: 'Dashboard',
@@ -36,26 +35,9 @@ class Dashboard extends Component {
 		this.handleAddWalletClick = this.handleAddWalletClick.bind(this);
 	}
 	componentDidMount() {
-		if (this.state.firstload) {
-			this.props.addCurrenciesToState().then(() => {
-				if (this.props.currencies.length > 0) {
-					console.log(this.props.currencies[0].symbol);
-					this.props.getCurrentCurrency(this.props.currencies[0].symbol).then(() => {
-						this.setState({ loading: false });
-						this.setState({ showDashboard: true });
-						this.setState({ currentCurrency: true });
-					});
-
-					this.interval = setInterval(() => {
-						this.props.getCurrentCurrency(this.props.currentCurrency.symbol);
-					}, 5000);
-				} else {
-					this.setState({ loading: false });
-					this.setState({ showDashboard: true });
-				}
-				this.setState({ firstload: false });
-			});
-		}
+		this.interval = setInterval(() => {
+			this.props.getCurrentCurrency(this.props.currentCurrency.symbol);
+		}, 5000);
 	}
 
 	componentWillUnmount() {
@@ -93,7 +75,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		const showDashboard = this.state.dashboardPage === 'Dashboard' && this.state.currentCurrency === true;
+		const showDashboard = this.state.dashboardPage === 'Dashboard';
 		const showExchange = this.state.dashboardPage === 'Exchange';
 		const showSettings = this.state.dashboardPage === 'Settings';
 		const showWallets = this.state.dashboardPage === 'Wallets';

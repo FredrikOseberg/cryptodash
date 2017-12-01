@@ -30,7 +30,7 @@ const DashboardMainPage = props => {
 				<CurrencyList currencies={props.currencies} handleAddWalletClick={props.handleAddWalletClick} />
 			</div>
 			<div className="dashboard--content--chart">
-				{props.firstCurrency ? (
+				{props.currentCurrency ? (
 					<LineChart getCurrentCurrency={props.getCurrentCurrency} styles={lineChartStyle} isMobile={false} />
 				) : (
 					<Spinner />
@@ -43,7 +43,7 @@ const DashboardMainPage = props => {
 
 const mapStateToProps = state => ({
 	currencies: state.selectedCurrencies,
-	firstCurrency: state.selectedCurrencies[0]
+	currentCurrency: state.currentCurrency
 });
 
 export default connect(mapStateToProps)(DashboardMainPage);

@@ -48,7 +48,9 @@ class DashboardWrapper extends Component {
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
-				this.initDashboard()
+				this.addCurrenciesToState()
+					.then(() => this.getCurrentCurrency(this.props.currencies[0].symbol))
+					.then(this.initDashboard)
 					.then(this.clearLocalCurrency)
 					.then(this.setLocalCurrency)
 					.then(this.addCurrencyPrice)

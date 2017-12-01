@@ -33,17 +33,11 @@ class MobileDashboard extends Component {
 		window.addEventListener('scroll', this.handleScrollBound, false);
 		document.body.style.height = 'auto';
 
-		this.props.addCurrenciesToState().then(() => {
-			if (this.props.currencies.length > 0) {
-				this.props.getCurrentCurrency(this.props.currencies[0].symbol).then(() => {
-					this.setState({ currentCurrency: true });
-				});
+		this.interval = setInterval(() => {
+			this.props.getCurrentCurrency(this.props.currentCurrency.symbol);
+		}, 5000);
 
-				this.interval = setInterval(() => {
-					this.props.getCurrentCurrency(this.props.currentCurrency.symbol);
-				}, 5000);
-			}
-		});
+		this.setState({ currentCurrency: true });
 	}
 
 	componentWillUnmount() {
