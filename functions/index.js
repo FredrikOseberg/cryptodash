@@ -40,11 +40,15 @@ exports.addPortfolioValue = functions.https.onRequest((request, response) => {
 		function addPortfolioVal(requests) {
 			Promise.all(requests)
 				.then(() => {
+					const timestamp = Date.now();
 					databaseRef
 						.child('portfolio')
-						.child('value')
-						.set(portfolioValue);
-					res.send('Added portfoliovalue');
+						.child(timestamp)
+						.set({
+							portfolioValue,
+							timestamp
+						});
+					response.send('Added portfoliovalue');
 				})
 				.catch(error => {
 					addPortfolioVal(requests);
