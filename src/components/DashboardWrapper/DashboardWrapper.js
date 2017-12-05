@@ -149,7 +149,6 @@ class DashboardWrapper extends Component {
 						this.setState({ showDashboard: true }, () => {
 							this.setState({ showLoading: false });
 						});
-						this.addCurrenciesToState();
 						resolve();
 					} else {
 						this.setState({ showOnboarding: true }, () => {
@@ -233,6 +232,7 @@ class DashboardWrapper extends Component {
 
 	addCurrenciesToState() {
 		return new Promise(resolve => {
+			this.props.clearCurrencyFromState();
 			const user = auth.currentUser;
 			const databaseRef = database.ref('users/' + user.uid + '/currencies');
 			databaseRef.once('value', snapshot => {
