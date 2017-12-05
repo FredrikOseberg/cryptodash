@@ -1,0 +1,15 @@
+.dashboard--portfolio--activity--log--pagination--button {
+	background-color: #ededed;
+	color: #888;
+	border-radius: 50%;
+	border: none;
+	width: 30px;
+	height: 30px;
+	margin: 5px;
+	cursor: pointer;
+}
+
+.dashboard--portfolio--activity--log--pagination--button--active {
+	background-color: #555598;
+	color: #fff;
+}

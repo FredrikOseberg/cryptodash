@@ -22,7 +22,7 @@ class Dashboard extends Component {
 			showAllCurrencies: true,
 			settingsPage: 'Personal Info',
 			firstload: true,
-			dashboardPage: 'Dashboard',
+			dashboardPage: 'Portfolio',
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
 				{ name: 'Exchange', icon: 'fa fa-exchange' },

@@ -34,16 +34,17 @@
 }
 
 .dashboard--activity--log--list--item--add {
-	background-color: #555598;
+	background-color: #d4d2d2;
 }
 
 .dashboard--activity--log--list--item--remove {
-	background-color: #ff6a6a;
+	background-color: #d4d2d2;
 }
 
 .dashboard--actvitiy--log--list--item--coin {
 	display: flex;
 	align-items: center;
+	width: 30%;
 }
 
 .dashboard--actvitiy--log--list--item--coin img {
