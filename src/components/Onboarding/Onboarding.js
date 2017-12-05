@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { database } from '../../firebase';
 import { addCurrency, clearCurrency } from '../../actions/currencies';
 import { isMobile } from '../HoC/IsMobile';
+import { portfolioEntry } from '../../events/portfolioevents';
 import Loading from '../Loading/Loading';
 import localCurrencyData from '../../localCurrencyData';
 import SearchCurrencies from '../SearchCurrencies/SearchCurrencies';
@@ -21,7 +22,7 @@ class Onboarding extends Component {
 			clickedExpandBox: false,
 			amountOfSteps: 3,
 			step: 'cryptoCurrencyStep',
-			localCurrency: 'AUD',
+			localCurrency: 'USD',
 			validationError: '',
 			loading: true,
 			showStep: false
@@ -150,6 +151,8 @@ class Onboarding extends Component {
 						amount: currency.wallet.amount,
 						wallet: currency.wallet.wallet
 					});
+
+				portfolioEntry(currency.wallet.amount, currency.name, currency.img, Date.now(), 'add');
 			});
 
 			const userStorageLocation = database.ref('users/' + this.props.currentUser.uid);

@@ -9,6 +9,11 @@
 	display: flex;
 	justify-content: space-around;
 	color: #fff;
+	margin: 10px 0;
+}
+
+.dashboard--portfolio--chart header h1 {
+	margin-bottom: 0;
 }
 
 .dashboard--portfolio--value,
@@ -22,4 +27,12 @@
 .dashboard--portfolio--value h1 {
 	display: flex;
 	font-size: 2em;
+}
+
+.dashboard--portfolio--percentage--positive {
+	color: #60f160;
+}
+
+.dashboard--portfolio--percentage--negative {
+	color: #ff6a6a;
 }

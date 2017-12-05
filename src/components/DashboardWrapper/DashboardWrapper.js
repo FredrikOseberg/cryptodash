@@ -79,11 +79,10 @@ class DashboardWrapper extends Component {
 		let amount = 0;
 		this.props.currencies.forEach(currency => {
 			if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
-				console.log(currency);
 				amount += Number(currency.wallet.amount) * Number(currency.price);
 
 				let portfolioValue = {
-					totalVal: amount
+					totalVal: amount.toFixed(2)
 				};
 
 				this.props.addPortfolioValueToState(portfolioValue);
@@ -170,7 +169,7 @@ class DashboardWrapper extends Component {
 		return new Promise((resolve, reject) => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 			if (this.props.currentUser.status === 'SIGNED_IN') {
-				storageLocation.once('value', snapshot => {
+				storageLocation.on('value', snapshot => {
 					if (snapshot.hasChild('completedOnboarding')) {
 						this.setState({ showOnboarding: false });
 						this.setState({ showDashboard: true }, () => {
@@ -218,7 +217,6 @@ class DashboardWrapper extends Component {
 
 	getCurrentCurrency(symbol) {
 		return new Promise((resolve, reject) => {
-			console.log('promise is running');
 			axios
 				.get(`https://coincap.io/page/${symbol}`)
 				.then(response => {
@@ -303,7 +301,7 @@ class DashboardWrapper extends Component {
 		return (
 			<div className="dashboard--wrapper">
 				{this.state.showLoading && <Loading />}
-				{this.state.showOnboarding && <Onboarding data={this.props.coinData} />}
+				{this.state.showOnboarding && <Onboarding data={this.props.coinData} history={this.props.history} />}
 				{this.state.showDashboard && dashboard}
 				{this.state.showLanding && landing}
 			</div>

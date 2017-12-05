@@ -1,3 +1,17 @@
 .dashboard--portfolio {
 	display: flex;
+	flex-direction: column;
+}
+
+.dashboard--portfolio--primary--content {
+	display: flex;
+}
+
+.dashboard--portfolio--secondary--content {
+	display: flex;
+}
+
+.dashboard--main--page {
+	display: flex;
+	flex-direction: column;
 }
