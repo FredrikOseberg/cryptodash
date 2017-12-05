@@ -143,12 +143,13 @@ class DashboardWrapper extends Component {
 		return new Promise((resolve, reject) => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 			if (this.props.currentUser.status === 'SIGNED_IN') {
-				storageLocation.once('value', snapshot => {
+				storageLocation.on('value', snapshot => {
 					if (snapshot.hasChild('completedOnboarding')) {
 						this.setState({ showOnboarding: false });
 						this.setState({ showDashboard: true }, () => {
 							this.setState({ showLoading: false });
 						});
+						this.addCurrenciesToState();
 						resolve();
 					} else {
 						this.setState({ showOnboarding: true }, () => {
@@ -232,7 +233,6 @@ class DashboardWrapper extends Component {
 
 	addCurrenciesToState() {
 		return new Promise(resolve => {
-			this.props.clearCurrencyFromState();
 			const user = auth.currentUser;
 			const databaseRef = database.ref('users/' + user.uid + '/currencies');
 			databaseRef.once('value', snapshot => {

@@ -154,8 +154,6 @@ class Onboarding extends Component {
 
 			const userStorageLocation = database.ref('users/' + this.props.currentUser.uid);
 			userStorageLocation.child('completedOnboarding').set(true);
-
-			this.props.clearCurrenciesFromState();
 		} else {
 			this.setState({
 				validationError:
