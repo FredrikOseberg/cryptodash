@@ -22,7 +22,10 @@ class DashboardPortfolioChart extends Component {
 
 	componentDidMount() {
 		this.setChartData();
-		this.calculate24PercentageChange();
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.interval);
 	}
 
 	formatDate(date) {
@@ -69,10 +72,11 @@ class DashboardPortfolioChart extends Component {
 				labels.push(formattedDate);
 			});
 
-			const portfolioValueToday = Number(data[data.length - 1]);
-			const portfolioValueYesterday = Number(data[data.length - 2]);
+			const portfolioValueYesterday = Number(data[data.length - 1]);
 
-			this.calculate24PercentageChange(portfolioValueToday, portfolioValueYesterday);
+			this.interval = setInterval(() => {
+				this.calculate24PercentageChange(this.props.portfolio.totalVal, portfolioValueYesterday);
+			}, 5000);
 
 			this.setState({ data });
 			this.setState({ labels });
@@ -80,6 +84,8 @@ class DashboardPortfolioChart extends Component {
 	}
 
 	calculate24PercentageChange(portfolioValueToday, portfolioValueYesterday) {
+		console.log(portfolioValueToday, portfolioValueYesterday);
+
 		const portfolioValueDifference = portfolioValueToday - portfolioValueYesterday;
 		const percentage = portfolioValueDifference / portfolioValueYesterday * 100;
 		console.log(portfolioValueToday, portfolioValueYesterday);

@@ -59,4 +59,14 @@
 	margin-right: 10px;
 	font-family: Montserrat, sans-serif;
 	font-weight: bold;
+	width: 60px;
+	text-align: right;
+}
+
+.dashboard--activity--log--list--item--amount--add {
+	color: #26d626;
+}
+
+.dashboard--activity--log--list--item--amount--remove {
+	color: red;
 }

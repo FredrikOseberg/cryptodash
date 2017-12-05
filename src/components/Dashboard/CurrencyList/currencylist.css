@@ -1,3 +1,7 @@
+.dashboard--currency--list {
+	min-width: 450px;
+}
+
 .dashboard--currency--list > ul {
 	color: #fff;
 	font-family: Montserrat, sans-serif;
