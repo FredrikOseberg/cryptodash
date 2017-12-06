@@ -20,7 +20,7 @@ class DashboardPortfolioPieChart extends Component {
 		this.props.currencies.forEach(currency => {
 			if (currency.wallet && currency.price && currency.wallet.amount) {
 				const amount = (+currency.wallet.amount * +currency.price).toFixed(2);
-				console.log(typeof amount);
+
 				if (+amount) {
 					data.push(amount);
 					labels.push(currency.name);
@@ -36,10 +36,10 @@ class DashboardPortfolioPieChart extends Component {
 		const data = {
 			datasets: [
 				{
-					data: this.state.data
+					data: this.state.data,
+					backgroundColor: 'rgb(85, 85, 152)'
 				}
 			],
-			backgroundColor: ['#fff'],
 			labels: this.state.labels
 		};
 		return (

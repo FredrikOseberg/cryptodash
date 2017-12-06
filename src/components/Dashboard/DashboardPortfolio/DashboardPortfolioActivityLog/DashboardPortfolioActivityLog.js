@@ -37,7 +37,7 @@ class DashboardPortfolioActivityLog extends Component {
 
 				map(events, event => {
 					const date = new Date(event.timestamp);
-					event.timestamp = this.formatDate(date);
+					event.date = this.formatDate(date);
 
 					portfolioLog.push(event);
 				});
@@ -146,7 +146,8 @@ class DashboardPortfolioActivityLog extends Component {
 									eventType={logEvent.type}
 									name={logEvent.coinName}
 									img={logEvent.img}
-									timestamp={logEvent.timestamp}
+									timestamp={logEvent.date}
+									key={logEvent.timestamp}
 									amount={logEvent.amount}
 								/>
 							);

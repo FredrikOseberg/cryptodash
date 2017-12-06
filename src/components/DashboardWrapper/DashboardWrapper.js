@@ -53,6 +53,10 @@ class DashboardWrapper extends Component {
 				this.setState({ showLanding: false });
 				this.addCurrenciesToState()
 					.then(() => this.getCurrentCurrency(this.props.currencies[0].symbol))
+					.catch(() => {
+						this.setState({ showDashboard: true });
+						this.setState({ showLoading: false });
+					})
 					.then(this.initDashboard)
 					.then(this.clearLocalCurrency)
 					.then(this.setLocalCurrency)
