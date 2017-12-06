@@ -6,6 +6,7 @@ import { addLocalCurrency } from '../../actions/localCurrency';
 import { addPrice, addCurrency, clearCurrency } from '../../actions/currencies';
 import { clearLocalCurrency } from '../../actions/localCurrency';
 import axios from 'axios';
+import { addTotalPortfolioValue } from '../../actions/portfolio';
 import Loading from '../Loading/Loading';
 import Landing from '../../components/Landing/Landing';
 import Onboarding from '../../components/Onboarding/Onboarding';
@@ -42,6 +43,8 @@ class DashboardWrapper extends Component {
 		this.setLocalCurrency = this.setLocalCurrency.bind(this);
 		this.showLandingPage = this.showLandingPage.bind(this);
 		this.getGlobalData = this.getGlobalData.bind(this);
+		this.setTotalPortfolioValue = this.setTotalPortfolioValue.bind(this);
+		this.getFrequentPortfolioValue = this.getFrequentPortfolioValue.bind(this);
 	}
 
 	componentDidMount() {
@@ -50,13 +53,19 @@ class DashboardWrapper extends Component {
 				this.setState({ showLanding: false });
 				this.addCurrenciesToState()
 					.then(() => this.getCurrentCurrency(this.props.currencies[0].symbol))
+					.catch(() => {
+						this.setState({ showDashboard: true });
+						this.setState({ showLoading: false });
+					})
 					.then(this.initDashboard)
 					.then(this.clearLocalCurrency)
 					.then(this.setLocalCurrency)
 					.then(this.addCurrencyPrice)
 					.then(this.setIntervalToGetCoinData)
 					.then(this.getAllCoinData)
-					.then(this.getGlobalData);
+					.then(this.getGlobalData)
+					.then(this.setTotalPortfolioValue)
+					.then(this.getFrequentPortfolioValue);
 			} else {
 				this.showLandingPage();
 			}
@@ -68,6 +77,27 @@ class DashboardWrapper extends Component {
 			this.props.clearLocalCurrencyFromState();
 			resolve();
 		});
+	}
+
+	setTotalPortfolioValue() {
+		let amount = 0;
+		this.props.currencies.forEach(currency => {
+			if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
+				amount += Number(currency.wallet.amount) * Number(currency.price);
+
+				let portfolioValue = {
+					totalVal: amount.toFixed(2)
+				};
+
+				this.props.addPortfolioValueToState(portfolioValue);
+			}
+		});
+	}
+
+	getFrequentPortfolioValue() {
+		this.portfolioInterval = setInterval(() => {
+			this.setTotalPortfolioValue();
+		}, 5000);
 	}
 
 	getGlobalData() {
@@ -165,7 +195,7 @@ class DashboardWrapper extends Component {
 		return new Promise((resolve, reject) => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 
-			storageLocation.on('value', snapshot => {
+			storageLocation.once('value', snapshot => {
 				if (snapshot.hasChild('localCurrency')) {
 					const localCurrency = snapshot.child('localCurrency').val();
 
@@ -232,17 +262,19 @@ class DashboardWrapper extends Component {
 
 	addCurrenciesToState() {
 		return new Promise(resolve => {
-			this.props.clearCurrencyFromState();
-			const user = auth.currentUser;
-			const databaseRef = database.ref('users/' + user.uid + '/currencies');
-			databaseRef.once('value', snapshot => {
-				const currencies = snapshot.val();
-				// Lodash Object Map
-				map(currencies, currency => {
-					this.props.addCurrencyToState({ payload: currency });
+			if (this.props.currencies.length === 0) {
+				this.props.clearCurrencyFromState();
+				const user = auth.currentUser;
+				const databaseRef = database.ref('users/' + user.uid + '/currencies');
+				databaseRef.once('value', snapshot => {
+					const currencies = snapshot.val();
+					// Lodash Object Map
+					map(currencies, currency => {
+						this.props.addCurrencyToState({ payload: currency });
+					});
+					resolve();
 				});
-				resolve();
-			});
+			}
 		});
 	}
 
@@ -252,7 +284,6 @@ class DashboardWrapper extends Component {
 			dashboard = (
 				<MobileDashboard
 					getCurrentCurrency={this.getCurrentCurrency}
-					addCurrenciesToState={this.addCurrenciesToState}
 					allCurrencies={this.state.allCurrencies}
 					history={this.props.history}
 				/>
@@ -265,7 +296,6 @@ class DashboardWrapper extends Component {
 					wallets={this.state.wallets}
 					allCurrencies={this.state.allCurrencies}
 					getCurrentCurrency={this.getCurrentCurrency}
-					addCurrenciesToState={this.addCurrenciesToState}
 					globalData={this.state.globalData}
 				/>
 			);
@@ -275,7 +305,7 @@ class DashboardWrapper extends Component {
 		return (
 			<div className="dashboard--wrapper">
 				{this.state.showLoading && <Loading />}
-				{this.state.showOnboarding && <Onboarding data={this.props.coinData} />}
+				{this.state.showOnboarding && <Onboarding data={this.props.coinData} history={this.props.history} />}
 				{this.state.showDashboard && dashboard}
 				{this.state.showLanding && landing}
 			</div>
@@ -307,6 +337,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	clearLocalCurrencyFromState() {
 		dispatch(clearLocalCurrency());
+	},
+	addPortfolioValueToState(obj) {
+		dispatch(addTotalPortfolioValue(obj));
 	}
 });
 
