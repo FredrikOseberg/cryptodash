@@ -3,6 +3,7 @@ import { database, auth } from '../../../../firebase';
 import { connect } from 'react-redux';
 import DashboardPortfolioActivityLogPaginationButton from '../DashboardPortfolioActivityLog/DashboardPortfolioActivityLogPaginationButton/DashboardPortfolioActivityLogPaginationButton';
 import DashboardPortfolioDistributionLogListItem from './DashboardPortfolioDistributionLogListItem/DashboardPortfolioDistributionLogListItem';
+import dummyData from '../../../../dummyData/portfolioDistributionDummyData';
 import map from 'lodash/map';
 import './dashboardportfoliodistributionlog.css';
 
@@ -38,10 +39,14 @@ class DashboardPortfolioDistributionLog extends Component {
 						currency.price * currency.wallet.amount / this.props.portfolio.totalVal * 100;
 
 					currency.totalVal = currency.price * currency.wallet.amount;
-					console.log(currency.totalPercentage);
 					portfolioLog.push(currency);
 				}
 			});
+
+			if (portfolioLog.length === 0) {
+				portfolioLog = dummyData;
+				console.log(portfolioLog);
+			}
 
 			this.setState({ portfolioLog });
 			resolve(portfolioLog);
@@ -135,6 +140,7 @@ class DashboardPortfolioDistributionLog extends Component {
 								<DashboardPortfolioActivityLogPaginationButton
 									pageNumber={page.pageNumber}
 									name={page.name}
+									key={page.pageNumber}
 									handlePageChange={this.handlePageChange}
 									currentPage={this.state.currentPage}
 								/>

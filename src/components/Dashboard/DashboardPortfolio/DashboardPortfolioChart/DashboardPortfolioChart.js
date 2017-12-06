@@ -55,7 +55,7 @@ class DashboardPortfolioChart extends Component {
 		const databaseRef = database.ref(`/users/${auth.currentUser.uid}`);
 
 		databaseRef.once('value', snapshot => {
-			const data = [],
+			let data = [],
 				labels = [];
 
 			const storedData = snapshot
@@ -77,6 +77,11 @@ class DashboardPortfolioChart extends Component {
 			this.interval = setInterval(() => {
 				this.calculate24PercentageChange(this.props.portfolio.totalVal, portfolioValueYesterday);
 			}, 5000);
+
+			if (data.length <= 1 && labels.length <= 1) {
+				data = [300, 500, 250, 300, 500, 600, 1000];
+				labels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+			}
 
 			this.setState({ data });
 			this.setState({ labels });
@@ -146,13 +151,13 @@ class DashboardPortfolioChart extends Component {
 				<header>
 					<div className="dashboard--portfolio--value">
 						<h1>
-							{this.props.portfolio.totalVal}
+							{this.props.portfolio.totalVal || 1000}
 							<span className="price--postfix">{this.props.localCurrency.currency}</span>
 						</h1>
 						<p>Portfolio value</p>
 					</div>
 					<div className="dashboard--portfolio--24hr--percentage">
-						<h1 className={percentageClasses}>{this.state.percentage.toFixed(2)}%</h1>
+						<h1 className={percentageClasses}>{this.state.percentage.toFixed(2) || 3}%</h1>
 						<p>Portfolio 24hr change</p>
 					</div>
 				</header>

@@ -3,6 +3,7 @@ import { database, auth } from '../../../../firebase';
 import DashboardActivityLogListItem from './DashboardActivityLogListItem/DashboardActivityLogListItem';
 import DashboardPortfolioActivityLogPaginationButton from './DashboardPortfolioActivityLogPaginationButton/DashboardPortfolioActivityLogPaginationButton';
 import map from 'lodash/map';
+import dummyData from '../../../../dummyData/portfolioLogDummyData';
 import './dashboardportfolioactivitylog.css';
 
 class DashboardPortfolioActivityLog extends Component {
@@ -43,6 +44,10 @@ class DashboardPortfolioActivityLog extends Component {
 				});
 
 				portfolioLog = portfolioLog.reverse();
+
+				if (portfolioLog.length === 0) {
+					portfolioLog = dummyData;
+				}
 
 				this.setState({ portfolioLog });
 				resolve(portfolioLog);
@@ -113,18 +118,18 @@ class DashboardPortfolioActivityLog extends Component {
 	}
 
 	formatDate(date) {
-		let month = date.getMonth();
-		let day = date.getDay();
+		let month = date.getMonth() + 1;
+		let day = date.getDay() + 1;
 		const year = date.getFullYear();
 
-		if (month < 10) {
+		if (month < 11) {
 			month = month.toString().split('');
 
 			month.unshift('0');
 			month = month.join('');
 		}
 
-		if (day < 10) {
+		if (day < 11) {
 			day = day.toString().split('');
 
 			day.unshift('0');
@@ -135,11 +140,12 @@ class DashboardPortfolioActivityLog extends Component {
 	}
 
 	render() {
+		const listExists = this.state.currentPage && this.state.currentPage.data.length > 0;
 		return (
 			<div className="dashboard--portfolio--activity--log">
 				<h1>Portfolio Activity Log</h1>
 				<ul>
-					{this.state.currentPage &&
+					{listExists &&
 						this.state.currentPage.data.map(logEvent => {
 							return (
 								<DashboardActivityLogListItem
@@ -154,16 +160,18 @@ class DashboardPortfolioActivityLog extends Component {
 						})}
 				</ul>
 				<div className="dashboard--portfolio--activity--log--pagination--buttons">
-					{this.state.pages.map(page => {
-						return (
-							<DashboardPortfolioActivityLogPaginationButton
-								pageNumber={page.pageNumber}
-								name={page.name}
-								handlePageChange={this.handlePageChange}
-								currentPage={this.state.currentPage}
-							/>
-						);
-					})}
+					{this.state.pages.length > 1 &&
+						this.state.pages.map(page => {
+							return (
+								<DashboardPortfolioActivityLogPaginationButton
+									pageNumber={page.pageNumber}
+									name={page.name}
+									key={page.pageNumber}
+									handlePageChange={this.handlePageChange}
+									currentPage={this.state.currentPage}
+								/>
+							);
+						})}
 				</div>
 			</div>
 		);

@@ -28,6 +28,11 @@ class DashboardPortfolioPieChart extends Component {
 			}
 		});
 
+		if (data.length === 0 && labels.length === 0) {
+			data.push(300, 250, 450);
+			labels.push('Bitcoin', 'Ethereum', 'Litecoin');
+		}
+
 		this.setState({ data });
 		this.setState({ labels });
 	}

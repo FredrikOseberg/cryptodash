@@ -30,3 +30,24 @@
 	margin-top: auto;
 	padding-bottom: 10px;
 }
+
+.dashboard--portfolio--activity--log--placeholder {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	color: #585858;
+	align-items: center;
+}
+
+.dashboard--portfolio--activity--log--add--record {
+	width: 40px;
+	height: 40px;
+	background-color: #555598;
+	color: #fff;
+	border: none;
+	margin: 15px auto;
+	border-radius: 50%;
+	font-family: Montserrat, sans-serif;
+	font-size: 1.3em;
+	cursor: pointer;
+}
