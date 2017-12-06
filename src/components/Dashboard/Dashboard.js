@@ -44,10 +44,6 @@ class Dashboard extends Component {
 		clearInterval(this.interval);
 	}
 
-	setSidebarComponent(component) {
-		this.setState({ sidebarComponent: component });
-	}
-
 	handleAddWalletClick() {
 		this.setState({ dashboardPage: 'Settings' });
 		this.setState({ settingsPage: 'Wallets' });
