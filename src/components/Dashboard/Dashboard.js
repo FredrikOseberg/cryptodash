@@ -25,10 +25,10 @@ class Dashboard extends Component {
 			dashboardPage: 'Portfolio',
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
+				{ name: 'Portfolio', icon: 'fa fa-money' },
 				{ name: 'Exchange', icon: 'fa fa-exchange' },
 				{ name: 'Settings', icon: 'fa fa-cog' },
-				{ name: 'Wallets', icon: 'fa fa-folder' },
-				{ name: 'Portfolio', icon: 'fa fa-money' }
+				{ name: 'Wallets', icon: 'fa fa-folder' }
 			]
 		};
 
@@ -110,7 +110,7 @@ class Dashboard extends Component {
 							{showSettings && <Settings startPage={this.state.settingsPage} />}
 							{showExchange && <Exchange />}
 							{showWallets && <Wallet handleAddWalletClick={this.handleAddWalletClick} />}
-							{showPortfolio && <DashboardPortfolio />}
+							{showPortfolio && <DashboardPortfolio handleAddWalletClick={this.handleAddWalletClick} />}
 						</div>
 					</div>
 				</div>

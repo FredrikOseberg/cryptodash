@@ -37,7 +37,9 @@ class DashboardPortfolio extends Component {
 		if (this.state.hasDataToShow) {
 			dashboardInformation = '';
 		} else {
-			dashboardInformation = <DashboardPortfolioInformation />;
+			dashboardInformation = (
+				<DashboardPortfolioInformation handleAddWalletClick={this.props.handleAddWalletClick} />
+			);
 		}
 
 		return (
