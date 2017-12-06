@@ -31,7 +31,6 @@ class Dashboard extends Component {
 		};
 
 		this.handleDashboardNavClick = this.handleDashboardNavClick.bind(this);
-		this.setSidebarComponent = this.setSidebarComponent.bind(this);
 		this.handleAddWalletClick = this.handleAddWalletClick.bind(this);
 	}
 	componentDidMount() {
