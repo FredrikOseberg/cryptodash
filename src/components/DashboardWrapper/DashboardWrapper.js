@@ -53,10 +53,6 @@ class DashboardWrapper extends Component {
 				this.setState({ showLanding: false });
 				this.addCurrenciesToState()
 					.then(() => this.getCurrentCurrency(this.props.currencies[0].symbol))
-					.catch(() => {
-						this.setState({ showDashboard: true });
-						this.setState({ showLoading: false });
-					})
 					.then(this.initDashboard)
 					.then(this.clearLocalCurrency)
 					.then(this.setLocalCurrency)
@@ -169,6 +165,11 @@ class DashboardWrapper extends Component {
 		}, 10000);
 	}
 
+	shouldComponentUpdate(prevState, nextState) {
+		console.log(prevState, nextState);
+		return true;
+	}
+
 	initDashboard() {
 		return new Promise((resolve, reject) => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
@@ -270,6 +271,9 @@ class DashboardWrapper extends Component {
 					const currencies = snapshot.val();
 					// Lodash Object Map
 					map(currencies, currency => {
+						this.props.currencies.forEach(currency => {
+							console.log(currency);
+						});
 						this.props.addCurrencyToState({ payload: currency });
 					});
 					resolve();
