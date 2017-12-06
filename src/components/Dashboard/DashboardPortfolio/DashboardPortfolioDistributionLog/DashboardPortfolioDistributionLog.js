@@ -34,7 +34,7 @@ class DashboardPortfolioDistributionLog extends Component {
 			let portfolioLog = [];
 
 			this.props.currencies.forEach(currency => {
-				if (currency.wallet && currency.wallet.amount && currency.price) {
+				if (currency.wallet && currency.wallet.amount && currency.price && currency.wallet.amount > 0) {
 					currency.totalPercentage =
 						currency.price * currency.wallet.amount / this.props.portfolio.totalVal * 100;
 
