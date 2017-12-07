@@ -159,7 +159,6 @@ class DashboardWrapper extends Component {
 
 	dataSetup() {
 		this.addCurrenciesToState()
-			.then(() => this.getCurrentCurrency(this.props.currencies[0].symbol))
 			.then(this.addCurrencyPrice)
 			.then(this.clearLocalCurrency)
 			.then(this.setLocalCurrency)
@@ -167,7 +166,9 @@ class DashboardWrapper extends Component {
 			.then(this.getAllCoinData)
 			.then(this.getGlobalData)
 			.then(this.setTotalPortfolioValue)
-			.then(this.getFrequentPortfolioValue);
+			.then(this.getFrequentPortfolioValue)
+			.then(this.getCurrentCurrency(this.props.currencies[0].symbol))
+			.catch(err => console.log(err));
 	}
 
 	initDashboard() {
@@ -194,6 +195,7 @@ class DashboardWrapper extends Component {
 	}
 
 	setLocalCurrency() {
+		console.log('running');
 		return new Promise((resolve, reject) => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 
@@ -279,20 +281,18 @@ class DashboardWrapper extends Component {
 	addCurrenciesToState() {
 		console.log('adding currencies');
 		return new Promise(resolve => {
-			if (this.props.currencies.length === 0) {
-				this.props.clearCurrencyFromState();
-				const user = auth.currentUser;
-				const databaseRef = database.ref('users/' + user.uid + '/currencies');
-				databaseRef.once('value', snapshot => {
-					const currencies = snapshot.val();
-					// Lodash Object Map
-					map(currencies, currency => {
-						this.props.addCurrencyToState({ payload: currency });
-					});
-
-					resolve();
+			this.props.clearCurrencyFromState();
+			const user = auth.currentUser;
+			const databaseRef = database.ref('users/' + user.uid + '/currencies');
+			databaseRef.once('value', snapshot => {
+				const currencies = snapshot.val();
+				// Lodash Object Map
+				map(currencies, currency => {
+					this.props.addCurrencyToState({ payload: currency });
 				});
-			}
+
+				resolve();
+			});
 		});
 	}
 
