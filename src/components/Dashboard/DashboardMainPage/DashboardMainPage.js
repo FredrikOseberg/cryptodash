@@ -40,7 +40,7 @@ const DashboardMainPage = props => {
 				{currencyPortfolioOnLeft}
 			</div>
 			<div className="dashboard--content--chart">
-				{props.currentCurrency ? (
+				{props.currentCurrency.name ? (
 					<LineChart getCurrentCurrency={props.getCurrentCurrency} styles={lineChartStyle} isMobile={false} />
 				) : (
 					<Spinner />

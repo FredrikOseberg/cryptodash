@@ -100,14 +100,6 @@ class CurrencyListItem extends Component {
 		});
 	}
 
-	componentWillReceiveProps(props) {
-		this.setState({ newData: true }, () => {
-			setTimeout(() => {
-				this.setState({ newData: false });
-			}, 1500);
-		});
-	}
-
 	render() {
 		let percentageClasses;
 		if (this.props.percentage > 0) {
