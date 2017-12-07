@@ -90,7 +90,7 @@ class DashboardPortfolioChart extends Component {
 	}
 
 	calculate24PercentageChange(portfolioValueToday, portfolioValueYesterday) {
-		if (this.props.hasDataPoints && this.props.localCurrency.currency) {
+		if (this.props.hasDataToShow && this.props.portfolio.totalVal) {
 			const portfolioValueDifference = portfolioValueToday - portfolioValueYesterday;
 			const percentage = portfolioValueDifference / portfolioValueYesterday * 100;
 
