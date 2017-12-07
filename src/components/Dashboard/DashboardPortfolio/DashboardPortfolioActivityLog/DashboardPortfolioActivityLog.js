@@ -20,12 +20,17 @@ class DashboardPortfolioActivityLog extends Component {
 		this.getEventData = this.getEventData.bind(this);
 		this.setDefaultPage = this.setDefaultPage.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
+		this.handleAddPortfolioClick = this.handleAddPortfolioClick.bind(this);
 	}
 
 	componentDidMount() {
 		this.getEventData()
 			.then(result => this.paginate(result, 8))
 			.then(this.setDefaultPage);
+	}
+
+	handleAddPortfolioClick() {
+		this.props.handleAddWalletClick();
 	}
 
 	getEventData() {
@@ -143,7 +148,14 @@ class DashboardPortfolioActivityLog extends Component {
 		const listExists = this.state.currentPage && this.state.currentPage.data.length > 0;
 		return (
 			<div className="dashboard--portfolio--activity--log">
-				<h1>Portfolio Activity Log</h1>
+				<h1>
+					Portfolio Activity Log<button
+						onClick={this.handleAddPortfolioClick}
+						className="dashboard--portfolio--activity--log--add"
+					>
+						+
+					</button>
+				</h1>
 				<ul>
 					{listExists &&
 						this.state.currentPage.data.map(logEvent => {

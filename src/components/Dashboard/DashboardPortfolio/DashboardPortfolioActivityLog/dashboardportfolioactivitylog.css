@@ -16,6 +16,24 @@
 	padding: 15px;
 	color: #fff;
 	font-size: 1.4em;
+	position: relative;
+}
+
+.dashboard--portfolio--activity--log--add {
+	position: absolute;
+	right: 0;
+	margin-right: 10px;
+	border-radius: 50%;
+	height: 40px;
+	width: 40px;
+	border: 1px solid #fff;
+	background-color: transparent;
+	color: #fff;
+	font-size: 1.2em;
+	font-weight: bold;
+	font-family: Montserrat, sans-serif;
+	top: 9px;
+	cursor: pointer;
 }
 
 .dashboard--portfolio--activity--log > ul {

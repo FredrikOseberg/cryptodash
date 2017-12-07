@@ -83,7 +83,7 @@ class DashboardPortfolio extends Component {
 				{dataInformationPending}
 				<div className="dashboard--portfolio--primary--content">
 					<DashboardPortfolioChart hasDataPoints={this.state.hasDataPoints} />
-					<DashboardPortfolioActivityLog />
+					<DashboardPortfolioActivityLog handleAddWalletClick={this.props.handleAddWalletClick} />
 				</div>
 				<div className="dashboard--portfolio--secondary--content">
 					<DashboardPortfolioDistributionLog />
