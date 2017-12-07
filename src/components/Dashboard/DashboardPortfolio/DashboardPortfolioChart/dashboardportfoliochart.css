@@ -43,3 +43,10 @@
 	width: 20px;
 	height: 20px;
 }
+
+@media (max-width: 1380px) {
+	.dashboard--portfolio--chart {
+		box-sizing: border-box;
+		width: 100%;
+	}
+}

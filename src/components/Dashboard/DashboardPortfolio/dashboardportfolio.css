@@ -21,3 +21,13 @@
 	margin-top: 100px;
 	align-items: center;
 }
+
+@media (max-width: 1380px) {
+	.dashboard--portfolio--primary--content {
+		flex-direction: column;
+	}
+	.dashboard--portfolio--secondary--content {
+		flex-direction: column;
+		margin-top: 0;
+	}
+}

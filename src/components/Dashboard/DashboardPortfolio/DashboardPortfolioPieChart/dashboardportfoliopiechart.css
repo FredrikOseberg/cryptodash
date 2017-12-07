@@ -1,3 +1,9 @@
 .dashboard--portfolio--pie--chart {
 	width: 65%;
 }
+
+@media (max-width: 1380px) {
+	.dashboard--portfolio--pie--chart {
+		width: 100%;
+	}
+}
