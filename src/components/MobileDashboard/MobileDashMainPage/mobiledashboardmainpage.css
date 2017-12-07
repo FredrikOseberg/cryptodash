@@ -11,6 +11,10 @@
 	width: 100%;
 }
 
+.dashboard--main--page--currency--list {
+	max-width: 505px;
+}
+
 .dashboard--main--page--currency--list--header {
 	color: #fff;
 	box-sizing: border-box;

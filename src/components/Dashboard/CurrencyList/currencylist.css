@@ -1,5 +1,6 @@
 .dashboard--currency--list {
 	min-width: 450px;
+	margin-bottom: 50px;
 }
 
 .dashboard--currency--list > ul {

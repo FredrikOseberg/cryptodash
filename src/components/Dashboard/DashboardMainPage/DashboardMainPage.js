@@ -14,6 +14,15 @@ const DashboardMainPage = props => {
 		fill: true,
 		width: '100%'
 	};
+	let currencyPortfolioOnLeft, currencyPortfolioOnRight;
+	if (props.currencies.length >= 10) {
+		currencyPortfolioOnRight = <CurrencyPortfolio />;
+		currencyPortfolioOnLeft = '';
+	} else {
+		currencyPortfolioOnRight = '';
+		currencyPortfolioOnLeft = <CurrencyPortfolio />;
+	}
+
 	return (
 		<div className="dashboard--main--page--content">
 			<div className="dashboard--main--page--currency--list">
@@ -28,6 +37,7 @@ const DashboardMainPage = props => {
 					</Link>
 				</div>
 				<CurrencyList currencies={props.currencies} handleAddWalletClick={props.handleAddWalletClick} />
+				{currencyPortfolioOnLeft}
 			</div>
 			<div className="dashboard--content--chart">
 				{props.currentCurrency ? (
@@ -35,7 +45,7 @@ const DashboardMainPage = props => {
 				) : (
 					<Spinner />
 				)}
-				<CurrencyPortfolio />
+				{currencyPortfolioOnRight}
 			</div>
 		</div>
 	);

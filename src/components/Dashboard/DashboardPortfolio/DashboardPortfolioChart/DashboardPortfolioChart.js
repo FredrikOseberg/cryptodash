@@ -149,16 +149,29 @@ class DashboardPortfolioChart extends Component {
 		}
 
 		const showTotalValue = this.props.localCurrency.currency && this.props.portfolio.totalVal;
+
+		let portfolioValue;
+
+		if (this.props.hasDataToShow) {
+			portfolioValue = (
+				<h1>
+					{showTotalValue ? this.props.portfolio.totalVal : <Spinner />}
+					<span className="price--postfix">{showTotalValue ? this.props.localCurrency.currency : ''}</span>
+				</h1>
+			);
+		} else {
+			portfolioValue = (
+				<h1>
+					1000
+					<span className="price--postfix">{this.props.localCurrency.currency}</span>
+				</h1>
+			);
+		}
 		return (
 			<section className="dashboard--portfolio--chart">
 				<header>
 					<div className="dashboard--portfolio--value">
-						<h1>
-							{showTotalValue ? this.props.portfolio.totalVal || 1000 : <Spinner />}
-							<span className="price--postfix">
-								{showTotalValue ? this.props.localCurrency.currency : ''}
-							</span>
-						</h1>
+						{portfolioValue}
 						<p>Portfolio value</p>
 					</div>
 					<div className="dashboard--portfolio--24hr--percentage">
