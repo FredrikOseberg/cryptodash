@@ -93,7 +93,6 @@ class DashboardPortfolioChart extends Component {
 		if (this.props.hasDataPoints && this.props.localCurrency.currency) {
 			const portfolioValueDifference = portfolioValueToday - portfolioValueYesterday;
 			const percentage = portfolioValueDifference / portfolioValueYesterday * 100;
-			console.log(portfolioValueToday, portfolioValueYesterday);
 
 			this.setState({ percentage });
 		} else {

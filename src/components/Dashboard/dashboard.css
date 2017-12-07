@@ -32,6 +32,17 @@
 	cursor: pointer;
 	border-bottom: 2px solid #fff;
 	transition: all 0.4s ease;
+	position: relative;
+}
+
+.dashboard--navigation--new {
+	position: absolute;
+	top: -8px;
+	right: 0;
+	padding: 5px 8px;
+	background-color: #26cc26;
+	border-radius: 3px;
+	color: #fff;
 }
 
 .dashboard--navigation--list li:hover {

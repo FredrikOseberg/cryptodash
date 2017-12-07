@@ -25,7 +25,7 @@ class Dashboard extends Component {
 			dashboardPage: 'Dashboard',
 			dashboardPages: [
 				{ name: 'Dashboard', icon: 'fa fa-tachometer' },
-				{ name: 'Portfolio', icon: 'fa fa-money' },
+				{ name: 'Portfolio', icon: 'fa fa-money', new: true },
 				{ name: 'Exchange', icon: 'fa fa-exchange' },
 				{ name: 'Settings', icon: 'fa fa-cog' },
 				{ name: 'Wallets', icon: 'fa fa-folder' }
