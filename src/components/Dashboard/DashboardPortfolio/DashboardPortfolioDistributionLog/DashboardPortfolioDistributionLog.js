@@ -21,12 +21,32 @@ class DashboardPortfolioDistributionLog extends Component {
 		this.getCurrencyData = this.getCurrencyData.bind(this);
 		this.setDefaultPage = this.setDefaultPage.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
+		this.getFrequentData = this.getFrequentData.bind(this);
 	}
 
 	componentDidMount() {
 		this.getCurrencyData()
 			.then(result => this.paginate(result, 8))
-			.then(this.setDefaultPage);
+			.then(this.setDefaultPage)
+			.then(this.getFrequentData);
+	}
+
+	getFrequentData() {
+		this.interval = setInterval(() => {
+			this.getCurrencyData()
+				.then(result => this.paginate(result, 8))
+				.then(() => {
+					this.state.pages.forEach((page, index) => {
+						if (page.pageNumber === this.state.currentPage.pageNumber) {
+							this.setState({ currentPage: this.state.pages[index] });
+						}
+					});
+				});
+		}, 4000);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.interval);
 	}
 
 	getCurrencyData() {
@@ -43,9 +63,21 @@ class DashboardPortfolioDistributionLog extends Component {
 				}
 			});
 
-			if (portfolioLog.length === 0) {
+			const databaseRef = database.ref(`/users/${auth.currentUser.uid}/currencies`);
+
+			let noPortfolio = true;
+			databaseRef.once('value', snapshot => {
+				const currencies = snapshot.val();
+
+				map(currencies, currency => {
+					if (currency.wallet && currency.wallet.amount) {
+						noPortfolio = false;
+					}
+				});
+			});
+
+			if (portfolioLog.length === 0 && noPortfolio) {
 				portfolioLog = dummyData;
-				console.log(portfolioLog);
 			}
 
 			this.setState({ portfolioLog });
@@ -63,6 +95,10 @@ class DashboardPortfolioDistributionLog extends Component {
 			const page = this.setPageInfo(`page-${pageNumber}`, pageNumber, pageItems);
 			pages.push(page);
 		};
+
+		if (items.length === 0) {
+			addPage();
+		}
 
 		portfolioLog.forEach((log, index) => {
 			const numberOfReposDoesNotEqualMaxItems = (index + 1) % numberOfItemsPerPage !== 0;

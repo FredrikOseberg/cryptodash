@@ -119,7 +119,7 @@ class DashboardPortfolioActivityLog extends Component {
 
 	formatDate(date) {
 		let month = date.getMonth() + 1;
-		let day = date.getDay() + 1;
+		let day = date.getDate();
 		const year = date.getFullYear();
 
 		if (month < 11) {

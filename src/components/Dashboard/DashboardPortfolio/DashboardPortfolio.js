@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { database, auth } from '../../../firebase';
 import map from 'lodash/map';
+import { connect } from 'react-redux';
 import DashboardPortfolioChart from './DashboardPortfolioChart/DashboardPortfolioChart';
 import DashboardPortfolioPieChart from './DashboardPortfolioPieChart/DashboardPortfolioPieChart';
 import DashboardPortfolioActivityLog from './DashboardPortfolioActivityLog/DashboardPortfolioActivityLog';
@@ -58,4 +59,8 @@ class DashboardPortfolio extends Component {
 	}
 }
 
-export default DashboardPortfolio;
+const mapStateToProps = state => ({
+	currencies: state.selectedCurrencies
+});
+
+export default connect(mapStateToProps)(DashboardPortfolio);

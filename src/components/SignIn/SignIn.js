@@ -63,8 +63,6 @@ class SignIn extends Component {
 					if (this.props.reauth) {
 						this.props.setReauthenticateState();
 						this.props.setDefaultState();
-					} else {
-						this.props.history.push('/');
 					}
 				})
 				.catch(error => {
