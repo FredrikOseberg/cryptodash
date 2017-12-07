@@ -12,6 +12,9 @@
 # api
 /src/api
 
+#
+/functions
+
 # misc
 .DS_Store
 .env.local

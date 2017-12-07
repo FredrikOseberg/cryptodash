@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { database } from '../../../../../firebase';
 import { connect } from 'react-redux';
+import { portfolioEntry } from '../../../../../events/portfolioevents';
 import { removeWalletInfoFromCurrency } from '../.././../../../actions/currencies';
 import './currencywalletinput.css';
 
@@ -30,7 +31,8 @@ class CurrencyWalletInput extends Component {
 			name: this.props.name,
 			amount: this.state.amountInput,
 			address: this.state.addressInput,
-			symbol: this.props.symbol
+			symbol: this.props.symbol,
+			img: this.props.img
 		};
 		this.props.handleWalletInfoChange(obj);
 	}
@@ -41,6 +43,10 @@ class CurrencyWalletInput extends Component {
 		);
 		storageLocation.on('value', snapshot => {
 			if (snapshot.hasChild('wallet')) {
+				const walletInfo = snapshot.child('wallet').val();
+
+				portfolioEntry(walletInfo.amount, this.props.name, this.props.img, Date.now(), 'remove');
+
 				storageLocation.child('wallet').remove();
 				this.props.removeWalletInfoFromState({ symbol: this.props.symbol });
 			}

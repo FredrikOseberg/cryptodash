@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { database } from '../../../../firebase';
+import { database, auth } from '../../../../firebase';
 import { addAmountToCurrency, addWalletInfoToCurrency } from '../../../../actions/currencies';
 import { isMobile } from '../../../HoC/IsMobile';
+import { portfolioEntry } from '../../../../events/portfolioevents';
 import CurrencyWalletInput from './CurrencyWalletInput/CurrencyWalletInput';
 import AddWallet from './AddWallet/AddWallet';
 import './walletsettings.css';
@@ -77,6 +78,32 @@ class WalletSettings extends Component {
 		this.setState({ error: false });
 	}
 
+	setPortfolioEntry(coin) {
+		const newAmount = Number(coin.amount);
+		return new Promise((resolve, reject) => {
+			const databaseRef = database.ref(`/users/${auth.currentUser.uid}/currencies/${coin.symbol}`);
+
+			databaseRef.once('value', snapshot => {
+				const amount = snapshot
+					.child('wallet')
+					.child('amount')
+					.val();
+
+				const changedAmount = Math.abs(amount - newAmount).toFixed(2);
+				let type;
+				if (amount <= newAmount) {
+					type = 'add';
+				} else {
+					type = 'remove';
+				}
+
+				portfolioEntry(changedAmount, coin.name, coin.img, Date.now(), type);
+			});
+
+			resolve();
+		});
+	}
+
 	handleWalletSubmit() {
 		let validationPassed = false;
 
@@ -99,15 +126,20 @@ class WalletSettings extends Component {
 
 			this.setState({ submitError: '' });
 			this.setState({ walletState: 'defaultState' });
+
 			this.state.walletInfo.forEach(currency => {
-				const storageLocation = database.ref(
-					'users/' + this.props.currentUser.uid + '/currencies/' + currency.symbol
-				);
-				storageLocation.child('wallet').set({
-					amount: currency.amount,
-					wallet: currency.address
+				this.setPortfolioEntry(currency).then(() => {
+					const storageLocation = database.ref(
+						'users/' + this.props.currentUser.uid + '/currencies/' + currency.symbol
+					);
+					storageLocation.child('wallet').set({
+						amount: currency.amount,
+						wallet: currency.address
+					});
 				});
 			});
+
+			this.setState({ walletInfo: [] });
 
 			this.setState({ submitSuccess: 'Your information was updated successfully' }, () => {
 				setTimeout(() => {

@@ -1,0 +1,73 @@
+.dashboard--activity--log--list--item {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+	box-sizing: border-box;
+	padding: 8px;
+	color: #585858;
+}
+
+.dashboard--activity--log--list--item {
+	border-top: 1px solid #ededed;
+	border-bottom: 1px solid #ededed;
+}
+
+.dashboard--portfolio--activity--log li:first-child {
+	border-top: none;
+}
+
+.dashboard--portfolio--activity--log li:last-child {
+	border-bottom: none;
+}
+
+.dashboard--activity--log--list--item--add,
+.dashboard--activity--log--list--item--remove {
+	width: 30px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	border-radius: 50%;
+	margin-left: 10px;
+}
+
+.dashboard--activity--log--list--item--add {
+	background-color: #d4d2d2;
+}
+
+.dashboard--activity--log--list--item--remove {
+	background-color: #d4d2d2;
+}
+
+.dashboard--actvitiy--log--list--item--coin {
+	display: flex;
+	align-items: center;
+	width: 30%;
+}
+
+.dashboard--actvitiy--log--list--item--coin img {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 8px;
+}
+
+.dashboard--activity--log--list--item--amount {
+	color: #000;
+	font-size: 1.1em;
+	margin-right: 10px;
+	font-family: Montserrat, sans-serif;
+	font-weight: bold;
+	width: 60px;
+	text-align: right;
+}
+
+.dashboard--activity--log--list--item--amount--add {
+	color: #26d626;
+}
+
+.dashboard--activity--log--list--item--amount--remove {
+	color: red;
+}

@@ -1,0 +1,46 @@
+.dashboard--portfolio--distribution--log--list--item {
+	display: flex;
+	align-items: center;
+	font-family: Montserrat, sans-serif;
+	justify-content: space-between;
+	color: #585858;
+	padding: 10px;
+	box-sizing: border-box;
+	border-bottom: 2px solid #ededed;
+}
+
+.dashboard--portfolio--distribution--log--icon {
+	background-color: #d4d2d2;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.dashboard--portfolio--distribution--log--coin {
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	width: 30%;
+	overflow: hidden;
+}
+.dashboard--portfolio--distribution--log--coin img {
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	margin-right: 5px;
+}
+
+.dashboard--portfolio--distribution--log--amount {
+	width: 30%;
+}
+
+.dashboard--portfolio--distribution--log--percentage {
+	font-size: 1.1em;
+	margin-right: 10px;
+	font-weight: bold;
+	color: #26d626;
+}

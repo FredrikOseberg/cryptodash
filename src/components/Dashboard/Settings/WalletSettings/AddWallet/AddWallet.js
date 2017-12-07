@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { database } from '../../../../../firebase';
 import { isMobile } from '../../../../HoC/IsMobile';
+import { portfolioEntry } from '../../../../../events/portfolioevents';
 import { addAmountToCurrency, addWalletInfoToCurrency } from '../../../../../actions/currencies';
 
 import './addwallet.css';
@@ -64,6 +65,15 @@ class AddWallet extends Component {
 			wallet: obj.wallet,
 			amount: obj.amount
 		});
+
+		let coin;
+		this.props.currencies.forEach(currency => {
+			if (currency.symbol === obj.symbol) {
+				coin = currency;
+			}
+		});
+
+		portfolioEntry(obj.amount, coin.name, coin.img, Date.now(), 'add');
 
 		this.props.addWalletInfoToState(obj);
 		this.props.addAmountInfoToState(obj);
@@ -162,7 +172,8 @@ class AddWallet extends Component {
 }
 
 const mapStateToProps = state => ({
-	currentUser: state.auth
+	currentUser: state.auth,
+	currencies: state.selectedCurrencies
 });
 
 const mapDispatchToProps = dispatch => ({

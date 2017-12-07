@@ -11,3 +11,5 @@ export const clearLocalCurrency = () => {
 		type: 'REMOVE_LOCAL_CURRENCY'
 	};
 };
+
+
