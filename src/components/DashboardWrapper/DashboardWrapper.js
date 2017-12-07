@@ -45,6 +45,7 @@ class DashboardWrapper extends Component {
 		this.getGlobalData = this.getGlobalData.bind(this);
 		this.setTotalPortfolioValue = this.setTotalPortfolioValue.bind(this);
 		this.getFrequentPortfolioValue = this.getFrequentPortfolioValue.bind(this);
+		this.dataSetup = this.dataSetup.bind(this);
 	}
 
 	componentDidMount() {
@@ -52,21 +53,7 @@ class DashboardWrapper extends Component {
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
-				this.addCurrenciesToState()
-					.then(() => this.getCurrentCurrency(this.props.currencies[0].symbol))
-					.catch(() => {
-						this.setState({ showDashboard: true });
-						this.setState({ showLoading: false });
-					})
-					.then(this.initDashboard)
-					.then(this.clearLocalCurrency)
-					.then(this.setLocalCurrency)
-					.then(this.addCurrencyPrice)
-					.then(this.setIntervalToGetCoinData)
-					.then(this.getAllCoinData)
-					.then(this.getGlobalData)
-					.then(this.setTotalPortfolioValue)
-					.then(this.getFrequentPortfolioValue);
+				this.initDashboard();
 			} else {
 				this.showLandingPage();
 			}
@@ -170,6 +157,19 @@ class DashboardWrapper extends Component {
 		}, 10000);
 	}
 
+	dataSetup() {
+		this.addCurrenciesToState()
+			.then(() => this.getCurrentCurrency(this.props.currencies[0].symbol))
+			.then(this.addCurrencyPrice)
+			.then(this.clearLocalCurrency)
+			.then(this.setLocalCurrency)
+			.then(this.setIntervalToGetCoinData)
+			.then(this.getAllCoinData)
+			.then(this.getGlobalData)
+			.then(this.setTotalPortfolioValue)
+			.then(this.getFrequentPortfolioValue);
+	}
+
 	initDashboard() {
 		return new Promise((resolve, reject) => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
@@ -180,6 +180,7 @@ class DashboardWrapper extends Component {
 						this.setState({ showDashboard: true }, () => {
 							this.setState({ showLoading: false });
 						});
+						this.dataSetup();
 						resolve();
 					} else {
 						this.setState({ showOnboarding: true }, () => {
@@ -222,9 +223,23 @@ class DashboardWrapper extends Component {
 
 	getCurrentCurrency(symbol) {
 		return new Promise((resolve, reject) => {
+			if (typeof symbol === 'undefined') {
+				const databaseRef = database.ref(`/users/${auth.currentUser.uid}/currencies`);
+
+				databaseRef.on('value', snapshot => {
+					const currencies = snapshot.val();
+					const currencySymbol = Object.keys(currencies)[0];
+
+					console.log(currencySymbol);
+
+					symbol = currencySymbol;
+				});
+			}
+
 			axios
 				.get(`https://coincap.io/page/${symbol}`)
 				.then(response => {
+					console.log(response);
 					const obj = {
 						name: response.data.display_name,
 						price: response.data.price,
@@ -262,6 +277,7 @@ class DashboardWrapper extends Component {
 	}
 
 	addCurrenciesToState() {
+		console.log('adding currencies');
 		return new Promise(resolve => {
 			if (this.props.currencies.length === 0) {
 				this.props.clearCurrencyFromState();
@@ -271,11 +287,9 @@ class DashboardWrapper extends Component {
 					const currencies = snapshot.val();
 					// Lodash Object Map
 					map(currencies, currency => {
-						this.props.currencies.forEach(currency => {
-							console.log(currency);
-						});
 						this.props.addCurrencyToState({ payload: currency });
 					});
+
 					resolve();
 				});
 			}
@@ -309,7 +323,9 @@ class DashboardWrapper extends Component {
 		return (
 			<div className="dashboard--wrapper">
 				{this.state.showLoading && <Loading />}
-				{this.state.showOnboarding && <Onboarding data={this.props.coinData} history={this.props.history} />}
+				{this.state.showOnboarding && (
+					<Onboarding data={this.props.coinData} history={this.props.history} dataSetup={this.dataSetup} />
+				)}
 				{this.state.showDashboard && dashboard}
 				{this.state.showLanding && landing}
 			</div>

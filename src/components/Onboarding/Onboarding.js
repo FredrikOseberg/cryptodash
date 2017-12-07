@@ -120,6 +120,8 @@ class Onboarding extends Component {
 	handleFinishLaterClick() {
 		const userStorageLocation = database.ref('users/' + this.props.currentUser.uid);
 		userStorageLocation.child('completedOnboarding').set(true);
+
+		this.props.dataSetup();
 	}
 
 	handleWalletInfoSubmit(event) {
@@ -157,6 +159,8 @@ class Onboarding extends Component {
 
 			const userStorageLocation = database.ref('users/' + this.props.currentUser.uid);
 			userStorageLocation.child('completedOnboarding').set(true);
+
+			this.props.dataSetup();
 		} else {
 			this.setState({
 				validationError:

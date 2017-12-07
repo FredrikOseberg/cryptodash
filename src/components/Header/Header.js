@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import anonymousUserPicture from '../../img/anonuser.png';
 import { clearCurrency } from '../../actions/currencies';
+import { clearCurrentCurrency } from '../../actions/currentCurrency';
 import { connect } from 'react-redux';
 import firebase from './../../firebase';
 import { Link } from 'react-router-dom';
@@ -23,6 +24,7 @@ class Header extends Component {
 	handleSignOutClick() {
 		firebase.auth().signOut();
 		this.props.clearCurrencyFromState();
+		this.props.clearCurrentCurrencyFromState();
 	}
 	render() {
 		let navLinks,
@@ -122,6 +124,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	clearCurrencyFromState() {
 		dispatch(clearCurrency());
+	},
+	clearCurrentCurrencyFromState() {
+		dispatch(clearCurrentCurrency());
 	}
 });
 

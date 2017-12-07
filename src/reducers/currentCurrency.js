@@ -4,6 +4,8 @@ const currentCurrency = (state = {}, action) => {
 			return {
 				...action
 			};
+		case 'CLEAR_CURRENT_CURRENCY':
+			return '';
 		default:
 			return state;
 	}

@@ -10,3 +10,9 @@ export const addCurrentCurrency = obj => {
 		percentage: obj.percentage
 	};
 };
+
+export const clearCurrentCurrency = () => {
+	return {
+		type: 'CLEAR_CURRENT_CURRENCY'
+	};
+};
