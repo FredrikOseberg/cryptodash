@@ -48,6 +48,7 @@ class DashboardWrapper extends Component {
 	}
 
 	componentDidMount() {
+		console.log('mounting dashboardwrapper');
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
@@ -163,11 +164,6 @@ class DashboardWrapper extends Component {
 				this.getCoinData(currency.symbol);
 			});
 		}, 10000);
-	}
-
-	shouldComponentUpdate(prevState, nextState) {
-		console.log(prevState, nextState);
-		return true;
 	}
 
 	initDashboard() {
