@@ -17,6 +17,8 @@
 	color: #fff;
 	font-size: 1.4em;
 	position: relative;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
 }
 
 .dashboard--portfolio--activity--log--add {
