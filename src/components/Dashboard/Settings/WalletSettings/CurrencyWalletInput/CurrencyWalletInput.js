@@ -41,7 +41,7 @@ class CurrencyWalletInput extends Component {
 		const storageLocation = database.ref(
 			'users/' + this.props.currentUser.uid + '/currencies/' + this.props.symbol
 		);
-		storageLocation.on('value', snapshot => {
+		storageLocation.once('value', snapshot => {
 			if (snapshot.hasChild('wallet')) {
 				const walletInfo = snapshot.child('wallet').val();
 
