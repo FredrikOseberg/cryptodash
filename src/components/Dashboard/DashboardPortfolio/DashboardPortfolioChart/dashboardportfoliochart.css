@@ -36,3 +36,10 @@
 .dashboard--portfolio--percentage--negative {
 	color: #ff6a6a;
 }
+
+.dashboard--portfolio--value .spinner {
+	border: 5px solid #ededed;
+	border-top: 5px solid #555598;
+	width: 20px;
+	height: 20px;
+}

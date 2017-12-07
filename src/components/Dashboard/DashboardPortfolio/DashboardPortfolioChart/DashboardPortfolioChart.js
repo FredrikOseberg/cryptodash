@@ -3,6 +3,7 @@ import { Line } from 'react-chartjs-2';
 import { database, auth } from '../../../../firebase';
 import { connect } from 'react-redux';
 import { convertPriceToLocalCurrency } from '../../../../common/helpers';
+import Spinner from '../../../Loading/Spinner/Spinner';
 import map from 'lodash/map';
 import './dashboardportfoliochart.css';
 
@@ -89,13 +90,15 @@ class DashboardPortfolioChart extends Component {
 	}
 
 	calculate24PercentageChange(portfolioValueToday, portfolioValueYesterday) {
-		console.log(portfolioValueToday, portfolioValueYesterday);
+		if (this.props.hasDataPoints && this.props.localCurrency.currency) {
+			const portfolioValueDifference = portfolioValueToday - portfolioValueYesterday;
+			const percentage = portfolioValueDifference / portfolioValueYesterday * 100;
+			console.log(portfolioValueToday, portfolioValueYesterday);
 
-		const portfolioValueDifference = portfolioValueToday - portfolioValueYesterday;
-		const percentage = portfolioValueDifference / portfolioValueYesterday * 100;
-		console.log(portfolioValueToday, portfolioValueYesterday);
-
-		this.setState({ percentage });
+			this.setState({ percentage });
+		} else {
+			this.setState({ percentage: 0 });
+		}
 	}
 
 	render() {
@@ -146,13 +149,16 @@ class DashboardPortfolioChart extends Component {
 			percentageClasses = 'dashboard--portfolio--percentage--negative';
 		}
 
+		const showTotalValue = this.props.localCurrency.currency && this.props.portfolio.totalVal;
 		return (
 			<section className="dashboard--portfolio--chart">
 				<header>
 					<div className="dashboard--portfolio--value">
 						<h1>
-							{this.props.portfolio.totalVal || 1000}
-							<span className="price--postfix">{this.props.localCurrency.currency}</span>
+							{showTotalValue ? this.props.portfolio.totalVal || 1000 : <Spinner />}
+							<span className="price--postfix">
+								{showTotalValue ? this.props.localCurrency.currency : ''}
+							</span>
 						</h1>
 						<p>Portfolio value</p>
 					</div>

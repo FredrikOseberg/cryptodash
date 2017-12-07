@@ -14,11 +14,19 @@ class DashboardPortfolio extends Component {
 		super(props);
 
 		this.state = {
-			hasDataToShow: false
+			hasDataToShow: false,
+			hasDataPoints: false
 		};
+
+		this.checkFirebaseForPortfolio = this.checkFirebaseForPortfolio.bind(this);
 	}
 
 	componentDidMount() {
+		this.checkFirebaseForPortfolio();
+		this.checkFirebaseForDataPoints();
+	}
+
+	checkFirebaseForPortfolio() {
 		const databaseRef = database.ref(`/users/${auth.currentUser.uid}/currencies`);
 
 		databaseRef.once('value', snapshot => {
@@ -33,6 +41,23 @@ class DashboardPortfolio extends Component {
 		});
 	}
 
+	checkFirebaseForDataPoints() {
+		const databaseRef = database.ref(`/users/${auth.currentUser.uid}/portfolio`);
+		const dataPointsArr = [];
+
+		databaseRef.once('value', snapshot => {
+			const dataPoints = snapshot.child('data').val();
+
+			map(dataPoints, dataPoint => {
+				dataPointsArr.push(dataPoint);
+			});
+
+			if (dataPointsArr.length >= 2) {
+				this.setState({ hasDataPoints: true });
+			}
+		});
+	}
+
 	render() {
 		let dashboardInformation;
 		if (this.state.hasDataToShow) {
@@ -43,11 +68,21 @@ class DashboardPortfolio extends Component {
 			);
 		}
 
+		let dataInformationPending;
+		if (this.state.hasDataToShow && this.state.hasDataPoints) {
+			dataInformationPending = '';
+		} else if (this.state.hasDataToShow && !this.state.hasDataPoints) {
+			dataInformationPending = (
+				<DashboardPortfolioInformation handleAddWalletClick={this.props.handleAddWalletClick} pending={true} />
+			);
+		}
+
 		return (
 			<div className="dashboard--portfolio">
 				{dashboardInformation}
+				{dataInformationPending}
 				<div className="dashboard--portfolio--primary--content">
-					<DashboardPortfolioChart />
+					<DashboardPortfolioChart hasDataPoints={this.state.hasDataPoints} />
 					<DashboardPortfolioActivityLog />
 				</div>
 				<div className="dashboard--portfolio--secondary--content">

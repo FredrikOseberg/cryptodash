@@ -33,7 +33,6 @@ class DashboardPortfolioPieChart extends Component {
 	}
 
 	getCurrencyData() {
-		console.log('getting data....');
 		return new Promise(resolve => {
 			const data = [],
 				labels = [];

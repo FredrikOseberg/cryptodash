@@ -49,7 +49,6 @@ class DashboardWrapper extends Component {
 	}
 
 	componentDidMount() {
-		console.log('mounting dashboardwrapper');
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ showLanding: false });
@@ -70,7 +69,7 @@ class DashboardWrapper extends Component {
 	setTotalPortfolioValue() {
 		let amount = 0;
 		this.props.currencies.forEach(currency => {
-			if (currency.wallet && currency.wallet.wallet && currency.wallet.amount) {
+			if (currency.wallet && currency.wallet.wallet && currency.wallet.amount && currency.price) {
 				amount += Number(currency.wallet.amount) * Number(currency.price);
 
 				let portfolioValue = {
@@ -159,9 +158,9 @@ class DashboardWrapper extends Component {
 
 	dataSetup() {
 		this.addCurrenciesToState()
-			.then(this.addCurrencyPrice)
 			.then(this.clearLocalCurrency)
 			.then(this.setLocalCurrency)
+			.then(this.addCurrencyPrice)
 			.then(this.setIntervalToGetCoinData)
 			.then(this.getAllCoinData)
 			.then(this.getGlobalData)
@@ -195,7 +194,6 @@ class DashboardWrapper extends Component {
 	}
 
 	setLocalCurrency() {
-		console.log('running');
 		return new Promise((resolve, reject) => {
 			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
 
@@ -232,8 +230,6 @@ class DashboardWrapper extends Component {
 					const currencies = snapshot.val();
 					const currencySymbol = Object.keys(currencies)[0];
 
-					console.log(currencySymbol);
-
 					symbol = currencySymbol;
 				});
 			}
@@ -241,7 +237,6 @@ class DashboardWrapper extends Component {
 			axios
 				.get(`https://coincap.io/page/${symbol}`)
 				.then(response => {
-					console.log(response);
 					const obj = {
 						name: response.data.display_name,
 						price: response.data.price,
@@ -279,7 +274,6 @@ class DashboardWrapper extends Component {
 	}
 
 	addCurrenciesToState() {
-		console.log('adding currencies');
 		return new Promise(resolve => {
 			this.props.clearCurrencyFromState();
 			const user = auth.currentUser;

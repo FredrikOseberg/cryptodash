@@ -44,3 +44,10 @@
 	font-weight: bold;
 	color: #26d626;
 }
+
+.dashboard--portfolio--distribution--log--percentage .spinner {
+	border: 5px solid #ededed;
+	border-top: 5px solid #555598;
+	width: 20px;
+	height: 20px;
+}
