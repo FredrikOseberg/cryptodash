@@ -16,6 +16,7 @@
 	height: 20px;
 	border: 5px solid #ededed;
 	border-top: 5px solid #555598;
+	margin-top: 0;
 }
 
 .currency--table--updated {
