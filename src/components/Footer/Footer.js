@@ -79,6 +79,10 @@ class Footer extends Component {
 				<div className="footer--container">
 					<div className="footer--logo">
 						<h1>CryptoDasher</h1>
+						<p>
+							<i className="fa fa-envelope" />
+							info@cryptodasher.com
+						</p>
 					</div>
 					<div className="footer--links">
 						<h3>Resources</h3>

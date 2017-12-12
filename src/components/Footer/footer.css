@@ -13,6 +13,10 @@
 	margin-top: 10px;
 }
 
+.footer--logo p .fa {
+	margin-right: 5px;
+}
+
 .footer--container {
 	display: flex;
 	justify-content: space-between;
