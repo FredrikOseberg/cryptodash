@@ -16,11 +16,11 @@ const DashboardMainPage = props => {
 	};
 	let currencyPortfolioOnLeft, currencyPortfolioOnRight;
 	if (props.currencies.length >= 10) {
-		currencyPortfolioOnRight = <CurrencyPortfolio />;
+		currencyPortfolioOnRight = <CurrencyPortfolio handleAddWalletClick={props.handleAddWalletClick} />;
 		currencyPortfolioOnLeft = '';
 	} else {
 		currencyPortfolioOnRight = '';
-		currencyPortfolioOnLeft = <CurrencyPortfolio />;
+		currencyPortfolioOnLeft = <CurrencyPortfolio handleAddWalletClick={props.handleAddWalletClick} />;
 	}
 
 	return (
