@@ -1,5 +1,8 @@
 .dashboard--portfolio--distribution--log {
 	height: auto;
 	padding-bottom: 10px;
-	max-height: 505px;
+}
+
+.dashboard--portfolio--distribution--log--fixed--height {
+	height: 550px;
 }

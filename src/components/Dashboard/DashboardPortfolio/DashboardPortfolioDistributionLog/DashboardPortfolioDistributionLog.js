@@ -152,8 +152,17 @@ class DashboardPortfolioDistributionLog extends Component {
 	}
 
 	render() {
+		let listClasses;
+
+		if (this.state.pages.length >= 2) {
+			listClasses =
+				'dashboard--portfolio--activity--log dashboard--portfolio--distribution--log dashboard--portfolio--distribution--log--fixed--height';
+		} else {
+			listClasses = 'dashboard--portfolio--activity--log dashboard--portfolio--distribution--log';
+		}
+
 		return (
-			<div className="dashboard--portfolio--activity--log dashboard--portfolio--distribution--log">
+			<div className={listClasses}>
 				<h1>Portfolio Distribution</h1>
 				<ul>
 					{this.state.currentPage &&
