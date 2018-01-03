@@ -27,6 +27,7 @@ class DashboardWrapper extends Component {
 			showDashboard: false,
 			showLanding: false,
 			showLoading: true,
+			data: false,
 			allCurrencies: [],
 			globalData: {}
 		};
@@ -39,12 +40,16 @@ class DashboardWrapper extends Component {
 		this.getAllCoinData = this.getAllCoinData.bind(this);
 		this.clearLocalCurrency = this.clearLocalCurrency.bind(this);
 		this.addCurrencyPrice = this.addCurrencyPrice.bind(this);
-		this.setIntervalToGetCoinData = this.setIntervalToGetCoinData.bind(this);
+		this.setIntervalToGetCoinData = this.setIntervalToGetCoinData.bind(
+			this
+		);
 		this.setLocalCurrency = this.setLocalCurrency.bind(this);
 		this.showLandingPage = this.showLandingPage.bind(this);
 		this.getGlobalData = this.getGlobalData.bind(this);
 		this.setTotalPortfolioValue = this.setTotalPortfolioValue.bind(this);
-		this.getFrequentPortfolioValue = this.getFrequentPortfolioValue.bind(this);
+		this.getFrequentPortfolioValue = this.getFrequentPortfolioValue.bind(
+			this
+		);
 		this.dataSetup = this.dataSetup.bind(this);
 	}
 
@@ -69,8 +74,14 @@ class DashboardWrapper extends Component {
 	setTotalPortfolioValue() {
 		let amount = 0;
 		this.props.currencies.forEach(currency => {
-			if (currency.wallet && currency.wallet.wallet && currency.wallet.amount && currency.price) {
-				amount += Number(currency.wallet.amount) * Number(currency.price);
+			if (
+				currency.wallet &&
+				currency.wallet.wallet &&
+				currency.wallet.amount &&
+				currency.price
+			) {
+				amount +=
+					Number(currency.wallet.amount) * Number(currency.price);
 
 				let portfolioValue = {
 					totalVal: amount.toFixed(2)
@@ -95,14 +106,22 @@ class DashboardWrapper extends Component {
 				btcPrice: response.data.btcPrice,
 				btcCapLocal: convertPriceToLocalCurrency(response.data.btcCap),
 				altCapLocal: convertPriceToLocalCurrency(response.data.altCap),
-				btcPriceLocal: convertPriceToLocalCurrency(response.data.btcPrice),
+				btcPriceLocal: convertPriceToLocalCurrency(
+					response.data.btcPrice
+				),
 				totalCap: response.data.totalCap,
 				volumeAlt: response.data.volumeAlt,
 				volumeBtc: response.data.volumeBtc,
 				volumeTotal: response.data.volumeTotal,
-				volumeAltLocal: convertPriceToLocalCurrency(response.data.volumeAlt),
-				volumeBtcLocal: convertPriceToLocalCurrency(response.data.volumeBtc),
-				volumeTotalLocal: convertPriceToLocalCurrency(response.data.volumeTotal)
+				volumeAltLocal: convertPriceToLocalCurrency(
+					response.data.volumeAlt
+				),
+				volumeBtcLocal: convertPriceToLocalCurrency(
+					response.data.volumeBtc
+				),
+				volumeTotalLocal: convertPriceToLocalCurrency(
+					response.data.volumeTotal
+				)
 			};
 
 			this.setState({ globalData: responseData });
@@ -116,9 +135,11 @@ class DashboardWrapper extends Component {
 	}
 
 	setIntervalToGetCoinData() {
-		const storageLocation = database.ref('users/' + this.props.currentUser.uid + '/currencies');
+		const storageLocation = database.ref(
+			'users/' + this.props.currentUser.uid + '/currencies'
+		);
 
-		storageLocation.on('value', snapshot => {
+		storageLocation.once('value', snapshot => {
 			if (this.interval) {
 				clearInterval(this.interval);
 				this.getFrequentCoinData();
@@ -142,7 +163,9 @@ class DashboardWrapper extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.interval);
+		clearInterval(this.portfolioInterval);
 		this.unsubscribe();
+		console.log('Unmounting');
 	}
 
 	getFrequentCoinData() {
@@ -167,12 +190,15 @@ class DashboardWrapper extends Component {
 			.then(this.setTotalPortfolioValue)
 			.then(this.getFrequentPortfolioValue)
 			.then(this.getCurrentCurrency(this.props.currencies[0].symbol))
+			.then(() => this.setState({ data: true }))
 			.catch(err => console.log(err));
 	}
 
 	initDashboard() {
 		return new Promise((resolve, reject) => {
-			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
+			const storageLocation = database.ref(
+				'users/' + this.props.currentUser.uid
+			);
 			if (this.props.currentUser.status === 'SIGNED_IN') {
 				storageLocation.on('value', snapshot => {
 					if (snapshot.hasChild('completedOnboarding')) {
@@ -180,7 +206,9 @@ class DashboardWrapper extends Component {
 						this.setState({ showDashboard: true }, () => {
 							this.setState({ showLoading: false });
 						});
-						this.dataSetup();
+						if (this.state.data === false) {
+							this.dataSetup();
+						}
 						resolve();
 					} else {
 						this.setState({ showOnboarding: true }, () => {
@@ -195,26 +223,34 @@ class DashboardWrapper extends Component {
 
 	setLocalCurrency() {
 		return new Promise((resolve, reject) => {
-			const storageLocation = database.ref('users/' + this.props.currentUser.uid);
+			const storageLocation = database.ref(
+				'users/' + this.props.currentUser.uid
+			);
 
-			storageLocation.once('value', snapshot => {
+			storageLocation.on('value', snapshot => {
 				if (snapshot.hasChild('localCurrency')) {
 					const localCurrency = snapshot.child('localCurrency').val();
 
 					const localCurrencyIsUSD = localCurrency === 'USD';
 
 					if (localCurrencyIsUSD) {
-						this.props.addLocalCurrencyToState({ currency: localCurrency, rate: null });
+						this.props.addLocalCurrencyToState({
+							currency: localCurrency,
+							rate: null
+						});
 						resolve();
 					} else {
-						axios.get(`https://api.fixer.io/latest?base=USD`).then(response => {
-							const rateComparedToUsd = response.data.rates[localCurrency];
-							this.props.addLocalCurrencyToState({
-								currency: localCurrency,
-								rate: rateComparedToUsd
+						axios
+							.get(`https://api.fixer.io/latest?base=USD`)
+							.then(response => {
+								const rateComparedToUsd =
+									response.data.rates[localCurrency];
+								this.props.addLocalCurrencyToState({
+									currency: localCurrency,
+									rate: rateComparedToUsd
+								});
+								resolve();
 							});
-							resolve();
-						});
 					}
 				}
 			});
@@ -224,7 +260,9 @@ class DashboardWrapper extends Component {
 	getCurrentCurrency(symbol) {
 		return new Promise((resolve, reject) => {
 			if (typeof symbol === 'undefined') {
-				const databaseRef = database.ref(`/users/${auth.currentUser.uid}/currencies`);
+				const databaseRef = database.ref(
+					`/users/${auth.currentUser.uid}/currencies`
+				);
 
 				databaseRef.on('value', snapshot => {
 					const currencies = snapshot.val();
@@ -277,7 +315,9 @@ class DashboardWrapper extends Component {
 		return new Promise(resolve => {
 			this.props.clearCurrencyFromState();
 			const user = auth.currentUser;
-			const databaseRef = database.ref('users/' + user.uid + '/currencies');
+			const databaseRef = database.ref(
+				'users/' + user.uid + '/currencies'
+			);
 			databaseRef.once('value', snapshot => {
 				const currencies = snapshot.val();
 				// Lodash Object Map
@@ -318,7 +358,11 @@ class DashboardWrapper extends Component {
 			<div className="dashboard--wrapper">
 				{this.state.showLoading && <Loading />}
 				{this.state.showOnboarding && (
-					<Onboarding data={this.props.coinData} history={this.props.history} dataSetup={this.dataSetup} />
+					<Onboarding
+						data={this.props.coinData}
+						history={this.props.history}
+						dataSetup={this.dataSetup}
+					/>
 				)}
 				{this.state.showDashboard && dashboard}
 				{this.state.showLanding && landing}
@@ -357,4 +401,6 @@ const mapDispatchToProps = dispatch => ({
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(isMobile(DashboardWrapper));
+export default connect(mapStateToProps, mapDispatchToProps)(
+	isMobile(DashboardWrapper)
+);

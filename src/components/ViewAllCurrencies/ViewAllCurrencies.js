@@ -8,7 +8,10 @@ import { database } from '../../firebase';
 import firebase from '../../firebase';
 import map from 'lodash/map';
 import { isMobile } from '../HoC/IsMobile';
-import { addLocalCurrency, clearLocalCurrency } from '../../actions/localCurrency';
+import {
+	addLocalCurrency,
+	clearLocalCurrency
+} from '../../actions/localCurrency';
 import { addCurrency, clearCurrency } from '../../actions/currencies';
 
 import './viewallcurrencies.css';
@@ -43,8 +46,14 @@ class ViewAllCurrencies extends Component {
 		document.body.style.height = 'auto';
 
 		this.setState({ currentIndex: 50 }, () => {
-			if (this.props.allCurrencies && this.props.allCurrencies.length > 0) {
-				this.setNewDataSet(this.props.allCurrencies, this.state.currentIndex);
+			if (
+				this.props.allCurrencies &&
+				this.props.allCurrencies.length > 0
+			) {
+				this.setNewDataSet(
+					this.props.allCurrencies,
+					this.state.currentIndex
+				);
 				this.setDataFetchInterval();
 			} else {
 				this.setDataFetchInterval();
@@ -54,22 +63,32 @@ class ViewAllCurrencies extends Component {
 		this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				this.setState({ user: true });
-				const storageLocation = database.ref('users/' + this.props.currentUser.uid);
+				const storageLocation = database.ref(
+					'users/' + this.props.currentUser.uid
+				);
 				this.addCurrenciesToState(user);
-				storageLocation.on('value', snapshot => {
+				storageLocation.once('value', snapshot => {
 					if (snapshot.hasChild('localCurrency')) {
-						const localCurrency = snapshot.child('localCurrency').val();
+						const localCurrency = snapshot
+							.child('localCurrency')
+							.val();
 						if (localCurrency === 'USD') {
-							this.props.addLocalCurrencyToState({ currency: localCurrency, rate: null });
-						} else {
-							axios.get(`https://api.fixer.io/latest?base=USD`).then(response => {
-								const rateComparedToUsd = response.data.rates[localCurrency];
-								this.setState({ fiat: localCurrency });
-								this.props.addLocalCurrencyToState({
-									currency: localCurrency,
-									rate: rateComparedToUsd
-								});
+							this.props.addLocalCurrencyToState({
+								currency: localCurrency,
+								rate: null
 							});
+						} else {
+							axios
+								.get(`https://api.fixer.io/latest?base=USD`)
+								.then(response => {
+									const rateComparedToUsd =
+										response.data.rates[localCurrency];
+									this.setState({ fiat: localCurrency });
+									this.props.addLocalCurrencyToState({
+										currency: localCurrency,
+										rate: rateComparedToUsd
+									});
+								});
 						}
 					}
 				});
@@ -160,11 +179,15 @@ class ViewAllCurrencies extends Component {
 	handleScroll() {
 		let bottom;
 		if (this.props.isMobile || this.props.landing) {
-			bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+			bottom =
+				window.innerHeight + window.scrollY >=
+				document.body.offsetHeight;
 		} else {
 			const sidebar = document.querySelector('.dashboard--sidebar ');
 
-			bottom = sidebar.scrollTop === sidebar.scrollHeight - sidebar.offsetHeight;
+			bottom =
+				sidebar.scrollTop ===
+				sidebar.scrollHeight - sidebar.offsetHeight;
 		}
 
 		if (bottom && this.state.gettingData === false) {
@@ -177,10 +200,14 @@ class ViewAllCurrencies extends Component {
 	}
 
 	render() {
-		let frontendClasses, viewAllBoxClasses, chooseCurrencyMarkup, chooseCurrencyMenuClasses;
+		let frontendClasses,
+			viewAllBoxClasses,
+			chooseCurrencyMarkup,
+			chooseCurrencyMenuClasses;
 
 		if (this.state.showDropdown) {
-			chooseCurrencyMenuClasses = 'view--all--choose--dropdown--menu visible opacity';
+			chooseCurrencyMenuClasses =
+				'view--all--choose--dropdown--menu visible opacity';
 		} else {
 			chooseCurrencyMenuClasses = 'view--all--choose--dropdown--menu';
 		}
@@ -199,7 +226,10 @@ class ViewAllCurrencies extends Component {
 						<h2>Local Currency</h2>
 					</div>
 
-					<div className="view--all--choose--dropdown" onClick={this.handleDropdownClick}>
+					<div
+						className="view--all--choose--dropdown"
+						onClick={this.handleDropdownClick}
+					>
 						<p>{this.state.fiat}</p>
 						<div className="view--all--choose--dropdown--button">
 							<i className="fa fa-chevron-down" />
@@ -286,7 +316,10 @@ class ViewAllCurrencies extends Component {
 					<div className="view--all--header">
 						<div className="view--all--header--search">
 							<h2>
-								<i className="fa fa-search" aria-hidden="true" />
+								<i
+									className="fa fa-search"
+									aria-hidden="true"
+								/>
 								Search for currencies
 							</h2>
 							<input
@@ -298,15 +331,33 @@ class ViewAllCurrencies extends Component {
 						{chooseCurrencyMarkup}
 					</div>
 					<div className="view--all--table--headers">
-						<div className="view--all--table--header--rank">Rank</div>
-						<div className="view--all--table--header--name">Name</div>
-						<div className="view--all--table--header--marketcap">Market Cap</div>
-						<div className="view--all--table--header--price">Price</div>
-						<div className="view--all--table--header--24hvwap">24hour VWAP</div>
-						<div className="view--all--table--header--supply">Available Supply</div>
-						<div className="view--all--table--header--volume">24 Hour Volume</div>
-						<div className="view--all--table--header--percentage">%24hr</div>
-						<div className="view--all--table--header--track">Track</div>
+						<div className="view--all--table--header--rank">
+							Rank
+						</div>
+						<div className="view--all--table--header--name">
+							Name
+						</div>
+						<div className="view--all--table--header--marketcap">
+							Market Cap
+						</div>
+						<div className="view--all--table--header--price">
+							Price
+						</div>
+						<div className="view--all--table--header--24hvwap">
+							24hour VWAP
+						</div>
+						<div className="view--all--table--header--supply">
+							Available Supply
+						</div>
+						<div className="view--all--table--header--volume">
+							24 Hour Volume
+						</div>
+						<div className="view--all--table--header--percentage">
+							%24hr
+						</div>
+						<div className="view--all--table--header--track">
+							Track
+						</div>
 					</div>
 				</div>
 				{currencyTableData}
@@ -345,4 +396,6 @@ const mapDispatchToProps = dispatch => ({
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(isMobile(ViewAllCurrencies));
+export default connect(mapStateToProps, mapDispatchToProps)(
+	isMobile(ViewAllCurrencies)
+);

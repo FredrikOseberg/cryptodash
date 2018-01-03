@@ -4,7 +4,12 @@ import axios from 'axios';
 import coinData from '../../../coinData';
 import { database } from '../../../firebase';
 import firebase from '../../../firebase';
-import { addCurrency, removeCurrency, clearCurrency, addPrice } from '../../../actions/currencies';
+import {
+	addCurrency,
+	removeCurrency,
+	clearCurrency,
+	addPrice
+} from '../../../actions/currencies';
 import coins from '../../../img/coins.jpg';
 import { convertPriceToLocalCurrency } from '../../../common/helpers';
 import Spinner from '../../Loading/Spinner/Spinner';
@@ -21,8 +26,12 @@ class CurrencyTableData extends Component {
 			updated: false
 		};
 
-		this.handleTrackCurrencyClick = this.handleTrackCurrencyClick.bind(this);
-		this.handleCurrencyUntrackClick = this.handleCurrencyUntrackClick.bind(this);
+		this.handleTrackCurrencyClick = this.handleTrackCurrencyClick.bind(
+			this
+		);
+		this.handleCurrencyUntrackClick = this.handleCurrencyUntrackClick.bind(
+			this
+		);
 		this.formatNumber = this.formatNumber.bind(this);
 	}
 
@@ -66,7 +75,9 @@ class CurrencyTableData extends Component {
 			postfix = this.props.localCurrency.currency;
 		}
 
-		const formattedNumber = Number(convertPriceToLocalCurrency(number)).toLocaleString(`en-${postfix}`);
+		const formattedNumber = Number(
+			convertPriceToLocalCurrency(number)
+		).toLocaleString(`en-${postfix}`);
 		return formattedNumber;
 	}
 
@@ -87,29 +98,32 @@ class CurrencyTableData extends Component {
 		const coinSymbol = event.target.dataset.name;
 		this.setState({ trackLoading: true });
 		if (user.status === 'SIGNED_IN') {
-			const storageLocation = database.ref('users/' + user.uid + '/currencies');
-			let currency = this.checkIfDataContainsCoin(coinSymbol);
+			const storageLocation = database.ref(
+				'users/' + user.uid + '/currencies'
+			);
+			let currencyInLocal = this.checkIfDataContainsCoin(coinSymbol);
 			// Check if currency exists in db
 			storageLocation.once('value', snapshot => {
 				if (!snapshot.hasChild(coinSymbol)) {
-					// If currency is found in local dataset, use that data.
-					if (currency) {
-						this.props.addCurrencyToState({ payload: currency }).then(() => {
-							storageLocation.child(currency.symbol).set(currency);
-						});
+					this.getCoinData(coinSymbol).then(currency => {
+						if (currency.symbol === currencyInLocal.symbol) {
+							currency.img = currencyInLocal.img;
+						}
+						this.props
+							.addCurrencyToState({ payload: currency })
+							.then(() => {
+								this.props.addPriceToState({
+									payload: currency.price
+								});
+							})
+							.then(() => {
+								storageLocation
+									.child(currency.symbol)
+									.set(currency);
+							});
 						this.setState({ trackLoading: false });
 						this.setState({ tracked: true });
-						// Otherwise, dispatch AJAX request to get data and push it onto DB and selectedCurrencies state
-					} else {
-						this.getCoinData(coinSymbol).then(currency => {
-							this.props.addCurrencyToState({ payload: currency }).then(() => {
-								this.props.addPriceToState({ payload: currency.price });
-								storageLocation.child(currency.symbol).set(currency);
-							});
-							this.setState({ trackLoading: false });
-							this.setState({ tracked: true });
-						});
-					}
+					});
 				}
 			});
 		} else {
@@ -142,7 +156,9 @@ class CurrencyTableData extends Component {
 		});
 
 		if (user.status === 'SIGNED_IN') {
-			const storageLocation = database.ref('users/' + user.uid + '/currencies');
+			const storageLocation = database.ref(
+				'users/' + user.uid + '/currencies'
+			);
 			storageLocation.once('value', snapshot => {
 				if (snapshot.hasChild(coinSymbol)) {
 					storageLocation.child(coinSymbol).remove();
@@ -175,14 +191,17 @@ class CurrencyTableData extends Component {
 	render() {
 		let percentageClasses;
 		if (this.props.perc > 0) {
-			percentageClasses = 'currency--table--card--percentage currency--table--card--percentage--positive';
+			percentageClasses =
+				'currency--table--card--percentage currency--table--card--percentage--positive';
 		} else {
-			percentageClasses = 'currency--table--card--percentage currency--table--card--percentage--negative';
+			percentageClasses =
+				'currency--table--card--percentage currency--table--card--percentage--negative';
 		}
 
 		let updatedClasses;
 		if (this.state.updated) {
-			updatedClasses = 'currency--table--updated currency--table--updated--active';
+			updatedClasses =
+				'currency--table--updated currency--table--updated--active';
 		} else {
 			updatedClasses = 'currency--table--updated';
 		}
@@ -195,23 +214,37 @@ class CurrencyTableData extends Component {
 					data-name={this.props.short}
 					onClick={this.handleCurrencyUntrackClick}
 				>
-					<i className="fa fa-check" aria-hidden="true" data-name={this.props.short} />
+					<i
+						className="fa fa-check"
+						aria-hidden="true"
+						data-name={this.props.short}
+					/>
 				</div>
 			);
 		} else if (this.state.trackLoading) {
 			track = <Spinner />;
 		} else {
 			track = (
-				<div className="view--all--track" data-name={this.props.short} onClick={this.handleTrackCurrencyClick}>
-					<i className="fa fa-line-chart" aria-hidden="true" data-name={this.props.short} />
+				<div
+					className="view--all--track"
+					data-name={this.props.short}
+					onClick={this.handleTrackCurrencyClick}
+				>
+					<i
+						className="fa fa-line-chart"
+						aria-hidden="true"
+						data-name={this.props.short}
+					/>
 				</div>
 			);
 		}
 
 		return (
-			<div key={this.props.short} className="currency--table--card">
+			<div className="currency--table--card">
 				<div className={updatedClasses} />
-				<div className="currency--table--card--rank">{this.props.rank}</div>
+				<div className="currency--table--card--rank">
+					{this.props.rank}
+				</div>
 				<div className="view--all--name">
 					{this.props.long} {this.props.short}
 				</div>
@@ -223,8 +256,12 @@ class CurrencyTableData extends Component {
 					{convertPriceToLocalCurrency(this.props.price)}{' '}
 					<span className="price--postfix">{this.props.fiat}</span>
 				</div>
-				<div className="currency--table--card--vwap">{this.props.vwapData.toFixed(0)}</div>
-				<div className="currency--table--card--supply">{this.props.supply.toFixed(0)}</div>
+				<div className="currency--table--card--vwap">
+					{this.props.vwapData.toFixed(0)}
+				</div>
+				<div className="currency--table--card--supply">
+					{this.props.supply.toFixed(0)}
+				</div>
 				<div className="currency--table--card--usdVolume">
 					{this.formatNumber(this.props.usdVolume)}
 					<span className="price--postfix">{this.props.fiat}</span>
