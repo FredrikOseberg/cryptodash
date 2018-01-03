@@ -109,18 +109,9 @@ class CurrencyTableData extends Component {
 						if (currency.symbol === currencyInLocal.symbol) {
 							currency.img = currencyInLocal.img;
 						}
-						this.props
-							.addCurrencyToState({ payload: currency })
-							.then(() => {
-								this.props.addPriceToState({
-									payload: currency.price
-								});
-							})
-							.then(() => {
-								storageLocation
-									.child(currency.symbol)
-									.set(currency);
-							});
+
+						storageLocation.child(currency.symbol).set(currency);
+
 						this.setState({ trackLoading: false });
 						this.setState({ tracked: true });
 					});
